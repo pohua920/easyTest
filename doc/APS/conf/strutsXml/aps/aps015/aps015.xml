@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="APS015Action" extends="BaseAction" namespace="/aps/015">
+		<!-- default -->
+		<action name="default" class="APS015Action">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+		<action name="lnkGoCreate" class="APS015Action" method="lnkGoCreate">
+			<result>/WEB-INF/pages/APS/APS015/APS015A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015A0.jsp</result>
+		</action>
+		<action name="lnkGoEdit" class="APS015Action" method="lnkGoEdit">
+			<result>/WEB-INF/pages/APS/APS015/APS015U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015U0.jsp</result>
+		</action>
+		<action name="btnCreate" class="APS015Action" method="btnCreate">
+			<result>/WEB-INF/pages/APS/APS015/APS015A0.jsp</result>
+			<!-- mantis：FIR0220，處理人員：BJ085，需求單編號：FIR0220 中信代理投保通知處理-新增時檢查是否有重複資料存在-->
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015A0.jsp</result>
+		</action>
+		<action name="btnQuery" class="APS015Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+		<action name="btnUpdate" class="APS015Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS015/APS015U0.jsp</result>
+			<result name="error">/WEB-INF/pages/APS/APS015/APS015U0.jsp</result>
+		</action>
+		<action name="lnkDelete" class="APS015Action" method="lnkDelete">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+		<!-- (主檔)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS015Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS015Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+
+		<!-- mantis：FIR0220，處理人員：BJ085，需求單編號：FIR0220 中信代理投保通知處理start -->
+		<action name="lnkGoQuery" class="APS015Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS015/APS015E0.jsp</result>
+		</action>
+		<!-- mantis：FIR0220，處理人員：BJ085，需求單編號：FIR0220 中信代理投保通知處理end -->
+
+		<!--mantis：FIR0439，處理人員：BJ085，需求單編號：FIR0439 住火-APS中信代理投保難字匯入 start -->
+		<!-- 連結至轉入頁面 -->
+		<action name="lnkGoImport" class="APS015Action" method="lnkGoImport">
+			<result>/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+		</action>
+		
+		<!-- 按下送出按鈕，匯入難字資料 -->
+		<action name="btnDataImport" class="APS015Action" method="btnDataImport">
+			<result>/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+		</action>
+		
+		<!-- 下載sample檔案 -->
+		<action name="btnDowloadSample" class="APS015Action" method="btnDowloadSample">
+			<result>/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS015/APS015A1.jsp</result>
+				<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<!--mantis：FIR0439，處理人員：BJ085，需求單編號：FIR0439 住火-APS中信代理投保難字匯入 end -->
+	</package>
+</struts>

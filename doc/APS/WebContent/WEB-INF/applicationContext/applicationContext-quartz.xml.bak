@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+<!--  -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">     
+    	<property name="applicationContextSchedulerContextKey" value="applicationContext" />    	    	     
+    	<property name="dataSource" ref="xchgJndi"/>      	      
+    	<property name="transactionManager" ref="xchgTransactionManager"/>        
+    	<property name="overwriteExistingJobs" value="true"/>        
+    	<property name="autoStartup" value="true" />        
+    	<property name="triggers">            
+    		<list>
+				<ref bean="cibPolicyDataImportDailyJobCronTrigger" />
+				<ref bean="cibPolicyDataReturnDailyJobCronTrigger" />
+				<ref bean="petFileDownloadJobCronTrigger" />
+				<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 -->
+				<ref bean="firAddressImportDailyJobCronTrigger" />
+				<!-- 排程送400 資料至AML，因為400資料庫一樣，所以測試區排程平常必須關閉，否則會誤送至測試區 -->
+				<!-- 
+				<ref bean="as400ToMetaAmlJobJobCronTrigger" />
+				 -->
+				<!-- 板信要保書、保單檔產生排程，已上正式區，先將測試區排程關閉 -->
+				<!-- mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程 -->
+				<!-- <ref bean="firAcceptanceFileJobCronTrigger" /> -->
+				<!-- mantis：FIR0271，處理人員：BJ085，需求單編號：FIR0271 板信保單檔產生作業-排程作業 -->
+				<!-- <ref bean="firPolicyFileGenerationJobCronTrigger" /> -->
+				
+				<!-- mantis：處理人員：BI086，需求單編號： 傷害險通報 - start -->
+				<!-- AS400COM051 - WA&WB Table → LIA Table 每15，45分跑一次-->
+				<!-- 
+				<ref bean="as400ToLiaRcvAnnounceJobCronTrigger" />
+				<ref bean="as400ToLiaUndwrtAnnounceJobCronTrigger" />
+ 				-->
+				<!-- ASSOC Table → LIA Table 每20，50分跑一次-->
+				<!-- 
+				<ref bean="assocToLiaRcvAnnounceJobCronTrigger" />
+				<ref bean="assocToLiaUndwrtAnnounceJobCronTrigger" />
+				 -->
+				<!-- LIA Table → CWP webservice 每5、35分傳送一次  -->
+				<!-- 
+				<ref bean="liaRcvAnnounceJobCronTrigger" />
+				<ref bean="liaUndwrtAnnounceJobCronTrigger" />
+				 -->
+				 <!-- IPB902 Table → CWP webservice 每10、35分傳送一次  -->
+				 <!-- 
+				<ref bean="liaIpb902iNotifyJobCronTrigger" />
+				 -->
+				<!-- mantis： ，處理人員：BI086，需求單編號：已簽單但未發送收件通報及承保通報通知 -->
+				<!-- 
+				<ref bean="rcvNotifyJobCronTrigger" />
+				 -->
+				<!-- mantis：處理人員：BI086，需求單編號： 傷害險通報 - end -->
+				
+				<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 -->
+				<ref bean="firPanhsinRenewalFileJobCronTrigger" />
+				
+				<!-- mantis：FIR0299_APS查詢電子保單發送結果 -->
+				<ref bean="firBatchSendmailJobCronTrigger" />
+				
+				<!-- mantis： HAS0094，處理人員：BI086，提供外部呼叫以產生PA電子保單 start  -->
+				<!-- 先暫時不啟用排程
+				<ref bean="generatePAEpolicyJobCronTrigger" />
+				 -->
+				 
+				<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 -->
+				<ref bean="stockholderSynchronizeJobCronTrigger" />
+
+				<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 -->
+				<ref bean="firPolicyCommunicationDataJobCronTrigger" />
+				
+				<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 start-->
+				<ref bean="carBrokenPolicyDataJobCronTrigger" />
+				<ref bean="carBrokenPolicySendMailJobCronTrigger" />
+				<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 end-->
+				
+				<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 start-->
+				<ref bean="carFourthPostcardJobCronTrigger" />
+				<ref bean="carFourthPostcardSendMailJobCronTrigger" />
+				<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 end-->
+				
+				<!-- mantis：FIR0458，處理人員：CC009，需求單編號：FIR0458 住火-APS中信續件要保書-資料接收排程 -->
+				<ref bean="firRnproposalRenewalFileJobCronTrigger" />
+				
+				<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 -->
+				<ref bean="policyBatchPassbookJobCronTrigger" />
+				
+				<!-- 簡訊排程 -->
+				<!-- 先暫時不啟用排程
+				<ref bean="sendSmsToWebServiceJobCronTrigger" />
+				<ref bean="smsDrJobCronTrigger" />
+				-->
+				
+				<!-- mantis：FIR0454，處理人員：BJ085，需求單編號：FIR0454 住火-APS富邦續件資料接收排程 -->
+				<ref bean="firFubonRenewalFileJobCronTrigger" />
+				
+				<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業  -->
+				<ref bean="passbookCallSpJobCronTrigger" />
+				
+				<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 -->
+				<ref bean="firPanhsinBackFileJobCronTrigger" />
+				
+				<!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 -->
+				<ref bean="passbookReturnLogJobCronTrigger" />
+				
+				<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) -->
+				<ref bean="writeEpolicyForBatchSendmailJobCronTrigger" />
+				
+				<!-- mantis：FIR0545，處理人員：BJ085，需求單編號：FIR0545 火險_聯邦新件_APS要保資料接收排程 -->
+				<ref bean="firUbProposalFileImportJobCronTrigger" />
+				
+				<!-- mantis：FIR0546，處理人員：BJ085，需求單編號：FIR0546 火險_聯邦新件_APS回饋檔產生排程 -->
+				<ref bean="firUbBackFileJobCronTrigger" />
+				
+				<!-- mantis：Sales0024，處理人員：CC009，需求單編號：Sales0024 銷管系統-業務員登錄證到期提醒Mail與簡訊通知排程 -->
+				<ref bean="salesAgentDateAlertJobCronTrigger" />
+				
+				<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 -->
+				<ref bean="firRenewListJobCronTrigger" />
+				
+				<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 -->
+				<!-- <ref bean="fetPolicyImportScheduleCronTrigger" /> -->
+				
+				<!--  mantis：MOB0002，處理人員：CC009，需求單編號：MOB0002 遠傳要保及批單資料作洗錢、利關人、黑名單檢核 -->
+				<!-- <ref bean="fetPolicyCheckScheduleCronTrigger" /> -->
+				
+				<!--  mantis：MOB0003，處理人員：CC009，需求單編號：MOB0003 從遠傳抓取要保書檔作業 -->
+				<!--  
+				<ref bean="fetPolicyFileDownloadScheduleCronTrigger" />
+				<ref bean="chFileDownloadScheduleCronTrigger" />
+				<ref bean="acFileDownloadScheduleCronTrigger" />
+				<ref bean="clFileDownloadScheduleCronTrigger" />
+				<ref bean="cmFileDownloadScheduleCronTrigger" />
+				<ref bean="uploadFeedbackFileToFetScheduleCronTrigger" />
+				<ref bean="fetEpolicyScheduleCronTrigger" />
+				-->
+				
+				<!--  mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+				<!-- <ref bean="updatePolicyDataByChubbReturnScheduleCronTrigger" /> -->
+				
+				<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  -->
+				<!-- <ref bean="policyTransferToCoreScheduleCronTrigger" /> -->
+				
+				<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業 -->
+				<!-- <ref bean="chubbEndorseDataCheckScheduleCronTrigger" /> -->
+
+				<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業 -->
+				<ref bean="chubbEndorseDataTransferToFMPScheduleCronTrigger" />
+
+				<!-- mantis：MOB0014，處理人員：BJ085，需求單編號：MOB0014 保批單資料寫入匯入核心中介資料表作業  -->
+				<ref bean="transferDataToFetMobilePolicyScheduleCronTrigger" />
+				
+				<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 start -->
+				<ref bean="firGenTiiDataJobCronTrigger" />
+				<ref bean="firGenTiiFileJobCronTrigger" />
+				<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 end -->
+    			
+    			<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫 -->
+				<ref bean="firTiiReturnLogJobCronTrigger" />
+				<!--  mantis：MOB0022，處理人員：BI086，需求單編號：MOB0022 行動裝置保險終止通知書簡訊發送 -->
+				<ref bean="miSendTerminationNoticeJobCronTrigger" />
+				<!-- mantis：CLM0152，處理人員：BI086，需求單編號：CLM0152 傷害險旅責旅綜理賠給付簡訊通知  -->
+				<ref bean="clmSendSmsJobCronTrigger" />
+				<!-- mantis： HAS0217 ，處理人員：BI086，需求單編號：HAS0217提供外部呼叫以產生TA電子保單 start  -->
+				<!-- <ref bean="generateTAEpolicyJobCronTrigger" />  -->
+				<!-- mantis：OTH0155，處理人員：CD094，需求單編號：OTH0155 電子保單系統是否正常運作檢核(APS) -->
+				<ref bean="epolicyCheckJobCronTrigger" />
+				<!-- mantis：，處理人員：BJ016，需求單編號： 全虹完修XML下載並上傳至SFTP給安達下載 -->
+				<!--<ref bean="repairXmlFileDownloadScheduleCronTrigger" />-->
+				<!--  mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔  start-->
+				<ref bean="hasLionOPBackFileJobCronTrigger" />
+				<ref bean="hasLionCHBackFileJobCronTrigger" />
+				<ref bean="hasLionCLBackFileJobCronTrigger" />
+				<ref bean="hasLionCMBackFileJobCronTrigger" />
+				<ref bean="hasLionACBackFileJobCronTrigger" />
+				<!--  mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔  end-->
+				<!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 -->
+				<ref bean="hasLawBackFileJobCronTrigger" />
+				<!--  mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   -->
+				<ref bean="firBotRenewalFileJobCronTrigger" />
+				<!-- mantis：MOB0024，處理人員：BI086，需求單編號： MOB0024 產生終止通知書 start -->
+				<!--<ref bean="terminationNoticeScheduleCronTrigger" />-->
+				<!-- mantis：MOB0024，處理人員：BI086，需求單編號： MOB0024 產生終止通知書 end -->
+				<!-- mantis：FIR0635，處理人員：CD094，需求單編號：FIR0635_住火_新核心保單轉入中介檔異常處理排程   -->
+				<ref bean="firProcFpolicyRerunJobCronTrigger" />
+				
+				<!-- mantis：，處理人員：BJ016，需求單編號：要保書不全簡訊寄送START   -->
+				<!--<ref bean="sendProposalInsufficientNotifyScheduleCronTrigger" />-->
+				<!--  UAT寄送簡訊的排程關閉
+				<ref bean="sendProposalInsufficientSmsScheduleCronTrigger" />
+				-->
+				<!-- mantis：，處理人員：BJ016，需求單編號：要保書不全簡訊寄送END   -->
+				<!-- mantis：OTH0159，處理人員：CD094，需求單編號：OTH0159 電子保單系統條款檢核不通過資料通知(APS) -->
+				<ref bean="newepolicyresultCheckFailJobCronTrigger" />
+				<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 -->
+				<ref bean="claimBlockchainJobCronTrigger" />
+				<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  start-->
+				<ref bean="firBotReceiveFileJobCronTrigger" />
+				<ref bean="firBotCompareFdIntoCoreCronTrigger" />
+				<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  end-->
+				<!--  mantis：FIR0667，處理人員：DP0706，需求單編號：FIR0667 住火_元大續保作業_續件資料產生排程  -->
+				<ref bean="firYcbRenewalFileJobCronTrigger" />
+				<!--  mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400程  -->
+				<ref bean="reiInrcfilJobCronTrigger" />
+				<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+				<ref bean="salesAgentDateChangeJobCronTrigger" />
+				<!--  mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B  -->
+				<ref bean="filToRptCoredataJobCronTrigger" />
+				<!--  mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同 #每日 -->
+				<ref bean="hasFetMatchFileDayJobCronTrigger" />
+				<!--  mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同 #每月-->
+				<ref bean="hasFetMatchFileMonthJobCronTrigger" />
+    		</list>        
+    	</property>        
+    	<property name="quartzProperties">            
+    		<props>     
+    			<prop key="org.quartz.scheduler.instanceId">AUTO</prop>                
+    			<prop key="org.quartz.jobStore.misfireThreshold">60000</prop>                
+    			<prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>               
+    			<prop key="org.quartz.jobStore.tablePrefix">qrtz_aps_</prop>                
+    			<prop key="org.quartz.jobStore.isClustered">true</prop>                
+    			<prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>                
+    			<prop key="org.quartz.threadPool.threadCount">25</prop>                
+    			<prop key="org.quartz.threadPool.threadPriority">5</prop>            
+    		</props>      
+    	</property>
+		<property name="globalJobListeners">  
+			<list>  
+				<ref bean="jobListener"/>  
+        	</list>  
+       	</property> 
+    </bean>
+   <bean id="jobListener" class="com.tlg.listener.QuartzJobDetailListener" name="job_Listener" />
+   
+</beans>    

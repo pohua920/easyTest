@@ -1,0 +1,1608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    	<property name="location" value="classpath:config.properties" />
+  	</bean>
+  	<bean id="configUtil" class="com.tlg.util.ConfigUtil" >
+  		<property name="configProperties" ref="configProperties" />
+  	</bean>
+
+ 	<bean id="APS001Action" class="com.tlg.aps.action.APS001Action" scope="prototype">
+ 		<property name="firCalAmountService" ref="firCalAmountService" />
+ 		<property name="rs000ApService" ref="rs000ApService" />
+    </bean>
+    
+    <bean id="APS002Action" class="com.tlg.aps.action.APS002Action" scope="prototype">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firCtbcBatchMainService" ref="firCtbcBatchMainService" />
+    	<property name="firCtbcBatchDtlService" ref="firCtbcBatchDtlService" />
+    	<property name="firRptCtbcCtfService" ref="firRptCtbcCtfService" />
+    	<!-- mantis:FIR0181 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) start--> 
+    	<!-- <property name="firApsCtbcHandlerService" ref="firApsCtbcHandlerService" />-->
+    	<property name="firCtbcStlService" ref="firCtbcStlService" />
+    	<property name="prpduserService" ref="prpduserService" />
+    	<property name="cibPolicyDataImportService" ref="cibPolicyDataImportService" />
+    	<!-- mantis:FIR0181 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) end--> 
+    </bean>
+    
+    <bean id="APS003Action" class="com.tlg.aps.action.APS003Action" scope="prototype">
+    	<property name="firCtbcRstService" ref="firCtbcRstService" />
+    </bean>
+    
+    <!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核  -->
+    <bean id="APS004Action" class="com.tlg.aps.action.APS004Action" scope="prototype">
+    	<property name="firIssueCheckService" ref="firIssueCheckService" />
+    	<property name="generatePolicyPassbookService" ref="generatePolicyPassbookService" />
+    	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 -->
+    	<property name="firPanhsinBackFileService" ref="firPanhsinBackFileService" />
+    	<!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 -->
+    	<property name="firYcbBackFileService" ref="firYcbBackFileService" />
+    	<!-- mantis：FIR0545，處理人員：BJ085，需求單編號：FIR0545 火險_聯邦新件_APS要保資料接收排程 -->
+    	<property name="firUbProposalFileImportService" ref="firUbProposalFileImportService" />
+    	<!-- mantis：FIR0546，處理人員：BJ085，需求單編號：FIR0546 火險_聯邦新件_APS回饋檔產生排程 -->
+    	<property name="firUbBackFileService" ref="firUbBackFileService" />
+    	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 -->
+    	<property name="firGenRenewListService" ref="firGenRenewListService" />
+     	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 -->   	
+    	<property name="firTiiDataService" ref="firTiiDataService" />
+		<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   -->
+    	<property name="firBotRenewalFileService" ref="firBotRenewalFileService" />
+		<!-- mantis：FIR0635，處理人員：CD094，需求單編號：FIR0635_住火_新核心保單轉入中介檔異常處理排程   -->
+    	<property name="firProcFpolicyRerunService" ref="firProcFpolicyRerunService" />
+		<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  -->
+    	<property name="firBotReceiveFDFileService" ref="firBotReceiveFDFileService" />
+    	<!-- mantis：FIR0667，處理人員：DP0706，需求單編號：FIR0667 住火_元大續保作業_續件資料產生排程   -->
+    	<property name="firYcbRenewalFileService" ref="firYcbRenewalFileService" />
+    </bean>
+
+    <!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 -->
+    <bean id="APS005Action" class="com.tlg.aps.action.APS005Action" scope="prototype">
+    	<property name="firAddrImportlistService" ref="firAddrImportlistService" />
+    	<property name="firAddrImporterrService" ref="firAddrImporterrService" />
+    	<property name="runFirAddressImportService" ref="runFirAddressImportService" />
+    </bean>
+    
+    <!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 -->
+    <bean id="APS006Action" class="com.tlg.aps.action.APS006Action" scope="prototype">
+    	<property name="amlQueryObjMainService" ref="amlQueryObjMainService" />
+    	<property name="amlQueryObjDetailService" ref="amlQueryObjDetailService" />
+    	<property name="metaAmlResultMainService" ref="metaAmlResultMainService" />
+    	<property name="metaAmlResultDetailService" ref="metaAmlResultDetailService" />
+    </bean>
+    
+    <!-- mantis：FIR0238，處理人員：BJ085，需求單編號：FIR0238 稽核議題檢核-例外地址維護作業  -->
+    <bean id="APS007Action" class="com.tlg.aps.action.APS007Action" scope="prototype">
+    	<property name="firRuleAddrExcpService" ref="firRuleAddrExcpService" />
+	</bean>
+	
+	<!-- mantis：OTH0075，處理人員：BJ085，需求單編號：OTH0075 400轉AML手動執行作業  -->
+    <bean id="APS008Action" class="com.tlg.aps.action.APS008Action" scope="prototype">
+    	<property name="amlAS400Service" ref="amlAS400Service" />
+	</bean>
+
+	<!--mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程
+	    mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業
+	    mantis：FIR0271，處理人員：BJ085，需求單編號：FIR0271 板信保單檔產生作業-排程作業 -->
+    <bean id="APS009Action" class="com.tlg.aps.action.APS009Action" scope="prototype">
+    	<property name="firProcessPanhsinFileService" ref="firProcessPanhsinFileService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="firAgtBatchGenfileService" ref="firAgtBatchGenfileService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：                       ，處理人員：BI086，需求單編號：                            傷害險通報手動執行作業  -->
+    <bean id="APS010Action" class="com.tlg.aps.action.APS010Action" scope="prototype">
+    	<property name="announceService" ref="announceService" />
+	</bean>
+	
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理  START-->
+	<bean id="APS012Action" class="com.tlg.aps.action.APS012Action" scope="prototype">
+		<property name="firCtbcRewNoticeBatchService" ref="firCtbcRewNoticeBatchService" />
+		<property name="firCtbcRewFix180Service" ref="firCtbcRewFix180Service" />
+		<property name="firCtbcRewNoticeService" ref="firCtbcRewNoticeService" />
+		<property name="rewDataInsertService" ref="rewDataInsertService" />
+	</bean>
+	<bean id="APS015Action" class="com.tlg.aps.action.APS015Action" scope="prototype">
+		<property name="firCtbcRewNoshowwordService" ref="firCtbcRewNoshowwordService" />
+		<!--mantis：FIR0439，處理人員：BJ085，需求單編號：FIR0439 住火-APS中信代理投保難字匯入 -->
+		<property name="firDifficultWordImportService" ref="firDifficultWordImportService" />
+	</bean>
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理  END-->
+
+	<!-- mantis：OTH0087，處理人員：BJ085，需求單編號：OTH0087 AML手動登錄 -->
+    <bean id="APS011Action" class="com.tlg.aps.action.APS011Action" scope="prototype">
+    	<property name="clientAmlQueryService" ref="clientAmlQueryService" />
+    	<property name="amlQueryObjMainService" ref="amlQueryObjMainService" />
+    	<property name="amlQueryObjDetailService" ref="amlQueryObjDetailService" />
+    	<property name="metaAmlResultDetailService" ref="metaAmlResultDetailService" />
+    	<property name="metaAmlResultMainService" ref="metaAmlResultMainService" />
+    	<property name="prpdRiskService" ref="prpdRiskService" />
+	</bean>
+
+	<!-- mantis：OTH0093，處理人員：BJ085，需求單編號：OTH0093 傷害險通報查詢、重送介面 -->
+	<bean id="APS013Action" class="com.tlg.aps.action.APS013Action" scope="prototype">
+		<property name="cwpRcvAnnounceService" ref="cwpRcvAnnounceService"></property>
+		<property name="cwpUndwrtAnnounceService" ref="cwpUndwrtAnnounceService"></property>
+		<property name="resendAnnounceService" ref="resendAnnounceService"></property>
+	</bean>
+
+	<!-- mantis：FIR0182，處理人員：BJ085，需求單編號：FIR0182 中信新件服務人員維護作業 -->
+	<bean id="APS014Action" class="com.tlg.aps.action.APS014Action" scope="prototype">
+		<property name="firCtbcDeptinfoService" ref="firCtbcDeptinfoService"></property>
+		<property name="prpduserService" ref="prpduserService"></property>
+	</bean>
+	
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程
+		 mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業  -->
+	<bean id="APS016Action" class="com.tlg.aps.action.APS016Action" scope="prototype">
+		<property name="firPanhsinRenewalFileService" ref="firPanhsinRenewalFileService"></property>
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService"></property>
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService"></property>
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService"></property>
+		<property name="processPanhsinFileService" ref="processPanhsinFileService"></property>
+		<property name="firBatchInfoService" ref="firBatchInfoService"></property>
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 -->
+	<bean id="APS017Action" class="com.tlg.aps.action.APS017Action" scope="prototype">
+		<property name="firAgtSalesMappingService" ref="firAgtSalesMappingService"></property>
+		<property name="prpdnewcodeService" ref="prpdnewcodeService"></property>
+	</bean>
+	
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 -->
+	<bean id="APS018Action" class="com.tlg.aps.action.APS018Action" scope="prototype">
+		<property name="firBatchSendmailDetailService" ref="firBatchSendmailDetailService"></property>
+		<!-- mantis：CAR0508，處理人員：BJ085，需求單編號：CAR0508 APS查詢電子保單發送結果(新增車險與旅平險) -->
+		<property name="batchSendmailService" ref="batchSendmailService"></property>
+	</bean>
+	
+	<!-- mantis：MAR0029_水險兌換率幣別 處理人員：BJ016-->
+	<bean id="APS019Action" class="com.tlg.aps.action.APS019Action" scope="prototype">
+		<property name="prpdexchService" ref="prpdexchService"></property>
+		<property name="prpdnewcodeService" ref="prpdnewcodeService"></property>
+	</bean>
+
+	<!-- HAS0094 ，處理人員：BI086，需求單編號：HAS0094提供外部呼叫以產生PA電子保單 start-->
+    <bean id="APS020Action" class="com.tlg.aps.action.APS020Action" scope="prototype">
+    	<property name="generateEpolicyService" ref="generateEpolicyService" />
+	</bean>
+	
+	<!-- mantis：MAR0037，處理人員：BJ085，需求單編號：MAR0037 高風險地區新增維護檔  -->
+	<bean id="APS021Action" class="com.tlg.aps.action.APS021Action" scope="prototype">
+    	<property name="prpdhighareaMcService" ref="prpdhighareaMcService" />
+	</bean>
+	
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程
+	 	 mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程 -->
+	<bean id="APS022Action" class="com.tlg.aps.action.APS022Action" scope="prototype">
+    	<property name="generateBotInsuredFileService" ref="generateBotInsuredFileService" />
+	</bean>
+	
+	<!-- mantis：FIR0349，處理人員：BJ085，需求單編號：FIR0349 外銀板信續件扣款前置檔產生作業 -->
+	<bean id="APS023Action" class="com.tlg.aps.action.APS023Action" scope="prototype">
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：FIR0357，處理人員：BJ085，需求單編號：FIR0357 火險地址維護作業 -->
+	<bean id="APS024Action" class="com.tlg.aps.action.APS024Action" scope="prototype">
+    	<property name="firAddrCkdataService" ref="firAddrCkdataService" />
+    	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 end -->
+	</bean>
+	
+	<!-- mantis：FIR0369，處理人員：BJ085，需求單編號：FIR0369 增加電子保單不寄送單位業務來源設定 -->
+	<bean id="APS025Action" class="com.tlg.aps.action.APS025Action" scope="prototype">
+    	<property name="firBatchmailExcludedataService" ref="firBatchmailExcludedataService" />
+	</bean>
+	
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 start -->
+	<bean id="APS026Action" class="com.tlg.aps.action.APS026Action" scope="prototype">
+    	<property name="prpcinsuredContactChk0Service" ref="prpcinsuredContactChk0Service" />
+    	<!-- mantis：OTH0184，處理人員：DP0706，需求單編號：APS要被保人通訊地址比對作業增加資料來源(XCHG) -->
+    	<property name="prpcinsuredContactChk0NewService" ref="prpcinsuredContactChk0NewService" />
+    	<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+	</bean>
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 end -->
+
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 -->
+	<bean id="APS027Action" class="com.tlg.aps.action.APS027Action" scope="prototype">
+    	<property name="prpdagentService" ref="prpdagentService" />
+    	<!-- mantis：SALES0014，處理人員：CC009，需求單編號：SALES0014 銷管系統-APS-所屬服務人員維護新增批次上下傳功能 -->
+    	<property name="handlercodeTmpService" ref="handlercodeTmpService" />
+	</bean>
+
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 -->
+	<bean id="APS028Action" class="com.tlg.aps.action.APS028Action" scope="prototype">
+    	<property name="prpdagentsubService" ref="prpdagentsubService" />
+    	<property name="prpdagentService" ref="prpdagentService" />
+    	<property name="agentBranchBatchUploadService" ref="agentBranchBatchUploadService" />
+	</bean>
+
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 -->
+	<bean id="APS029Action" class="com.tlg.aps.action.APS029Action" scope="prototype">
+    	<property name="firAS400RenewalImportService" ref="firAS400RenewalImportService" />
+    	<property name="firAgtrnAs400DataUplistService" ref="firAgtrnAs400DataUplistService" />
+    	<property name="firAgtrnAs400DataService" ref="firAgtrnAs400DataService" />
+    	<property name="firAgtrnAs400DataErrService" ref="firAgtrnAs400DataErrService" />
+	</bean>
+	
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程  -->
+	<bean id="APS030Action" class="com.tlg.aps.action.APS030Action" scope="prototype">
+    	<property name="runStockholderSynchronizeService" ref="runStockholderSynchronizeService" />
+	</bean>
+	
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 
+		 mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 -->
+	<bean id="APS031Action" class="com.tlg.aps.action.APS031Action" scope="prototype">
+    	<property name="firBatchPins01Service" ref="firBatchPins01Service" />
+    	<property name="runCommunicationDataService" ref="runCommunicationDataService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 -->
+	<bean id="APS032Action" class="com.tlg.aps.action.APS032Action" scope="prototype">
+    	<property name="runBrokenPolicyDataService" ref="runBrokenPolicyDataService" />
+	</bean>
+	
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 -->
+	<bean id="APS033Action" class="com.tlg.aps.action.APS033Action" scope="prototype">
+    	<property name="runFourthPostcardService" ref="runFourthPostcardService" />
+	</bean>
+
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+	<bean id="APS034Action" class="com.tlg.aps.action.APS034Action" scope="prototype">
+    	<property name="firFubonRenewalFileService" ref="firFubonRenewalFileService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+    	<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+    	<property name="firFubonGenFileService" ref="firFubonGenFileService" />
+    	<property name="fubonRenewalFileService" ref="fubonRenewalFileService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業
+		 mantis：FIR0458，處理人員：CC009，需求單編號：FIR0458 住火-APS中信續件要保書-資料接收排程 start -->
+	<bean id="APS035Action" class="com.tlg.aps.action.APS035Action" scope="prototype">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firCtbcRnproposalMainService" ref="firCtbcRnproposalMainService" />
+    	<property name="firCtbcRnproposalDtlService" ref="firCtbcRnproposalDtlService" />
+    	<property name="firRnproposalRenewalFileService" ref="firRnproposalRenewalFileService" />
+    </bean>
+    <!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業
+    	 mantis：FIR0458，處理人員：CC009，需求單編號：FIR0458 住火-APS中信續件要保書-資料接收排程 end -->
+    	 
+	<!-- 再保分進業務輸入 -->
+	<bean id="APS036Action" class="com.tlg.aps.action.APS036Action" scope="prototype">
+		<property name="reinsInwardMainDataService" ref="reinsInwardMainDataService" />
+		<property name="reinsInwardInsDataService" ref="reinsInwardInsDataService" />
+		<property name="reinsInwardService" ref="reinsInwardService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 -->
+	<bean id="APS037Action" class="com.tlg.aps.action.APS037Action" scope="prototype">
+    	<property name="othBatchPassbookNcDataService" ref="othBatchPassbookNcDataService" />
+    	<property name="passbookCalSpService" ref="passbookCalSpService" />
+	</bean>
+	
+	<!-- mantis：FIR0495，處理人員：CC009，需求單編號：FIR0495_住火-APS板信回饋檔-排程查詢作業 -->
+	<bean id="APS038Action" class="com.tlg.aps.action.APS038Action" scope="prototype">
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+
+	<!-- mantis：FIR0499，處理人員：BJ085，需求單編號：FIR0499_住火-中信保代網投_進件查詢作業  -->
+	<bean id="APS039Action" class="com.tlg.aps.action.APS039Action" scope="prototype">
+    	<property name="firCtbcB2b2cService" ref="firCtbcB2b2cService" />
+    	<property name="firRptCtbcCtfService" ref="firRptCtbcCtfService" />
+    	<property name="configUtil" ref="configUtil" />
+    	<!-- mantis：FIR0499，處理人員：BJ085，需求單編號：FIR0499_住火-中信保代網投_進件查詢作業_保代網投付款失敗產生回饋檔 -->
+    	<property name="firCtbcRstService" ref="firCtbcRstService" />
+	</bean>
+	
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 -->
+	<bean id="APS040Action" class="com.tlg.aps.action.APS040Action" scope="prototype">
+    	<property name="carAddrUploadAndImportService" ref="carAddrUploadAndImportService" />
+    	<property name="carAddrImportlistService" ref="carAddrImportlistService"/>
+	</bean>
+	
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 -->
+	<bean id="APS041Action" class="com.tlg.aps.action.APS041Action" scope="prototype">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService"/>
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService"/>
+    	<property name="firAgtUb01Service" ref="firAgtUb01Service"/>
+    	<property name="firAgtUb02Service" ref="firAgtUb02Service"/>
+	</bean>
+	
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 -->
+	<bean id="APS042Action" class="com.tlg.aps.action.APS042Action" scope="prototype">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firRepeatpolicyImportService" ref="firRepeatpolicyImportService"/>
+    	<property name="firRepeatpolicyBatchMainService" ref="firRepeatpolicyBatchMainService"/>
+    	<property name="firRepeatpolicyBatchDtlService" ref="firRepeatpolicyBatchDtlService"/>
+	</bean>
+	
+	<!-- mantis：Sales0024，處理人員：CC009，需求單編號：Sales0024 銷管系統-業務員登錄證到期提醒Mail與簡訊通知排程 -->
+	<bean id="APS043Action" class="com.tlg.aps.action.APS043Action" scope="prototype">
+    	<property name="salesAgentDateAlertService" ref="salesAgentDateAlertService"/>
+    	<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+    	<property name="prpdagentService" ref="prpdagentService"/>
+	</bean>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 start -->
+	<bean id="APS044Action" class="com.tlg.aps.action.APS044Action" scope="prototype">
+    	<property name="firRenewListService" ref="firRenewListService"/>
+    	<property name="firRenewListDtlService" ref="firRenewListDtlService"/>
+    	<property name="firSpService" ref="firSpService"/>
+    	<property name="configUtil" ref="configUtil"/>
+    	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+    	<property name="firRenewListGenFileService" ref="firRenewListGenFileService"/>
+	</bean>
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 end -->
+	
+	<!-- mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業start -->
+	<bean id="APS045Action" class="com.tlg.aps.action.APS045Action" scope="prototype">
+		<property name="configUtil" ref="configUtil"/>
+    	<property name="miClaimDownloadService" ref="miClaimDownloadService"/>
+    	<property name="tmpfetclaimmainService" ref="tmpfetclaimmainService"/>
+	</bean>
+	<!-- mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 end -->	
+
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 start -->
+	<bean id="APS046Action" class="com.tlg.aps.action.APS046Action" scope="prototype">
+    	<property name="tmpfetclaimmainService" ref="tmpfetclaimmainService"/>
+    	<property name="fetclaimmainService" ref="fetclaimmainService"/>
+    	<property name="mobSubmitAndPrintService" ref="mobSubmitAndPrintService"/>
+	</bean>
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 end -->
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業start -->
+	<bean id="APS047Action" class="com.tlg.aps.action.APS047Action" scope="prototype">
+    	<property name="fetclaimmainService" ref="fetclaimmainService"/>
+    	<property name="mobReviewService" ref="mobReviewService"/>
+	</bean>
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 end -->
+	
+	<!-- 理賠再保分進業務輸入 -->
+	<bean id="APS048Action" class="com.tlg.aps.action.APS048Action" scope="prototype">
+		<property name="reinsInwardMainDataService" ref="reinsInwardMainDataService" />
+		<property name="reinsInwardInsDataService" ref="reinsInwardInsDataService" />
+		<property name="reinsInwardClaimDataService" ref="reinsInwardClaimDataService" />
+		<property name="reinsInwardClaimInsDataService" ref="reinsInwardClaimInsDataService" />
+		<property name="reinsClaimInwardService" ref="reinsClaimInwardService" />
+		<property name="prpdcodeService" ref="prpdcodeService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 START -->
+	<bean id="APS049Action" class="com.tlg.aps.action.APS049Action" scope="prototype">
+    	<property name="carReinsurancePlanService" ref="carReinsurancePlanService"/>
+	</bean>
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 END -->
+	
+	<!-- mantis：，處理人員：BJ016，需求單編號：行動裝置險批次號手動下載作業 START -->
+	<bean id="APS050Action" class="com.tlg.aps.action.APS050Action" scope="prototype">
+    	<property name="runFetPolicyService" ref="runFetPolicyService"/>
+    	<property name="customerService" ref="customerService"/>
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="fetPolicyService" ref="fetPolicyService" />
+    	<property name="applicationService" ref="applicationService"/>
+	</bean>
+	<!-- mantis：，處理人員：BJ016，需求單編號：行動裝置險批次號手動下載作業 END -->
+	
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業START -->
+	<bean id="APS051Action" class="com.tlg.aps.action.APS051Action" scope="prototype">
+    	<property name="fetclaimTypecmService" ref="fetclaimTypecmService"/>
+    	<property name="miClaimTypeCmService" ref="miClaimTypeCmService"/>
+	</bean>
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 END -->
+
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔 START -->
+	<bean id="APS052Action" class="com.tlg.aps.action.APS052Action" scope="prototype">
+    	<property name="hasLionBackFileService" ref="hasLionBackFileService"/>
+    	<!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 -->
+    	<property name="hasLawBackFileService" ref="hasLawBackFileService"/>
+    	<!-- mantis：HAS0284，處理人員：DP0706，HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同-->
+    	<property name="hasFetMatchFileService" ref="hasFetMatchFileService"/>
+	</bean>
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔 END -->
+	
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 START -->
+	<bean id="APS053Action" class="com.tlg.aps.action.APS053Action" scope="prototype">
+		<property name="prpdcarmodelextService" ref="prpdcarmodelextService"></property>
+	</bean>
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 END -->
+	
+    <!-- mantis：OTH0159，處理人員：CD094，需求單編號：OTH0159 電子保單系統條款檢核不通過資料通知(APS) START-->
+	<bean id="APS054Action" class="com.tlg.aps.action.APS054Action" scope="prototype">
+		<property name="newepolicyresultService" ref="newepolicyresultService"></property>
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+	<!-- mantis：OTH0159，處理人員：CD094，需求單編號：OTH0159 電子保單系統條款檢核不通過資料通知(APS) END-->
+
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業  START -->
+	<bean id="APS055Action" class="com.tlg.aps.action.APS055Action" scope="prototype">
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService"></property>
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService"></property>
+		<property name="configUtil" ref="configUtil"></property>
+		<property name="firBotGenFileService" ref="firBotGenFileService"></property>
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService"></property>
+		<property name="botRenewalFileService" ref="botRenewalFileService"></property>
+	</bean>
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 END -->
+
+	<!-- mantis：FIR0651，處理人員：DP0714，商住火65歲業務員高齡教育訓練檢核及APS例外設定 start -->
+	<bean id="APS056Action" class="com.tlg.aps.action.APS056Action" scope="prototype">
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"></property>
+	</bean>
+	<!-- mantis：FIR0651，處理人員：DP0714，商住火65歲業務員高齡教育訓練檢核及APS例外設定 end -->
+	
+	<!-- mantis：FIR0624，處理人員：BJ085，需求單編號：FIR0624 住火_臺銀續保作業_臺銀FD檔查詢作業 start -->
+	<bean id="APS057Action" class="com.tlg.aps.action.APS057Action" scope="prototype">
+		<property name="firAgtBotFdService" ref="firAgtBotFdService"></property>
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService"></property>
+	</bean>
+	<!-- mantis：FIR0624，處理人員：BJ085，需求單編號：FIR0624 住火_臺銀續保作業_臺銀FD檔查詢作業 end -->
+
+	<!-- mantis： HAS0254，處理人員：DP0706，需求單編號：HAS0254_傷害險中信銀行投調整信用卡加密及檔案上下傳 start -->
+	<bean id="APS059Action" class="com.tlg.aps.action.APS059Action" scope="prototype">
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"></property>
+	</bean>
+	<!-- mantis： HAS0254，處理人員：DP0706，需求單編號：HAS0254_傷害險中信銀行投調整信用卡加密及檔案上下傳 end -->
+	
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業  START -->
+	<bean id="APS060Action" class="com.tlg.aps.action.APS060Action" scope="prototype">
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService"></property>
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService"></property>
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService"></property>
+		<property name="firYcbGenFileService" ref="firYcbGenFileService"></property>
+		<property name="ycbRenewalFileService" ref="ycbRenewalFileService"></property>
+		<property name="firBatchInfoService" ref="firBatchInfoService"></property>
+		<!--mantis：FIR0676，處理人員：DP0706，需求單編號：FIR0676_住火_元大續保作業_N+1比對擔保品檔案-->
+		<property name="firAgtrnYcbN1ImportService" ref="firAgtrnYcbN1ImportService"></property>
+		<property name="configUtil" ref="configUtil"></property>
+	</bean>
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 END -->
+	
+	<!-- mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 START -->
+	<bean id="APS061Action" class="com.tlg.aps.action.APS061Action" scope="prototype">
+		<property name="as400InrcfilService" ref="as400InrcfilService"></property>
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+	<!-- mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 END -->
+
+	<bean id="APS998Action" class="com.tlg.aps.action.APS998Action" scope="prototype">
+    </bean>
+
+    <bean id="APS999Action" class="com.tlg.aps.action.APS999Action" scope="prototype">
+ 		<property name="runCibPolicyDataImportService" ref="runCibPolicyDataImportService" />
+ 		<property name="petFileDownloadService" ref="petFileDownloadService" />
+ 		<property name="runFetPolicyService" ref="runFetPolicyService" />
+ 		<property name="fetMobilePolicyService" ref="fetMobilePolicyService" />
+ 		<property name="fetPolicyService" ref="fetPolicyService" />
+ 		<property name="configUtil" ref="configUtil" />
+    </bean>
+    
+    <!-- service -->
+    <!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理 START -->
+    <bean id="premiumCalService" class="com.tlg.aps.service.impl.PremiumCalServiceImpl" scope="prototype">
+		<property name="prpdPropStructService" ref="prpdPropStructService" />
+	</bean>
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理 END -->
+    
+    <!-- bs -->
+    <!-- 利關人 -->
+    <bean id="stakeHolderService" class="com.tlg.aps.bs.stakeHolderQuery.impl.StakeHolderServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    </bean>
+    
+    <bean id="runCibPolicyDataImportService" class="com.tlg.aps.bs.cibPolicyDataImportService.impl.RunCibPolicyDataImportServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="cibPolicyDataImportService" ref="cibPolicyDataImportService" />
+    	<property name="firCtbcBatchMainService" ref="firCtbcBatchMainService" />
+    	<property name="firCtbcBatchDtlService" ref="firCtbcBatchDtlService" />
+    	<property name="firCtbcTmpStlService" ref="firCtbcTmpStlService" />
+    	<property name="firCtbcTmpSnnService" ref="firCtbcTmpSnnService" />
+    	<property name="firCtbcSigService" ref="firCtbcSigService" />
+    	<property name="prptmainService" ref="prptmainService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="clientFirDoubleInsService" ref="clientFirDoubleInsService" />
+    	<property name="clientFirAmountService" ref="clientFirAmountService" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firRptCtbcCtfService" ref="firRptCtbcCtfService" />
+    	<property name="firCtbcDeptinfoService" ref="firCtbcDeptinfoService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firCtbcRstService" ref="firCtbcRstService" />
+    	<property name="clientAddressCheckService" ref="clientAddressCheckService" />
+    	<!-- mantis：FIR0212，中信新件資料接收排程-增加稽核議題WS -->
+    	<property name="clientRuleCheckService" ref="clientRuleCheckService" />
+    </bean>
+    
+    <bean id="cibPolicyDataImportService" class="com.tlg.aps.bs.cibPolicyDataImportService.impl.CibPolicyDataImportServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firCtbcBatchMainService" ref="firCtbcBatchMainService" />
+    	<property name="firCtbcBatchDtlService" ref="firCtbcBatchDtlService" />
+    	<property name="firCtbcTmpStlService" ref="firCtbcTmpStlService" />
+    	<property name="firCtbcTmpSnnService" ref="firCtbcTmpSnnService" />
+    	<property name="firCtbcTmpPblService" ref="firCtbcTmpPblService" />
+    	<property name="firCtbcSigService" ref="firCtbcSigService" />
+    	<property name="firCtbcStlService" ref="firCtbcStlService" />
+    	<property name="firCtbcSnnService" ref="firCtbcSnnService" />
+    	<property name="firCtbcRstService" ref="firCtbcRstService" />
+    	<property name="firSpService" ref="firSpService" />
+    	<!-- mantis：FIR0497，處理人員：BJ085，需求單編號：FIR0497 中信保代網投_新件回饋檔產生排程規格_新增保經代網投 -->
+    	<property name="firCtbcB2b2cService" ref="firCtbcB2b2cService" />
+    </bean>
+	
+    <bean id="petFileDownloadService" class="com.tlg.aps.bs.petFileDownloadService.impl.PetFileDownloadServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="ctbcPetWs10704Service" ref="ctbcPetWs10704Service" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    </bean>
+    
+    <!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核 start -->
+    <bean id="firIssueCheckService" class="com.tlg.aps.bs.firIssueCheckService.impl.FirIssueCheckServiceImpl">
+    	<property name="firTmpDatacheckService" ref="firTmpDatacheckService" />
+    	<property name="clientRuleCheckService" ref="clientRuleCheckService" />
+    	<property name="issueCheckService" ref="issueCheckService" />
+    </bean>
+    
+    <bean id="issueCheckService" class="com.tlg.aps.bs.firIssueCheckService.impl.IssueCheckServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firTmpDatacheckService" ref="firTmpDatacheckService" />
+    </bean>
+    <!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核 end -->
+    
+    <!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 start-->
+    <bean id="runFirAddressImportService" class="com.tlg.aps.bs.firAddressImportService.impl.RunFirAddressImportServiceImpl">
+    	<property name="firAddrImportlistService" ref="firAddrImportlistService" />
+    	<property name="firAddressImportService" ref="firAddressImportService" />
+    </bean>
+
+    <bean id="firAddressImportService" class="com.tlg.aps.bs.firAddressImportService.impl.FirAddressImportServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firAddrImportlistService" ref="firAddrImportlistService" />
+    	<property name="firAddrCkdataService" ref="firAddrCkdataService" />
+    	<property name="firAddrImporterrService" ref="firAddrImporterrService" />
+    	<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 -->
+    	<property name="clientAddressFormatWsService" ref="clientAddressFormatWsService" />
+    </bean>
+    <!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 end-->
+
+	<!-- AS400送洗錢系統 -->
+	<bean id="amlAS400Service" class="com.tlg.aps.bs.metaAmlService.impl.AmlAS400ServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="com704waService" ref="com704waService" />
+    	<property name="com704wbService" ref="com704wbService" />
+    	<property name="clientAmlQueryService" ref="clientAmlQueryService" />
+    </bean>
+
+	<!--mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程
+	    mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 
+	    mantis：FIR0271，處理人員：BJ085，需求單編號：FIR0271 板信保單檔產生作業-排程作業 start -->
+    <bean id="firProcessPanhsinFileService" class="com.tlg.aps.bs.firPanhsinFeedbackFile.impl.FirProcessPanhsinFileServiceImpl">
+    	<property name="processPanhsinFileService" ref="processPanhsinFileService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firAgtBop01Service" ref="firAgtBop01Service" />
+    	<property name="firAgtBop02Service" ref="firAgtBop02Service" />
+    	<property name="firAgtBatchGenfileService" ref="firAgtBatchGenfileService" />
+    	<property name="configUtil" ref="configUtil" />
+    </bean>
+
+    <bean id="processPanhsinFileService" class="com.tlg.aps.bs.firPanhsinFeedbackFile.impl.ProcessPanhsinFileServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firAgtBatchGenfileService" ref="firAgtBatchGenfileService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+    	<property name="firAgtrnTmpBopService" ref="firAgtrnTmpBopService" />
+    	<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+    	<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+    </bean>
+    <!--mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程
+	    mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 
+	    mantis：FIR0271，處理人員：BJ085，需求單編號：FIR0271 板信保單檔產生作業-排程作業 end -->
+    
+    <!-- 傷害險通報 -->
+    <bean id="announceService" class="com.tlg.aps.bs.liaAnnounceService.impl.AnnounceServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="liaRcvAnnounceService" ref="liaRcvAnnounceService" />
+    	<property name="liaRcvAnnounceResultService" ref="liaRcvAnnounceResultService" />
+    	<property name="liaUndwrtAnnounceService" ref="liaUndwrtAnnounceService" />
+    	<property name="liaUndwrtAnnounceResultService" ref="liaUndwrtAnnounceResultService" />
+    	<property name="com051waService" ref="com051waService" />
+    	<property name="com051wbService" ref="com051wbService" />
+    	<property name="com051weService" ref="com051weService" />
+    	<property name="assocRcvAncmtService" ref="assocRcvAncmtService" />
+    	<property name="assocAnnAssuwService" ref="assocAnnAssuwService" />
+    	<property name="prpcinsuredService" ref="prpcinsuredService" />
+    	<property name="prpcmainService" ref="prpcmainService" />
+    	<property name="cwpRcvAnnounceService" ref="cwpRcvAnnounceService" />
+    	<property name="cwpUndwrtAnnounceService" ref="cwpUndwrtAnnounceService" />
+    	<property name="undwrtIpb902iService" ref="undwrtIpb902iService" />
+    	<property name="cwpLiaLia07061aqResultService" ref="cwpLiaLia07061aqResultService" />
+    </bean>
+    
+    <!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理 START -->
+    <bean id="firCtbcRewNoticeService" class="com.tlg.aps.bs.firCtbcRewNoticeService.impl.FirCtbcRewNoticeServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="rewDataInsertService" ref="rewDataInsertService" />
+    	<property name="firCtbcRewNoticeBatchService" ref="firCtbcRewNoticeBatchService" />
+    	<property name="firCtbcRewFix180Service" ref="firCtbcRewFix180Service" />
+    	<property name="firCtbcRewDontnoticeService" ref="firCtbcRewDontnoticeService" />
+    	<property name="firCtbcRewSnnService" ref="firCtbcRewSnnService" />
+    	<property name="firCtbcRewMatchLogService" ref="firCtbcRewMatchLogService" />
+    	<property name="prpcaddressService" ref="prpcaddressService" />
+    	<property name="prpcinsuredService" ref="prpcinsuredService" />
+    	<property name="prpcinsurednatureService" ref="prpcinsurednatureService" />
+    	<property name="prpcitemkindService" ref="prpcitemkindService" />
+    	<property name="prpcmainpropService" ref="prpcmainpropService" />
+    	<property name="prpcmainService" ref="prpcmainService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="firCtbcRewMatchnameService" ref="firCtbcRewMatchnameService" />
+    	<property name="firCtbcRewNoshowwordService" ref="firCtbcRewNoshowwordService" />
+    </bean>
+    <bean id="rewDataInsertService" class="com.tlg.aps.bs.firCtbcRewNoticeService.impl.RewDataInsertServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firCtbcRewNoticeBatchService" ref="firCtbcRewNoticeBatchService" />
+    	<property name="firCtbcRewOriginal180Service" ref="firCtbcRewOriginal180Service" />
+    	<property name="firCtbcRewDontnoticeService" ref="firCtbcRewDontnoticeService" />
+    	<property name="firCtbcRewFix180Service" ref="firCtbcRewFix180Service" />
+    	<property name="firCtbcRewNoshowwordService" ref="firCtbcRewNoshowwordService" />
+    	<property name="firCtbcRewMatchLogService" ref="firCtbcRewMatchLogService" />
+    	<property name="premiumCalService" ref="premiumCalService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="clientRuleCheckService" ref="clientRuleCheckService" />
+    	<property name="firCtbcRewMatchnameService" ref="firCtbcRewMatchnameService" />
+    	<property name="firCtbcRewSnnService" ref="firCtbcRewSnnService" />
+    	<property name="prpdnewcodeService" ref="prpdnewcodeService" />
+    </bean>
+    <!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理 END -->
+
+    <!-- mantis：OTH0093，處理人員：BJ085，需求單編號：OTH0093 傷害險通報查詢、重送介面 -->
+    <bean id="resendAnnounceService" class="com.tlg.aps.bs.resendAnnounceService.impl.ResendAnnounceServiceImpl">
+    	<property name="liaUndwrtAnnounceService" ref="liaUndwrtAnnounceService" />
+    	<property name="cwpUndwrtAnnounceService" ref="cwpUndwrtAnnounceService" />
+    	<property name="liaRcvAnnounceService" ref="liaRcvAnnounceService" />
+    	<property name="cwpRcvAnnounceService" ref="cwpRcvAnnounceService" />
+    	<property name="configUtil" ref="configUtil" />
+    </bean>
+	
+    <!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程  -->
+    <bean id="firPanhsinRenewalFileService" class="com.tlg.aps.bs.firPanhsinFeedbackFile.impl.FirPanhsinRenewalFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="processPanhsinFileService" ref="processPanhsinFileService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firAgtrnTmpBopService" ref="firAgtrnTmpBopService" />
+    	<property name="firAgtSalesMappingService" ref="firAgtSalesMappingService" />
+    	<property name="prpdNewCodeService" ref="prpdNewCodeService" />
+    	<property name="prpdAgreementService" ref="prpdAgreementService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="prpcmainService" ref="prpcmainService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+    	<!--mantis：FIR0454，處理人員：BJ085，需求單編號：FIR0454 住火-APS富邦續件資料接收排程-->
+    	<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+    	<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+    	<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+    	<!-- mantis：FIR0589，處理人員：BJ085，需求單編號：FIR0589 住火_APS板信續保作業_第二年優化_資料接收排程 start -->
+    	<property name="prpcinsuredService" ref="prpcinsuredService" />
+    	<property name="prpyddagentService" ref="prpyddagentService" />
+    	<!-- mantis：FIR0589，處理人員：BJ085，需求單編號：FIR0589 住火_APS板信續保作業_第二年優化_資料接收排程 end -->
+    </bean>
+    
+    <!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業 start -->
+    <bean id="renewalDataProcessingService" class="com.tlg.aps.bs.firPanhsinFeedbackFile.impl.RenewalDataProcessingServiceImpl">
+		<!--mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業-->
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+    </bean>
+    <!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業 end -->
+    
+    <!-- mantis：FIR0299_APS查詢電子保單發送結果 -->
+    
+    <!-- mantis：CAR0508，處理人員：BJ085，需求單編號：CAR0508 APS查詢電子保單發送結果(新增車險與旅平險) -->
+    <bean id="batchSendmailService" class="com.tlg.aps.bs.firBatchSendmailService.impl.BatchSendmailServiceImpl">
+    	<property name="firBatchSendmailDetailService" ref="firBatchSendmailDetailService" />
+    	<property name="firBatchSendmailOkService" ref="firBatchSendmailOkService" />
+    	<property name="newepolicymainService" ref="newepolicymainService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    </bean>
+    
+    <!-- HAS0094 ，處理人員：BI086，需求單編號：HAS0094提供外部呼叫以產生PA電子保單 start-->	
+	<bean id="generateEpolicyService" class="com.tlg.aps.bs.generateEpolicyService.impl.GenerateEpolicyServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="prpcmainService" ref="prpcmainService"/>
+	</bean>
+	<!-- HAS0094 ，處理人員：BI086，需求單編號：HAS0094提供外部呼叫以產生PA電子保單 end-->
+	
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程
+	 	 mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程  start-->
+	<bean id="generateBotInsuredFileService" class="com.tlg.aps.bs.firBotFileService.impl.GenerateBotInsuredFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="processPanhsinFileService" ref="processPanhsinFileService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="firAgtBotApService" ref="firAgtBotApService" />
+    	<property name="firAgtBotFhService" ref="firAgtBotFhService" />
+	</bean>
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程
+	 	 mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程  end-->
+	
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 start -->
+	<bean id="firAS400RenewalImportService" class="com.tlg.aps.bs.firAS400RenewalImportService.impl.FirAS400RenewalImportServiceImpl">
+    	<property name="firAgtrnAs400DataUplistService" ref="firAgtrnAs400DataUplistService" />
+    	<property name="firAgtrnAs400DataService" ref="firAgtrnAs400DataService" />
+    	<property name="firAgtrnAs400DataErrService" ref="firAgtrnAs400DataErrService" />
+    	<property name="as400RenewalDataService" ref="as400RenewalDataService" />
+    	<property name="prpdNewCodeService" ref="prpdNewCodeService" />
+	</bean>
+	
+	<bean id="as400RenewalDataService" class="com.tlg.aps.bs.firAS400RenewalImportService.impl.AS400RenewalDataServiceImpl">
+    	<property name="firAgtrnAs400DataUplistService" ref="firAgtrnAs400DataUplistService" />
+    	<property name="firAgtrnAs400DataService" ref="firAgtrnAs400DataService" />
+    	<property name="firAgtrnAs400DataErrService" ref="firAgtrnAs400DataErrService" />
+	</bean>
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 end-->
+
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 start-->
+	<bean id="runStockholderSynchronizeService" class="com.tlg.aps.bs.stockholderSynchronizeServerce.impl.RunStockholderSynchronizeServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="stockholderSynchronizeService" ref="stockholderSynchronizeService" />
+    	<property name="msSqlSHSpService" ref="msSqlSHSpService" />
+	</bean>
+	
+	<bean id="stockholderSynchronizeService" class="com.tlg.aps.bs.stockholderSynchronizeServerce.impl.StockholderSynchronizeServiceImpl">
+    	<property name="ctbcStockholderTempService" ref="ctbcStockholderTempService" />
+	</bean>
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 end-->
+
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 start-->
+	<bean id="agentBranchBatchUploadService" class="com.tlg.aps.bs.agentBranchBatchUploadService.impl.AgentBranchBatchUploadServiceImpl">
+    	<property name="prpdagentsubService" ref="prpdagentsubService" />
+    	<property name="prpdagentService" ref="prpdagentService" />
+    	<!-- mantis：SALES0015，處理人員：DP0706，需求單編號：SALES0015 銷管系統-APS-保經代分支機構地址正規化-->	
+    	<property name="formatAddressCheckService" ref="formatAddressCheckService" />
+	</bean>
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 end-->
+	
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 start -->
+	<bean id="runCommunicationDataService" class="com.tlg.aps.bs.firPolicyCommunicationDataService.impl.RunCommunicationDataServiceImpl">
+    	<property name="communicationDataService" ref="communicationDataService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firBatchPins01Service" ref="firBatchPins01Service" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firBatchPins01DetailService" ref="firBatchPins01DetailService" />
+    	<property name="firBatchPins01SpMainService" ref="firBatchPins01SpMainService" />
+    	<property name="firBatchPins01SpDtlService" ref="firBatchPins01SpDtlService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<bean id="communicationDataService" class="com.tlg.aps.bs.firPolicyCommunicationDataService.impl.CommunicationDataServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firBatchPins01Service" ref="firBatchPins01Service" />
+	</bean>
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 end -->
+	
+	<!--mantis：FIR0439，處理人員：BJ085，需求單編號：FIR0439 住火-APS中信代理投保難字匯入 start -->
+	<bean id="firDifficultWordImportService" class="com.tlg.aps.bs.firDifficultWordImportServerce.impl.FirDifficultWordImportServiceImpl">
+		<property name="firCtbcRewNoshowwordService" ref="firCtbcRewNoshowwordService" />
+		<property name="rewNoshowwordDataService" ref="rewNoshowwordDataService" />
+	</bean>
+	
+	<bean id="rewNoshowwordDataService" class="com.tlg.aps.bs.firDifficultWordImportServerce.impl.RewNoshowwordDataServiceImpl">
+		<property name="firCtbcRewNoshowwordService" ref="firCtbcRewNoshowwordService" />
+	</bean>
+	<!--mantis：FIR0439，處理人員：BJ085，需求單編號：FIR0439 住火-APS中信代理投保難字匯入 end -->
+	
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 start-->
+	<bean id="runBrokenPolicyDataService" class="com.tlg.aps.bs.carBrokenPolicyDataServerce.impl.RunBrokenPolicyDataServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+		<property name="tiiTvbcmService" ref="tiiTvbcmService" />
+		<property name="prpcmainService" ref="prpcmainService" />
+		<property name="brokenPolicyDataService" ref="brokenPolicyDataService" />
+		<!-- mantis：CAR0435，處理人員：BJ085，需求單編號：CAR0435 CAR0417APS機車強制車險重新投保發對接功能 優化 -->
+		<property name="renewalnoticeService" ref="renewalnoticeService" />
+	</bean>
+	
+	<bean id="brokenPolicyDataService" class="com.tlg.aps.bs.carBrokenPolicyDataServerce.impl.BrokenPolicyDataServiceImpl">
+		<property name="tiiTvbcmService" ref="tiiTvbcmService" />
+		<property name="renewalnoticeService" ref="renewalnoticeService" />
+	</bean>
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 end -->
+	
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 start-->
+	<bean id="runFourthPostcardService" class="com.tlg.aps.bs.carFourthPostcardServerce.impl.RunFourthPostcardServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+		<property name="tiiTvmcqService" ref="tiiTvmcqService" />
+		<property name="prpcmainService" ref="prpcmainService" />
+		<property name="fourthPostcardService" ref="fourthPostcardService" />
+		<property name="renewalnoticeService" ref="renewalnoticeService" />
+	</bean>
+	
+	<bean id="fourthPostcardService" class="com.tlg.aps.bs.carFourthPostcardServerce.impl.FourthPostcardServiceImpl">
+		<property name="tiiTvmcqService" ref="tiiTvmcqService" />
+		<property name="renewalnoticeService" ref="renewalnoticeService" />
+	</bean>
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 end-->
+	
+	<!-- mantis：SALES0015，處理人員：DP0706，需求單編號：SALES0015 銷管系統-APS-保經代分支機構地址正規化START-->	
+	<bean id="formatAddressCheckService" class="com.tlg.aps.bs.formatAddressService.impl.FormatAddressCheckServiceImpl">
+		<property name="clientAddressFormatWsService" ref="clientAddressFormatWsService" />
+	</bean>
+	<!-- mantis：SALES0015，處理人員：DP0706，需求單編號：SALES0015 銷管系統-APS-保經代分支機構地址正規化END-->
+	
+    <!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 start -->
+    <bean id="generatePolicyPassbookService" class="com.tlg.aps.bs.generatePolicyPassbookService.impl.GeneratePolicyPassbookServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="policyPassbookService" ref="policyPassbookService" />
+    	<property name="othBatchPassbookService" ref="othBatchPassbookService" />
+    	<property name="othBatchPassbookListService" ref="othBatchPassbookListService" />
+    	<property name="othBatchPassbookKindService" ref="othBatchPassbookKindService" />
+    </bean>
+    
+    <bean id="policyPassbookService" class="com.tlg.aps.bs.generatePolicyPassbookService.impl.PolicyPassbookServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="othBatchPassbookService" ref="othBatchPassbookService" />
+    	<property name="othBatchPassbookListService" ref="othBatchPassbookListService" />
+    </bean>
+    <!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 end -->
+     
+	<!-- mantis：FIR0458，處理人員：CC009，需求單編號：FIR0458 住火-APS中信續件要保書-資料接收排程 start -->
+    <bean id="firRnproposalRenewalFileService" class="com.tlg.aps.bs.firRnproposalRenewalFileService.impl.FirRnproposalRenewalFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="rnproposalRenewalFileService" ref="rnproposalRenewalFileService" />
+    	<property name="firCtbcRnproposalMainService" ref="firCtbcRnproposalMainService" />
+    	<property name="firCtbcRnproposalDtlService" ref="firCtbcRnproposalDtlService" />
+    </bean>
+    
+    <bean id="rnproposalRenewalFileService" class="com.tlg.aps.bs.firRnproposalRenewalFileService.impl.RnproposalRenewalFileServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firCtbcRnproposalMainService" ref="firCtbcRnproposalMainService" />
+    	<property name="firCtbcRnproposalDtlService" ref="firCtbcRnproposalDtlService" />
+    </bean>
+    <!-- mantis：FIR0458，處理人員：CC009，需求單編號：FIR0458 住火-APS中信續件要保書-資料接收排程 end -->
+	
+	<bean id="smsRequestOtService" class="com.tlg.aps.bs.smsService.impl.SMSRequestOtServiceImpl">
+		<property name="smsRequestService" ref="smsRequestService" />
+	</bean>
+	<bean id="usagelogService" class="com.tlg.aps.bs.smsService.impl.UsagelogServiceImpl">
+		<property name="usageLogService" ref="usageLogService" />
+	</bean>
+	<bean id="receiptOtService" class="com.tlg.aps.bs.smsService.impl.ReceiptOtServiceImpl">
+		<property name="receiptService" ref="receiptService" />
+	</bean>
+	<bean id="smsService" class="com.tlg.aps.bs.smsService.impl.SmsServiceImpl">
+		<property name="smsRequestOtService" ref="smsRequestOtService" />
+		<property name="usagelogService" ref="usagelogService" />
+		<property name="receiptOtService" ref="receiptOtService" />
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+
+	<!-- mantis：FIR0454，處理人員：BJ085，需求單編號：FIR0454 住火-APS富邦續件資料接收排程 start -->
+	<bean id="firFubonRenewalFileService" class="com.tlg.aps.bs.firFubonRenewalService.impl.FirFubonRenewalFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="prpdAgreementService" ref="prpdAgreementService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+    	<property name="firAgtrnAs400DataService" ref="firAgtrnAs400DataService" />
+    	<property name="fubonRenewalFileService" ref="fubonRenewalFileService" />
+    	<property name="firAgtrnTmpFbService" ref="firAgtrnTmpFbService" />
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+	</bean>
+	<!-- mantis：FIR0454，處理人員：BJ085，需求單編號：FIR0454 住火-APS富邦續件資料接收排程 end -->
+	
+	<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   start -->
+	<bean id="firBotRenewalFileService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.FirBotRenewalFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="prpdAgreementService" ref="prpdAgreementService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+		<property name="firSpService" ref="firSpService" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="botRenewalFileService" ref="botRenewalFileService" />
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+		<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  -->
+		<property name="firAgtBotFdService" ref="firAgtBotFdService" />
+	</bean>
+	<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   end -->
+
+	<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   start -->
+	<bean id="botRenewalFileService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.BotRenewalFileServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService" />
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+		<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  -->
+		<property name="firAgtBotFdService" ref="firAgtBotFdService" />
+	</bean>
+	<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   end -->
+	
+	<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  start-->
+	<bean id="firBotReceiveFDFileService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.FirBotReceiveFDFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="botReceiveFileService" ref="botReceiveFileService" />
+    	<property name="firAgtBotFdService" ref="firAgtBotFdService" />
+    	<property name="botRenewalFileService" ref="botRenewalFileService" />
+	</bean>
+	<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程 end -->
+	
+	<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  start-->
+	<bean id="botReceiveFileService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.BotReceiveFileServiceImpl">
+		<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBotFdService" ref="firAgtBotFdService" />
+	</bean>
+	<!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程 end -->
+	
+	<!-- mantis：FIR0635，處理人員：CD094，需求單編號：FIR0635_住火_新核心保單轉入中介檔異常處理排程   start-->
+	<bean id="firProcFpolicyRerunService" class="com.tlg.aps.bs.firProcFpolicyRerunService.impl.FirProcFpolicyRerunServiceImpl">
+		<property name="firBatchInfoService" ref="firBatchInfoService" />
+		<property name="fpolicyRerunService" ref="fpolicyRerunService" />
+		<property name="prpcmainService" ref="prpcmainService" />
+		<property name="firSpService" ref="firSpService" />
+	</bean>
+	
+	<bean id="fpolicyRerunService" class="com.tlg.aps.bs.firProcFpolicyRerunService.impl.FpolicyRerunServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService" />
+	</bean>
+	<!-- mantis：FIR0635，處理人員：CD094，需求單編號：FIR0635_住火_新核心保單轉入中介檔異常處理排程   end-->
+
+	<!--mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+	<bean id="fubonRenewalFileService" class="com.tlg.aps.bs.firFubonRenewalService.impl.FubonRenewalFileServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService" />
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+		<property name="firAgtrnBatchFbService" ref="firAgtrnBatchFbService" />
+		<property name="firAgtrnTmpFbService" ref="firAgtrnTmpFbService" />
+	</bean>
+	
+	<bean id="firVerifyDatasService" class="com.tlg.aps.bs.firVerifyService.impl.FirVerifyDatasServiceImpl">
+		<property name="prptmainService" ref="prptmainService" />
+		<property name="firAgtSalesMappingService" ref="firAgtSalesMappingService" />
+		<property name="prpduserService" ref="prpduserService" />
+		<property name="prpdNewCodeService" ref="prpdNewCodeService" />
+		<property name="prpdPropStructService" ref="prpdPropStructService" />
+		<property name="clientFirDoubleInsService" ref="clientFirDoubleInsService" />
+		<property name="clientFirAmountService" ref="clientFirAmountService" />
+		<property name="clientAddressCheckService" ref="clientAddressCheckService" />
+		<property name="clientFirCalPremService" ref="clientFirCalPremService" />
+		<property name="prpyddagentService" ref="prpyddagentService" />
+		<property name="firAgtrnAs400DataService" ref="firAgtrnAs400DataService" />
+		<property name="configUtil" ref="configUtil" />
+		<property name="clientRuleCheckService" ref="clientRuleCheckService" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start -->
+		<property name="prpcmainService" ref="prpcmainService" />
+		<property name="prpcinsuredService" ref="prpcinsuredService" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end -->
+		</bean>
+	
+	<bean id="firFubonGenFileService" class="com.tlg.aps.bs.firFubonRenewalService.impl.FirFubonGenFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+		<property name="firAgtrnTmpFbService" ref="firAgtrnTmpFbService" />
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firAgtrnBatchFbService" ref="firAgtrnBatchFbService" />
+		<property name="rfrcodeService" ref="rfrcodeService" />
+	</bean>
+	
+	<bean id="firFubonMaintainService" class="com.tlg.aps.bs.firFubonRenewalService.impl.FirFubonMaintainServiceImpl">
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+	</bean>
+	<!--mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+	
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 start -->
+	<bean id="passbookCalSpService" class="com.tlg.aps.bs.othBatchPassbookServerce.impl.PassbookCalSpServiceImpl">
+		<property name="passbookDataInsertService" ref="passbookDataInsertService"/>
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="othPassbookSpService" ref="othPassbookSpService"/>
+		<property name="othBatchPassbookNcDataService" ref="othBatchPassbookNcDataService"/>
+		<property name="as400ToPassbookDataService" ref="as400ToPassbookDataService"/>
+	</bean>
+	
+	<bean id="passbookDataInsertService" class="com.tlg.aps.bs.othBatchPassbookServerce.impl.PassbookDataInsertServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService"/>
+		<property name="othBatchPassbookNcDataService" ref="othBatchPassbookNcDataService"/>
+	</bean>
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 end -->
+	
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table start-->
+	<bean id="as400ToPassbookDataService" class="com.tlg.aps.bs.othBatchPassbookServerce.impl.AS400ToPassbookDataServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="com890waService" ref="com890waService"/>
+		<property name="com890wbService" ref="com890wbService"/>
+		<property name="othBatchPassbookTranService" ref="othBatchPassbookTranService"/>
+	</bean>
+	<bean id="othBatchPassbookTranService" class="com.tlg.aps.bs.othBatchPassbookServerce.impl.OthBatchPassbookTranServiceImpl">
+		<property name="othBatchPassbookListService" ref="othBatchPassbookListService"/>
+		<property name="othBatchPassbookKindService" ref="othBatchPassbookKindService"/>
+	</bean>
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table end-->
+	
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 start -->
+    <bean id="firPanhsinBackFileService" class="com.tlg.aps.bs.firPanhsinBackFileService.impl.FirPanhsinBackFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="panhsinBackFileService" ref="panhsinBackFileService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="firAgtBop03Service" ref="firAgtBop03Service" />
+    	<property name="firAgtBop04Service" ref="firAgtBop04Service" />
+    </bean>
+    
+    <bean id="panhsinBackFileService" class="com.tlg.aps.bs.firPanhsinBackFileService.impl.PanhsinBackFileServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    </bean>
+    <!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 end -->
+
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 start -->
+    <bean id="firYcbBackFileService" class="com.tlg.aps.bs.firYcbBackFileService.impl.FirYcbBackFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="firSpService" ref="firSpService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="ycbBackFileService" ref="ycbBackFileService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="firAgtYcb02Service" ref="firAgtYcb02Service" />
+    </bean>
+    
+    <bean id="ycbBackFileService" class="com.tlg.aps.bs.firYcbBackFileService.impl.YcbBackFileServiceImpl">
+    	<property name="firBatchLogService" ref="firBatchLogService" />
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    </bean>
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 end -->
+
+    <!--    mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔 start-->
+    <bean id="hasLionBackFileService" class="com.tlg.aps.bs.hasLionBackFileService.impl.HasLionBackFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="hasBatchInfoService" ref="hasBatchInfoService" />
+    	<property name="lionBackFileService" ref="lionBackFileService" />
+    	<property name="hasAgtBatchMainService" ref="hasAgtBatchMainService" />
+    	<property name="hasAgtBatchDtlService" ref="hasAgtBatchDtlService" />
+    	<property name="hasAgtLionOPService" ref="hasAgtLionOPService" />
+    	<property name="hasAgtLionACService" ref="hasAgtLionACService" />
+    	<property name="hasAgtLionCLService" ref="hasAgtLionCLService" />
+    	<property name="hasAgtLionCMService" ref="hasAgtLionCMService" />
+    	<property name="hasAgtLionCHService" ref="hasAgtLionCHService" />
+    	<property name="hasSpService" ref="hasSpService" />
+    	
+    </bean>
+    
+    <bean id="lionBackFileService" class="com.tlg.aps.bs.hasLionBackFileService.impl.LionBackFileServiceImpl">
+    	<property name="hasBatchLogService" ref="hasBatchLogService" />
+    	<property name="hasAgtBatchMainService" ref="hasAgtBatchMainService" />
+    	<property name="hasAgtBatchDtlService" ref="hasAgtBatchDtlService" />
+    	
+    	
+    </bean>
+    <!--    mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋檔 end-->
+
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 start -->
+    <bean id="hasLawBackFileService" class="com.tlg.aps.bs.hasLionBackFileService.impl.HasLawBackFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="hasBatchInfoService" ref="hasBatchInfoService" />
+    	<property name="lionBackFileService" ref="lionBackFileService" />
+    	<property name="hasAgtBatchMainService" ref="hasAgtBatchMainService" />
+    	<property name="hasAgtBatchDtlService" ref="hasAgtBatchDtlService" />
+    	<property name="hasAgtLawPolService" ref="hasAgtLawPolService" />
+    	<property name="hasAgtLawPolDetailService" ref="hasAgtLawPolDetailService" />
+    	<property name="hasSpService" ref="hasSpService" />
+    </bean>
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 end -->
+
+    <!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 start -->
+    <bean id="passbookReturnLogDownloadService" class="com.tlg.aps.bs.passbookLogDownloadService.impl.PassbookReturnLogDownloadServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="passbookReturnLogRenewalFileService" ref="passbookReturnLogRenewalFileService" />
+    	<property name="othBatchPassbookReturnLogService" ref="othBatchPassbookReturnLogService" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    </bean>
+    
+    <bean id="passbookReturnLogRenewalFileService" class="com.tlg.aps.bs.passbookLogDownloadService.impl.PassbookReturnLogRenewalFileServiceImpl">
+    	<property name="othBatchPassbookReturnLogService" ref="othBatchPassbookReturnLogService" />
+    </bean>
+    <!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 end -->
+    
+	<!-- 再保分進業務輸入 start -->
+	<bean id="reinsInwardPickNoService" class="com.tlg.aps.bs.reinsInwardService.impl.ReinsInwardNoServiceImpl">
+		<property name="reinsInwardNoService" ref="reinsInwardNoService"/>	
+	</bean>
+	<bean id="reinsInwardService" class="com.tlg.aps.bs.reinsInwardService.impl.ReinsInwardServiceImpl">
+		<property name="reinsInwardMainDataService" ref="reinsInwardMainDataService"/>
+		<property name="reinsInwardInsDataService" ref="reinsInwardInsDataService"/>
+		<property name="reinsInwardPickNoService" ref="reinsInwardPickNoService" />
+	</bean>
+	<!-- 再保分進業務輸入 end -->
+	
+	<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) start -->
+	<bean id="writeEpolicyForBatchSendmailService" class="com.tlg.aps.bs.firBatchSendmailService.impl.WriteEpolicyForBatchSendmailServiceImpl">
+		<property name="prpcmainService" ref="prpcmainService"/>
+		<property name="writeForBatchSendmailService" ref="writeForBatchSendmailService"/>
+	</bean>
+	
+	<bean id="writeForBatchSendmailService" class="com.tlg.aps.bs.firBatchSendmailService.impl.WriteForBatchSendmailServiceImpl">
+		<property name="firBatchSendmailService" ref="firBatchSendmailService"/>
+		<property name="firBatchSendmailDetailService" ref="firBatchSendmailDetailService"/>
+	</bean>
+	<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) end -->
+		
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 start -->
+	<bean id="carAddrUploadAndImportService" class="com.tlg.aps.bs.carAddrUploadAndImportService.impl.CarAddrUploadAndImportServiceImpl">
+		<property name="carAddrImportlistService" ref="carAddrImportlistService"/>
+		<property name="tii30nometpService" ref="tii30nometpService"/>
+		<property name="tiiTvmetpService" ref="tiiTvmetpService"/>
+	</bean>
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 end -->
+	
+	<!--mantis：FIR0545，處理人員：BJ085，需求單編號：FIR0545 火險_聯邦新件_APS要保資料接收排程 start -->
+	<bean id="firUbProposalFileImportService" class="com.tlg.aps.bs.firUbNewPolicyService.impl.FirUbProposalFileImportServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="ubNewPolicyProcessService" ref="ubNewPolicyProcessService"/>
+		<property name="firAgtBatchMainService" ref="firAgtBatchMainService"/>
+		<property name="firAgtUb01Service" ref="firAgtUb01Service"/>
+		<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService"/>
+	</bean>
+	<bean id="ubNewPolicyProcessService" class="com.tlg.aps.bs.firUbNewPolicyService.impl.UbNewPolicyProcessServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService"/>
+		<property name="firAgtBatchMainService" ref="firAgtBatchMainService"/>
+		<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService"/>
+		<property name="firAgtUb01Service" ref="firAgtUb01Service"/>
+	</bean>
+	<!-- mantis：FIR0545，處理人員：BJ085，需求單編號：FIR0545 火險_聯邦新件_APS要保資料接收排程 end -->
+	
+	<!--mantis：FIR0546，處理人員：BJ085，需求單編號：FIR0546 火險_聯邦新件_APS回饋檔產生排程 start -->
+	<bean id="firUbBackFileService" class="com.tlg.aps.bs.firUbNewPolicyService.impl.FirUbBackFileServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="ubNewPolicyProcessService" ref="ubNewPolicyProcessService"/>
+		<property name="firSpService" ref="firSpService"/>
+		<property name="firAgtBatchMainService" ref="firAgtBatchMainService"/>
+		<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService"/>
+		<property name="rfrcodeService" ref="rfrcodeService"/>
+		<property name="prpcmainpropService" ref="prpcmainpropService"/>
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+	</bean>
+	<!--mantis：FIR0546，處理人員：BJ085，需求單編號：FIR0546 火險_聯邦新件_APS回饋檔產生排程 end -->
+	
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 start -->
+	<bean id="firRepeatpolicyImportService" class="com.tlg.aps.bs.firRepeatpolicyImportService.impl.FirRepeatpolicyImportServiceImpl">
+		<property name="repeatpolicyImportService" ref="repeatpolicyImportService"/>
+		<property name="firRepeatpolicyBatchMainService" ref="firRepeatpolicyBatchMainService"/>
+		<property name="firRepeatpolicyBatchDtlService" ref="firRepeatpolicyBatchDtlService"/>
+	</bean>
+	<bean id="repeatpolicyImportService" class="com.tlg.aps.bs.firRepeatpolicyImportService.impl.RepeatpolicyImportServiceImpl">
+		<property name="firRepeatpolicyBatchMainService" ref="firRepeatpolicyBatchMainService"/>
+		<property name="firRepeatpolicyBatchDtlService" ref="firRepeatpolicyBatchDtlService"/>
+	</bean>
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 end -->
+	
+	<!-- mantis：Sales0024，處理人員：CC009，需求單編號：Sales0024 銷管系統-業務員登錄證到期提醒Mail與簡訊通知排程 start -->
+	<bean id="salesAgentDateAlertService" class="com.tlg.aps.bs.salesAgentDateAlertService.impl.SalesAgentDateAlertServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="prpdagentService" ref="prpdagentService"/>
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+	</bean>
+	<!-- mantis：Sales0024，處理人員：CC009，需求單編號：Sales0024 銷管系統-業務員登錄證到期提醒Mail與簡訊通知排程 end -->
+	
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 start-->
+	<bean id="firGenRenewListService" class="com.tlg.aps.bs.firGenRenewListService.impl.FirGenRenewListServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="firSpService" ref="firSpService"/>
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="firRenewListService" ref="firRenewListService"/>
+		<property name="firRenewListDtlService" ref="firRenewListDtlService"/>
+		<property name="genRenewListService" ref="genRenewListService"/>
+		<property name="prpcpaymentService" ref="prpcpaymentService"/>
+		<property name="firVerifyDatasService" ref="firVerifyDatasService"/>
+	</bean>
+	<bean id="genRenewListService" class="com.tlg.aps.bs.firGenRenewListService.impl.GenRenewListServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService"/>
+		<property name="firRenewListDtlService" ref="firRenewListDtlService"/>
+		<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+		<property name="firRenewListService" ref="firRenewListService"/>
+	</bean>
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 end-->
+	
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 start -->
+	<bean id="runFetPolicyService" class="com.tlg.aps.bs.fetPolicyService.impl.RunFetPolicyServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="fetPolicyService" ref="fetPolicyService"/>
+		<property name="customerService" ref="customerService"/>
+		<property name="mobileInsBatchInfoService" ref="mobileInsBatchInfoService"/>
+		<property name="applicantService" ref="applicantService"/>
+		<property name="clientAmlQueryService" ref="clientAmlQueryService" />
+		<property name="clientBlacklistQueryService" ref="clientBlacklistQueryService" />
+		<property name="clientStakeHolderService" ref="clientStakeHolderService" />
+		<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新  start-->
+		<property name="chubbReturnCustomerService" ref="chubbReturnCustomerService" />
+		<property name="applicationService" ref="applicationService" />
+		<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新  end-->
+		<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  start-->
+		<property name="customerEndorseService" ref="customerEndorseService"/>
+		<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  end-->
+		<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  start-->
+		<property name="acFileService" ref="acFileService"/>
+		<property name="chFileService" ref="chFileService"/>
+		<property name="clFileService" ref="clFileService"/>
+		<property name="cmFileService" ref="cmFileService"/>
+		<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  end-->
+		<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 START-->
+		<property name="terminationNoticeService" ref="terminationNoticeService"/>
+		<property name="xchgTerminationNoticeService" ref="xchgTerminationNoticeService"/>
+		<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 END-->
+		<property name="fetMobileEpolicyService" ref="fetMobileEpolicyService"/>
+		
+		<property name="proposalFileService" ref="proposalFileService"/>
+		<property name="prpcmainService" ref="prpcmainService"/>
+		<property name="prpcopycommissionService" ref="prpcopycommissionService"/>
+		
+		<property name="fetPaidService" ref="fetPaidService"/>
+		<property name="fetPayableService" ref="fetPayableService"/>
+		
+		<property name="chubbCustomerEndorseService" ref="chubbCustomerEndorseService"/>
+		
+		<property name="proposalInsufficientSmsService" ref="proposalInsufficientSmsService"/>
+		
+		<property name="fetCancelNotificationService" ref="fetCancelNotificationService"/>
+		
+		<property name="clientCheckPolicyService" ref="clientCheckPolicyService"/>
+		<property name="fetMobilePolicySalesService" ref="fetMobilePolicySalesService"/>
+		
+		<property name="fetAmlRecordService" ref="fetAmlRecordService"/>
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 銷管系統業務員資料查詢 -->
+		<property name="clientPrpinsAgentService" ref="clientPrpinsAgentService" />
+	</bean>
+	<bean id="fetPolicyService" class="com.tlg.aps.bs.fetPolicyService.impl.FetPolicyServiceImpl">
+		<property name="mobileInsBatchInfoService" ref="mobileInsBatchInfoService"/>
+		<property name="customerService" ref="customerService"/>
+		<property name="applicationService" ref="applicationService"/>
+		<property name="applicantService" ref="applicantService"/>
+		<property name="insuredService" ref="insuredService"/>
+		<property name="extColService" ref="extColService"/>
+		<property name="productService" ref="productService"/>
+		<property name="fetPolicyImportErrorService" ref="fetPolicyImportErrorService"/>
+		<!-- mantis：MOB0003，處理人員：CC009，需求單編號：MOB0003 從遠傳抓取要保書檔作業 -->
+		<property name="proposalFileService" ref="proposalFileService"/>
+		<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+		<property name="chubbReturnCustomerService" ref="chubbReturnCustomerService"/>
+		<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  start-->
+		<property name="fetMobilePolicyService" ref="fetMobilePolicyService"/>
+		<property name="fetMobilePolicyInsurantInfoService" ref="fetMobilePolicyInsurantInfoService"/>
+		<property name="fetMobilePolicyDeviceService" ref="fetMobilePolicyDeviceService"/>
+		<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  end-->
+		<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業 -->
+		<property name="customerEndorseService" ref="customerEndorseService"/>	
+		<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  start-->
+		<property name="acFileService" ref="acFileService"/>
+		<property name="accountFileService" ref="accountFileService"/>
+		<property name="chFileService" ref="chFileService"/>
+		<property name="clFileService" ref="clFileService"/>
+		<property name="cmFileService" ref="cmFileService"/>
+		<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  end-->
+		<property name="batchRepairMainService" ref="batchRepairMainService"/>
+		<property name="batchRepairDetailService" ref="batchRepairDetailService"/>
+		
+		<property name="fetMobileEpolicyService" ref="fetMobileEpolicyService"/>
+		<property name="liaMiEpolicyService" ref="liaMiEpolicyService"/>
+		<property name="newepolicymainService" ref="newepolicymainService" />
+		
+		<property name="prpdrationclausekindService" ref="prpdrationclausekindService" />
+		<property name="prpdclausereportService" ref="prpdclausereportService" />
+		
+		<property name="miEpolicysmsService" ref="miEpolicysmsService" />
+		<property name="terminationNoticeService" ref="terminationNoticeService" />
+		
+		<property name="fetPaidService" ref="fetPaidService"/>
+		<property name="fetPayableService" ref="fetPayableService"/>
+		
+		<property name="configUtil" ref="configUtil"/>
+		
+		<property name="applicantEndorseService" ref="applicantEndorseService"/>
+		<property name="insuredEndorseService" ref="insuredEndorseService"/>
+		<property name="productEndorseService" ref="productEndorseService"/>
+		
+		<property name="chubbApplicantEndorseService" ref="chubbApplicantEndorseService"/>
+		<property name="chubbCustomerEndorseService" ref="chubbCustomerEndorseService"/>
+		<property name="chubbInsuredEndorseService" ref="chubbInsuredEndorseService"/>
+		<property name="chubbProductEndorseService" ref="chubbProductEndorseService"/>
+		
+		<property name="fetCancelNotificationService" ref="fetCancelNotificationService"/>
+		<property name="fetMobilePolicySalesService" ref="fetMobilePolicySalesService"/>
+		
+		<property name="fetAmlRecordService" ref="fetAmlRecordService"/>
+	</bean>
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 end -->
+	
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 start -->
+	<bean id="miClaimDownloadService" class="com.tlg.aps.bs.miClaimDownloadService.impl.MiClaimDownloadServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="miClaimDownloadNewTransService" ref="miClaimDownloadNewTransService"/>
+		<property name="tmpfetclaimmainService" ref="tmpfetclaimmainService"/>
+		<property name="tmpfetclaimkindService" ref="tmpfetclaimkindService"/>
+		<property name="tmpfetclaimpayService" ref="tmpfetclaimpayService"/>
+		<property name="tmpfetclaimcommService" ref="tmpfetclaimcommService"/>
+		<property name="prpcplanService" ref="prpcplanService"/>
+		<property name="prpcmainService" ref="prpcmainService"/>
+		<property name="intfprpjpayrefrecService" ref="intfprpjpayrefrecService"/>
+	</bean>
+	
+	<bean id="miClaimDownloadNewTransService" class="com.tlg.aps.bs.miClaimDownloadService.impl.MiClaimDownloadNewTransServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="tmpfetclaimmainService" ref="tmpfetclaimmainService"/>
+		<property name="tmpfetclaimkindService" ref="tmpfetclaimkindService"/>
+		<property name="tmpfetclaimpayService" ref="tmpfetclaimpayService"/>
+		<property name="tmpfetclaimcommService" ref="tmpfetclaimcommService"/>
+	</bean>
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 end -->
+
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 start-->
+	<bean id="mobSubmitAndPrintService" class="com.tlg.aps.bs.mobclaimService.impl.MobSubmitAndPrintServiceImpl">
+		<property name="fetclaimmainService" ref="fetclaimmainService"/>
+		<property name="fetclaimpayService" ref="fetclaimpayService"/>
+		<property name="fetclaimcommService" ref="fetclaimcommService"/>
+		<property name="fetclaimkindService" ref="fetclaimkindService"/>
+		<property name="tmpfetclaimmainService" ref="tmpfetclaimmainService"/>
+		<property name="tmpfetclaimpayService" ref="tmpfetclaimpayService"/>
+		<property name="tmpfetclaimcommService" ref="tmpfetclaimcommService"/>
+		<property name="tmpfetclaimkindService" ref="tmpfetclaimkindService"/>
+		<property name="configUtil" ref="configUtil"/>
+	</bean>
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 end-->
+	
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 start -->
+	<bean id="firTiiDataService" class="com.tlg.aps.bs.firTiiDataServerce.impl.FirTiiDataServiceImpl">
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="tiiDataProcessService" ref="tiiDataProcessService"/>
+		<property name="firSpService" ref="firSpService"/>
+		<property name="firBatchTiiListService" ref="firBatchTiiListService"/>
+		<property name="firBatchTiiService" ref="firBatchTiiService"/>
+		<property name="firBatchTiiAddrService" ref="firBatchTiiAddrService"/>
+		<property name="configUtil" ref="configUtil"/>
+		<property name="aS400ToTiiDataService" ref="aS400ToTiiDataService"/>
+	</bean>
+	
+	<bean id="tiiDataProcessService" class="com.tlg.aps.bs.firTiiDataServerce.impl.TiiDataProcessServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService"/>
+		<property name="firBatchTiiService" ref="firBatchTiiService"/>
+		<property name="firBatchTiiListService" ref="firBatchTiiListService"/>
+	</bean>
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 end -->
+
+	<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫 start -->
+	<bean id="firTiiReturnLogDownloadService" class="com.tlg.aps.bs.firTiiDataServerce.impl.FirTiiReturnLogDownloadServiceImpl">
+		<property name="firTiiReturnLogRenewalFileService" ref="firTiiReturnLogRenewalFileService"/>
+		<property name="configUtil" ref="configUtil"/>
+		<property name="firBatchInfoService" ref="firBatchInfoService"/>
+		<property name="firBatchTiiReturnLogService" ref="firBatchTiiReturnLogService"/>
+	</bean>
+	
+	<bean id="firTiiReturnLogRenewalFileService" class="com.tlg.aps.bs.firTiiDataServerce.impl.FirTiiReturnLogRenewalFileServiceImpl">
+		<property name="firBatchTiiReturnLogService" ref="firBatchTiiReturnLogService"/>
+	</bean>
+	<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫  end -->
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start -->
+	<bean id="firRenewListGenFileService" class="com.tlg.aps.bs.firGenRenewListService.impl.FirRenewListGenFileServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="firRenewPhoneService" ref="firRenewPhoneService"/>
+		<property name="firRenewListService" ref="firRenewListService"/>
+		<property name="firRenewListDtlService" ref="firRenewListDtlService"/>
+		<property name="genRenewListService" ref="genRenewListService"/>
+		<property name="prpdagentService" ref="prpdagentService"/>
+		<property name="commdataCmemfilService" ref="commdataCmemfilService"/>
+	</bean>
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end -->
+	
+	<!-- mantis：MOB0022，處理人員：BI086，需求單編號：MOB0022 行動裝置保險終止通知書簡訊發送 start -->
+	<bean id="mobileInsSmsNewTransService" class="com.tlg.aps.bs.miTerminationNoticeService.impl.MobileInsSmsNewTransServiceImpl">
+		<property name="mobileInsSmsService" ref="mobileInsSmsService"/>
+	</bean>
+	
+	<bean id="miTerminationNoticeService" class="com.tlg.aps.bs.miTerminationNoticeService.impl.MiTerminationNoticeServiceImpl">
+		<property name="mobileInsSmsNewTransService" ref="mobileInsSmsNewTransService"/>
+		<property name="mobileInsSmsService" ref="mobileInsSmsService"/>
+		<property name="configUtil" ref="configUtil"/>
+	</bean>
+	<!-- mantis：MOB0022，處理人員：BI086，需求單編號：MOB0022 行動裝置保險終止通知書簡訊發送  end -->
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 start-->
+	<bean id="mobReviewService" class="com.tlg.aps.bs.mobclaimService.impl.MobReviewServiceImpl">
+		<property name="miClaimSpService" ref="miClaimSpService"/>
+		<property name="fetclaimmainService" ref="fetclaimmainService"/>
+		<property name="configUtil" ref="configUtil"/>
+	</bean>
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 end-->
+	
+	<!-- mantis：OTH0152，處理人員：BI086，需求單編號：OTH0152 住火送保發保批資料，AS400資料寫入核心中介Table start -->
+	<bean id="aS400ToTiiDataService" class="com.tlg.aps.bs.firTiiDataServerce.impl.AS400ToTiiDataServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="com910waService" ref="com910waService"/>
+		<property name="com910wbService" ref="com910wbService"/>
+		<property name="firBatchTiiListService" ref="firBatchTiiListService"/>
+		<property name="firBatchTiiAddrService" ref="firBatchTiiAddrService"/>
+	</bean>
+	<!-- mantis：OTH0152，處理人員：BI086，需求單編號：OTH0152 住火送保發保批資料，AS400資料寫入核心中介Table end -->
+	
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 START-->
+	<bean id="xchgTerminationNoticeService" class="com.tlg.aps.bs.fetPolicyService.impl.XchgTerminationNoticeServiceImpl">
+		<property name="liaMiNoticeCancleService" ref="liaMiNoticeCancleService"/>
+		<property name="liaMiNoticeUnpaidService" ref="liaMiNoticeUnpaidService"/>
+		<property name="mobileInsSmsService" ref="mobileInsSmsService"/>
+		<property name="configUtil" ref="configUtil"/>
+	</bean>
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 END-->
+	<!-- OTH0146 理賠再保分進業務輸入 start -->
+	<bean id="reinsClaimInwardService" class="com.tlg.aps.bs.reinsInwardService.impl.ReinsClaimInwardServiceImpl">
+		<property name="reinsInwardClaimDataService" ref="reinsInwardClaimDataService" />
+		<property name="reinsInwardClaimInsDataService" ref="reinsInwardClaimInsDataService" />
+		<property name="reinsInwardMainDataService" ref="reinsInwardMainDataService" />
+		<property name="reinsInwardPickNoService" ref="reinsInwardPickNoService" />
+	</bean>
+	<!-- OTH0146 理賠再保分進業務輸入 end -->
+	<!-- mantis：CLM0152，處理人員：BI086，需求單編號：CLM0152 傷害險旅責旅綜理賠給付簡訊通知 start -->
+	<bean id="clmSmsBsService" class="com.tlg.aps.bs.clmSmsService.impl.ClmSmsServiceImpl">
+		<property name="ctbcClmsmsRmService" ref="ctbcClmsmsRmService" />
+		<property name="clmSmsService" ref="clmSmsService" />
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+	<!-- mantis：CLM0152，處理人員：BI086，需求單編號：CLM0152 傷害險旅責旅綜理賠給付簡訊通知 end -->
+	
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 start -->
+	<bean id="miClaimTypeCmService" class="com.tlg.aps.bs.miClaimDownloadService.impl.MiClaimTypeCmServiceImpl">
+		<property name="fetclaimTypecmService" ref="fetclaimTypecmService" />
+		<property name="configUtil" ref="configUtil" />
+	</bean>
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 end -->
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+	<bean id="firBotGenFileService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.FirBotGenFileServiceImpl">
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="configUtil" ref="configUtil" />
+		<property name="firAgtrnBatchBotService" ref="firAgtrnBatchBotService" />
+		<property name="rfrcodeService" ref="rfrcodeService" />
+		<property name="firRenewPhoneService" ref="firRenewPhoneService" />
+		<property name="firRenewListGenFileService" ref="firRenewListGenFileService" />
+		<property name="firSpService" ref="firSpService"></property>
+		<property name="firBatchInfoService" ref="firBatchInfoService"></property>
+	</bean>
+	
+	<bean id="firBotMaintainService" class="com.tlg.aps.bs.firBotRenewalFileService.impl.FirBotMaintainServiceImpl">
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+	</bean>
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+
+
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 start-->
+	<bean id="blockChainService" class="com.tlg.aps.bs.claimBlockchainService.impl.BlockChainServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="claimCompulsoryApplicantService" ref="claimCompulsoryApplicantService"/>
+		<property name="claimCompulsoryApportionService" ref="claimCompulsoryApportionService"/>
+		<property name="claimCompulsoryCaseService" ref="claimCompulsoryCaseService"/>
+		<property name="claimCompulsoryChargesService" ref="claimCompulsoryChargesService"/>
+		<property name="claimCompulsoryJobService" ref="claimCompulsoryJobService"/>
+		<property name="claimCompulsoryJobNTService" ref="claimCompulsoryJobNTService"/>
+		<property name="claimCompulsoryStatePricesService" ref="claimCompulsoryStatePricesService"/>
+	</bean>
+	
+	<bean id="claimCompulsoryJobNTService" class="com.tlg.aps.bs.claimBlockchainService.impl.ClaimCompulsoryJobNTServiceImpl">
+		<property name="claimCompulsoryJobService" ref="claimCompulsoryJobService"/>
+	</bean>
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 end-->
+	
+	<!-- mantis：FIR0667，處理人員：DP0706，需求單編號：FIR0667 住火_元大續保作業_續件資料產生排程START -->
+	<bean id="firYcbRenewalFileService" class="com.tlg.aps.bs.firYcbRenewalFileService.impl.FirYcbRenewalFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+    	<property name="firBatchInfoService" ref="firBatchInfoService" />
+    	<property name="prpdAgreementService" ref="prpdAgreementService" />
+    	<property name="rfrcodeService" ref="rfrcodeService" />
+    	<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+    	<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+		<property name="firSpService" ref="firSpService" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="ycbRenewalFileService" ref="ycbRenewalFileService" />
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+	</bean>
+	
+	<bean id="ycbRenewalFileService" class="com.tlg.aps.bs.firYcbRenewalFileService.impl.YcbRenewalFileServiceImpl">
+		<property name="firBatchLogService" ref="firBatchLogService" />
+		<property name="firAgtrnBatchMainService" ref="firAgtrnBatchMainService" />
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="firAgtTocoreInsuredService" ref="firAgtTocoreInsuredService" />
+	</bean>
+	<!-- mantis：FIR0667，處理人員：DP0706，需求單編號：FIR0667 住火_元大續保作業_續件資料產生排程END -->
+
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業START -->
+	<bean id="firYcbGenFileService" class="com.tlg.aps.bs.firYcbRenewalFileService.impl.FirYcbGenFileServiceImpl">
+		<property name="configUtil" ref="configUtil" />
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService" />
+		<property name="rfrcodeService" ref="rfrcodeService" />
+		<property name="firAgtrnBatchYcbService" ref="firAgtrnBatchYcbService" />
+		<property name="firRenewPhoneService" ref="firRenewPhoneService" />
+		<property name="firRenewListGenFileService" ref="firRenewListGenFileService" />
+		<property name="firSpService" ref="firSpService"></property>
+		<property name="firBatchInfoService" ref="firBatchInfoService"></property>
+	</bean>
+	
+	<bean id="firYcbMaintainService" class="com.tlg.aps.bs.firYcbRenewalFileService.impl.FirYcbMaintainServiceImpl">
+		<property name="firVerifyDatasService" ref="firVerifyDatasService" />
+	</bean>
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業END -->
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 START -->
+	<bean id="salesAgentDateChangeService" class="com.tlg.aps.bs.salesAgentDateChangeService.impl.SalesAgentDateChangeServiceImpl">
+		<property name="configUtil" ref="configUtil"/>
+		<property name="prpdagentService" ref="prpdagentService"/>
+		<property name="prpdagentIdvService" ref="prpdagentIdvService"/>
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+		<property name="prpdagentLoginDateReserveService" ref="prpdagentLoginDateReserveService"/>
+	</bean>
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 END-->
+
+    <!-- mantis：FIR0681，處理人員：DP0714，住火-APS元大回饋檔-排程查詢作業 -->
+	<bean id="APS062Action" class="com.tlg.aps.action.APS062Action" scope="prototype">
+    	<property name="firAgtBatchMainService" ref="firAgtBatchMainService" />
+    	<property name="firAgtBatchDtlService" ref="firAgtBatchDtlService" />
+    	<property name="configUtil" ref="configUtil" />
+	</bean>
+	
+	<!-- mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B START -->
+	<bean id="APS063Action" class="com.tlg.aps.action.APS063Action" scope="prototype">
+		<property name="configUtil" ref="configUtil"/>
+    	<property name="as400FilToRptCoredataService" ref="as400FilToRptCoredataService" />
+    </bean>
+	
+	<bean id="as400FilToRptCoredataService" class="com.tlg.aps.bs.As400FilToRptCoredataService.impl.As400FilToRptCoredataServiceImpl">
+    	<property name="as400FilCustService" ref="as400FilCustService" />
+    	<property name="rptCoredataService" ref="rptCoredataService" />
+	</bean>
+	<!-- mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B START -->
+	
+	<!-- mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同  START -->
+	<bean id="hasFetMatchFileService" class="com.tlg.aps.bs.hasFetMatchFileService.impl.HasFetMatchFileServiceImpl">
+    	<property name="configUtil" ref="configUtil" />
+    	<property name="hasBatchInfoService" ref="hasBatchInfoService" />
+    	<property name="lionBackFileService" ref="lionBackFileService" />
+    	<property name="hasAgtBatchMainService" ref="hasAgtBatchMainService" />
+    	<property name="hasSpService" ref="hasSpService" />
+    	<property name="hasBatchMatchFetService" ref="hasBatchMatchFetService" />
+    </bean>
+    <!-- mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同  END -->
+</beans>

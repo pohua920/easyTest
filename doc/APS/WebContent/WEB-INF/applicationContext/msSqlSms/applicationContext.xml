@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	<bean id="usageLogDao" class="com.tlg.msSqlSms.dao.impl.UsageLogDaoImpl">
+		<property name="sqlMapClient" ref="msSqlSmsSqlMapClient"/>
+	</bean>
+	
+	<bean id="smsRequestDao" class="com.tlg.msSqlSms.dao.impl.SMSRequestDaoImpl">
+		<property name="sqlMapClient" ref="msSqlSmsSqlMapClient"/>
+	</bean>
+	
+	<bean id="receiptDao" class="com.tlg.msSqlSms.dao.impl.ReceiptDaoImpl">
+		<property name="sqlMapClient" ref="msSqlSmsSqlMapClient"/>
+	</bean>
+
+
+	<!-- Base Service -->
+	<bean id="usageLogService" class="com.tlg.msSqlSms.service.impl.UsageLogServiceImpl">
+		<property name="usageLogDao" ref="usageLogDao"/>
+	</bean>
+	
+	<bean id="smsRequestService" class="com.tlg.msSqlSms.service.impl.SMSRequestServiceImpl">
+		<property name="smsRequestDao" ref="smsRequestDao"/>
+	</bean>
+
+	<bean id="receiptService" class="com.tlg.msSqlSms.service.impl.ReceiptServiceImpl">
+		<property name="receiptDao" ref="receiptDao"/>
+	</bean>
+
+</beans>

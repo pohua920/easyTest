@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:cxf="http://cxf.apache.org/core" 
+    xmlns:jaxws="http://cxf.apache.org/jaxws" 
+    xmlns:wsa="http://cxf.apache.org/ws/addressing"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+    http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd"> 
+
+    <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+ 	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+	<!-- 全局Bus(輸入攔截器) -->  
+	<cxf:bus>  
+	    <cxf:inInterceptors>
+        	<ref bean="loggingOutInterceptor" />
+        	<ref bean="loggingInInterceptor" />
+    	</cxf:inInterceptors>  
+	</cxf:bus>
+
+    <!-- 查詢複保險 -->
+    <bean id="clientFirDoubleInsService" class="com.tlg.aps.webService.firDoubleInsService.client.FirDoubleInsService" factory-bean="clientFirDoubleInsServiceFactory" factory-method="create"/>
+    <bean id="clientFirDoubleInsServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.firDoubleInsService.client.FirDoubleInsService" />
+		<!-- 測試機URL  -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/firDoubleInsService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/firDoubleInsService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- 查詢火險保額 -->
+    <bean id="clientFirAmountService" class="com.tlg.aps.webService.firCalAmountService.client.FirAmountService" factory-bean="clientFirAmountServiceFactory" factory-method="create"/>
+    <bean id="clientFirAmountServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.firCalAmountService.client.FirAmountService" />
+		<!-- 測試機URL --> 
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/firCalAmountService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/firCalAmountService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- 查詢地址正確性 -->
+    <bean id="clientAddressCheckService" class="com.tlg.aps.webService.addressCheckService.client.AddressCheckService" factory-bean="clientAddressCheckServiceFactory" factory-method="create"/>
+    <bean id="clientAddressCheckServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.addressCheckService.client.AddressCheckService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/addressCheckService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/addressCheckService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核  -->
+    <!-- 住火檢核議題 -->
+    <bean id="clientRuleCheckService" class="com.tlg.aps.webService.firRuleService.client.RuleCheckService" factory-bean="clientRuleCheckServiceFactory" factory-method="create"/>
+    <bean id="clientRuleCheckServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.firRuleService.client.RuleCheckService" />
+		<!-- 測試機URL--> 
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/firRuleService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/firRuleService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- 洗錢web service -->
+    <bean id="clientAmlQueryService" class="com.tlg.aps.webService.metaAmlService.client.AmlService" factory-bean="clientAmlQueryServiceFactory" factory-method="create"/>
+    <bean id="clientAmlQueryServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.metaAmlService.client.AmlService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/amlWebService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/amlWebService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- 火險保費驗證web service -->
+    <bean id="clientFirCalPremService" class="com.tlg.aps.webService.firCalPremService.client.FirPremService" factory-bean="clientFirCalPremServiceFactory" factory-method="create"/>
+    <bean id="clientFirCalPremServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.firCalPremService.client.FirPremService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/firCalPremService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/firCalPremService?wsdl" />
+		-->
+    </bean>
+    
+    <!--  mantis：SALES0015，處理人員：DP0706，需求單編號：SALES0015 銷管系統-APS-保經代分支機構地址正規化  -->
+    <!-- 地址正規化檢查web service -->
+    <bean id="clientAddressFormatWsService" class="com.tlg.aps.webService.formatAddressService.client.AddressFormatWsService" factory-bean="clientAddressFormatWsServiceFactory" factory-method="create"/>
+    <bean id="clientAddressFormatWsServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.formatAddressService.client.AddressFormatWsService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/addressFormatService?wsdl" />
+		
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/addressFormatService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- 查詢是否在黑名單 -->
+    <bean id="clientBlacklistQueryService" class="com.tlg.aps.webService.blasklistQueryService.client.BlacklistQueryService" factory-bean="clientBlacklistQueryServiceFactory" factory-method="create"/>
+    <bean id="clientBlacklistQueryServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.blasklistQueryService.client.BlacklistQueryService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/blasklistQueryService?wsdl" />
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/blasklistQueryService?wsdl" />
+		-->
+    </bean>
+    
+    <!-- mantis：MOB0002，處理人員：CC009，需求單編號：MOB0002 遠傳要保及批單資料作洗錢、利關人、黑名單檢核 -->
+    <!-- 查詢是否在利關人 -->
+    <bean id="clientStakeHolderService" class="com.tlg.aps.webService.stakeHolderService.client.StakeHolderService" factory-bean="clientStakeHolderServiceFactory" factory-method="create"/>
+    <bean id="clientStakeHolderServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.stakeHolderService.client.StakeHolderService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/stakeHolderService?wsdl" />
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/stakeHolderService?wsdl" />
+		-->
+    </bean>
+    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 銷管系統業務員資料查詢  START-->
+    <bean id="clientPrpinsAgentService" class="com.tlg.aps.webService.prpinsAgentService.client.PrpinsAgentService" factory-bean="clientPrpinsAgentServiceFactory" factory-method="create"/>
+    <bean id="clientPrpinsAgentServiceFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+		<property name="serviceClass" value="com.tlg.aps.webService.prpinsAgentService.client.PrpinsAgentService" />
+		<!-- 測試機URL -->
+		<property name="address" value="http://192.168.112.6:8880/CWP/webService/prpinsAgentService?wsdl" />
+		<!-- 正式機URL 
+		<property name="address" value="http://192.168.2.112:8880/CWP/webService/prpinsAgentService?wsdl" />
+		-->
+    </bean>
+    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 銷管系統業務員資料查詢  END-->
+</beans>    

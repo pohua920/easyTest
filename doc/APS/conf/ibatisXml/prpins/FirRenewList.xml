@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 -->
+<sqlMap namespace="FirRenewList" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirRenewList" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="RN_YYMM" property="rnYymm" jdbcType="VARCHAR" />
+    <result column="DATAQTY" property="dataqty" jdbcType="DECIMAL" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="FILEDATE" property="filedate" jdbcType="TIMESTAMP" />
+    <result column="DELETE_FLAG" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="QCAMT_FLAG" property="qcamtFlag" jdbcType="VARCHAR" />
+    <result column="FCAMT_FLAG" property="fcamtFlag" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+    <result column="I99050_USER" jdbcType="VARCHAR" property="i99050User" />
+    <result column="I99050_TIME" jdbcType="TIMESTAMP" property="i99050Time" />
+    <result column="I99050_MEMO" jdbcType="VARCHAR" property="i99050Memo" />
+    <result column="I99050_BNO" jdbcType="VARCHAR" property="i99050Bno" />
+    <result column="NCORE_USER" jdbcType="VARCHAR" property="ncoreUser" />
+    <result column="NCORE_TIME" jdbcType="TIMESTAMP" property="ncoreTime" />
+    <result column="NCORE_MEMO" jdbcType="VARCHAR" property="ncoreMemo" />
+    <result column="NCORE_BNO" jdbcType="VARCHAR" property="ncoreBno" />
+    <result column="NCOREA_USER" jdbcType="VARCHAR" property="ncoreaUser" />
+    <result column="NCOREA_TIME" jdbcType="TIMESTAMP" property="ncoreaTime" />
+    <result column="NCOREA_MEMO" jdbcType="VARCHAR" property="ncoreaMemo" />
+    <result column="NCOREA_BNO" jdbcType="VARCHAR" property="ncoreaBno" />
+    <result column="I99065_USER" jdbcType="VARCHAR" property="i99065User" />
+    <result column="I99065_TIME" jdbcType="TIMESTAMP" property="i99065Time" />
+    <result column="I99065_MEMO" jdbcType="VARCHAR" property="i99065Memo" />
+    <result column="I99065_BNO" jdbcType="VARCHAR" property="i99065Bno" />
+    <result column="I00107_USER" jdbcType="VARCHAR" property="i00107User" />
+    <result column="I00107_TIME" jdbcType="TIMESTAMP" property="i00107Time" />
+    <result column="I00107_MEMO" jdbcType="VARCHAR" property="i00107Memo" />
+    <result column="I00107_BNO" jdbcType="VARCHAR" property="i00107Bno" />
+    <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 start -->
+    <result column="FRNPRO_USER" jdbcType="VARCHAR" property="frnproUser" />
+    <result column="FRNPRO_TIME" jdbcType="TIMESTAMP" property="frnproTime" />
+    <result column="FRNPRO_MEMO" jdbcType="VARCHAR" property="frnproMemo" />
+    <result column="FRNPRO_BNO" jdbcType="VARCHAR" property="frnproBno" />
+    <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 end -->
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+    <!-- mantis：FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 start  -->
+    <result column="I40503_USER" jdbcType="VARCHAR" property="i40503User" />
+    <result column="I40503_TIME" jdbcType="TIMESTAMP" property="i40503Time" />
+    <result column="I40503_MEMO" jdbcType="VARCHAR" property="i40503Memo" />
+    <result column="I40503_BNO" jdbcType="VARCHAR" property="i40503Bno" />
+    <!-- mantis：FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 end -->
+  </resultMap>
+
+  <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST
+		<dynamic prepend="WHERE">
+		  <isNotEmpty prepend="AND" property="batchNo">
+			BATCH_NO = #batchNo#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="rnYymm">
+	        RN_YYMM = #rnYymm#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="deleteFlag">
+	        DELETE_FLAG = #deleteFlag#
+	      </isNotEmpty>
+	      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 start -->
+	      <isNotEmpty prepend="AND" property="oldPolicyno">
+	        EXISTS (SELECT * FROM FIR_RENEW_LIST_DTL WHERE OLD_POLICYNO = #oldPolicyno#)
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="startCreateDate">
+			DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  </isNotEmpty>
+		  <isNotEmpty prepend="AND" property="endCreateDate">
+			DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  </isNotEmpty>
+		  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 end -->
+		</dynamic>
+	<include refid="Utils.sql2" />
+  </select>
+
+  <select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	 SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST
+	  <dynamic prepend="WHERE">
+	    <isNotEmpty prepend="AND" property="batchNo">
+		  BATCH_NO = #batchNo#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="rnYymm">
+	      RN_YYMM = #rnYymm#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="deleteFlag">
+	      DELETE_FLAG = #deleteFlag#
+	    </isNotEmpty>
+	    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 -->
+	    <isNotEmpty prepend="AND" property="oldPolicyno">
+	      EXISTS (SELECT * FROM FIR_RENEW_LIST_DTL WHERE OLD_POLICYNO = #oldPolicyno#)
+	    </isNotEmpty>
+	  </dynamic>
+  </select>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST
+	 <dynamic prepend="WHERE">
+	    <isNotEmpty prepend="AND" property="batchNo">
+		  BATCH_NO = #batchNo#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="rnYymm">
+	      RN_YYMM = #rnYymm#
+	    </isNotEmpty>
+	    <isNotEmpty prepend="AND" property="deleteFlag">
+	      DELETE_FLAG = #deleteFlag#
+	    </isNotEmpty>
+	 </dynamic>
+  </select>
+
+  <select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	SELECT * FROM FIR_RENEW_LIST
+	WHERE BATCH_NO = #batchNo#
+  </select>
+
+  <delete id="delete" parameterClass="com.tlg.prpins.entity.FirRenewList" >
+    delete from <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST
+    where BATCH_NO = #batchNo:VARCHAR#
+  </delete>
+
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirRenewList" >
+    insert into <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST 
+      (BATCH_NO, RN_YYMM, DATAQTY, FILENAME, FILEDATE, DELETE_FLAG,
+      QCAMT_FLAG, FCAMT_FLAG, REMARK, ICREATE, DCREATE, IUPDATE, DUPDATE, 
+      I99050_USER, I99050_TIME,I99050_MEMO, I99050_BNO, NCORE_USER, NCORE_TIME,
+      NCORE_MEMO, NCORE_BNO, NCOREA_USER, NCOREA_TIME, NCOREA_MEMO, NCOREA_BNO,
+      I99065_USER, I99065_TIME, I99065_MEMO, I99065_BNO, I00107_USER, I00107_TIME,
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 start  -->
+      I40503_USER, I40503_TIME, I40503_MEMO, I40503_BNO, 
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 end  -->
+      <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 --> 
+      I00107_MEMO, I00107_BNO, FRNPRO_USER, FRNPRO_TIME, FRNPRO_MEMO, FRNPRO_BNO)
+    values 
+      (#batchNo:VARCHAR#, #rnYymm:VARCHAR#, #dataqty:DECIMAL#, #filename:VARCHAR#,
+      #filedate:TIMESTAMP#, #deleteFlag:VARCHAR#, #qcamtFlag:VARCHAR#, #fcamtFlag:VARCHAR#,
+      #remark:VARCHAR#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#, #iupdate:VARCHAR#,
+      #dupdate:TIMESTAMP#, #i99050User:VARCHAR#, #i99050Time:TIMESTAMP#, #i99050Memo:VARCHAR#,
+      #i99050Bno:VARCHAR#, #ncoreUser:VARCHAR#, #ncoreTime:TIMESTAMP#, #ncoreMemo:VARCHAR#,
+      #ncoreBno:VARCHAR#, #ncoreaUser:VARCHAR#, #ncoreaTime:TIMESTAMP#, #ncoreaMemo:VARCHAR#,
+      #ncoreaBno:VARCHAR#, #i99065User:VARCHAR#, #i99065Time:TIMESTAMP#, #i99065Memo:OTHER#,
+      #i99065Bno:VARCHAR#, #i00107User:VARCHAR#, #i00107Time:TIMESTAMP#, #i00107Memo:OTHER#,
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 start  -->
+      #i40503User:VARCHAR#, #i40503Time:TIMESTAMP#, #i40503Memo:OTHER#, #i40503Bno:VARCHAR#, 
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 end  -->
+      <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 -->
+      #i00107Bno:VARCHAR#, #frnproUser:VARCHAR#, #frnproTime:TIMESTAMP#, #frnproMemo:OTHER#, #frnproBno:VARCHAR#)
+  </insert>
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+  
+  <update id="update" parameterClass="com.tlg.prpins.entity.FirRenewList" >
+    update <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="rnYymm" >
+        RN_YYMM = #rnYymm:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dataqty" >
+        DATAQTY = #dataqty:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="filename" >
+        FILENAME = #filename:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="filedate" >
+        FILEDATE = #filedate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="deleteFlag" >
+        DELETE_FLAG = #deleteFlag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="qcamtFlag" >
+        QCAMT_FLAG = #qcamtFlag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="fcamtFlag" >
+        FCAMT_FLAG = #fcamtFlag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate" >
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate" >
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="iupdate" >
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dupdate" >
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+      <isNotNull prepend="," property="i99050User">
+        I99050_USER = #i99050User:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i99050Time">
+        I99050_TIME = #i99050Time:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="i99050Memo">
+        I99050_MEMO = #i99050Memo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i99050Bno">
+        I99050_BNO = #i99050Bno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreUser">
+        NCORE_USER = #ncoreUser:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreTime">
+        NCORE_TIME = #ncoreTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreMemo">
+        NCORE_MEMO = #ncoreMemo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreBno">
+        NCORE_BNO = #ncoreBno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreaUser">
+        NCOREA_USER = #ncoreaUser:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreaTime">
+        NCOREA_TIME = #ncoreaTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreaMemo">
+        NCOREA_MEMO = #ncoreaMemo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="ncoreaBno">
+        NCOREA_BNO = #ncoreaBno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i99065User">
+        I99065_USER = #i99065User:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i99065Time">
+        I99065_TIME = #i99065Time:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="i99065Memo">
+        I99065_MEMO = #i99065Memo:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="i99065Bno">
+        I99065_BNO = #i99065Bno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i00107User">
+        I00107_USER = #i00107User:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i00107Time">
+        I00107_TIME = #i00107Time:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="i00107Memo">
+        I00107_MEMO = #i00107Memo:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="i00107Bno">
+        I00107_BNO = #i00107Bno:VARCHAR#
+      </isNotNull>
+      <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 start -->
+      <isNotNull prepend="," property="frnproUser">
+        FRNPRO_USER = #frnproUser:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="frnproTime">
+        FRNPRO_TIME = #frnproTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="frnproMemo">
+        FRNPRO_MEMO = #frnproMemo:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="frnproBno">
+        FRNPRO_BNO = #frnproBno:VARCHAR#
+      </isNotNull>
+      <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 end -->
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 start  -->
+      <isNotNull prepend="," property="i40503User">
+        I40503_USER = #i40503User:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="i40503Time">
+        I40503_TIME = #i40503Time:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="i40503Memo">
+        I40503_MEMO = #i40503Memo:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="i40503Bno">
+        I40503_BNO = #i40503Bno:VARCHAR#
+      </isNotNull>
+      <!-- mantis： FIR0685 ，處理人員：CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式 end  --> 
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+    </dynamic>
+    where BATCH_NO = #batchNo:VARCHAR#
+  </update>
+
+  <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 start -->
+  <!-- 要保書主檔 -->
+  <select id="selectMainData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.OLD_POLICYNO,
+           DTL.PROPOSALNO,
+		   PM.EPOLICY,
+		   PM.CLAUSE_SENDTYPE,
+           NVL(DTL.AMT_F1,0) + NVL(DTL.AMT_F2,0) AS AMT_F, 
+           NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) AS PREM_F, 
+           DTL.AMT_Q,
+		   DTL.PREM_Q,
+		   DTL.PREM_A,
+           NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) + NVL(DTL.PREM_Q,0) + NVL(DTL.PREM_A,0) AS PREM,
+           TO_CHAR(DTL.OLD_ENDDATE, 'YYY', 'NLS_CALENDAR= ''ROC OFFICIAL''') AS OLD_Y, 
+           TO_CHAR(DTL.OLD_ENDDATE,'MM') AS OLD_M,
+		   TO_CHAR(DTL.OLD_ENDDATE,'DD') AS OLD_D,
+		   TO_NUMBER(TO_CHAR(DTL.OLD_ENDDATE, 'YYY', 'NLS_CALENDAR= ''ROC OFFICIAL''') ) +1 AS NEW_Y,
+		   TO_CHAR(DTL.OLD_ENDDATE,'MM') AS NEW_M,
+		   TO_CHAR(DTL.OLD_ENDDATE,'DD') AS NEW_D,
+		   CASE WHEN KIND.OPERATINGFEE > 0 THEN 'Y' ELSE 'N' END AS BUSINESS,'',
+           '' AS BUSINESS_TYPE,
+		   PG.ISLOANS,
+		   DTL.IS_AUTO_RENEW,
+		   PM.HANDLER1CODE,
+		   PM.HANDLER1NAME,
+		   PM.EXTRACOMCODE,
+		   PM.EXTRACOMNAME,
+		   PM.HANDLERIDENTIFYNUMBER,
+		   PM.HANDLERNAME,
+		   PM.BUSINESSNATURE,
+		   (SELECT SUBSTR(CODECNAME,0,6) FROM CCICDMS.PRPDNEWCODE WHERE CODETYPE='BusinessChannel' AND CODECODE = DTL.BUSINESSNATURE) AS BUSINESSENAME,
+		   (Select Nvl2(Usercode, Usercode, decode(pm.businessNature,'B99901','179','189')  || Comcode || '0')  From BUSINESS.Prpdagent Where Agentcode = pm.Agentcode) AS AGENTCODE,
+		   DTL.HAS_ENDORSE,
+		   CASE WHEN PC.CLAIMTIMES>0 THEN 'Y' ELSE 'N' END AS HAS_CLAIM,
+		   NVL(DTL.OLD_AMT_F1,0) + NVL(DTL.OLD_AMT_F2,0) AS OLD_AMT, 
+		   NVL(DTL.OLD_PREM_F1,0) + NVL(DTL.OLD_PREM_F2,0) + NVL(DTL.OLD_PREM_Q,0) + NVL(DTL.OLD_PREM_A,0) AS OLD_PREM,
+		   REPLACE(REPLACE(PG.NOTE, CHR(13), ''), CHR(10), '|') AS NOTE,
+		   PAY.PAYWAY
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTMAIN PM ON DTL.PROPOSALNO = PM.PROPOSALNO
+      LEFT JOIN (
+          SELECT PROPOSALNO, SUM(OPERATINGFEE) AS OPERATINGFEE
+           FROM BUSINESS.PRPTITEMKIND KIND 
+           GROUP BY PROPOSALNO
+      ) KIND ON DTL.PROPOSALNO = KIND.PROPOSALNO
+      LEFT JOIN BUSINESS.PRPTADDRESS PA ON DTL.PROPOSALNO = PA.PROPOSALNO AND PA.ADDRESSNO = 1
+      LEFT JOIN BUSINESS.PRPTMORTGAGEE PG ON DTL.PROPOSALNO = PG.PROPOSALNO
+      LEFT JOIN BUSINESS.PRPTPAYMENT PAY ON DTL.PROPOSALNO = PAY.PROPOSALNO
+      LEFT JOIN BUSINESS.PRPCMAIN PC ON DTL.OLD_POLICYNO = PC.POLICYNO
+      WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL 
+       AND DTL.RN_TYPE = '1'
+	   AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO
+  </select>
+
+  <!-- 要被保險人檔 -->
+  <select id="selectInsuredData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.PROPOSALNO,
+           INS.SERIALNO,
+           INS.INSUREDFLAG,
+           INS.INSUREDNATURE,
+           INS.INSUREDNAME,
+           INS.IDENTIFYNUMBER, 
+           CASE WHEN INS.INSUREDNATURE = '4' THEN TO_CHAR(INS.registDate,'YYYY/MM/DD') ELSE TO_CHAR(NATURE.BIRTHDAY,'YYYY/MM/DD') END AS BIRTHDAY,
+           INS.POSTCODE,
+           INS.POSTADDRESS,
+           INS.PHONENUMBER,
+           INS.MOBILE,
+           INS.EMAIL,
+           INS.COUNTRYCNAME,
+           INS.DOMICILECNAME,
+           INS.OCCUPATIONCODE,
+           INS.ISHIGHDENGEROCCUPATION, 
+           decode(INS.INSUREDNATURE,'3','',INS.HEADNAME) AS HEADNAME, 
+           decode(INS.INSUREDNATURE,'3','',INS.LISTEDCABINETCOMPANY) AS LISTEDCABINETCOMPANY,
+           decode(INS.INSUREDNATURE,'3','',INS.BEARER) AS BEARER,
+           INS.INSUREDIDENTITY
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTINSURED INS ON DTL.PROPOSALNO=INS.PROPOSALNO
+      LEFT JOIN BUSINESS.PRPTINSUREDNATURE NATURE ON DTL.PROPOSALNO=NATURE.PROPOSALNO AND INS.SERIALNO = NATURE.SERIALNO
+     WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL
+       AND DTL.RN_TYPE = '1'
+       AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO, INS.SERIALNO
+  </select>
+
+  <!-- 地址檔 -->
+  <select id="selectAddressData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.PROPOSALNO,
+           ADDRESS.ADDRESSNO,
+           ADDRESS.ADDRESSCODE,
+           ADDRESS.ADDRESSDETAILINFO
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTADDRESS ADDRESS ON DTL.PROPOSALNO = ADDRESS.PROPOSALNO
+     WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL
+       AND DTL.RN_TYPE = '1'
+       AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO, ADDRESS.ADDRESSNO
+  </select>
+
+  <!-- 標的物檔 -->
+  <select id="selectPropData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.PROPOSALNO,
+           PROP.ADDRESSNO,
+           PROP.BUILDINGNO,
+           PROP.WALLMATERIAL,
+           PROP.ROOFMATERIAL,
+           PROP.BUILDAREA,
+           PROP.BUILDYEARS,
+           PROP.SUMFLOORS,
+           PROP.STRUCTURE,
+           PROP.BUILDDETAILINFO
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTMAINPROP PROP ON DTL.PROPOSALNO = PROP.PROPOSALNO
+     WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL
+       AND DTL.RN_TYPE = '1'
+       AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO, PROP.ADDRESSNO, PROP.BUILDINGNO
+  </select>
+
+  <!-- 抵押權人檔 -->
+  <select id="selectMortgageeData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.PROPOSALNO,
+           CI.SEQUENCENO,
+           CI.MORTGAGEEPCODE1 || CI.MORTGAGEEPCODE2 AS MORTGAGEEPCODE,
+           CI.MORTGAGEEPEOPLE
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTMORTGAGEECI CI ON DTL.PROPOSALNO = CI.PROPOSALNO
+     WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL
+       AND DTL.RN_TYPE = '1'
+       AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO, CI.SEQUENCENO
+  </select>
+
+  <!-- 承保內容檔 -->
+  <select id="selectItemkindData" resultClass="java.util.HashMap" parameterClass="java.util.Map">
+    SELECT DTL.PROPOSALNO,
+           KIND.ITEMKINDNO,
+           KIND.KINDCODE,
+           KIND.KINDNAME,
+           KIND.ITEMCODE,
+           KIND.ITEMNATURE,
+           KIND.AMOUNT,
+           KIND.RATE,
+           KIND.SHORTRATE,
+           KIND.PREMIUM,
+           KIND.USINGNATURE,
+           KIND.USINGNATURENAME,
+           KIND.BUILDINGNO,
+           KIND.ADDRESSNO,
+           KIND.SUBGRADE,
+           PROP.STRUCTURE
+      FROM BUSINESS.FIR_RENEW_LIST_DTL DTL
+      LEFT JOIN BUSINESS.PRPTITEMKIND KIND ON DTL.PROPOSALNO = KIND.PROPOSALNO
+      LEFT JOIN BUSINESS.PRPTMAINPROP PROP ON DTL.PROPOSALNO = PROP.PROPOSALNO AND KIND.BUILDINGNO = PROP.BUILDINGNO
+     WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+       AND DTL.PROPOSALNO IS NOT NULL
+       AND DTL.RN_TYPE = '1'
+       AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+     ORDER BY DTL.PROPOSALNO, KIND.ITEMKINDNO
+  </select>
+  <!-- mantis：FIR0638，處理人員：DP0714，住火_APS到期續保要保書處理 end -->
+
+</sqlMap>

@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	
+	<bean id="firPremcalcTmpDao" class="com.tlg.prpins.dao.impl.FirPremcalcTmpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firPremcalcTmpdtlDao" class="com.tlg.prpins.dao.impl.FirPremcalcTmpdtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prpdPropStructDao" class="com.tlg.prpins.dao.impl.PrpdPropStructDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firDangerGradeDao" class="com.tlg.prpins.dao.impl.FirDangerGradeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prpdBaseRateDao" class="com.tlg.prpins.dao.impl.PrpdBaseRateDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firPremiumRateDao" class="com.tlg.prpins.dao.impl.FirPremiumRateDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firPremiumRate1Dao" class="com.tlg.prpins.dao.impl.FirPremiumRate1DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firPremiumRate2Dao" class="com.tlg.prpins.dao.impl.FirPremiumRate2DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firPremiumRate3Dao" class="com.tlg.prpins.dao.impl.FirPremiumRate3DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firDoubleQuakeQlistDao" class="com.tlg.prpins.dao.impl.FirDoubleQuakeQlistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremcalcCklistDao" class="com.tlg.prpins.dao.impl.PbPremcalcCklistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbCklistGroupDao" class="com.tlg.prpins.dao.impl.PbCklistGroupDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbCklistScoreDao" class="com.tlg.prpins.dao.impl.PbCklistScoreDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRateDao" class="com.tlg.prpins.dao.impl.PbPremiumRateDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate1Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate1DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="pbPremiumRate2Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate2DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate4Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate4DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremcalcClauseDao" class="com.tlg.prpins.dao.impl.PbPremcalcClauseDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prpdbankinfoDao" class="com.tlg.prpins.dao.impl.PrpdbankinfoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbActivityCklistScoreDao" class="com.tlg.prpins.dao.impl.PbActivityCklistScoreDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbDangerGradeDao" class="com.tlg.prpins.dao.impl.PbDangerGradeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremcalcAdditionTermDao" class="com.tlg.prpins.dao.impl.PbPremcalcAdditionTermDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremcalcTmpDao" class="com.tlg.prpins.dao.impl.PbPremcalcTmpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremcalcTmpdtlDao" class="com.tlg.prpins.dao.impl.PbPremcalcTmpdtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate0Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate0DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate10Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate10DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate5Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate5DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate6Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate6DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate7Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate7DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate8Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate8DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbPremiumRate9Dao" class="com.tlg.prpins.dao.impl.PbPremiumRate9DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="pbQueryDetailDao" class="com.tlg.prpins.dao.impl.PbQueryDetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCalcamtWallnoDao" class="com.tlg.prpins.dao.impl.FirCalcamtWallnoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="uwblacklistDao" class="com.tlg.prpins.dao.impl.UwblacklistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="utiRecorderDao" class="com.tlg.prpins.dao.impl.UtiRecorderDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="carTradevanApplyLogDao" class="com.tlg.prpins.dao.impl.CarTradevanApplyLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prplClaimDao" class="com.tlg.prpins.dao.impl.PrplClaimDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchLogDao" class="com.tlg.prpins.dao.impl.FirBatchLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcBatchMainDao" class="com.tlg.prpins.dao.impl.FirCtbcBatchMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcBatchDtlDao" class="com.tlg.prpins.dao.impl.FirCtbcBatchDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcTmpStlDao" class="com.tlg.prpins.dao.impl.FirCtbcTmpStlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcTmpSnnDao" class="com.tlg.prpins.dao.impl.FirCtbcTmpSnnDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcTmpPblDao" class="com.tlg.prpins.dao.impl.FirCtbcTmpPblDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcSigDao" class="com.tlg.prpins.dao.impl.FirCtbcSigDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcStlDao" class="com.tlg.prpins.dao.impl.FirCtbcStlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcSnnDao" class="com.tlg.prpins.dao.impl.FirCtbcSnnDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prptmainDao" class="com.tlg.prpins.dao.impl.PrptmainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcRstDao" class="com.tlg.prpins.dao.impl.FirCtbcRstDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firSpDao" class="com.tlg.prpins.dao.impl.FirSpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firRptCtbcCtfDao" class="com.tlg.prpins.dao.impl.FirRptCtbcCtfDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcDeptinfoDao" class="com.tlg.prpins.dao.impl.FirCtbcDeptinfoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchInfoDao" class="com.tlg.prpins.dao.impl.FirBatchInfoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核 -->
+	<bean id="firTmpDatacheckDao" class="com.tlg.prpins.dao.impl.FirTmpDatacheckDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 start -->
+	<bean id="firAddrImportlistDao" class="com.tlg.prpins.dao.impl.FirAddrImportlistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firAddrImporterrDao" class="com.tlg.prpins.dao.impl.FirAddrImporterrDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firAddrCkdataDao" class="com.tlg.prpins.dao.impl.FirAddrCkdataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 end -->
+	
+	<!-- mantis：FIR0238，處理人員：BJ085，需求單編號：FIR0238 稽核議題檢核-例外地址維護作業  -->
+	<bean id="firRuleAddrExcpDao" class="com.tlg.prpins.dao.impl.FirRuleAddrExcpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0181， 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) -->
+	<bean id="firApsCtbcHandlerDao" class="com.tlg.prpins.dao.impl.FirApsCtbcHandlerDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="prpduserDao" class="com.tlg.prpins.dao.impl.PrpduserDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 start -->
+	<bean id="amlQueryObjMainDao" class="com.tlg.prpins.dao.impl.AmlQueryObjMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="amlQueryObjDetailDao" class="com.tlg.prpins.dao.impl.AmlQueryObjDetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="metaAmlResultMainDao" class="com.tlg.prpins.dao.impl.MetaAmlResultMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="metaAmlResultDetailDao" class="com.tlg.prpins.dao.impl.MetaAmlResultDetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 end -->
+
+	<!--mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程 -->
+	<bean id="firAgtBatchMainDao" class="com.tlg.prpins.dao.impl.FirAgtBatchMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 start -->
+	<bean id="firAgtBatchDtlDao" class="com.tlg.prpins.dao.impl.FirAgtBatchDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtBop01Dao" class="com.tlg.prpins.dao.impl.FirAgtBop01DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtBop02Dao" class="com.tlg.prpins.dao.impl.FirAgtBop02DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtBatchGenfileDao" class="com.tlg.prpins.dao.impl.FirAgtBatchGenfileDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 end -->
+	
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 start -->
+	<bean id="firCtbcRewNoticeBatchDao" class="com.tlg.prpins.dao.impl.FirCtbcRewNoticeBatchDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewOriginal180Dao" class="com.tlg.prpins.dao.impl.FirCtbcRewOriginal180DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewDontnoticeDao" class="com.tlg.prpins.dao.impl.FirCtbcRewDontnoticeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewFix180Dao" class="com.tlg.prpins.dao.impl.FirCtbcRewFix180DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewMatchLogDao" class="com.tlg.prpins.dao.impl.FirCtbcRewMatchLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewNoshowwordDao" class="com.tlg.prpins.dao.impl.FirCtbcRewNoshowwordDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewSnnDao" class="com.tlg.prpins.dao.impl.FirCtbcRewSnnDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcaddressDao" class="com.tlg.prpins.dao.impl.PrpcaddressDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcinsuredDao" class="com.tlg.prpins.dao.impl.PrpcinsuredDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcinsurednatureDao" class="com.tlg.prpins.dao.impl.PrpcinsurednatureDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcitemkindDao" class="com.tlg.prpins.dao.impl.PrpcitemkindDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcmainDao" class="com.tlg.prpins.dao.impl.PrpcmainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcmainpropDao" class="com.tlg.prpins.dao.impl.PrpcmainpropDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firCtbcRewMatchnameDao" class="com.tlg.prpins.dao.impl.FirCtbcRewMatchnameDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 end -->
+	
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 start -->
+	<bean id="firAgtrnBatchMainDao" class="com.tlg.prpins.dao.impl.FirAgtrnBatchMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtrnTmpBopDao" class="com.tlg.prpins.dao.impl.FirAgtrnTmpBopDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtrnBatchDtlDao" class="com.tlg.prpins.dao.impl.FirAgtrnBatchDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtSalesMappingDao" class="com.tlg.prpins.dao.impl.FirAgtSalesMappingDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtTocoreMainDao" class="com.tlg.prpins.dao.impl.FirAgtTocoreMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtTocoreInsuredDao" class="com.tlg.prpins.dao.impl.FirAgtTocoreInsuredDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 end -->
+	
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 START-->
+	<bean id="prpdnewcodeDao" class="com.tlg.prpins.dao.impl.PrpdnewcodeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 START-->
+
+	<!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業 -->
+	<bean id="prpyddagentDao" class="com.tlg.prpins.dao.impl.PrpyddagentDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 START-->
+	<bean id="firBatchSendmailDetailDao" class="com.tlg.prpins.dao.impl.FirBatchSendmailDetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firBatchSendmailOkDao" class="com.tlg.prpins.dao.impl.FirBatchSendmailOkDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 END-->
+
+	<!-- mantis：MAR0037，處理人員：BJ085，需求單編號：MAR0037 高風險地區新增維護檔 -->
+	<bean id="prpdhighareaMcDao" class="com.tlg.prpins.dao.impl.PrpdhighareaMcDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程  -->
+	<bean id="firAgtBotApDao" class="com.tlg.prpins.dao.impl.FirAgtBotApDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程 start -->
+	<bean id="firAgtBotFhDao" class="com.tlg.prpins.dao.impl.FirAgtBotFhDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  -->
+	<bean id="firAgtBotFdDao" class="com.tlg.prpins.dao.impl.FirAgtBotFdDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0369，處理人員：BJ085，需求單編號：FIR0369 增加電子保單不寄送單位業務來源設定 -->
+	<bean id="firBatchmailExcludedataDao" class="com.tlg.prpins.dao.impl.FirBatchmailExcludedataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 start -->
+	<bean id="prpcinsuredContactChk0Dao" class="com.tlg.prpins.dao.impl.PrpcinsuredContactChk0DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 end -->
+
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 start -->
+	<bean id="firAgtrnAs400DataUplistDao" class="com.tlg.prpins.dao.impl.FirAgtrnAs400DataUplistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtrnAs400DataDao" class="com.tlg.prpins.dao.impl.FirAgtrnAs400DataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtrnAs400DataErrDao" class="com.tlg.prpins.dao.impl.FirAgtrnAs400DataErrDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 end -->
+	
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 start -->
+	<bean id="firBatchPins01Dao" class="com.tlg.prpins.dao.impl.FirBatchPins01DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 end -->
+	
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 start -->
+	<bean id="firBatchPins01DetailDao" class="com.tlg.prpins.dao.impl.FirBatchPins01DetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchPins01SpMainDao" class="com.tlg.prpins.dao.impl.FirBatchPins01SpMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchPins01SpDtlDao" class="com.tlg.prpins.dao.impl.FirBatchPins01SpDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 end -->
+	
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 start-->
+	<bean id="renewalnoticeDao" class="com.tlg.prpins.dao.impl.RenewalnoticeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="tiiTvbcmDao" class="com.tlg.prpins.dao.impl.TiiTvbcmDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 end-->
+	
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片  -->
+	<bean id="tiiTvmcqDao" class="com.tlg.prpins.dao.impl.TiiTvmcqDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 start -->
+	<bean id="firCtbcRnproposalMainDao" class="com.tlg.prpins.dao.impl.FirCtbcRnproposalMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firCtbcRnproposalDtlDao" class="com.tlg.prpins.dao.impl.FirCtbcRnproposalDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 end -->
+
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+	<bean id="firAgtrnBatchFbDao" class="com.tlg.prpins.dao.impl.FirAgtrnBatchFbDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firAgtrnTmpFbDao" class="com.tlg.prpins.dao.impl.FirAgtrnTmpFbDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+
+	<!-- 再保險分進業務輸入 start-->
+	<bean id="reinsInwardMainDataDao" class="com.tlg.prpins.dao.impl.ReinsInwardMainDataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="reinsInwardInsDataDao" class="com.tlg.prpins.dao.impl.ReinsInwardInsDataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="reinsInwardNoDao" class="com.tlg.prpins.dao.impl.ReinsInwardNoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- 再保險分進業務輸入 end-->
+	
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 start-->
+	<bean id="othBatchPassbookDao" class="com.tlg.prpins.dao.impl.OthBatchPassbookDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="othBatchPassbookListDao" class="com.tlg.prpins.dao.impl.OthBatchPassbookListDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="othBatchPassbookKindDao" class="com.tlg.prpins.dao.impl.OthBatchPassbookKindDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 end-->
+
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 start -->
+	<bean id="othBatchPassbookNcDataDao" class="com.tlg.prpins.dao.impl.OthBatchPassbookNcDataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="othPassbookSpDao" class="com.tlg.prpins.dao.impl.OthPassbookSpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 end -->
+	
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 start -->
+	<bean id="firAgtBop03Dao" class="com.tlg.prpins.dao.impl.FirAgtBop03DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firAgtBop04Dao" class="com.tlg.prpins.dao.impl.FirAgtBop04DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 -->
+
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 start -->
+	<bean id="firAgtYcb02Dao" class="com.tlg.prpins.dao.impl.FirAgtYcb02DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 end -->
+
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215_TA雄獅 回饋檔 start -->
+	<bean id="hasBatchInfoDao" class="com.tlg.prpins.dao.impl.HasBatchInfoDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasBatchLogDao" class="com.tlg.prpins.dao.impl.HasBatchLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasSpDao" class="com.tlg.prpins.dao.impl.HasSpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtBatchMainDao" class="com.tlg.prpins.dao.impl.HasAgtBatchMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtBatchDtlDao" class="com.tlg.prpins.dao.impl.HasAgtBatchDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtLionACDao" class="com.tlg.prpins.dao.impl.HasAgtLionACDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtLionCHDao" class="com.tlg.prpins.dao.impl.HasAgtLionCHDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtLionCLDao" class="com.tlg.prpins.dao.impl.HasAgtLionCLDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtLionCMDao" class="com.tlg.prpins.dao.impl.HasAgtLionCMDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="hasAgtLionOPDao" class="com.tlg.prpins.dao.impl.HasAgtLionOPDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215_TA雄獅 回饋檔  END-->
+
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 start -->
+	<bean id="hasAgtLawPolDao" class="com.tlg.prpins.dao.impl.HasAgtLawPolDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="hasAgtLawPolDetailDao" class="com.tlg.prpins.dao.impl.HasAgtLawPolDetailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 end -->
+
+	<!-- mantis：FIR0497，處理人員：BJ085，需求單編號：FIR0497 中信保代網投_新件回饋檔產生排程規格_新增保經代網投 -->
+	<bean id="firCtbcB2b2cDao" class="com.tlg.prpins.dao.impl.FirCtbcB2b2cDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 -->
+	<bean id="othBatchPassbookReturnLogDao" class="com.tlg.prpins.dao.impl.OthBatchPassbookReturnLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) -->
+	<bean id="firBatchSendmailDao" class="com.tlg.prpins.dao.impl.FirBatchSendmailDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 start -->
+	<bean id="carAddrImportlistDao" class="com.tlg.prpins.dao.impl.CarAddrImportlistDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="tii30nometpDao" class="com.tlg.prpins.dao.impl.Tii30nometpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="tiiTvmetpDao" class="com.tlg.prpins.dao.impl.TiiTvmetpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 end -->
+	
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 start -->
+	<bean id="firAgtUb01Dao" class="com.tlg.prpins.dao.impl.FirAgtUb01DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtUb02Dao" class="com.tlg.prpins.dao.impl.FirAgtUb02DaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 end -->
+	
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 start -->
+	<bean id="firRepeatpolicyBatchMainDao" class="com.tlg.prpins.dao.impl.FirRepeatpolicyBatchMainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firRepeatpolicyBatchDtlDao" class="com.tlg.prpins.dao.impl.FirRepeatpolicyBatchDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 end -->
+
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 start-->
+	<bean id="firRenewListDao" class="com.tlg.prpins.dao.impl.FirRenewListDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="firRenewListDtlDao" class="com.tlg.prpins.dao.impl.FirRenewListDtlDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+
+	<bean id="prpcpaymentDao" class="com.tlg.prpins.dao.impl.PrpcpaymentDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 end-->
+	
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 start-->
+	<bean id="fetclaimmainDao" class="com.tlg.prpins.dao.impl.FetclaimmainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetclaimpayDao" class="com.tlg.prpins.dao.impl.FetclaimpayDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetclaimkindDao" class="com.tlg.prpins.dao.impl.FetclaimkindDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetclaimcommDao" class="com.tlg.prpins.dao.impl.FetclaimcommDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="tmpfetclaimmainDao" class="com.tlg.prpins.dao.impl.TmpfetclaimmainDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="tmpfetclaimpayDao" class="com.tlg.prpins.dao.impl.TmpfetclaimpayDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="tmpfetclaimkindDao" class="com.tlg.prpins.dao.impl.TmpfetclaimkindDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="tmpfetclaimcommDao" class="com.tlg.prpins.dao.impl.TmpfetclaimcommDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 end-->
+
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 start -->
+	<bean id="prpcplanDao" class="com.tlg.prpins.dao.impl.PrpcplanDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="intfprpjpayrefrecDao" class="com.tlg.prpins.dao.impl.IntfprpjpayrefrecDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 end -->
+	
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 start -->
+	<bean id="firBatchTiiListDao" class="com.tlg.prpins.dao.impl.FirBatchTiiListDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchTiiDao" class="com.tlg.prpins.dao.impl.FirBatchTiiDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<bean id="firBatchTiiAddrDao" class="com.tlg.prpins.dao.impl.FirBatchTiiAddrDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 end -->
+	
+	<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫 -->
+	<bean id="firBatchTiiReturnLogDao" class="com.tlg.prpins.dao.impl.FirBatchTiiReturnLogDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<bean id="firRenewPhoneDao" class="com.tlg.prpins.dao.impl.FirRenewPhoneDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+	<bean id="miClaimSpDao" class="com.tlg.prpins.dao.impl.MiClaimSpDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 -->
+	<bean id="carReinsurancePlanDao" class="com.tlg.prpins.dao.impl.CarReinsurancePlanDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- 理賠再保險分進業務輸入 start-->
+	<bean id="reinsInwardClaimDataDao" class="com.tlg.prpins.dao.impl.ReinsInwardClaimDataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="reinsInwardClaimInsDataDao" class="com.tlg.prpins.dao.impl.ReinsInwardClaimInsDataDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpdcodeDao" class="com.tlg.prpins.dao.impl.PrpdcodeDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- 理賠再保險分進業務輸入 end-->
+	
+	<bean id="prpdrationclausekindDao" class="com.tlg.prpins.dao.impl.PrpdrationclausekindDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpdclausereportDao" class="com.tlg.prpins.dao.impl.PrpdclausereportDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 Start -->
+	<bean id="prpdcarmodelextDao" class="com.tlg.prpins.dao.impl.PrpdcarmodelextDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 End -->
+	
+	<bean id="prpccommissionDao" class="com.tlg.prpins.dao.impl.PrpccommissionDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="prpcopycommissionDao" class="com.tlg.prpins.dao.impl.PrpcopycommissionDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+	<bean id="firAgtrnBatchBotDao" class="com.tlg.prpins.dao.impl.FirAgtrnBatchBotDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+	
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 start-->
+	<bean id="prpLuserDao" class="com.tlg.prpins.dao.impl.PrpLuserDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryApplicantDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryApplicantDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryApportionDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryApportionDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryCaseDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryCaseDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryChargesDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryChargesDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryJobDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryJobDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="claimCompulsoryStatePricesDao" class="com.tlg.prpins.dao.impl.ClaimCompulsoryStatePricesDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 end-->
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 start-->
+	<bean id="firAgtrnBatchYcbDao" class="com.tlg.prpins.dao.impl.FirAgtrnBatchYcbDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 end-->
+	
+	<!-- Base Service -->
+	
+	<bean id="firPremcalcTmpService" class="com.tlg.prpins.service.impl.FirPremcalcTmpServiceImpl">
+		<property name="firPremcalcTmpDao" ref="firPremcalcTmpDao"/>
+	</bean>
+	
+	<bean id="firPremcalcTmpdtlService" class="com.tlg.prpins.service.impl.FirPremcalcTmpdtlServiceImpl">
+		<property name="firPremcalcTmpdtlDao" ref="firPremcalcTmpdtlDao"/>
+	</bean>
+	
+	<bean id="prpdPropStructService" class="com.tlg.prpins.service.impl.PrpdPropStructServiceImpl">
+		<property name="prpdPropStructDao" ref="prpdPropStructDao"/>
+	</bean>
+	
+	<bean id="firDangerGradeService" class="com.tlg.prpins.service.impl.FirDangerGradeServiceImpl">
+		<property name="firDangerGradeDao" ref="firDangerGradeDao"/>
+	</bean>
+	
+	<bean id="prpdBaseRateService" class="com.tlg.prpins.service.impl.PrpdBaseRateServiceImpl">
+		<property name="prpdBaseRateDao" ref="prpdBaseRateDao"/>
+	</bean>
+	
+	<bean id="firPremiumRateService" class="com.tlg.prpins.service.impl.FirPremiumRateServiceImpl">
+		<property name="firPremiumRateDao" ref="firPremiumRateDao"/>
+	</bean>
+	
+	<bean id="firPremiumRate1Service" class="com.tlg.prpins.service.impl.FirPremiumRate1ServiceImpl">
+		<property name="firPremiumRate1Dao" ref="firPremiumRate1Dao"/>
+	</bean>
+	
+	<bean id="firPremiumRate2Service" class="com.tlg.prpins.service.impl.FirPremiumRate2ServiceImpl">
+		<property name="firPremiumRate2Dao" ref="firPremiumRate2Dao"/>
+	</bean>
+	
+	<bean id="firPremiumRate3Service" class="com.tlg.prpins.service.impl.FirPremiumRate3ServiceImpl">
+		<property name="firPremiumRate3Dao" ref="firPremiumRate3Dao"/>
+	</bean>
+	
+	<bean id="firDoubleQuakeQlistService" class="com.tlg.prpins.service.impl.FirDoubleQuakeQlistServiceImpl">
+		<property name="firDoubleQuakeQlistDao" ref="firDoubleQuakeQlistDao"/>
+	</bean>
+	
+	<bean id="pbPremcalcCklistService" class="com.tlg.prpins.service.impl.PbPremcalcCklistServiceImpl">
+		<property name="pbPremcalcCklistDao" ref="pbPremcalcCklistDao"/>
+	</bean>
+	
+	<bean id="pbCklistGroupService" class="com.tlg.prpins.service.impl.PbCklistGroupServiceImpl">
+		<property name="pbCklistGroupDao" ref="pbCklistGroupDao"/>
+	</bean>
+	
+	<bean id="pbCklistScoreService" class="com.tlg.prpins.service.impl.PbCklistScoreServiceImpl">
+		<property name="pbCklistScoreDao" ref="pbCklistScoreDao"/>
+	</bean>
+	
+	<bean id="pbPremiumRateService" class="com.tlg.prpins.service.impl.PbPremiumRateServiceImpl">
+		<property name="pbPremiumRateDao" ref="pbPremiumRateDao"/>
+	</bean>
+	
+	<bean id="pbPremiumRate1Service" class="com.tlg.prpins.service.impl.PbPremiumRate1ServiceImpl">
+		<property name="pbPremiumRate1Dao" ref="pbPremiumRate1Dao"/>
+	</bean>
+	
+	<bean id="pbPremiumRate2Service" class="com.tlg.prpins.service.impl.PbPremiumRate2ServiceImpl">
+		<property name="pbPremiumRate2Dao" ref="pbPremiumRate2Dao"/>
+	</bean>
+	
+	<bean id="pbPremiumRate4Service" class="com.tlg.prpins.service.impl.PbPremiumRate4ServiceImpl">
+		<property name="pbPremiumRate4Dao" ref="pbPremiumRate4Dao"/>
+	</bean>
+	
+	<bean id="pbPremcalcClauseService" class="com.tlg.prpins.service.impl.PbPremcalcClauseServiceImpl">
+		<property name="pbPremcalcClauseDao" ref="pbPremcalcClauseDao"/>
+	</bean>
+	
+	<bean id="prpdbankinfoService" class="com.tlg.prpins.service.impl.PrpdbankinfoServiceImpl">
+		<property name="prpdbankinfoDao" ref="prpdbankinfoDao"/>
+	</bean>
+	
+	<bean id="pbActivityCklistScoreService" class="com.tlg.prpins.service.impl.PbActivityCklistScoreServiceImpl">
+		<property name="pbActivityCklistScoreDao" ref="pbActivityCklistScoreDao"/>
+	</bean>
+
+	<bean id="pbDangerGradeService" class="com.tlg.prpins.service.impl.PbDangerGradeServiceImpl">
+		<property name="pbDangerGradeDao" ref="pbDangerGradeDao"/>
+	</bean>
+
+	<bean id="pbPremcalcAdditionTermService" class="com.tlg.prpins.service.impl.PbPremcalcAdditionTermServiceImpl">
+		<property name="pbPremcalcAdditionTermDao" ref="pbPremcalcAdditionTermDao"/>
+	</bean>
+
+	<bean id="pbPremcalcTmpService" class="com.tlg.prpins.service.impl.PbPremcalcTmpServiceImpl">
+		<property name="pbPremcalcTmpDao" ref="pbPremcalcTmpDao"/>
+	</bean>
+
+	<bean id="pbPremcalcTmpdtlService" class="com.tlg.prpins.service.impl.PbPremcalcTmpdtlServiceImpl">
+		<property name="pbPremcalcTmpdtlDao" ref="pbPremcalcTmpdtlDao"/>
+	</bean>
+
+	<bean id="pbPremiumRate0Service" class="com.tlg.prpins.service.impl.PbPremiumRate0ServiceImpl">
+		<property name="pbPremiumRate0Dao" ref="pbPremiumRate0Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate10Service" class="com.tlg.prpins.service.impl.PbPremiumRate10ServiceImpl">
+		<property name="pbPremiumRate10Dao" ref="pbPremiumRate10Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate5Service" class="com.tlg.prpins.service.impl.PbPremiumRate5ServiceImpl">
+		<property name="pbPremiumRate5Dao" ref="pbPremiumRate5Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate6Service" class="com.tlg.prpins.service.impl.PbPremiumRate6ServiceImpl">
+		<property name="pbPremiumRate6Dao" ref="pbPremiumRate6Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate7Service" class="com.tlg.prpins.service.impl.PbPremiumRate7ServiceImpl">
+		<property name="pbPremiumRate7Dao" ref="pbPremiumRate7Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate8Service" class="com.tlg.prpins.service.impl.PbPremiumRate8ServiceImpl">
+		<property name="pbPremiumRate8Dao" ref="pbPremiumRate8Dao"/>
+	</bean>
+
+	<bean id="pbPremiumRate9Service" class="com.tlg.prpins.service.impl.PbPremiumRate9ServiceImpl">
+		<property name="pbPremiumRate9Dao" ref="pbPremiumRate9Dao"/>
+	</bean>
+
+	<bean id="pbQueryDetailService" class="com.tlg.prpins.service.impl.PbQueryDetailServiceImpl">
+		<property name="pbQueryDetailDao" ref="pbQueryDetailDao"/>
+	</bean>
+	
+	<bean id="firCalcamtWallnoService" class="com.tlg.prpins.service.impl.FirCalcamtWallnoServiceImpl">
+		<property name="firCalcamtWallnoDao" ref="firCalcamtWallnoDao"/>
+	</bean>
+	
+	<bean id="utiRecorderService" class="com.tlg.prpins.service.impl.UtiRecorderServiceImpl">
+		<property name="utiRecorderDao" ref="utiRecorderDao"/>
+	</bean>
+	
+	<bean id="carTradevanApplyLogService" class="com.tlg.prpins.service.impl.CarTradevanApplyLogServiceImpl">
+		<property name="carTradevanApplyLogDao" ref="carTradevanApplyLogDao"/>
+	</bean>	
+	
+	<bean id="uwblacklistService" class="com.tlg.prpins.service.impl.UwblacklistServiceImpl">
+		<property name="uwblacklistDao" ref="uwblacklistDao"/>
+	</bean>
+	
+	<bean id="prplClaimService" class="com.tlg.prpins.service.impl.PrplClaimServiceImpl">
+		<property name="prplClaimDao" ref="prplClaimDao"/>
+	</bean>
+	
+	<bean id="firBatchLogService" class="com.tlg.prpins.service.impl.FirBatchLogServiceImpl">
+		<property name="firBatchLogDao" ref="firBatchLogDao"/>
+	</bean>
+	
+	<bean id="firCtbcBatchMainService" class="com.tlg.prpins.service.impl.FirCtbcBatchMainServiceImpl">
+		<property name="firCtbcBatchMainDao" ref="firCtbcBatchMainDao"/>
+	</bean>
+	
+	<bean id="firCtbcBatchDtlService" class="com.tlg.prpins.service.impl.FirCtbcBatchDtlServiceImpl">
+		<property name="firCtbcBatchDtlDao" ref="firCtbcBatchDtlDao"/>
+	</bean>
+
+	<bean id="firCtbcTmpStlService" class="com.tlg.prpins.service.impl.FirCtbcTmpStlServiceImpl">
+		<property name="firCtbcTmpStlDao" ref="firCtbcTmpStlDao"/>
+	</bean>
+	
+	<bean id="firCtbcTmpSnnService" class="com.tlg.prpins.service.impl.FirCtbcTmpSnnServiceImpl">
+		<property name="firCtbcTmpSnnDao" ref="firCtbcTmpSnnDao"/>
+	</bean>
+	
+	<bean id="firCtbcTmpPblService" class="com.tlg.prpins.service.impl.FirCtbcTmpPblServiceImpl">
+		<property name="firCtbcTmpPblDao" ref="firCtbcTmpPblDao"/>
+	</bean>
+	
+	<bean id="firCtbcSigService" class="com.tlg.prpins.service.impl.FirCtbcSigServiceImpl">
+		<property name="firCtbcSigDao" ref="firCtbcSigDao"/>
+	</bean>
+	
+	<bean id="firCtbcStlService" class="com.tlg.prpins.service.impl.FirCtbcStlServiceImpl">
+		<property name="firCtbcStlDao" ref="firCtbcStlDao"/>
+	</bean>
+	
+	<bean id="firCtbcSnnService" class="com.tlg.prpins.service.impl.FirCtbcSnnServiceImpl">
+		<property name="firCtbcSnnDao" ref="firCtbcSnnDao"/>
+	</bean>
+	
+	<bean id="prptmainService" class="com.tlg.prpins.service.impl.PrptmainServiceImpl">
+		<property name="prptmainDao" ref="prptmainDao"/>
+	</bean>
+	
+	<bean id="firCtbcRstService" class="com.tlg.prpins.service.impl.FirCtbcRstServiceImpl">
+		<property name="firCtbcRstDao" ref="firCtbcRstDao"/>
+	</bean>
+	
+	<bean id="firSpService" class="com.tlg.prpins.service.impl.FirSpServiceImpl">
+		<property name="firSpDao" ref="firSpDao"/>
+	</bean>
+	
+	<bean id="firRptCtbcCtfService" class="com.tlg.prpins.service.impl.FirRptCtbcCtfServiceImpl">
+		<property name="firRptCtbcCtfDao" ref="firRptCtbcCtfDao"/>
+	</bean>
+	
+	<bean id="firCtbcDeptinfoService" class="com.tlg.prpins.service.impl.FirCtbcDeptinfoServiceImpl">
+		<property name="firCtbcDeptinfoDao" ref="firCtbcDeptinfoDao"/>
+	</bean>
+	
+	<bean id="firBatchInfoService" class="com.tlg.prpins.service.impl.FirBatchInfoServiceImpl">
+		<property name="firBatchInfoDao" ref="firBatchInfoDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核 -->
+	<bean id="firTmpDatacheckService" class="com.tlg.prpins.service.impl.FirTmpDatacheckServiceImpl">
+		<property name="firTmpDatacheckDao" ref="firTmpDatacheckDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 start -->
+	<bean id="firAddrImportlistService" class="com.tlg.prpins.service.impl.FirAddrImportlistServiceImpl">
+		<property name="firAddrImportlistDao" ref="firAddrImportlistDao"/>
+	</bean>
+
+	<bean id="firAddrImporterrService" class="com.tlg.prpins.service.impl.FirAddrImporterrServiceImpl">
+		<property name="firAddrImporterrDao" ref="firAddrImporterrDao"/>
+	</bean>
+	
+	<bean id="firAddrCkdataService" class="com.tlg.prpins.service.impl.FirAddrCkdataServiceImpl">
+		<property name="firAddrCkdataDao" ref="firAddrCkdataDao"/>
+	</bean>
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 end -->
+	
+	<!-- mantis：FIR0238，處理人員：BJ085，需求單編號：FIR0238 稽核議題檢核-例外地址維護作業  -->
+	<bean id="firRuleAddrExcpService" class="com.tlg.prpins.service.impl.FirRuleAddrExcpServiceImpl">
+		<property name="firRuleAddrExcpDao" ref="firRuleAddrExcpDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0181， 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) -->
+	<bean id="firApsCtbcHandlerService" class="com.tlg.prpins.service.impl.FirApsCtbcHandlerServiceImpl">
+		<property name="firApsCtbcHandlerDao" ref="firApsCtbcHandlerDao"/>
+	</bean>
+	
+	<bean id="prpduserService" class="com.tlg.prpins.service.impl.PrpduserServiceImpl">
+		<property name="prpduserDao" ref="prpduserDao"/>
+	</bean>
+	
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 start -->
+	<bean id="amlQueryObjMainService" class="com.tlg.prpins.service.impl.AmlQueryObjMainServiceImpl">
+		<property name="amlQueryObjMainDao" ref="amlQueryObjMainDao"/>
+	</bean>
+	
+	<bean id="amlQueryObjDetailService" class="com.tlg.prpins.service.impl.AmlQueryObjDetailServiceImpl">
+		<property name="amlQueryObjDetailDao" ref="amlQueryObjDetailDao"/>
+	</bean>
+	
+	<bean id="metaAmlResultMainService" class="com.tlg.prpins.service.impl.MetaAmlResultMainServiceImpl">
+		<property name="metaAmlResultMainDao" ref="metaAmlResultMainDao"/>
+	</bean>
+	
+	<bean id="metaAmlResultDetailService" class="com.tlg.prpins.service.impl.MetaAmlResultDetailServiceImpl">
+		<property name="metaAmlResultDetailDao" ref="metaAmlResultDetailDao"/>
+	</bean>
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 end -->
+
+	<!--mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程 -->
+	<bean id="firAgtBatchMainService" class="com.tlg.prpins.service.impl.FirAgtBatchMainServiceImpl">
+		<property name="firAgtBatchMainDao" ref="firAgtBatchMainDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 start -->
+	<bean id="firAgtBatchDtlService" class="com.tlg.prpins.service.impl.FirAgtBatchDtlServiceImpl">
+		<property name="firAgtBatchDtlDao" ref="firAgtBatchDtlDao"/>
+	</bean>
+
+	<bean id="firAgtBop01Service" class="com.tlg.prpins.service.impl.FirAgtBop01ServiceImpl">
+		<property name="firAgtBop01Dao" ref="firAgtBop01Dao"/>
+	</bean>
+	
+	<bean id="firAgtBop02Service" class="com.tlg.prpins.service.impl.FirAgtBop02ServiceImpl">
+		<property name="firAgtBop02Dao" ref="firAgtBop02Dao"/>
+	</bean>
+	
+	<bean id="firAgtBatchGenfileService" class="com.tlg.prpins.service.impl.FirAgtBatchGenfileServiceImpl">
+		<property name="firAgtBatchGenfileDao" ref="firAgtBatchGenfileDao"/>
+	</bean>
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 end -->
+	
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 start -->
+	<bean id="firCtbcRewNoticeBatchService" class="com.tlg.prpins.service.impl.FirCtbcRewNoticeBatchServiceImpl">
+		<property name="firCtbcRewNoticeBatchDao" ref="firCtbcRewNoticeBatchDao"/>
+	</bean>
+	<bean id="firCtbcRewOriginal180Service" class="com.tlg.prpins.service.impl.FirCtbcRewOriginal180ServiceImpl">
+		<property name="firCtbcRewOriginal180Dao" ref="firCtbcRewOriginal180Dao"/>
+	</bean>
+	<bean id="firCtbcRewDontnoticeService" class="com.tlg.prpins.service.impl.FirCtbcRewDontnoticeServiceImpl">
+		<property name="firCtbcRewDontnoticeDao" ref="firCtbcRewDontnoticeDao"/>
+	</bean>
+	<bean id="firCtbcRewFix180Service" class="com.tlg.prpins.service.impl.FirCtbcRewFix180ServiceImpl">
+		<property name="firCtbcRewFix180Dao" ref="firCtbcRewFix180Dao"/>
+	</bean>
+	<bean id="firCtbcRewMatchLogService" class="com.tlg.prpins.service.impl.FirCtbcRewMatchLogServiceImpl">
+		<property name="firCtbcRewMatchLogDao" ref="firCtbcRewMatchLogDao"/>
+	</bean>
+	<bean id="firCtbcRewNoshowwordService" class="com.tlg.prpins.service.impl.FirCtbcRewNoshowwordServiceImpl">
+		<property name="firCtbcRewNoshowwordDao" ref="firCtbcRewNoshowwordDao"/>
+	</bean>
+	<bean id="firCtbcRewSnnService" class="com.tlg.prpins.service.impl.FirCtbcRewSnnServiceImpl">
+		<property name="firCtbcRewSnnDao" ref="firCtbcRewSnnDao"/>
+	</bean>
+	<bean id="prpcaddressService" class="com.tlg.prpins.service.impl.PrpcaddressServiceImpl">
+		<property name="prpcaddressDao" ref="prpcaddressDao"/>
+	</bean>
+	<bean id="prpcinsuredService" class="com.tlg.prpins.service.impl.PrpcinsuredServiceImpl">
+		<property name="prpcinsuredDao" ref="prpcinsuredDao"/>
+	</bean>
+	<bean id="prpcinsurednatureService" class="com.tlg.prpins.service.impl.PrpcinsurednatureServiceImpl">
+		<property name="prpcinsurednatureDao" ref="prpcinsurednatureDao"/>
+	</bean>
+	<bean id="prpcitemkindService" class="com.tlg.prpins.service.impl.PrpcitemkindServiceImpl">
+		<property name="prpcitemkindDao" ref="prpcitemkindDao"/>
+	</bean>
+	<bean id="prpcmainService" class="com.tlg.prpins.service.impl.PrpcmainServiceImpl">
+		<property name="prpcmainDao" ref="prpcmainDao"/>
+	</bean>
+	<bean id="prpcmainpropService" class="com.tlg.prpins.service.impl.PrpcmainpropServiceImpl">
+		<property name="prpcmainpropDao" ref="prpcmainpropDao"/>
+	</bean>
+	<bean id="firCtbcRewMatchnameService" class="com.tlg.prpins.service.impl.FirCtbcRewMatchnameServiceImpl">
+		<property name="firCtbcRewMatchnameDao" ref="firCtbcRewMatchnameDao"/>
+	</bean>
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 end -->
+	
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 start -->
+	<bean id="firAgtrnBatchMainService" class="com.tlg.prpins.service.impl.FirAgtrnBatchMainServiceImpl">
+		<property name="firAgtrnBatchMainDao" ref="firAgtrnBatchMainDao"/>
+	</bean>
+	<bean id="firAgtrnTmpBopService" class="com.tlg.prpins.service.impl.FirAgtrnTmpBopServiceImpl">
+		<property name="firAgtrnTmpBopDao" ref="firAgtrnTmpBopDao"/>
+	</bean>
+	<bean id="firAgtrnBatchDtlService" class="com.tlg.prpins.service.impl.FirAgtrnBatchDtlServiceImpl">
+		<property name="firAgtrnBatchDtlDao" ref="firAgtrnBatchDtlDao"/>
+	</bean>
+	<bean id="firAgtSalesMappingService" class="com.tlg.prpins.service.impl.FirAgtSalesMappingServiceImpl">
+		<property name="firAgtSalesMappingDao" ref="firAgtSalesMappingDao"/>
+	</bean>
+	<bean id="firAgtTocoreMainService" class="com.tlg.prpins.service.impl.FirAgtTocoreMainServiceImpl">
+		<property name="firAgtTocoreMainDao" ref="firAgtTocoreMainDao"/>
+	</bean>
+	<bean id="firAgtTocoreInsuredService" class="com.tlg.prpins.service.impl.FirAgtTocoreInsuredServiceImpl">
+		<property name="firAgtTocoreInsuredDao" ref="firAgtTocoreInsuredDao"/>
+	</bean>
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 end -->
+	
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 START-->
+	<bean id="prpdnewcodeService" class="com.tlg.prpins.service.impl.PrpdnewcodeServiceImpl">
+		<property name="prpdnewcodeDao" ref="prpdnewcodeDao"/>
+	</bean>
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 END-->
+
+	<!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業 -->
+	<bean id="prpyddagentService" class="com.tlg.prpins.service.impl.PrpyddagentServiceImpl">
+		<property name="prpyddagentDao" ref="prpyddagentDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 START-->
+	<bean id="firBatchSendmailDetailService" class="com.tlg.prpins.service.impl.FirBatchSendmailDetailServiceImpl">
+		<property name="firBatchSendmailDetailDao" ref="firBatchSendmailDetailDao"/>
+	</bean>
+	<bean id="firBatchSendmailOkService" class="com.tlg.prpins.service.impl.FirBatchSendmailOkServiceImpl">
+		<property name="firBatchSendmailOkDao" ref="firBatchSendmailOkDao"/>
+	</bean>
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 END-->
+	
+	<!-- mantis：MAR0037，處理人員：BJ085，需求單編號：MAR0037 高風險地區新增維護檔 -->
+	<bean id="prpdhighareaMcService" class="com.tlg.prpins.service.impl.PrpdhighareaMcServiceImpl">
+		<property name="prpdhighareaMcDao" ref="prpdhighareaMcDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程 -->
+	<bean id="firAgtBotApService" class="com.tlg.prpins.service.impl.FirAgtBotApServiceImpl">
+		<property name="firAgtBotApDao" ref="firAgtBotApDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程 -->
+	<bean id="firAgtBotFdService" class="com.tlg.prpins.service.impl.FirAgtBotFdServiceImpl">
+		<property name="firAgtBotFdDao" ref="firAgtBotFdDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程 -->
+	<bean id="firAgtBotFhService" class="com.tlg.prpins.service.impl.FirAgtBotFhServiceImpl">
+		<property name="firAgtBotFhDao" ref="firAgtBotFhDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0369，處理人員：BJ085，需求單編號：FIR0369 增加電子保單不寄送單位業務來源設定 -->
+	<bean id="firBatchmailExcludedataService" class="com.tlg.prpins.service.impl.FirBatchmailExcludedataServiceImpl">
+		<property name="firBatchmailExcludedataDao" ref="firBatchmailExcludedataDao"/>
+	</bean>
+	
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 start -->
+	<bean id="prpcinsuredContactChk0Service" class="com.tlg.prpins.service.impl.PrpcinsuredContactChk0ServiceImpl">
+		<property name="prpcinsuredContactChk0Dao" ref="prpcinsuredContactChk0Dao"/>
+	</bean>
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 end -->
+	
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 start -->
+	<bean id="firAgtrnAs400DataUplistService" class="com.tlg.prpins.service.impl.FirAgtrnAs400DataUplistServiceImpl">
+		<property name="firAgtrnAs400DataUplistDao" ref="firAgtrnAs400DataUplistDao"/>
+	</bean>
+
+	<bean id="firAgtrnAs400DataService" class="com.tlg.prpins.service.impl.FirAgtrnAs400DataServiceImpl">
+		<property name="firAgtrnAs400DataDao" ref="firAgtrnAs400DataDao"/>
+	</bean>
+
+	<bean id="firAgtrnAs400DataErrService" class="com.tlg.prpins.service.impl.FirAgtrnAs400DataErrServiceImpl">
+		<property name="firAgtrnAs400DataErrDao" ref="firAgtrnAs400DataErrDao"/>
+	</bean>
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 end -->
+
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 start -->
+	<bean id="firBatchPins01Service" class="com.tlg.prpins.service.impl.FirBatchPins01ServiceImpl">
+		<property name="firBatchPins01Dao" ref="firBatchPins01Dao"/>
+	</bean>
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 end -->
+	
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 start -->
+	<bean id="firBatchPins01DetailService" class="com.tlg.prpins.service.impl.FirBatchPins01DetailServiceImpl">
+		<property name="firBatchPins01DetailDao" ref="firBatchPins01DetailDao"/>
+	</bean>
+	
+	<bean id="firBatchPins01SpMainService" class="com.tlg.prpins.service.impl.FirBatchPins01SpMainServiceImpl">
+		<property name="firBatchPins01SpMainDao" ref="firBatchPins01SpMainDao"/>
+	</bean>
+	
+	<bean id="firBatchPins01SpDtlService" class="com.tlg.prpins.service.impl.FirBatchPins01SpDtlServiceImpl">
+		<property name="firBatchPins01SpDtlDao" ref="firBatchPins01SpDtlDao"/>
+	</bean>
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 end -->
+	
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 start-->
+	<bean id="renewalnoticeService" class="com.tlg.prpins.service.impl.RenewalnoticeServiceImpl">
+		<property name="renewalnoticeDao" ref="renewalnoticeDao"/>
+	</bean>
+	
+	<bean id="tiiTvbcmService" class="com.tlg.prpins.service.impl.TiiTvbcmServiceImpl">
+		<property name="tiiTvbcmDao" ref="tiiTvbcmDao"/>
+	</bean>
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 end-->
+
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 -->
+	<bean id="tiiTvmcqService" class="com.tlg.prpins.service.impl.TiiTvmcqServiceImpl">
+		<property name="tiiTvmcqDao" ref="tiiTvmcqDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 start -->
+	<bean id="firCtbcRnproposalMainService" class="com.tlg.prpins.service.impl.FirCtbcRnproposalMainServiceImpl">
+		<property name="firCtbcRnproposalMainDao" ref="firCtbcRnproposalMainDao"/>
+	</bean>
+	
+	<bean id="firCtbcRnproposalDtlService" class="com.tlg.prpins.service.impl.FirCtbcRnproposalDtlServiceImpl">
+		<property name="firCtbcRnproposalDtlDao" ref="firCtbcRnproposalDtlDao"/>
+	</bean>
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 end -->
+	
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+	<bean id="firAgtrnBatchFbService" class="com.tlg.prpins.service.impl.FirAgtrnBatchFbServiceImpl">
+		<property name="firAgtrnBatchFbDao" ref="firAgtrnBatchFbDao"/>
+	</bean>
+	<bean id="firAgtrnTmpFbService" class="com.tlg.prpins.service.impl.FirAgtrnTmpFbServiceImpl">
+		<property name="firAgtrnTmpFbDao" ref="firAgtrnTmpFbDao"/>
+	</bean>
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+
+	<!-- 再保險分進業務輸入 start-->
+	<bean id="reinsInwardMainDataService" class="com.tlg.prpins.service.impl.ReinsInwardMainDataServiceImpl">
+		<property name="reinsInwardMainDataDao" ref="reinsInwardMainDataDao"/>
+	</bean>
+
+	<bean id="reinsInwardInsDataService" class="com.tlg.prpins.service.impl.ReinsInwardInsDataServiceImpl">
+		<property name="reinsInwardInsDataDao" ref="reinsInwardInsDataDao"/>
+	</bean>
+	
+	<bean id="reinsInwardNoService" class="com.tlg.prpins.service.impl.ReinsInwardNoServiceImpl">
+		<property name="reinsInwardNoDao" ref="reinsInwardNoDao"/>
+	</bean>
+
+	<!-- 再保險分進業務輸入 end-->
+	
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 start -->
+	<bean id="othBatchPassbookNcDataService" class="com.tlg.prpins.service.impl.OthBatchPassbookNcDataServiceImpl">
+		<property name="othBatchPassbookNcDataDao" ref="othBatchPassbookNcDataDao"/>
+	</bean>
+	
+	<bean id="othPassbookSpService" class="com.tlg.prpins.service.impl.OthPassbookSpServiceImpl">
+		<property name="othPassbookSpDao" ref="othPassbookSpDao"/>
+	</bean>
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 end -->
+	
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 start -->
+	<bean id="othBatchPassbookService" class="com.tlg.prpins.service.impl.OthBatchPassbookServiceImpl">
+		<property name="othBatchPassbookDao" ref="othBatchPassbookDao"/>
+	</bean>
+	<bean id="othBatchPassbookListService" class="com.tlg.prpins.service.impl.OthBatchPassbookListServiceImpl">
+		<property name="othBatchPassbookListDao" ref="othBatchPassbookListDao"/>
+	</bean>
+	<bean id="othBatchPassbookKindService" class="com.tlg.prpins.service.impl.OthBatchPassbookKindServiceImpl">
+		<property name="othBatchPassbookKindDao" ref="othBatchPassbookKindDao"/>
+	</bean>
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 end -->
+	
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 start -->
+	<bean id="firAgtBop03Service" class="com.tlg.prpins.service.impl.FirAgtBop03ServiceImpl">
+		<property name="firAgtBop03Dao" ref="firAgtBop03Dao"/>
+	</bean>
+	
+	<bean id="firAgtBop04Service" class="com.tlg.prpins.service.impl.FirAgtBop04ServiceImpl">
+		<property name="firAgtBop04Dao" ref="firAgtBop04Dao"/>
+	</bean>
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 end -->
+
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 start -->
+	<bean id="firAgtYcb02Service" class="com.tlg.prpins.service.impl.FirAgtYcb02ServiceImpl">
+		<property name="firAgtYcb02Dao" ref="firAgtYcb02Dao"/>
+	</bean>
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 end -->
+
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215_TA雄獅 回饋檔 start -->
+	<bean id="hasBatchInfoService" class="com.tlg.prpins.service.impl.HasBatchInfoServiceImpl">
+		<property name="hasBatchInfoDao" ref="hasBatchInfoDao"/>
+	</bean>
+	
+	<bean id="hasBatchLogService" class="com.tlg.prpins.service.impl.HasBatchLogServiceImpl">
+		<property name="hasBatchLogDao" ref="hasBatchLogDao"/>
+	</bean>
+	
+	<bean id="hasSpService" class="com.tlg.prpins.service.impl.HasSpServiceImpl">
+		<property name="hasSpDao" ref="hasSpDao"/>
+	</bean>
+	
+	<bean id="hasAgtBatchMainService" class="com.tlg.prpins.service.impl.HasAgtBatchMainServiceImpl">
+		<property name="hasAgtBatchMainDao" ref="hasAgtBatchMainDao"/>
+	</bean>
+	
+	<bean id="hasAgtBatchDtlService" class="com.tlg.prpins.service.impl.HasAgtBatchDtlServiceImpl">
+		<property name="hasAgtBatchDtlDao" ref="hasAgtBatchDtlDao"/>
+	</bean>
+	
+	<bean id="hasAgtLionACService" class="com.tlg.prpins.service.impl.HasAgtLionACServiceImpl">
+		<property name="hasAgtLionACDao" ref="hasAgtLionACDao"/>
+	</bean>
+	
+	<bean id="hasAgtLionCHService" class="com.tlg.prpins.service.impl.HasAgtLionCHServiceImpl">
+		<property name="hasAgtLionCHDao" ref="hasAgtLionCHDao"/>
+	</bean>
+	
+	<bean id="hasAgtLionCMService" class="com.tlg.prpins.service.impl.HasAgtLionCMServiceImpl">
+		<property name="hasAgtLionCMDao" ref="hasAgtLionCMDao"/>
+	</bean>
+	
+	<bean id="hasAgtLionCLService" class="com.tlg.prpins.service.impl.HasAgtLionCLServiceImpl">
+		<property name="hasAgtLionCLDao" ref="hasAgtLionCLDao"/>
+	</bean>
+	
+	<bean id="hasAgtLionOPService" class="com.tlg.prpins.service.impl.HasAgtLionOPServiceImpl">
+		<property name="hasAgtLionOPDao" ref="hasAgtLionOPDao"/>
+	</bean>
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215_TA雄獅 回饋檔  END-->
+
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 start -->
+	<bean id="hasAgtLawPolService" class="com.tlg.prpins.service.impl.HasAgtLawPolServiceImpl">
+		<property name="hasAgtLawPolDao" ref="hasAgtLawPolDao"/>
+	</bean>
+	<bean id="hasAgtLawPolDetailService" class="com.tlg.prpins.service.impl.HasAgtLawPolDetailServiceImpl">
+		<property name="hasAgtLawPolDetailDao" ref="hasAgtLawPolDetailDao"/>
+	</bean>
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 end -->
+
+	<!-- mantis：FIR0497，處理人員：BJ085，需求單編號：FIR0497 中信保代網投_新件回饋檔產生排程規格_新增保經代網投 -->
+	<bean id="firCtbcB2b2cService" class="com.tlg.prpins.service.impl.FirCtbcB2b2cServiceImpl">
+		<property name="firCtbcB2b2cDao" ref="firCtbcB2b2cDao"/>
+	</bean>
+	
+	<!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 -->
+	<bean id="othBatchPassbookReturnLogService" class="com.tlg.prpins.service.impl.OthBatchPassbookReturnLogServiceImpl">
+		<property name="othBatchPassbookReturnLogDao" ref="othBatchPassbookReturnLogDao"/>
+	</bean>
+	
+	<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) -->
+	<bean id="firBatchSendmailService" class="com.tlg.prpins.service.impl.FirBatchSendmailServiceImpl">
+		<property name="firBatchSendmailDao" ref="firBatchSendmailDao"/>
+	</bean>
+	
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 start -->
+	<bean id="carAddrImportlistService" class="com.tlg.prpins.service.impl.CarAddrImportlistServiceImpl">
+		<property name="carAddrImportlistDao" ref="carAddrImportlistDao"/>
+	</bean>
+	<bean id="tii30nometpService" class="com.tlg.prpins.service.impl.Tii30nometpServiceImpl">
+		<property name="tii30nometpDao" ref="tii30nometpDao"/>
+	</bean>
+	<bean id="tiiTvmetpService" class="com.tlg.prpins.service.impl.TiiTvmetpServiceImpl">
+		<property name="tiiTvmetpDao" ref="tiiTvmetpDao"/>
+	</bean>
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 end -->
+	
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 start -->
+	<bean id="firAgtUb01Service" class="com.tlg.prpins.service.impl.FirAgtUb01ServiceImpl">
+		<property name="firAgtUb01Dao" ref="firAgtUb01Dao"/>
+	</bean>
+	<bean id="firAgtUb02Service" class="com.tlg.prpins.service.impl.FirAgtUb02ServiceImpl">
+		<property name="firAgtUb02Dao" ref="firAgtUb02Dao"/>
+	</bean>
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 end -->
+	
+	<!--mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 start -->
+	<bean id="firRepeatpolicyBatchMainService" class="com.tlg.prpins.service.impl.FirRepeatpolicyBatchMainServiceImpl">
+		<property name="firRepeatpolicyBatchMainDao" ref="firRepeatpolicyBatchMainDao"/>
+	</bean>
+	<bean id="firRepeatpolicyBatchDtlService" class="com.tlg.prpins.service.impl.FirRepeatpolicyBatchDtlServiceImpl">
+		<property name="firRepeatpolicyBatchDtlDao" ref="firRepeatpolicyBatchDtlDao"/>
+	</bean>
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 end -->
+
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 start-->
+	<bean id="firRenewListService" class="com.tlg.prpins.service.impl.FirRenewListServiceImpl">
+		<property name="firRenewListDao" ref="firRenewListDao"/>
+	</bean>
+
+	<bean id="firRenewListDtlService" class="com.tlg.prpins.service.impl.FirRenewListDtlServiceImpl">
+		<property name="firRenewListDtlDao" ref="firRenewListDtlDao"/>
+	</bean>
+
+	<bean id="prpcpaymentService" class="com.tlg.prpins.service.impl.PrpcpaymentServiceImpl">
+		<property name="prpcpaymentDao" ref="prpcpaymentDao"/>
+	</bean>
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 end-->
+	
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 start-->
+	<bean id="fetclaimmainService" class="com.tlg.prpins.service.impl.FetclaimmainServiceImpl">
+		<property name="fetclaimmainDao" ref="fetclaimmainDao"/>
+	</bean>
+	
+	<bean id="fetclaimpayService" class="com.tlg.prpins.service.impl.FetclaimpayServiceImpl">
+		<property name="fetclaimpayDao" ref="fetclaimpayDao"/>
+	</bean>
+	
+	<bean id="fetclaimkindService" class="com.tlg.prpins.service.impl.FetclaimkindServiceImpl">
+		<property name="fetclaimkindDao" ref="fetclaimkindDao"/>
+	</bean>
+	
+	<bean id="fetclaimcommService" class="com.tlg.prpins.service.impl.FetclaimcommServiceImpl">
+		<property name="fetclaimcommDao" ref="fetclaimcommDao"/>
+	</bean>
+	
+	<bean id="tmpfetclaimmainService" class="com.tlg.prpins.service.impl.TmpfetclaimmainServiceImpl">
+		<property name="tmpfetclaimmainDao" ref="tmpfetclaimmainDao"/>
+	</bean>
+	
+	<bean id="tmpfetclaimpayService" class="com.tlg.prpins.service.impl.TmpfetclaimpayServiceImpl">
+		<property name="tmpfetclaimpayDao" ref="tmpfetclaimpayDao"/>
+	</bean>
+	
+	<bean id="tmpfetclaimkindService" class="com.tlg.prpins.service.impl.TmpfetclaimkindServiceImpl">
+		<property name="tmpfetclaimkindDao" ref="tmpfetclaimkindDao"/>
+	</bean>
+	
+	<bean id="tmpfetclaimcommService" class="com.tlg.prpins.service.impl.TmpfetclaimcommServiceImpl">
+		<property name="tmpfetclaimcommDao" ref="tmpfetclaimcommDao"/>
+	</bean>
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 end-->
+
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 start -->
+	<bean id="prpcplanService" class="com.tlg.prpins.service.impl.PrpcplanServiceImpl">
+		<property name="prpcplanDao" ref="prpcplanDao"/>
+	</bean>	
+	<bean id="intfprpjpayrefrecService" class="com.tlg.prpins.service.impl.IntfprpjpayrefrecServiceImpl">
+		<property name="intfprpjpayrefrecDao" ref="intfprpjpayrefrecDao"/>
+	</bean>	
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 end -->
+	
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 start -->
+	<bean id="firBatchTiiListService" class="com.tlg.prpins.service.impl.FirBatchTiiListServiceImpl">
+		<property name="firBatchTiiListDao" ref="firBatchTiiListDao"/>
+	</bean>
+	
+	<bean id="firBatchTiiService" class="com.tlg.prpins.service.impl.FirBatchTiiServiceImpl">
+		<property name="firBatchTiiDao" ref="firBatchTiiDao"/>
+	</bean>
+	
+	<bean id="firBatchTiiAddrService" class="com.tlg.prpins.service.impl.FirBatchTiiAddrServiceImpl">
+		<property name="firBatchTiiAddrDao" ref="firBatchTiiAddrDao"/>
+	</bean>
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 end -->
+	
+	<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫 -->
+	<bean id="firBatchTiiReturnLogService" class="com.tlg.prpins.service.impl.FirBatchTiiReturnLogServiceImpl">
+		<property name="firBatchTiiReturnLogDao" ref="firBatchTiiReturnLogDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<bean id="firRenewPhoneService" class="com.tlg.prpins.service.impl.FirRenewPhoneServiceImpl">
+		<property name="firRenewPhoneDao" ref="firRenewPhoneDao"/>
+	</bean>
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+	<bean id="miClaimSpService" class="com.tlg.prpins.service.impl.MiClaimSpServiceImpl">
+		<property name="miClaimSpDao" ref="miClaimSpDao"/>
+	</bean>
+	
+	<!-- 再保險分進業務輸入 start-->
+	<bean id="reinsInwardClaimDataService" class="com.tlg.prpins.service.impl.ReinsInwardClaimDataServiceImpl">
+		<property name="reinsInwardClaimDataDao" ref="reinsInwardClaimDataDao"/>
+	</bean>
+
+	<bean id="reinsInwardClaimInsDataService" class="com.tlg.prpins.service.impl.ReinsInwardClaimInsDataServiceImpl">
+		<property name="reinsInwardClaimInsDataDao" ref="reinsInwardClaimInsDataDao"/>
+	</bean>
+
+	<bean id="prpdcodeService" class="com.tlg.prpins.service.impl.PrpdcodeServiceImpl">
+		<property name="prpdcodeDao" ref="prpdcodeDao"/>
+	</bean>
+	<!-- 再保險分進業務輸入 end-->
+		
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 -->
+	<bean id="carReinsurancePlanService" class="com.tlg.prpins.service.impl.CarReinsurancePlanServiceImpl">
+		<property name="carReinsurancePlanDao" ref="carReinsurancePlanDao"/>
+	</bean>
+	
+	<bean id="prpdrationclausekindService" class="com.tlg.prpins.service.impl.PrpdrationclausekindServiceImpl">
+		<property name="prpdrationclausekindDao" ref="prpdrationclausekindDao"/>
+	</bean>
+	<bean id="prpdclausereportService" class="com.tlg.prpins.service.impl.PrpdclausereportServiceImpl">
+		<property name="prpdclausereportDao" ref="prpdclausereportDao"/>
+	</bean>
+	
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 Start-->
+	<bean id="prpdcarmodelextService" class="com.tlg.prpins.service.impl.PrpdcarmodelextServiceImpl">
+		<property name="prpdcarmodelextDao" ref="prpdcarmodelextDao"/>
+	</bean>
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業 End-->
+	
+	<bean id="prpccommissionService" class="com.tlg.prpins.service.impl.PrpccommissionServiceImpl">
+		<property name="prpccommissionDao" ref="prpccommissionDao"/>
+	</bean>
+	<bean id="prpcopycommissionService" class="com.tlg.prpins.service.impl.PrpcopycommissionServiceImpl">
+		<property name="prpcopycommissionDao" ref="prpcopycommissionDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+	<bean id="firAgtrnBatchBotService" class="com.tlg.prpins.service.impl.FirAgtrnBatchBotServiceImpl">
+		<property name="firAgtrnBatchBotDao" ref="firAgtrnBatchBotDao"/>
+	</bean>
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+	
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 start-->
+	<bean id="prpLuserService" class="com.tlg.prpins.service.impl.PrpLuserServiceImpl">
+		<property name="prpLuserDao" ref="prpLuserDao"/>
+	</bean>
+	<bean id="claimCompulsoryApplicantService" class="com.tlg.prpins.service.impl.ClaimCompulsoryApplicantServiceImpl">
+		<property name="claimCompulsoryApplicantDao" ref="claimCompulsoryApplicantDao"/>
+	</bean>
+	<bean id="claimCompulsoryApportionService" class="com.tlg.prpins.service.impl.ClaimCompulsoryApportionServiceImpl">
+		<property name="claimCompulsoryApportionDao" ref="claimCompulsoryApportionDao"/>
+	</bean>
+	<bean id="claimCompulsoryCaseService" class="com.tlg.prpins.service.impl.ClaimCompulsoryCaseServiceImpl">
+		<property name="claimCompulsoryCaseDao" ref="claimCompulsoryCaseDao"/>
+	</bean>
+	<bean id="claimCompulsoryChargesService" class="com.tlg.prpins.service.impl.ClaimCompulsoryChargesServiceImpl">
+		<property name="claimCompulsoryChargesDao" ref="claimCompulsoryChargesDao"/>
+	</bean>
+	<bean id="claimCompulsoryJobService" class="com.tlg.prpins.service.impl.ClaimCompulsoryJobServiceImpl">
+		<property name="claimCompulsoryJobDao" ref="claimCompulsoryJobDao"/>
+	</bean>
+	<bean id="claimCompulsoryStatePricesService" class="com.tlg.prpins.service.impl.ClaimCompulsoryStatePricesServiceImpl">
+		<property name="claimCompulsoryStatePricesDao" ref="claimCompulsoryStatePricesDao"/>
+	</bean>
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程  end-->
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 start-->
+	<bean id="firAgtrnBatchYcbService" class="com.tlg.prpins.service.impl.FirAgtrnBatchYcbServiceImpl">
+		<property name="firAgtrnBatchYcbDao" ref="firAgtrnBatchYcbDao"/>
+	</bean>
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 end-->
+	
+	<!-- business Service  -->
+	<bean id="firBaseUtilService" class="com.tlg.prpins.bs.firCalService.impl.FirBaseUtilServiceImpl">
+		<property name="prpdNewCodeService" ref="prpdNewCodeService"/>
+		<property name="prpdPropStructService" ref="prpdPropStructService"/>
+		<property name="firCalcamtWallnoService" ref="firCalcamtWallnoService"/>
+	</bean>
+	<bean id="firCalAmountService" class="com.tlg.prpins.bs.firCalService.impl.FirCalAmountServiceImpl">
+		<property name="firBaseUtilService" ref="firBaseUtilService"/>
+	</bean>
+	<bean id="premCalculateService" class="com.tlg.prpins.bs.premCalculate.impl.PremCalculateServiceImpl">
+		<property name="firPremcalcTmpService" ref="firPremcalcTmpService"/>
+		<property name="firPremcalcTmpdtlService" ref="firPremcalcTmpdtlService"/>
+		<property name="pbPremcalcCklistService" ref="pbPremcalcCklistService"/>
+		<property name="firF01CalPremService" ref="firF01CalPremService"/>
+		<property name="firF02CalPremService" ref="firF02CalPremService"/>
+		<property name="calPremBaseService" ref="calPremBaseService"/>
+		<property name="pbPremcalcClauseService" ref="pbPremcalcClauseService"/>
+		<property name="pbQueryDetailService" ref="pbQueryDetailService"/>
+		<property name="pbPremcalcTmpdtlService" ref="pbPremcalcTmpdtlService"/>
+		<property name="pbPremcalcTmpService" ref="pbPremcalcTmpService"/>
+		<property name="pbCalPremService" ref="pbCalPremService"/>
+		
+		
+	</bean>
+	<bean id="firF01CalPremService" class="com.tlg.prpins.bs.firCalService.impl.FirF01CalPremServiceImpl">
+		<property name="firPremiumRate3Service" ref="firPremiumRate3Service"/>
+		<property name="calPremBaseService" ref="calPremBaseService"/>
+		<property name="pbPremcalcCklistService" ref="pbPremcalcCklistService"/>
+		<property name="pbPremiumRate2Service" ref="pbPremiumRate2Service"/>
+		<property name="prpdPropStructService" ref="prpdPropStructService" />
+		<property name="firPremiumRate2Service" ref="firPremiumRate2Service" />
+		
+	</bean>
+	<bean id="firF02CalPremService" class="com.tlg.prpins.bs.firCalService.impl.FirF02CalPremServiceImpl">
+		<property name="firPremiumRate2Service" ref="firPremiumRate2Service"/>
+		<property name="firBaseUtilService" ref="firBaseUtilService"/>
+		<property name="prpdBaseRateService" ref="prpdBaseRateService"/>
+		<property name="prpdPropStructService" ref="prpdPropStructService"/>
+		<property name="calPremBaseService" ref="calPremBaseService"/>
+	</bean>
+	<bean id="calPremBaseService" class="com.tlg.prpins.bs.premCalculate.impl.CalPremBaseServiceImpl">
+		<property name="firDangerGradeService" ref="firDangerGradeService"/>
+		<property name="firPremiumRateService" ref="firPremiumRateService"/>
+		<property name="firPremiumRate1Service" ref="firPremiumRate1Service"/>
+		<property name="firPremiumRate2Service" ref="firPremiumRate2Service"/>
+		<property name="firPremiumRate3Service" ref="firPremiumRate3Service"/>
+		<property name="pbPremiumRateService" ref="pbPremiumRateService"/>
+		<property name="pbPremiumRate0Service" ref="pbPremiumRate0Service"/>
+		<property name="pbPremiumRate1Service" ref="pbPremiumRate1Service"/>
+		<property name="pbPremiumRate2Service" ref="pbPremiumRate2Service"/>
+		<property name="pbPremiumRate4Service" ref="pbPremiumRate4Service"/>
+		<property name="pbPremiumRate5Service" ref="pbPremiumRate5Service"/>
+		<property name="pbPremiumRate6Service" ref="pbPremiumRate6Service"/>
+		<property name="pbPremiumRate7Service" ref="pbPremiumRate7Service"/>
+		<property name="pbPremiumRate8Service" ref="pbPremiumRate8Service"/>
+		<property name="pbPremiumRate9Service" ref="pbPremiumRate9Service"/>
+		<property name="pbPremiumRate10Service" ref="pbPremiumRate10Service"/>
+		<property name="pbPremcalcAdditionTermService" ref="pbPremcalcAdditionTermService"/>
+		<property name="pbDangerGradeService" ref="pbDangerGradeService"/>
+		<property name="pbPremcalcCklistService" ref="pbPremcalcCklistService" />
+		<property name="firPremcalcTmpdtlService" ref="firPremcalcTmpdtlService" />
+	</bean>
+	
+	<bean id="pbCalPremService" class="com.tlg.prpins.bs.pbCalService.impl.PbCalPremServiceImpl	">
+		<property name="pbPremiumRate5Service" ref="pbPremiumRate5Service"/>
+		<property name="pbPremiumRate2Service" ref="pbPremiumRate2Service"/>
+		<property name="calPremBaseService" ref="calPremBaseService"/>
+		<property name="pbPremcalcCklistService" ref="pbPremcalcCklistService"/>
+		<property name="pbQueryDetailService" ref="pbQueryDetailService"/>
+		
+	</bean>
+	
+	<!-- mantis：FIR0676，處理人員：DP0706，需求單編號：FIR0676_住火_元大續保作業_N+1比對擔保品檔案  START-->
+	<bean id="firAgtrnYcbUploadDao" class="com.tlg.prpins.dao.impl.FirAgtrnYcbUploadDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="firAgtrnYcbUploadService" class="com.tlg.prpins.service.impl.FirAgtrnYcbUploadServiceImpl">
+		<property name="firAgtrnYcbUploadDao" ref="firAgtrnYcbUploadDao"/>
+	</bean>
+	<bean id="firAgtrnYcbN1ImportService" class="com.tlg.aps.bs.firAgtrnYcbN1ImportService.impl.FirAgtrnYcbN1ImportServiceImpl">
+		<property name="firAgtrnYcbUploadService" ref="firAgtrnYcbUploadService"/>
+		<property name="firAgtrnBatchDtlService" ref="firAgtrnBatchDtlService"/>
+		<property name="firAgtTocoreMainService" ref="firAgtTocoreMainService"/>
+	</bean>
+	<!-- mantis：FIR0676，處理人員：DP0706，需求單編號：FIR0676_住火_元大續保作業_N+1比對擔保品檔案  END-->
+	
+	<!-- mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同  START-->
+	<bean id="hasBatchMatchFetDao" class="com.tlg.prpins.dao.impl.HasBatchMatchFetDaoImpl">
+		<property name="sqlMapClient" ref="prpinsSqlMapClient"/>
+	</bean>
+	<bean id="hasBatchMatchFetService" class="com.tlg.prpins.service.impl.HasBatchMatchFetServiceImpl">
+		<property name="hasBatchMatchFetDao" ref="hasBatchMatchFetDao"/>
+	</bean>
+	<!-- mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同  END-->
+</beans>

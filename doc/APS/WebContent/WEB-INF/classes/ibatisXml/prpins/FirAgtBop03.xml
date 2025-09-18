@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 -->
+<sqlMap namespace="FirAgtBop03">
+  <resultMap class="com.tlg.prpins.entity.FirAgtBop03" id="BaseResultMap">
+    <result column="OID" jdbcType="DECIMAL" property="oid" />
+    <result column="BATCH_NO" jdbcType="VARCHAR" property="batchNo" />
+    <result column="RISKCODE" jdbcType="VARCHAR" property="riskcode" />
+    <result column="POLICYNO" jdbcType="VARCHAR" property="policyno" />
+    <result column="ORDERSEQ" jdbcType="VARCHAR" property="orderseq" />
+    <result column="RISKCODE_BOP" jdbcType="VARCHAR" property="riskcodeBop" />
+    <result column="KINDCODE_BOP" jdbcType="VARCHAR" property="kindcodeBop" />
+    <result column="DATA_DATE" jdbcType="TIMESTAMP" property="dataDate" />
+    <result column="APPLY_DATE" jdbcType="TIMESTAMP" property="applyDate" />
+    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+    <result column="ORDER_TYPE" jdbcType="VARCHAR" property="orderType" />
+    <result column="POLICY_STATUS" jdbcType="VARCHAR" property="policyStatus" />
+    <result column="ENDORSETEXT" jdbcType="VARCHAR" property="endorsetext" />
+    <result column="IS_RENEW" jdbcType="VARCHAR" property="isRenew" />
+    <result column="APPLY_NAME" jdbcType="VARCHAR" property="applyName" />
+    <result column="APPLY_ID" jdbcType="VARCHAR" property="applyId" />
+    <result column="APPLY_POSTCODE" jdbcType="VARCHAR" property="applyPostcode" />
+    <result column="APPLY_ADDR" jdbcType="VARCHAR" property="applyAddr" />
+    <result column="INSURED_NAME" jdbcType="VARCHAR" property="insuredName" />
+    <result column="INSURED_ID" jdbcType="VARCHAR" property="insuredId" />
+    <result column="INSURED_BIRTHDAY" jdbcType="TIMESTAMP" property="insuredBirthday" />
+    <result column="INSURED_AGE" jdbcType="VARCHAR" property="insuredAge" />
+    <result column="PAY_TYPE" jdbcType="VARCHAR" property="payType" />
+    <result column="PREMIUM" jdbcType="DECIMAL" property="premium" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="INQUIRY_TYPE" jdbcType="VARCHAR" property="inquiryType" />
+    <result column="COMM_RATE" jdbcType="DECIMAL" property="commRate" />
+    <result column="SALES_SOURCE" jdbcType="VARCHAR" property="salesSource" />
+    <result column="SALES_BRANCH" jdbcType="VARCHAR" property="salesBranch" />
+    <result column="SALES_ID" jdbcType="VARCHAR" property="salesId" />
+    <result column="SALES_NO" jdbcType="VARCHAR" property="salesNo" />
+    <result column="IS_AUTO_RENEW" jdbcType="VARCHAR" property="isAutoRenew" />
+    <result column="AMOUNT_CHECK" jdbcType="VARCHAR" property="amountCheck" />
+    <result column="LICENSE_PLATE" jdbcType="VARCHAR" property="licensePlate" />
+    <result column="OLD_POLICYNO" jdbcType="VARCHAR" property="oldPolicyno" />
+    <result column="OLD_ENDDATE" jdbcType="TIMESTAMP" property="oldEnddate" />
+    <result column="PROJ_NO" jdbcType="VARCHAR" property="projNo" />
+    <result column="PROJ_NAME" jdbcType="VARCHAR" property="projName" />
+    <result column="ACCEPT_WAY" jdbcType="VARCHAR" property="acceptWay" />
+    <result column="STARTTIME" jdbcType="VARCHAR" property="starttime" />
+    <result column="ENDTIME" jdbcType="VARCHAR" property="endtime" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="PHONENUMBER" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="COLLATERALNUMBER" jdbcType="VARCHAR" property="collateralnumber" />
+    <result column="MORTGAGEEPCODE1" jdbcType="VARCHAR" property="mortgageepcode1" />
+    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+  </resultMap>
+  
+  <select id="selectForGenFile" parameterClass="java.util.Map" resultMap="BaseResultMap">
+    select bop.* from FIR_AGT_BOP_03 bop
+    inner join FIR_AGT_BATCH_DTL dtl on bop.BATCH_NO = dtl.BATCH_NO and bop.ORDERSEQ = dtl.ORDERSEQ
+    where bop.BATCH_NO = #batchNo#
+    and dtl.ORDERSEQ_STATUS in ('01','02') 
+    order by bop.ORDERSEQ,bop.RISKCODE_BOP,bop.KINDCODE_BOP
+  </select>
+  <select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from FIR_AGT_BOP_03
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="oid">
+		OID = #oid:DECIMAL#
+		</isNotEmpty>
+      <isNotNull prepend="AND" property="batchNo">
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="riskcode">
+        RISKCODE = #riskcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="policyno">
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="orderseq">
+        ORDERSEQ = #orderseq:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isNotEmpty property="sortBy">
+		ORDER BY $sortBy$ $sortType$ 
+	</isNotEmpty>
+  </select>
+  <select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+  	<include refid="Utils.sql1" />
+    select *
+    from FIR_AGT_BOP_03
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="oid">
+		OID = #oid:DECIMAL#
+		</isNotEmpty>
+      <isNotNull prepend="AND" property="batchNo">
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="riskcode">
+        RISKCODE = #riskcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="policyno">
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="orderseq">
+        ORDERSEQ = #orderseq:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    <isNotEmpty property="sortBy">
+		ORDER BY $sortBy$ $sortType$ 
+	</isNotEmpty>
+    <include refid="Utils.sql2" />
+  </select>
+  <select id="selectByUK" parameterClass="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from FIR_AGT_BOP_03
+    where OID = #oid:DECIMAL#
+  </select>
+  <delete id="deleteByEntity" parameterClass="com.tlg.prpins.entity.FirAgtBop03">
+    delete from FIR_AGT_BOP_03
+    where OID = #oid:DECIMAL#
+  </delete>
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirAgtBop03">
+    insert into FIR_AGT_BOP_03 (OID, BATCH_NO, RISKCODE, POLICYNO, 
+      ORDERSEQ, RISKCODE_BOP, KINDCODE_BOP, DATA_DATE, 
+      APPLY_DATE, STARTDATE, ENDDATE, ORDER_TYPE, 
+      POLICY_STATUS, ENDORSETEXT, IS_RENEW, APPLY_NAME, 
+      APPLY_ID, APPLY_POSTCODE, APPLY_ADDR, INSURED_NAME, 
+      INSURED_ID, INSURED_BIRTHDAY, INSURED_AGE, PAY_TYPE, 
+      PREMIUM, AMOUNT, INQUIRY_TYPE, COMM_RATE, 
+      SALES_SOURCE, SALES_BRANCH, SALES_ID, SALES_NO, 
+      IS_AUTO_RENEW, AMOUNT_CHECK, LICENSE_PLATE, OLD_POLICYNO, 
+      OLD_ENDDATE, PROJ_NO, PROJ_NAME, ACCEPT_WAY, 
+      STARTTIME, ENDTIME, ADDRESS, PHONENUMBER, 
+      COLLATERALNUMBER, MORTGAGEEPCODE1, ICREATE, DCREATE, IUPDATE, 
+      DUPDATE)
+    values (#oid:DECIMAL#, #batchNo:VARCHAR#, #riskcode:VARCHAR#, #policyno:VARCHAR#, 
+      #orderseq:VARCHAR#, #riskcodeBop:VARCHAR#, #kindcodeBop:VARCHAR#, #dataDate:TIMESTAMP#, 
+      #applyDate:TIMESTAMP#, #startdate:TIMESTAMP#, #enddate:TIMESTAMP#, #orderType:VARCHAR#, 
+      #policyStatus:VARCHAR#, #endorsetext:VARCHAR#, #isRenew:VARCHAR#, #applyName:VARCHAR#, 
+      #applyId:VARCHAR#, #applyPostcode:VARCHAR#, #applyAddr:VARCHAR#, #insuredName:VARCHAR#, 
+      #insuredId:VARCHAR#, #insuredBirthday:TIMESTAMP#, #insuredAge:VARCHAR#, #payType:VARCHAR#, 
+      #premium:DECIMAL#, #amount:DECIMAL#, #inquiryType:VARCHAR#, #commRate:DECIMAL#, 
+      #salesSource:VARCHAR#, #salesBranch:VARCHAR#, #salesId:VARCHAR#, #salesNo:VARCHAR#, 
+      #isAutoRenew:VARCHAR#, #amountCheck:VARCHAR#, #licensePlate:VARCHAR#, #oldPolicyno:VARCHAR#, 
+      #oldEnddate:TIMESTAMP#, #projNo:VARCHAR#, #projName:VARCHAR#, #acceptWay:VARCHAR#, 
+      #starttime:VARCHAR#, #endtime:VARCHAR#, #address:VARCHAR#, #phonenumber:VARCHAR#, 
+      #collateralnumber:VARCHAR#, #mortgageepcode1:VARCHAR#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#, 
+      #iupdate:VARCHAR#, #dupdate:TIMESTAMP#)
+  </insert>
+  <select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+    select count(*) from FIR_AGT_BOP_03
+    <dynamic prepend="WHERE">
+      <isNotNull prepend="AND" property="batchNo">
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="riskcode">
+        RISKCODE = #riskcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="policyno">
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="orderseq">
+        ORDERSEQ = #orderseq:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="riskcodeBop">
+        RISKCODE_BOP = #riskcodeBop:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="kindcodeBop">
+        KINDCODE_BOP = #kindcodeBop:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="dataDate">
+        DATA_DATE = #dataDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="applyDate">
+        APPLY_DATE = #applyDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="startdate">
+        STARTDATE = #startdate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="enddate">
+        ENDDATE = #enddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="orderType">
+        ORDER_TYPE = #orderType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="policyStatus">
+        POLICY_STATUS = #policyStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="endorsetext">
+        ENDORSETEXT = #endorsetext:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="isRenew">
+        IS_RENEW = #isRenew:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="applyName">
+        APPLY_NAME = #applyName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="applyId">
+        APPLY_ID = #applyId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="applyPostcode">
+        APPLY_POSTCODE = #applyPostcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="applyAddr">
+        APPLY_ADDR = #applyAddr:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="insuredName">
+        INSURED_NAME = #insuredName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="insuredId">
+        INSURED_ID = #insuredId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="insuredBirthday">
+        INSURED_BIRTHDAY = #insuredBirthday:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="insuredAge">
+        INSURED_AGE = #insuredAge:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="payType">
+        PAY_TYPE = #payType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="premium">
+        PREMIUM = #premium:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="AND" property="amount">
+        AMOUNT = #amount:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="AND" property="inquiryType">
+        INQUIRY_TYPE = #inquiryType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="commRate">
+        COMM_RATE = #commRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="AND" property="salesSource">
+        SALES_SOURCE = #salesSource:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="salesBranch">
+        SALES_BRANCH = #salesBranch:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="salesId">
+        SALES_ID = #salesId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="salesNo">
+        SALES_NO = #salesNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="amountCheck">
+        AMOUNT_CHECK = #amountCheck:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="licensePlate">
+        LICENSE_PLATE = #licensePlate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="oldPolicyno">
+        OLD_POLICYNO = #oldPolicyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="oldEnddate">
+        OLD_ENDDATE = #oldEnddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="projNo">
+        PROJ_NO = #projNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="projName">
+        PROJ_NAME = #projName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="acceptWay">
+        ACCEPT_WAY = #acceptWay:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="starttime">
+        STARTTIME = #starttime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="endtime">
+        ENDTIME = #endtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="address">
+        ADDRESS = #address:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="phonenumber">
+        PHONENUMBER = #phonenumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="collateralnumber">
+        COLLATERALNUMBER = #collateralnumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="mortgageepcode1">
+        MORTGAGEEPCODE1 = #mortgageepcode1:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="icreate">
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="dcreate">
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="AND" property="iupdate">
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="dupdate">
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+  </select>
+  <update id="update" parameterClass="com.tlg.prpins.entity.FirAgtBop03">
+    update FIR_AGT_BOP_03
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="batchNo">
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="riskcode">
+        RISKCODE = #riskcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="policyno">
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="orderseq">
+        ORDERSEQ = #orderseq:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="riskcodeBop">
+        RISKCODE_BOP = #riskcodeBop:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="kindcodeBop">
+        KINDCODE_BOP = #kindcodeBop:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dataDate">
+        DATA_DATE = #dataDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="applyDate">
+        APPLY_DATE = #applyDate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="startdate">
+        STARTDATE = #startdate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="enddate">
+        ENDDATE = #enddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="orderType">
+        ORDER_TYPE = #orderType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="policyStatus">
+        POLICY_STATUS = #policyStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endorsetext">
+        ENDORSETEXT = #endorsetext:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isRenew">
+        IS_RENEW = #isRenew:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applyName">
+        APPLY_NAME = #applyName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applyId">
+        APPLY_ID = #applyId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applyPostcode">
+        APPLY_POSTCODE = #applyPostcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applyAddr">
+        APPLY_ADDR = #applyAddr:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredName">
+        INSURED_NAME = #insuredName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredId">
+        INSURED_ID = #insuredId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredBirthday">
+        INSURED_BIRTHDAY = #insuredBirthday:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredAge">
+        INSURED_AGE = #insuredAge:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payType">
+        PAY_TYPE = #payType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="premium">
+        PREMIUM = #premium:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="amount">
+        AMOUNT = #amount:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="inquiryType">
+        INQUIRY_TYPE = #inquiryType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="commRate">
+        COMM_RATE = #commRate:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="salesSource">
+        SALES_SOURCE = #salesSource:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="salesBranch">
+        SALES_BRANCH = #salesBranch:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="salesId">
+        SALES_ID = #salesId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="salesNo">
+        SALES_NO = #salesNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="amountCheck">
+        AMOUNT_CHECK = #amountCheck:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="licensePlate">
+        LICENSE_PLATE = #licensePlate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPolicyno">
+        OLD_POLICYNO = #oldPolicyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldEnddate">
+        OLD_ENDDATE = #oldEnddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="projNo">
+        PROJ_NO = #projNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="projName">
+        PROJ_NAME = #projName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="acceptWay">
+        ACCEPT_WAY = #acceptWay:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="starttime">
+        STARTTIME = #starttime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime">
+        ENDTIME = #endtime:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="address">
+        ADDRESS = #address:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="phonenumber">
+        PHONENUMBER = #phonenumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="collateralnumber">
+        COLLATERALNUMBER = #collateralnumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="AND" property="mortgageepcode1">
+        MORTGAGEEPCODE1 = #mortgageepcode1:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate">
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate">
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="iupdate">
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dupdate">
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+    where OID = #oid:DECIMAL#
+  </update>
+</sqlMap>

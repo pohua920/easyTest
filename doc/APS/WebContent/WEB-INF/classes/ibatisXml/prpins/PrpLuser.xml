@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈查詢、新增及更新攤賠案件排程 -->
+<sqlMap namespace="PrpLuser">
+	<resultMap class="com.tlg.prpins.entity.PrpLuser" id="BaseResultMap">
+	    <result column="USERCODE" property="usercode" jdbcType="VARCHAR" />
+	    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="WORKPLACENM" property="workplacenm" jdbcType="VARCHAR" />
+	    <result column="USERFLAG" property="userflag" jdbcType="VARCHAR" />
+	    <result column="CREATUSER" property="creatuser" jdbcType="VARCHAR" />
+	    <result column="CREATTIME" property="creattime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATEUSER" property="updateuser" jdbcType="VARCHAR" />
+	    <result column="UPDATETIME" property="updatetime" jdbcType="TIMESTAMP" />
+	    <result column="FEEQUOTA" property="feequota" jdbcType="VARCHAR" />
+	    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+	    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+	    <result column="EXT" property="ext" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from <include refid="Utils.prpinsSchema"/>PrpLuser
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="usercode">
+				USERCODE = #usercode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="id">
+				ID = #id#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="comcode">
+				COMCODE = #comcode#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+</sqlMap>

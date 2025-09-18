@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 -->
+<struts>
+	<package name="APS041Action" extends="BaseAction" namespace="/aps/041">
+		<!-- default -->
+		<action name="default" class="APS041Action">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery" class="com.tlg.aps.action.APS041Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query1">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query2">/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+			<result name="query3">/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+		</action>
+		
+		<action name="lnkGoDtlQuery" class="APS041Action" method="lnkGoDtlQuery">
+			<result>/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+		</action>
+		
+		<action name="lnkGoQuery" class="APS041Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+		</action>
+		
+		<action name="goQuery1" class="APS041Action" method="goQuery1">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+		</action>
+		
+		<action name="goQuery2" class="APS041Action" method="goQuery2">
+			<result>/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+		</action>
+		
+		<action name="goQuery3" class="APS041Action" method="goQuery3">
+			<result>/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+		</action>	
+		
+		<action name="lnkSortQuery" class="APS041Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query1">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="dtlQuery">/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+			<result name="query2">/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+			<result name="query3">/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+		</action>
+
+		<action name="txtChangePageIndex1" class="APS041Action" method="txtChangePageIndex1">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query1">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query2">/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+			<result name="query3">/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+		</action>
+		
+		<action name="ddlPageSizeChanged1" class="APS041Action" method="ddlPageSizeChanged1">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query1">/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="query2">/WEB-INF/pages/APS/APS041/APS041E2.jsp</result>
+			<result name="query3">/WEB-INF/pages/APS/APS041/APS041E3.jsp</result>
+		</action>
+		
+		<action name="txtChangePageIndex2" class="APS041Action" method="txtChangePageIndex2">
+			<result>/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+		</action>
+		
+		<action name="ddlPageSizeChanged2" class="APS041Action" method="ddlPageSizeChanged2">
+			<result>/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+		</action>
+		
+		<action name="downloadMainFile" class="APS041Action" method="downloadMainFile">
+			<result>/WEB-INF/pages/APS/APS041/APS041E0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="downloadDtlFile" class="APS041Action" method="downloadDtlFile">
+			<result>/WEB-INF/pages/APS/APS041/APS041E1.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+</struts>

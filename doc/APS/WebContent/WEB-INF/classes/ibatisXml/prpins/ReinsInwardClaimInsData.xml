@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ReinsInwardClaimInsData">
+	<resultMap class="com.tlg.prpins.entity.ReinsInwardClaimInsData" id="BaseResultMap">
+	    <result column="OID" jdbcType="DECIMAL" property="oid" />
+	    <result column="OID_REINS_INWARD_CLAIM_DATA" jdbcType="DECIMAL" property="oidReinsInwardClaimData" />
+	    <result column="UWINS" jdbcType="VARCHAR" property="uwins" />
+	    <result column="PONAME" jdbcType="VARCHAR" property="poname" />
+	    <result column="POINS" jdbcType="VARCHAR" property="poins" />
+	    <result column="INSCODE" jdbcType="VARCHAR" property="inscode" />
+	    <result column="ACTINS" jdbcType="VARCHAR" property="actins" />
+	    <result column="PREPARE_KINDLOSS_O" jdbcType="VARCHAR" property="prepareKindlossO" />
+	    <result column="PREPARE_KINDFEE_O" jdbcType="VARCHAR" property="prepareKindfeeO" />
+	    <result column="PREPARE_KINDLOSS_N" jdbcType="VARCHAR" property="prepareKindlossN" />
+	    <result column="PREPARE_KINDFEE_N" jdbcType="VARCHAR" property="prepareKindfeeN" />
+	    <result column="CONFIRM_KINDLOSS_O" jdbcType="VARCHAR" property="confirmKindlossO" />
+	    <result column="CONFIRM_KINDFEE_O" jdbcType="VARCHAR" property="confirmKindfeeO" />
+	    <result column="CONFIRM_KINDLOSS_N" jdbcType="VARCHAR" property="confirmKindlossN" />
+	    <result column="CONFIRM_KINDFEE_N" jdbcType="VARCHAR" property="confirmKindfeeN" />
+	    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+	    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+	    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
+	    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+	</resultMap>
+
+
+	<select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		<include refid="Utils.msSql1" />
+		select * from <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oidReinsInwardClaimData">
+				OID_REINS_INWARD_CLAIM_DATA = #oidReinsInwardClaimData:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="uwins">
+				UWINS = #uwins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="poins">
+				POINS = #poins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="inscode">
+				INSCODE = #inscode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="actins">
+				ACTINS = #actins#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oidReinsInwardClaimData">
+				OID_REINS_INWARD_CLAIM_DATA = #oidReinsInwardClaimData:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="uwins">
+				UWINS = #uwins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="poins">
+				POINS = #poins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="inscode">
+				INSCODE = #inscode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="actins">
+				ACTINS = #actins#
+			</isNotEmpty>	
+		</dynamic>
+	</select>
+
+	<select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select COUNT(*) from <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oidReinsInwardClaimData">
+				OID_REINS_INWARD_CLAIM_DATA = #oidReinsInwardClaimData:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="uwins">
+				UWINS = #uwins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="poins">
+				POINS = #poins#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="inscode">
+				INSCODE = #inscode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="actins">
+				ACTINS = #actins#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA WHERE OID = #oid:DECIMAL#
+	</delete>
+
+	<delete id="deleteByEntity" parameterClass="com.tlg.prpins.entity.ReinsInwardClaimInsData">
+		delete from <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA where OID = #oid:DECIMAL#
+	</delete>
+
+	<select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA where OID = #oid:DECIMAL#
+	</select>
+
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.prpins.entity.ReinsInwardClaimInsData">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA where OID = #oid:DECIMAL#
+	</select>
+
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.ReinsInwardClaimInsData">
+
+		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT REINS_CLAIM_INS_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+	      
+	    insert into <include refid="Utils.prpinsSchema"/>REINS_INWARD_CLAIM_INS_DATA (OID, OID_REINS_INWARD_CLAIM_DATA, UWINS, PONAME, POINS,
+      INSCODE, ACTINS, PREPARE_KINDLOSS_O, PREPARE_KINDFEE_O, PREPARE_KINDLOSS_N, PREPARE_KINDFEE_N,
+      CONFIRM_KINDLOSS_O, CONFIRM_KINDFEE_O, CONFIRM_KINDLOSS_N, CONFIRM_KINDFEE_N, CREATER,
+      CREATE_DATE)
+    values (#oid:DECIMAL#, #oidReinsInwardClaimData:DECIMAL#, #uwins:VARCHAR#, #poname:VARCHAR#,
+      #poins:VARCHAR#, #inscode:VARCHAR#, #actins:VARCHAR#, #prepareKindlossO:VARCHAR#,
+      #prepareKindfeeO:VARCHAR#, #prepareKindlossN:VARCHAR#, #prepareKindfeeN:VARCHAR#,
+      #confirmKindlossO:VARCHAR#, #confirmKindfeeO:VARCHAR#, #confirmKindlossN:VARCHAR#,
+      #confirmKindfeeN:VARCHAR#, #creater:VARCHAR#, #createDate:TIMESTAMP#)
+	</insert>
+
+	<update id="update" parameterClass="com.tlg.prpins.entity.ReinsInwardClaimInsData">
+		update <include refid="Utils.prpinsSchema" />REINS_INWARD_CLAIM_INS_DATA
+		<dynamic prepend="set">
+
+			<isNotNull prepend="," property="uwins">
+				UWINS = #uwins:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="poname">
+				PONAME = #poname:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="poins">
+				POINS = #poins:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="inscode">
+				INSCODE = #inscode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="actins">
+				ACTINS = #actins:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prepareKindlossO">
+				PREPARE_KINDLOSS_O = #prepareKindlossO:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prepareKindfeeO">
+				PREPARE_KINDFEE_O = #prepareKindfeeO:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prepareKindlossN">
+				PREPARE_KINDLOSS_N = #prepareKindlossN:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prepareKindfeeN">
+				PREPARE_KINDFEE_N = #prepareKindfeeN:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="confirmKindlossO">
+				CONFIRM_KINDLOSS_O = #confirmKindlossO:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="confirmKindfeeO">
+				CONFIRM_KINDFEE_O = #confirmKindfeeO:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="confirmKindlossN">
+				CONFIRM_KINDLOSS_N = #confirmKindlossN:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="confirmKindfeeN">
+				CONFIRM_KINDFEE_N = #confirmKindfeeN:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="modifier">
+				MODIFIER = #modifier:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="modifyDate">
+				MODIFY_DATE = #modifyDate:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+		where OID = #oid:DECIMAL#
+		AND OID_REINS_INWARD_CLAIM_DATA =
+		#oidReinsInwardClaimData:DECIMAL#
+	</update>
+</sqlMap>

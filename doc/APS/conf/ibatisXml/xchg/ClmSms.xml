@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ClmSms">
+	<resultMap class="com.tlg.xchg.entity.ClmSms" id="BaseResultMap">
+	    <result column="GOID" jdbcType="VARCHAR" property="goid" />
+	    <result column="CLAIMNO" jdbcType="VARCHAR" property="claimno" />
+	    <result column="POLICYNO" jdbcType="VARCHAR" property="policyno" />
+	    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="CLOSEDATE" jdbcType="TIMESTAMP" property="closedate" />
+	    <result column="PDF_URL" jdbcType="VARCHAR" property="pdfUrl" />
+	    <result column="SMSDATE" jdbcType="TIMESTAMP" property="smsdate" />
+	    <result column="EMAIL_DATE" jdbcType="TIMESTAMP" property="emailDate" />
+	    <result column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="GUID64" jdbcType="VARCHAR" property="guid64" />
+	    <result column="SHORTPATH" jdbcType="VARCHAR" property="shortpath" />
+	    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+	    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+	    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+	    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+	</resultMap>
+
+	<select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		<include refid="Utils.msSql1" />
+		select * from CLM_SMS
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="goid">
+				GOID = #goid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="guid">
+				GUID = #guid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="claimno">
+				CLAIMNO = #claimno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="policyno">
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isEqual prepend="AND" property="smsdateNull"
+				compareValue="Y">
+				SMSDATE IS NULL
+			</isEqual>
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from CLM_SMS
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="goid">
+				GOID = #goid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="guid">
+				GUID = #guid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="claimno">
+				CLAIMNO = #claimno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="policyno">
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isEqual prepend="AND" property="smsdateNull" compareValue="Y">
+				SMSDATE IS NULL
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select COUNT(*) from CLM_SMS
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="goid">
+				GOID = #goid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="guid">
+				GUID = #guid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="claimno">
+				CLAIMNO = #claimno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="AND" property="policyno">
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isEqual prepend="AND" property="smsdateNull"
+				compareValue="Y">
+				SMSDATE IS NULL
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<select id="selectByUK" resultClass="com.tlg.xchg.entity.ClmSms" parameterClass="java.util.Map" >
+		SELECT * FROM CLM_SMS
+		where GOID = #goid:VARCHAR#
+	</select>
+
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.xchg.entity.ClmSms">
+		SELECT COUNT(*) FROM CLM_SMS
+		where GOID = #goid:VARCHAR#
+	</select>
+
+	<delete id="deleteByEntity" parameterClass="com.tlg.xchg.entity.ClmSms">
+		delete from CLM_SMS where GOID = #goid:VARCHAR#
+	</delete>
+
+	<insert id="insert" parameterClass="com.tlg.xchg.entity.ClmSms">
+		insert into CLM_SMS (GOID, CLAIMNO, POLICYNO, MOBILE, EMAIL, CLOSEDATE, PDF_URL,
+		SMSDATE, EMAIL_DATE,
+		GUID, GUID64, SHORTPATH, ICREATE, DCREATE)
+		values (#goid:VARCHAR#, #claimno:VARCHAR#, #policyno:VARCHAR#, #mobile:VARCHAR#,
+		#email:VARCHAR#,
+		#closedate:TIMESTAMP#, #pdfUrl:VARCHAR#, #smsdate:TIMESTAMP#, #emailDate:TIMESTAMP#,
+		#guid:VARCHAR#, #guid64:VARCHAR#, #shortpath:VARCHAR#,
+		#icreate:VARCHAR#, #dcreate:TIMESTAMP#)
+	</insert>
+
+	<update id="update" parameterClass="com.tlg.xchg.entity.ClmSms">
+		update CLM_SMS
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="claimno">
+				CLAIMNO = #claimno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="policyno">
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="mobile">
+				MOBILE = #mobile:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="email">
+				EMAIL = #email:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="closedate">
+				CLOSEDATE = #closedate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="pdfUrl">
+				PDF_URL = #pdfUrl:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="smsdate">
+				SMSDATE = #smsdate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="emailDate">
+				EMAIL_DATE = #emailDate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="guid">
+				GUID = #guid:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="guid64">
+				GUID64 = #guid64:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="shortpath">
+				SHORTPATH = #shortpath:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="iupdate">
+				IUPDATE = #iupdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dupdate">
+				DUPDATE = #dupdate:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+		where GOID = #goid:VARCHAR#
+  </update>
+</sqlMap>

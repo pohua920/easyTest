@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="FetMobilePolicyInsurantInfo">
+	<resultMap class="com.tlg.msSqlMob.entity.FetMobilePolicyInsurantInfo" id="BaseResultMap">
+		<result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+		<result column="insured_code" property="insuredCode" jdbcType="VARCHAR" />
+		<result column="insured_name" property="insuredName" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="phone_tele_number" property="phoneTeleNumber" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="post_code" property="postCode" jdbcType="VARCHAR" />
+		<result column="post_address" property="postAddress" jdbcType="VARCHAR" />
+		<result column="country_ename" property="countryEname" jdbcType="VARCHAR" />
+		<result column="domicile" property="domicile" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+		<result column="project_code_premium" property="projectCodePremium" jdbcType="VARCHAR" />
+		<result column="head_name" property="headName" jdbcType="VARCHAR" />
+		<result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+		<result column="modified_by" property="modifiedBy" jdbcType="VARCHAR" />
+		<result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	    <result column="data_src" property="dataSrc" jdbcType="VARCHAR" />
+	    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	</resultMap>
+
+	<select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		<include refid="Utils.msSql1" />
+		select * from FET_MOBILE_POLICY_INSURANT_INFO
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  		<isNotEmpty prepend="AND" property="dataSrc">
+			  data_src = #dataSrc:VARCHAR#
+	  		</isNotEmpty>
+	  	 	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCode">
+				insured_code = #insuredCode:VARCHAR#
+			</isNotEmpty>
+
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from FET_MOBILE_POLICY_INSURANT_INFO
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  		<isNotEmpty prepend="AND" property="dataSrc">
+			  data_src = #dataSrc:VARCHAR#
+	  		</isNotEmpty>
+	  	 	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCode">
+				insured_code = #insuredCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select COUNT(*) from FET_MOBILE_POLICY_INSURANT_INFO
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  		<isNotEmpty prepend="AND" property="dataSrc">
+			  data_src = #dataSrc:VARCHAR#
+	  		</isNotEmpty>
+	  	 	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCode">
+				insured_code = #insuredCode:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+  
+  <delete id="deleteByEntity" parameterClass="com.tlg.msSqlMob.entity.FetMobilePolicyInsurantInfo">
+    delete from FET_MOBILE_POLICY_INSURANT_INFO
+    where transaction_id = #transactionId:VARCHAR#
+  </delete>
+  
+  <select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map" >
+	SELECT * FROM FET_MOBILE_POLICY_INSURANT_INFO
+	where transaction_id = #transactionId:VARCHAR#
+  </select>
+	
+  <select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.msSqlMob.entity.FetMobilePolicyInsurantInfo" >
+	SELECT COUNT(*) FROM FET_MOBILE_POLICY_INSURANT_INFO
+	where transaction_id = #transactionId:VARCHAR#
+  </select>
+
+	<insert id="insert" parameterClass="com.tlg.msSqlMob.entity.FetMobilePolicyInsurantInfo">
+		insert into FET_MOBILE_POLICY_INSURANT_INFO (transaction_id, insured_code,
+		insured_name,
+		birthday, phone_tele_number, mobile, post_code, post_address, country_ename,
+		domicile, email,
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+		project_code, project_code_premium, head_name, created_by, created_time, data_src)
+		values (#transactionId:VARCHAR#, #insuredCode:VARCHAR#, #insuredName:VARCHAR#,
+		#birthday:VARCHAR#,
+		#phoneTeleNumber:VARCHAR#, #mobile:VARCHAR#, #postCode:VARCHAR#, #postAddress:VARCHAR#,
+		#countryEname:VARCHAR#, #domicile:VARCHAR#, #email:VARCHAR#,
+		#projectCode:VARCHAR#,
+		#projectCodePremium:VARCHAR#, #headName:VARCHAR#, #createdBy:VARCHAR#, #createdTime:TIMESTAMP#, #dataSrc:VARCHAR#)
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	</insert>
+
+	<update id="update" parameterClass="com.tlg.msSqlMob.entity.FetMobilePolicyInsurantInfo">
+		update FET_MOBILE_POLICY_INSURANT_INFO
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="insuredCode">
+				insured_code = #insuredCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insuredName">
+				insured_name = #insuredName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="birthday">
+				birthday = #birthday:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="phoneTeleNumber">
+				phone_tele_number = #phoneTeleNumber:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="mobile">
+				mobile = #mobile:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="postCode">
+				post_code = #postCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="postAddress">
+				post_address = #postAddress:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="countryEname">
+				country_ename = #countryEname:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="domicile">
+				domicile = #domicile:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="email">
+				email = #email:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="projectCode">
+				project_code = #projectCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="projectCodePremium">
+				project_code_premium = #projectCodePremium:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="headName">
+				head_name = #headName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="modifiedBy">
+				modified_by = #modifiedBy:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="modifiedTime">
+				modified_time = #modifiedTime:TIMESTAMP#
+			</isNotNull>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotNull prepend="," property="dataSrc">
+				data_src = #dataSrc:VARCHAR#
+			</isNotNull>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+		</dynamic>
+		where transaction_id = #transactionId:VARCHAR#
+	</update>
+</sqlMap>

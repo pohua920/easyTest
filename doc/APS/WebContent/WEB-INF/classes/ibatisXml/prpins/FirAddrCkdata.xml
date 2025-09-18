@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 start
+-->
+<sqlMap namespace="FirAddrCkdata">
+
+	<resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirAddrCkdata" >
+	    <result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ENDORSENO" property="endorseno" jdbcType="VARCHAR" />
+	    <result column="UNDERWRITEENDDATE" property="underwriteenddate" jdbcType="TIMESTAMP" />
+	    <result column="ADDR_NO" property="addrNo" jdbcType="VARCHAR" />
+	    <result column="ADDR_CODE" property="addrCode" jdbcType="VARCHAR" />
+	    <result column="ORI_ADDRESS" property="oriAddress" jdbcType="VARCHAR" />
+	    <result column="STD_ADDRESS" property="stdAddress" jdbcType="VARCHAR" />
+	    <result column="ADDR_STRUCTURE" property="addrStructure" jdbcType="VARCHAR" />
+	    <result column="ADDR_SUMFLOORS" property="addrSumfloors" jdbcType="VARCHAR" />
+	    <result column="VALID_FLAG" property="validFlag" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 start -->
+	    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    	<result column="FORMATTED_CODE" jdbcType="VARCHAR" property="formattedCode" />
+    	<result column="FORMATTED_MSG" jdbcType="VARCHAR" property="formattedMsg" />
+    	<result column="FORMATTED_RESULT" jdbcType="VARCHAR" property="formattedResult" />
+    	<result column="FORMATTED_ADDR" jdbcType="VARCHAR" property="formattedAddr" />
+	    <result column="FORMATTED_ZIP" jdbcType="VARCHAR" property="formattedZip" />
+	    <result column="FORMATTED_CITY" jdbcType="VARCHAR" property="formattedCity" />
+	    <result column="FORMATTED_DISTRICT" jdbcType="VARCHAR" property="formattedDistrict" />
+	    <result column="FORMATTED_NEIGHBORHOOD" jdbcType="VARCHAR" property="formattedNeighborhood" />
+	    <result column="FORMATTED_ROAD" jdbcType="VARCHAR" property="formattedRoad" />
+	    <result column="FORMATTED_LANE" jdbcType="VARCHAR" property="formattedLane" />
+	    <result column="FORMATTED_ALLEY1" jdbcType="VARCHAR" property="formattedAlley1" />
+	    <result column="FORMATTED_ALLEY2" jdbcType="VARCHAR" property="formattedAlley2" />
+	    <result column="FORMATTED_NO" jdbcType="VARCHAR" property="formattedNo" />
+	    <result column="FORMATTED_FLOOR" jdbcType="VARCHAR" property="formattedFloor" />
+	    <result column="FORMATTED_OTHER" jdbcType="VARCHAR" property="formattedOther" />
+		<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 end -->
+		<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 start -->
+	    <result column="WALLMATERIAL" jdbcType="VARCHAR" property="wallmaterial" />
+	    <result column="ROOFMATERIAL" jdbcType="VARCHAR" property="roofmaterial" />
+	    <result column="BUILDYEARS" jdbcType="VARCHAR" property="buildyears" />
+		<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 end -->
+	</resultMap>
+	
+	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+	<resultMap id="aps024ExportResultMap" class="com.tlg.aps.vo.Aps024ExportVo" >
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ENDORSENO" property="endorseno" jdbcType="VARCHAR" />
+	    <result column="UNDERWRITEENDDATE" property="underwriteenddate" jdbcType="TIMESTAMP" />
+	    <result column="STARTDATE" jdbcType="TIMESTAMP" property="startdate" />
+	    <result column="ENDDATE" jdbcType="TIMESTAMP" property="enddate" />
+	    <result column="P1" property="p1" jdbcType="VARCHAR" />
+	    <result column="P2" property="p2" jdbcType="VARCHAR" />
+	    <result column="P3" property="p3" jdbcType="VARCHAR" />
+	    <result column="ADDR_NO" property="addrNo" jdbcType="VARCHAR" />
+	    <result column="ADDR_CODE" property="addrCode" jdbcType="VARCHAR" />
+	    <result column="ORI_ADDRESS" property="oriAddress" jdbcType="VARCHAR" />
+	    <result column="STD_ADDRESS" property="stdAddress" jdbcType="VARCHAR" />
+	    <result column="ADDR_STRUCTURE" property="addrStructure" jdbcType="VARCHAR" />
+	    <result column="ADDR_SUMFLOORS" property="addrSumfloors" jdbcType="VARCHAR" />
+	    <result column="VALID_FLAG" property="validFlag" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    	<result column="FORMATTED_CODE" jdbcType="VARCHAR" property="formattedCode" />
+    	<result column="FORMATTED_MSG" jdbcType="VARCHAR" property="formattedMsg" />
+    	<result column="FORMATTED_RESULT" jdbcType="VARCHAR" property="formattedResult" />
+    	<result column="FORMATTED_ADDR" jdbcType="VARCHAR" property="formattedAddr" />
+	    <result column="FORMATTED_ZIP" jdbcType="VARCHAR" property="formattedZip" />
+	    <result column="FORMATTED_CITY" jdbcType="VARCHAR" property="formattedCity" />
+	    <result column="FORMATTED_DISTRICT" jdbcType="VARCHAR" property="formattedDistrict" />
+	    <result column="FORMATTED_NEIGHBORHOOD" jdbcType="VARCHAR" property="formattedNeighborhood" />
+	    <result column="FORMATTED_ROAD" jdbcType="VARCHAR" property="formattedRoad" />
+	    <result column="FORMATTED_LANE" jdbcType="VARCHAR" property="formattedLane" />
+	    <result column="FORMATTED_ALLEY1" jdbcType="VARCHAR" property="formattedAlley1" />
+	    <result column="FORMATTED_ALLEY2" jdbcType="VARCHAR" property="formattedAlley2" />
+	    <result column="FORMATTED_NO" jdbcType="VARCHAR" property="formattedNo" />
+	    <result column="FORMATTED_FLOOR" jdbcType="VARCHAR" property="formattedFloor" />
+	    <result column="FORMATTED_OTHER" jdbcType="VARCHAR" property="formattedOther" />
+	    <!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業start -->
+	    <result column="WALLMATERIAL" jdbcType="VARCHAR" property="wallmaterial" />
+	    <result column="ROOFMATERIAL" jdbcType="VARCHAR" property="roofmaterial" />
+	    <result column="BUILDYEARS" jdbcType="VARCHAR" property="buildyears" />
+		<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業end -->
+	</resultMap>
+	
+	<select id="aps024Export" resultMap="aps024ExportResultMap" parameterClass="java.util.Map">
+		SELECT * FROM (SELECT A.*, ROWNUM RN FROM ( (
+		SELECT FAC.POLICYNO, FAC.ENDORSENO, FAC.UNDERWRITEENDDATE, 
+			PC.STARTDATE, PC.ENDDATE,
+			CASE SUBSTR(PC.OTHFLAG,3,1) WHEN '1'  THEN 'Y' ELSE 'N' END AS P1,
+			CASE SUBSTR(PC.OTHFLAG,4,1) WHEN '1'  THEN 'Y' ELSE 'N' END AS P2,
+			CASE SUBSTR(PC.OTHFLAG,16,1) WHEN '1'  THEN 'Y' ELSE 'N' END AS P3,
+			FAC.ADDR_NO, FAC.ADDR_CODE, FAC.ORI_ADDRESS, FAC.STD_ADDRESS, 
+			FAC.ADDR_STRUCTURE, FAC.ADDR_SUMFLOORS, FAC.VALID_FLAG, 
+			FAC.ICREATE, FAC.DCREATE, FAC.IUPDATE, FAC.DUPDATE, FAC.REMARK,
+			FAC.FORMATTED_CODE,FAC.FORMATTED_MSG,FAC.FORMATTED_RESULT,
+			FAC.FORMATTED_ADDR,FAC.FORMATTED_ZIP,FAC.FORMATTED_CITY,
+			FAC.FORMATTED_DISTRICT,FAC.FORMATTED_NEIGHBORHOOD,
+			FAC.FORMATTED_ROAD,FAC.FORMATTED_LANE,
+			FAC.FORMATTED_ALLEY1,FAC.FORMATTED_ALLEY2,
+			FAC.FORMATTED_NO,FAC.FORMATTED_FLOOR,FAC.FORMATTED_OTHER,
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業 -->
+			FAC.WALLMATERIAL, FAC.ROOFMATERIAL, FAC.BUILDYEARS
+		FROM FIR_ADDR_CKDATA FAC
+		LEFT JOIN PRPCMAIN PC ON FAC.POLICYNO = PC.POLICYNO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="policyno">
+				FAC.POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				FAC.ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stdAddress">
+				FAC.STD_ADDRESS = #stdAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFlag">
+				FAC.VALID_FLAG = #validFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業 start-->
+			<isNotEmpty prepend="AND" property="stdAddressLike">
+				FAC.STD_ADDRESS like '%'||#stdAddressLike#||'%'
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業 end-->
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				FAC.UNDERWRITEENDDATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				FAC.UNDERWRITEENDDATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="formattedResult">
+        		FAC.FORMATTED_RESULT = #formattedResult#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="formattedCity">
+		        FAC.FORMATTED_CITY = #formattedCity#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="formattedDistrict">
+        		FAC.FORMATTED_DISTRICT = #formattedDistrict#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="exportFlag">
+        		SUBSTR(PC.OTHFLAG,3,1) != '1'
+				AND SUBSTR(PC.OTHFLAG,4,1) != '1'
+				AND SUBSTR(PC.OTHFLAG,16,1) != '1'
+      		</isNotEmpty>
+		</dynamic>
+		order by POLICYNO, ENDORSENO
+		)A ))WHERE RN BETWEEN #startRow# AND #endRow#
+	</select>
+	
+	<select id="aps024ExportCount" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*)
+		FROM FIR_ADDR_CKDATA FAC
+		LEFT JOIN PRPCMAIN PC ON FAC.POLICYNO = PC.POLICYNO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="policyno">
+				FAC.POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				FAC.ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stdAddress">
+				FAC.STD_ADDRESS = #stdAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFlag">
+				FAC.VALID_FLAG = #validFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oriAddressLike">
+				FAC.ORI_ADDRESS like '%'||#oriAddressLike#||'%'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				FAC.UNDERWRITEENDDATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				FAC.UNDERWRITEENDDATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="formattedResult">
+        		FAC.FORMATTED_RESULT = #formattedResult#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="formattedCity">
+		        FAC.FORMATTED_CITY = #formattedCity#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="formattedDistrict">
+        		FAC.FORMATTED_DISTRICT = #formattedDistrict#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="exportFlag">
+        		SUBSTR(PC.OTHFLAG,3,1) != '1'
+				AND SUBSTR(PC.OTHFLAG,4,1) != '1'
+				AND SUBSTR(PC.OTHFLAG,16,1) != '1'
+      		</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 end -->
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stdAddress">
+				STD_ADDRESS = #stdAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFlag">
+				VALID_FLAG = #validFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業start -->
+			<isNotEmpty prepend="AND" property="stdAddressLike">
+				STD_ADDRESS like '%'||#stdAddressLike#||'%'
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業end -->
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				UNDERWRITEENDDATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				UNDERWRITEENDDATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+		  	<isNotEmpty prepend="AND" property="formattedResult">
+        		FORMATTED_RESULT = #formattedResult#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="formattedCity">
+		        FORMATTED_CITY = #formattedCity#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="formattedDistrict">
+        		FORMATTED_DISTRICT = #formattedDistrict#
+      		</isNotEmpty>
+      		<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 end -->
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stdAddress">
+				STD_ADDRESS = #stdAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFlag">
+				VALID_FLAG = #validFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+			<isNotEmpty prepend="AND" property="formattedResult">
+        		FORMATTED_RESULT = #formattedResult#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="formattedCity">
+		        FORMATTED_CITY = #formattedCity#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="formattedDistrict">
+        		FORMATTED_DISTRICT = #formattedDistrict#
+      		</isNotEmpty>
+      		<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 end -->
+		</dynamic>
+	</select>
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stdAddress">
+				STD_ADDRESS = #stdAddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFlag">
+				VALID_FLAG = #validFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業start -->
+			<isNotEmpty prepend="AND" property="stdAddressLike">
+				STD_ADDRESS like '%'||#stdAddressLike#||'%'
+			</isNotEmpty>
+			<!-- mantis：FIR609，處理人員：BJ085，需求單編號：FIR609 地址維護作業調整-FIR0521住火標的物地址正規化-FIR0357地址維護作業end -->
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				UNDERWRITEENDDATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				UNDERWRITEENDDATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+		  	<isNotEmpty prepend="AND" property="formattedResult">
+        		FORMATTED_RESULT = #formattedResult#
+      		</isNotEmpty>
+      		<isNotEmpty prepend="AND" property="formattedCity">
+		        FORMATTED_CITY = #formattedCity#
+		    </isNotEmpty>
+		    <isNotEmpty prepend="AND" property="formattedDistrict">
+        		FORMATTED_DISTRICT = #formattedDistrict#
+      		</isNotEmpty>
+      		<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 end -->
+		</dynamic>
+	</select>
+	
+	<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 start -->
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.FirAddrCkdata" >
+		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT FIR_ADDR_CKDATA_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+
+    	INSERT INTO <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA (OID, POLICYNO, ENDORSENO, UNDERWRITEENDDATE, ADDR_NO, ADDR_CODE,
+      	ORI_ADDRESS, STD_ADDRESS, ADDR_STRUCTURE, ADDR_SUMFLOORS, VALID_FLAG,IUPDATE, DUPDATE, ICREATE, DCREATE, REMARK, 
+      	FORMATTED_CODE, FORMATTED_MSG, FORMATTED_RESULT, FORMATTED_ADDR,
+      	FORMATTED_ZIP, FORMATTED_CITY, FORMATTED_DISTRICT, FORMATTED_NEIGHBORHOOD, FORMATTED_ROAD,
+      	FORMATTED_LANE, FORMATTED_ALLEY1, FORMATTED_ALLEY2, FORMATTED_NO, FORMATTED_FLOOR,
+      	<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 -->
+      	FORMATTED_OTHER, WALLMATERIAL, ROOFMATERIAL, BUILDYEARS)
+    	values (#oid:DECIMAL#, #policyno:VARCHAR#, #endorseno:VARCHAR#, #underwriteenddate:TIMESTAMP#,
+      	#addrNo:VARCHAR#, #addrCode:VARCHAR#, #oriAddress:VARCHAR#, #stdAddress:VARCHAR#,
+      	#addrStructure:VARCHAR#, #addrSumfloors:VARCHAR#, #validFlag:VARCHAR#, #iupdate:VARCHAR#,
+      	#dupdate:TIMESTAMP#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#, #remark:VARCHAR#,
+      	#formattedCode:VARCHAR#, #formattedMsg:VARCHAR#, #formattedResult:VARCHAR#,
+      	#formattedAddr:VARCHAR#, #formattedZip:VARCHAR#, #formattedCity:VARCHAR#,
+      	#formattedDistrict:VARCHAR#, #formattedNeighborhood:VARCHAR#, #formattedRoad:VARCHAR#,
+      	#formattedLane:VARCHAR#, #formattedAlley1:VARCHAR#, #formattedAlley2:VARCHAR#, #formattedNo:VARCHAR#,
+      	#formattedFloor:VARCHAR#, #formattedOther:VARCHAR#,
+      	<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 --> 
+      	#wallmaterial:VARCHAR#, #roofmaterial:VARCHAR#, #buildyears:VARCHAR#)
+	</insert>
+	<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 end -->
+
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA WHERE OID = #oid:DECIMAL#
+	</delete>
+	
+	<delete id="deleteAllDatas" >
+		DELETE FROM <include refid="Utils.prpinsSchema"/>FIR_ADDR_CKDATA WHERE 1=1
+	</delete>
+	
+	<delete id="truncate">
+    	TRUNCATE TABLE <include refid="Utils.schema"/>FIR_ADDR_CKDATA
+  	</delete>
+
+	<update id="update" parameterClass="com.tlg.prpins.entity.FirAddrCkdata">
+		UPDATE <include refid="Utils.prpinsSchema" />FIR_ADDR_CKDATA
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="policyno">
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="endorseno">
+				ENDORSENO = #endorseno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="underwriteenddate">
+				UNDERWRITEENDDATE = #underwriteenddate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="addrNo">
+				ADDR_NO = #addrNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="addrCode">
+				ADDR_CODE = #addrCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="oriAddress">
+				ORI_ADDRESS = #oriAddress:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="stdAddress">
+				STD_ADDRESS = #stdAddress:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="addrStructure">
+				ADDR_STRUCTURE = #addrStructure:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="addrSumfloors">
+				ADDR_SUMFLOORS = #addrSumfloors:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="validFlag">
+				VALID_FLAG = #validFlag:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="iupdate">
+				IUPDATE = #iupdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dupdate">
+				DUPDATE = #dupdate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				REMARK = #remark:VARCHAR#
+			</isNotNull>
+			<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 start -->
+			<isNotNull prepend="," property="formattedCode">
+		        FORMATTED_CODE = #formattedCode:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedMsg">
+	        	FORMATTED_MSG = #formattedMsg:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedResult">
+	        	FORMATTED_RESULT = #formattedResult:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedAddr">
+	        	FORMATTED_ADDR = #formattedAddr:VARCHAR#
+		    </isNotNull>
+		    <isNotNull prepend="," property="formattedZip">
+	        	FORMATTED_ZIP = #formattedZip:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedCity">
+	        	FORMATTED_CITY = #formattedCity:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedDistrict">
+	        	FORMATTED_DISTRICT = #formattedDistrict:VARCHAR#
+		    </isNotNull>
+		    <isNotNull prepend="," property="formattedNeighborhood">
+	        	FORMATTED_NEIGHBORHOOD = #formattedNeighborhood:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedRoad">
+	        	FORMATTED_ROAD = #formattedRoad:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedLane">
+	        	FORMATTED_LANE = #formattedLane:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedAlley1">
+	        	FORMATTED_ALLEY1 = #formattedAlley1:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedAlley2">
+	        	FORMATTED_ALLEY2 = #formattedAlley2:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedNo">
+	        	FORMATTED_NO = #formattedNo:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedFloor">
+	        	FORMATTED_FLOOR = #formattedFloor:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="formattedOther">
+	        	FORMATTED_OTHER = #formattedOther:VARCHAR#
+	      	</isNotNull>
+	      	<!-- 若上傳檔案地址正規化未通過，要將正規化的值更新回null -->
+	      	<isNull prepend="," property="formattedCode">
+		        FORMATTED_CODE = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedMsg">
+	        	FORMATTED_MSG = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedAddr">
+	        	FORMATTED_ADDR = NULL
+		    </isNull>
+		    <isNull prepend="," property="formattedZip">
+	        	FORMATTED_ZIP = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedCity">
+	        	FORMATTED_CITY = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedDistrict">
+	        	FORMATTED_DISTRICT = NULL
+		    </isNull>
+		    <isNull prepend="," property="formattedNeighborhood">
+	        	FORMATTED_NEIGHBORHOOD = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedRoad">
+	        	FORMATTED_ROAD = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedLane">
+	        	FORMATTED_LANE = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedAlley1">
+	        	FORMATTED_ALLEY1 = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedAlley2">
+	        	FORMATTED_ALLEY2 = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedNo">
+	        	FORMATTED_NO = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedFloor">
+	        	FORMATTED_FLOOR = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="formattedOther">
+	        	FORMATTED_OTHER = NULL
+	      	</isNull>
+	      	<!-- mantis：FIR0520，處理人員：BJ085，需求單編號：FIR0520 標的物地址正規化-FIR0183地址匯入排程調整 end -->
+	      	<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 start -->
+	      	<isNotNull prepend="," property="wallmaterial">
+	        	WALLMATERIAL = #wallmaterial:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="roofmaterial">
+	        	ROOFMATERIAL = #roofmaterial:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="buildyears">
+	        	BUILDYEARS = #buildyears:VARCHAR#
+	      	</isNotNull>
+	      	<isNull prepend="," property="wallmaterial">
+	        	WALLMATERIAL = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="roofmaterial">
+	        	ROOFMATERIAL = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="buildyears">
+	        	BUILDYEARS = NULL
+	      	</isNull>
+	      	<isNull prepend="," property="remark">
+	        	REMARK = NULL
+	      	</isNull>
+	      	<!-- mantis：FIR0611，處理人員：BJ085，需求單編號：FIR0611 住火-標的物地址正規化-FIR0520_183地址匯入排程調整 end -->
+		</dynamic>
+		WHERE OID = #oid:DECIMAL#
+	</update>
+
+</sqlMap>

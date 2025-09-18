@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業-->
+<struts>
+	<package name="AJAX017Action" extends="BaseAction" namespace="/aps/ajax017">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		
+		<action name="countFixData" class="AJAX017Action" method="countFixData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+
+		<action name="verifyYcbBasicData" class="AJAX017Action" method="verifyYcbBasicData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>	
+		</action>
+		
+		<action name="checkExtracomcode" class="AJAX017Action" method="checkExtracomcode">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkHandleridentifynumber" class="AJAX017Action" method="checkHandleridentifynumber">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkStructureLeval" class="AJAX017Action" method="checkStructureLeval">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

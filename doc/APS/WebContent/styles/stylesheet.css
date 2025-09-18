@@ -1,0 +1,200 @@
+BODY,TD
+{
+	FONT-FAMILY: 新細明體,Arial;
+	FONT-SIZE: 9pt;
+	LINE-HEIGHT: 1.6;
+} 
+.main_table
+{
+	border-color: #428ABD;
+	border-collapse:collapse;
+}
+
+.main_table tbody tr th
+{
+	background-color: #87CEFA;
+	border-color: #428ABD;
+}
+
+.main_table tr td
+{
+	border-color: #428ABD;
+	word-break:break-all;
+}
+.TdColor
+{
+	background-color: LightSkyBlue;
+}
+.MainTdColor
+{
+	background-color: #ffec9d;
+}
+.SelectTdColor
+{
+	background-color: #BBBBBB;
+}
+
+.MainTagFont{color:#000000;text-decoration: underline }
+.MainTagFont.visited{color:#000000}
+.MainTagFont.link {color:#000000}
+
+.SelectTagFont{color:#FF0000;text-decoration: underline }
+.SelectTagFont.visited{color:#FF0000}
+.SelectTagFont.link {color:#FF0000}
+
+.txtLabel{border:0;background-color: #efefef;}
+.MainBodyColor{background-color: #efefef;}
+.SubTdColor{background-color: #ffec9d;}
+.SubBodyColor{background-color: #efefef;}
+
+.MainDiv{display:none}
+.SelectDiv{display:block}
+		
+.riskStyle {background-color: #FF9900;}
+.nquipStyle {background-color: #99CCFF;}
+
+input {font-family: 新細明體;FONT-SIZE: 9pt}
+
+.ReadOnly{border-width:0;background-color:#efefef}
+.HyperLink{border-width:0;background-color:#efefef;color:blue;text-decoration:underline;cursor:hand}
+
+label.error {
+	margin-left: 10px;
+	width: auto;
+	display: none;
+	color: #000000;
+	
+}
+
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(../images/date_16x16.gif) no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+input.dp-applied {
+	
+	float: left;
+}
+
+.tblDataArea
+{
+	BACKGROUND-COLOR: #EFEFEF; 
+	border-spacing: 0px;
+	padding: 0px;
+	BORDER-BOTTOM: none ; 
+	BORDER-LEFT: none ; 
+	BORDER-RIGHT: none ; 
+	BORDER-TOP: none ; 
+	COLOR: #010305; 
+	text-align:left 
+	
+}
+.tdDataCaption
+{
+	BORDER: 1px solid;
+    border-color: #EFEFEF;
+	PADDING-BOTTOM: 0px; 
+	PADDING-LEFT: 0px; 
+	PADDING-RIGHT: 0px; 
+	PADDING-TOP: 0px; 
+	TEXT-ALIGN: right;
+	letter-spacing:1px;
+	white-space:nowrap;
+	word-spacing:3px;
+}
+.tdDataField, .tblDataField
+{
+    BACKGROUND-COLOR: #efefef; 
+	COLOR: #000000; 
+	BORDER-BOTTOM:   none; 
+	BORDER-LEFT:    none;
+	BORDER-RIGHT:   none;
+	BORDER-TOP:  none;
+	PADDING-BOTTOM: 0px; 
+	PADDING-LEFT: 0px; 
+	PADDING-RIGHT: 0px; 
+	PADDING-TOP: 0px;
+	TEXT-ALIGN: left;
+}
+.tdDIVDataCaptionLeft
+{
+	BACKGROUND-COLOR: #CBE9F5;
+	BORDER-BOTTOM: #abd0e0 1px solid; 
+	BORDER-LEFT: #abd0e0 1px solid; 
+	BORDER-RIGHT: #abd0e0 1px solid; 
+	BORDER-TOP: #abd0e0 1px solid; 
+	COLOR: #2C2C85; 
+	PADDING-BOTTOM: 1px; 
+	PADDING-LEFT: 1px; 
+	PADDING-RIGHT: 1px; 
+	PADDING-TOP: 3px; 
+	TEXT-ALIGN: left;
+	letter-spacing:1px;
+	white-space:nowrap;
+	word-spacing:3px;
+	font-weight :bolder ;
+}
+.cssDataGrid
+{
+	/*
+	border-left: #c0c0ff 1px solid;
+	border-top: #c0c0ff 1px solid;
+	*/
+	border-right: #c0c0ff 1px solid;
+	border-bottom: #c0c0ff 1px solid;
+	color: #CCFFFF;
+	border-width:0;
+	font-size: 10pt;
+	background-color: white;
+	text-decoration: none;
+}
+.cssDataGridAlternatingItem
+{
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+	color: #000000;
+	font-style: normal;
+	background-color: #ffffc5;
+	text-decoration: none;
+}
+.cssDataGridItem
+{
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+	color: #000000;
+	font-style: normal;
+	background-color: #efefef;
+	text-decoration: none;
+}
+.cssDataGridHeader
+{
+	font-weight: normal;
+	font-size: 9pt;
+	color: #CCFFFF;
+	font-style: normal;
+	background-color: #5d96dc;
+	text-decoration: none;
+}
+.image
+{
+	background-image: url('../images/MainLabel.gif');
+	background-repeat: no-repeat;
+	overflow: none;
+}
+.imageGray{
+	background-image: url('../images/MainLabel(gray).jpg');
+	background-repeat: no-repeat;
+	overflow: none;
+}

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--  mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 -->
+<sqlMap namespace="FetclaimTypecm">
+	<resultMap class="com.tlg.msSqlMob.entity.FetclaimTypecm" id="BaseResultMap">
+	    <result column="OID" jdbcType="NUMERIC" property="oid" />
+	    <result column="MTN_NO" jdbcType="VARCHAR" property="mtnNo" />
+	    <result column="CONTRACT_ID" jdbcType="VARCHAR" property="contractId" />
+	    <result column="MATNR_NO" jdbcType="VARCHAR" property="matnrNo" />
+	    <result column="IMEI" jdbcType="VARCHAR" property="imei" />
+	    <result column="CLAIM_TYPE" jdbcType="VARCHAR" property="claimType" />
+	    <result column="NOTIF_DATE" jdbcType="VARCHAR" property="notifDate" />
+	    <result column="LISTPRICE1" jdbcType="NUMERIC" property="listprice1" />
+	    <result column="CAUSE_DESCRIPTION1" jdbcType="VARCHAR" property="causeDescription1" />
+	    <result column="FINAL_AUTH" jdbcType="VARCHAR" property="finalAuth" />
+	    <result column="SPECIAL_APPROVAL" jdbcType="VARCHAR" property="specialApproval" />
+	    <result column="EVENT_DATE" jdbcType="VARCHAR" property="eventDate" />
+	    <result column="EVENT_CAUSE" jdbcType="VARCHAR" property="eventCause" />
+	    <result column="POLICY_NO" jdbcType="VARCHAR" property="policyNo" />
+	    <result column="ASU_CLAIM_AMOUNT" jdbcType="NUMERIC" property="asuClaimAmount" />
+	    <result column="ER_DATE" jdbcType="VARCHAR" property="erDate" />
+	    <result column="FINISH_DATE" jdbcType="VARCHAR" property="finishDate" />
+	    <result column="PART_DESCRIPTION1" jdbcType="VARCHAR" property="partDescription1" />
+	    <result column="PART_DESCRIPTION2" jdbcType="VARCHAR" property="partDescription2" />
+	    <result column="PART_DESCRIPTION3" jdbcType="VARCHAR" property="partDescription3" />
+	    <result column="PART_DESCRIPTION4" jdbcType="VARCHAR" property="partDescription4" />
+	    <result column="PART_DESCRIPTION5" jdbcType="VARCHAR" property="partDescription5" />
+	    <result column="PART_DESCRIPTION6" jdbcType="VARCHAR" property="partDescription6" />
+	    <result column="PART_DESCRIPTION7" jdbcType="VARCHAR" property="partDescription7" />
+	    <result column="PART_DESCRIPTION8" jdbcType="VARCHAR" property="partDescription8" />
+	    <result column="PART_DESCRIPTION9" jdbcType="VARCHAR" property="partDescription9" />
+	    <result column="PART_DESCRIPTION10" jdbcType="VARCHAR" property="partDescription10" />
+	    <result column="API_STATUS" jdbcType="VARCHAR" property="apiStatus" />
+	    <result column="XML_STATUS" jdbcType="VARCHAR" property="xmlStatus" />
+	    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+	    <result column="CREATDATE" jdbcType="TIMESTAMP" property="creatdate" />
+	    <result column="ICLAIMNO" jdbcType="VARCHAR" property="iclaimno" />
+	    <result column="RETCODE" jdbcType="VARCHAR" property="retcode" />
+	    <result column="MESSAGE" jdbcType="VARCHAR" property="message" />
+  	</resultMap>
+
+	<select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		<include refid="Utils.msSql1" />
+		select * from FETCLAIM_TYPECM
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtnNo">
+				MTN_NO = #mtnNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				CONTRACT_ID = #contractId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="matnrNo">
+				MATNR_NO = #matnrNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="imei">
+				IMEI = #imei:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="claimType">
+				CLAIM_TYPE = #claimType:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyNo">
+				POLICY_NO = #policyNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apiStatus">
+				API_STATUS = #apiStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="xmlStatus">
+				XML_STATUS = #xmlStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="iclaimno">
+				ICLAIMNO = #iclaimno:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="retcode">
+				RETCODE = #retcode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="eventDate">
+				EVENT_DATE = #eventDate:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from FETCLAIM_TYPECM
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtnNo">
+				MTN_NO = #mtnNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				CONTRACT_ID = #contractId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="matnrNo">
+				MATNR_NO = #matnrNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="imei">
+				IMEI = #imei:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="claimType">
+				CLAIM_TYPE = #claimType:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyNo">
+				POLICY_NO = #policyNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apiStatus">
+				API_STATUS = #apiStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="xmlStatus">
+				XML_STATUS = #xmlStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="iclaimno">
+				ICLAIMNO = #iclaimno:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="retcode">
+				RETCODE = #retcode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="eventDate">
+				EVENT_DATE = #eventDate:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select COUNT(*) from FETCLAIM_TYPECM
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtnNo">
+				MTN_NO = #mtnNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				CONTRACT_ID = #contractId:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="matnrNo">
+				MATNR_NO = #matnrNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="imei">
+				IMEI = #imei:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="claimType">
+				CLAIM_TYPE = #claimType:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyNo">
+				POLICY_NO = #policyNo:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apiStatus">
+				API_STATUS = #apiStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="xmlStatus">
+				XML_STATUS = #xmlStatus:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="iclaimno">
+				ICLAIMNO = #iclaimno:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="retcode">
+				RETCODE = #retcode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="eventDate">
+				EVENT_DATE = #eventDate:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="notifDateByMonth">
+				NOTIF_DATE LIKE #notifDateByMonth:VARCHAR# + '%'
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="countByUK" resultClass="java.lang.Integer"
+		parameterClass="com.tlg.msSqlMob.entity.FetclaimTypecm">
+		SELECT COUNT(*) FROM FETCLAIM_TYPECM
+		where MTN_NO = #mtnNo:VARCHAR#
+	</select>
+
+	<delete id="deleteByEntity" parameterClass="com.tlg.msSqlMob.entity.FetclaimTypecm">
+		delete from FETCLAIM_TYPECM
+		where OID = #oid:VARCHAR#
+	</delete>
+
+  	<insert id="insert" parameterClass="com.tlg.msSqlMob.entity.FetclaimTypecm">
+	    insert into FETCLAIM_TYPECM (MTN_NO, CONTRACT_ID, MATNR_NO, IMEI, CLAIM_TYPE, NOTIF_DATE,
+	      LISTPRICE1, CAUSE_DESCRIPTION1, FINAL_AUTH, SPECIAL_APPROVAL, EVENT_DATE, EVENT_CAUSE,
+	      POLICY_NO, ASU_CLAIM_AMOUNT, ER_DATE, FINISH_DATE, PART_DESCRIPTION1, PART_DESCRIPTION2,
+	      PART_DESCRIPTION3, PART_DESCRIPTION4, PART_DESCRIPTION5, PART_DESCRIPTION6, PART_DESCRIPTION7,
+	      PART_DESCRIPTION8, PART_DESCRIPTION9, PART_DESCRIPTION10, API_STATUS, XML_STATUS, CREATER,
+	      CREATDATE, ICLAIMNO, RETCODE, MESSAGE)
+	    values (#mtnNo:VARCHAR#, #contractId:VARCHAR#, #matnrNo:VARCHAR#, #imei:VARCHAR#,
+	      #claimType:VARCHAR#, #notifDate:VARCHAR#, #listprice1:NUMERIC#, #causeDescription1:VARCHAR#,
+	      #finalAuth:VARCHAR#, #specialApproval:VARCHAR#, #eventDate:VARCHAR#, #eventCause:VARCHAR#,
+	      #policyNo:VARCHAR#, #asuClaimAmount:NUMERIC#, #erDate:VARCHAR#, #finishDate:VARCHAR#,
+	      #partDescription1:VARCHAR#, #partDescription2:VARCHAR#, #partDescription3:VARCHAR#,
+	      #partDescription4:VARCHAR#, #partDescription5:VARCHAR#, #partDescription6:VARCHAR#,
+	      #partDescription7:VARCHAR#, #partDescription8:VARCHAR#, #partDescription9:VARCHAR#,
+	      #partDescription10:VARCHAR#, #apiStatus:VARCHAR#, #xmlStatus:VARCHAR#, #creater:VARCHAR#,
+	      #creatdate:TIMESTAMP#, #iclaimno:VARCHAR#, #retcode:VARCHAR#, #message:VARCHAR#)
+	      
+ 		<selectKey keyProperty="oid" type="post" resultClass="java.math.BigDecimal">
+            select @@IDENTITY as OID
+         </selectKey>
+	</insert>
+
+	<update id="update" parameterClass="com.tlg.msSqlMob.entity.FetclaimTypecm">
+    	update FETCLAIM_TYPECM
+    	<dynamic prepend="set">
+      		<isNotNull prepend="," property="mtnNo" >
+        		MTN_NO = #mtnNo:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="contractId" >
+        		CONTRACT_ID = #contractId:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="matnrNo" >
+        		MATNR_NO = #matnrNo:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="imei" >
+        		IMEI = #imei:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="claimType" >
+        		CLAIM_TYPE = #claimType:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="notifDate" >
+        		NOTIF_DATE = #notifDate:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="listprice1" >
+        		LISTPRICE1 = #listprice1:NUMERIC#
+      		</isNotNull>
+		    <isNotNull prepend="," property="causeDescription1" >
+        		CAUSE_DESCRIPTION1 = #causeDescription1:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="finalAuth" >
+        		FINAL_AUTH = #finalAuth:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="specialApproval" >
+        		SPECIAL_APPROVAL = #specialApproval:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="eventDate" >
+        		EVENT_DATE = #eventDate:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="eventCause" >
+        		EVENT_CAUSE = #eventCause:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="policyNo" >
+        		POLICY_NO = #policyNo:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="asuClaimAmount" >
+        		ASU_CLAIM_AMOUNT = #asuClaimAmount:NUMERIC#
+      		</isNotNull>
+      		<isNotNull prepend="," property="erDate" >
+        		ER_DATE = #erDate:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="finishDate" >
+        		FINISH_DATE = #finishDate:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription1" >
+        		PART_DESCRIPTION1 = #partDescription1:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription2" >
+        		PART_DESCRIPTION2 = #partDescription2:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription3" >
+        		PART_DESCRIPTION3 = #partDescription3:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription4" >
+        		PART_DESCRIPTION4 = #partDescription4:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription5" >
+        		PART_DESCRIPTION5 = #partDescription5:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription6" >
+        		PART_DESCRIPTION6 = #partDescription6:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription7" >
+        		PART_DESCRIPTION7 = #partDescription7:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription8" >
+        		PART_DESCRIPTION8 = #partDescription8:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription9" >
+        		PART_DESCRIPTION9 = #partDescription9:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="partDescription10" >
+        		PART_DESCRIPTION10 = #partDescription10:VARCHAR#
+      		</isNotNull>
+			<isNotNull prepend="," property="apiStatus">
+				API_STATUS = #apiStatus:VARCHAR#
+		    </isNotNull>
+		    <isNotNull prepend="," property="xmlStatus">
+				XML_STATUS = #xmlStatus:VARCHAR#
+			</isNotNull>
+      		<isNotNull prepend="," property="creater" >
+        		CREATER = #creater:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="creatdate" >
+        		CREATDATE = #creatdate:TIMESTAMP#
+      		</isNotNull>
+      		<isNotNull prepend="," property="iclaimno" >
+        		ICLAIMNO = #iclaimno:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="retcode" >
+        		RETCODE = #retcode:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="message" >
+        		MESSAGE = #message:VARCHAR#
+      		</isNotNull>
+    	</dynamic>
+    	where OID = #oid:NUMERIC#
+	</update>
+</sqlMap>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+<sqlMap namespace="CommdataCmemfil">
+  <resultMap class="com.tlg.sales.entity.CommdataCmemfil" id="BaseResultMap">
+    <result column="CMEM00" jdbcType="VARCHAR" property="cmem00" />
+    <result column="CMEM01" jdbcType="VARCHAR" property="cmem01" />
+    <result column="CMEM03" jdbcType="VARCHAR" property="cmem03" />
+    <result column="CMEM04" jdbcType="VARCHAR" property="cmem04" />
+    <result column="CMEM13" jdbcType="VARCHAR" property="cmem13" />
+    <result column="CMEM18" jdbcType="VARCHAR" property="cmem18" />
+    <result column="CMEM19" jdbcType="VARCHAR" property="cmem19" />
+    <result column="CMEM91" jdbcType="VARCHAR" property="cmem91" />
+    <result column="CMEM92" jdbcType="VARCHAR" property="cmem92" />
+    <result column="CMEM93" jdbcType="VARCHAR" property="cmem93" />
+    <result column="CMEM94" jdbcType="VARCHAR" property="cmem94" />
+    <result column="CMEM25" jdbcType="VARCHAR" property="cmem25" />
+    <result column="CMEMX0" jdbcType="VARCHAR" property="cmemx0" />
+    <result column="CMEMX1" jdbcType="VARCHAR" property="cmemx1" />
+  </resultMap>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	SELECT * FROM <include refid="Utils.salesSchema"/>COMMDATA_CMEMFIL
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="cmem00">
+			CMEM00 = #cmem00#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cmem01">
+			CMEM01 = #cmem01#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cmem03">
+			CMEM03 = #cmem03#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cmem18">
+			CMEM18 = #cmem18#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cmem19">
+			CMEM19 = #cmem19#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cmem25">
+			CMEM25 = #cmem25#
+		</isNotEmpty>
+	</dynamic>
+  </select>
+  
+  <select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map" >
+	SELECT * FROM <include refid="Utils.salesSchema"/>COMMDATA_CMEMFIL
+	where CMEM00 = #cmem00#
+  </select>
+  
+  <resultMap class="com.tlg.sales.entity.CommdataCmemfil" id="FirChangeHandlecodeMap">
+    <result column="CMEM00" jdbcType="VARCHAR" property="cmem00" />
+    <result column="CMEM01" jdbcType="VARCHAR" property="cmem01" />
+    <result column="CMEM18" jdbcType="VARCHAR" property="cmem18" />
+  </resultMap>
+  
+  <select id="selectForFirChangeHandler1code" resultMap="FirChangeHandlecodeMap" parameterClass="java.util.Map" >
+	SELECT C2.CMEM00, C2.CMEM01, C1.CMEM18 FROM SALES.COMMDATA_CMEMFIL C1
+	LEFT JOIN (SELECT CMEM00, CMEM01 FROM SALES.COMMDATA_CMEMFIL) C2 ON C1.CMEMX1 = C2.CMEM00
+	WHERE C1.CMEM00 = #cmem00#
+  </select>
+  
+</sqlMap>

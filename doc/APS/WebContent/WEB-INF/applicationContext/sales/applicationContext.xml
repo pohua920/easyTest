@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 -->
+	<bean id="prpdAgreementDao" class="com.tlg.sales.dao.impl.PrpdAgreementDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 start -->
+	<bean id="prpdagentDao" class="com.tlg.sales.dao.impl.PrpdagentDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	
+	<bean id="handlercodeTmpDao" class="com.tlg.sales.dao.impl.HandlercodeTmpDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 end -->
+
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 -->
+	<bean id="prpdagentsubDao" class="com.tlg.sales.dao.impl.PrpdagentsubDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<bean id="commdataCmemfilDao" class="com.tlg.sales.dao.impl.CommdataCmemfilDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<bean id="prpdagentLoginDateReserveDao" class="com.tlg.sales.dao.impl.PrpdagentLoginDateReserveDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<bean id="prpdagentIdvDao" class="com.tlg.sales.dao.impl.PrpdagentIdvDaoImpl">
+		<property name="sqlMapClient" ref="salesSqlMapClient"/>
+	</bean>
+	<!-- Base Service -->
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 -->
+	<bean id="prpdAgreementService" class="com.tlg.sales.service.impl.PrpdAgreementServiceImpl">
+		<property name="prpdAgreementDao" ref="prpdAgreementDao"/>
+	</bean>
+	
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 start -->
+	<bean id="prpdagentService" class="com.tlg.sales.service.impl.PrpdagentServiceImpl">
+		<property name="prpdagentDao" ref="prpdagentDao"/>
+	</bean>
+	
+	<bean id="handlercodeTmpService" class="com.tlg.sales.service.impl.HandlercodeTmpServiceImpl">
+		<property name="handlercodeTmpDao" ref="handlercodeTmpDao"/>
+	</bean>
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 end -->
+
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 -->
+	<bean id="prpdagentsubService" class="com.tlg.sales.service.impl.PrpdagentsubServiceImpl">
+		<property name="prpdagentsubDao" ref="prpdagentsubDao"/>
+	</bean>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<bean id="commdataCmemfilService" class="com.tlg.sales.service.impl.CommdataCmemfilServiceImpl">
+		<property name="commdataCmemfilDao" ref="commdataCmemfilDao"/>
+	</bean>
+	<!-- business Service -->
+	
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<bean id="prpdagentLoginDateReserveService" class="com.tlg.sales.service.impl.PrpdagentLoginDateReserveServiceImpl">
+		<property name="prpdagentLoginDateReserveDao" ref="prpdagentLoginDateReserveDao"/>
+	</bean>
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<bean id="prpdagentIdvService" class="com.tlg.sales.service.impl.PrpdagentIdvServiceImpl">
+		<property name="prpdagentIdvDao" ref="prpdagentIdvDao"/>
+	</bean>
+</beans>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	<bean id="com580WKDao" class="com.tlg.db2.dao.impl.Com580WKDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com704waDao" class="com.tlg.db2.dao.impl.Com704waDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com704wbDao" class="com.tlg.db2.dao.impl.Com704wbDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com051waDao" class="com.tlg.db2.dao.impl.Com051waDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com051wbDao" class="com.tlg.db2.dao.impl.Com051wbDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com051wcDao" class="com.tlg.db2.dao.impl.Com051wcDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com051weDao" class="com.tlg.db2.dao.impl.Com051weDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table start-->
+	<bean id="com880wkDao" class="com.tlg.db2.dao.impl.Com880wkDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com890waDao" class="com.tlg.db2.dao.impl.Com890waDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com890wbDao" class="com.tlg.db2.dao.impl.Com890wbDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table end-->
+	<bean id="com910waDao" class="com.tlg.db2.dao.impl.Com910waDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	
+	<bean id="com910wbDao" class="com.tlg.db2.dao.impl.Com910wbDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 START-->
+	<bean id="as400InrcfilDao" class="com.tlg.db2.dao.impl.As400InrcfilDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 END-->
+	
+	<!--mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B START-->
+	<bean id="as400FilCustDao" class="com.tlg.db2.dao.impl.As400FilCustDaoImpl">
+		<property name="sqlMapClient" ref="db2SqlMapClient"/>
+	</bean>
+	<!--mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B END-->
+
+	<!-- Base Service -->
+	<bean id="com580WKService" class="com.tlg.db2.service.impl.Com580WKServiceImpl">
+		<property name="com580WKDao" ref="com580WKDao"/>
+	</bean>
+	
+	<bean id="com704waService" class="com.tlg.db2.service.impl.Com704waServiceImpl">
+		<property name="com704waDao" ref="com704waDao"/>
+	</bean>
+	
+	<bean id="com704wbService" class="com.tlg.db2.service.impl.Com704wbServiceImpl">
+		<property name="com704wbDao" ref="com704wbDao"/>
+	</bean>
+	
+	<bean id="com051waService" class="com.tlg.db2.service.impl.Com051waServiceImpl">
+		<property name="com051waDao" ref="com051waDao"/>
+	</bean>
+	
+	<bean id="com051wbService" class="com.tlg.db2.service.impl.Com051wbServiceImpl">
+		<property name="com051wbDao" ref="com051wbDao"/>
+	</bean>
+	
+	<bean id="com051wcService" class="com.tlg.db2.service.impl.Com051wcServiceImpl">
+		<property name="com051wcDao" ref="com051wcDao"/>
+	</bean>
+	
+	<bean id="com051weService" class="com.tlg.db2.service.impl.Com051weServiceImpl">
+		<property name="com051weDao" ref="com051weDao"/>
+	</bean>
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table start-->
+	<bean id="com880wkService" class="com.tlg.db2.service.impl.Com880wkServiceImpl">
+		<property name="com880wkDao" ref="com880wkDao"/>
+	</bean>
+	
+	<bean id="com890waService" class="com.tlg.db2.service.impl.Com890waServiceImpl">
+		<property name="com890waDao" ref="com890waDao"/>
+	</bean>
+	
+	<bean id="com890wbService" class="com.tlg.db2.service.impl.Com890wbServiceImpl">
+		<property name="com890wbDao" ref="com890wbDao"/>
+	</bean>
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table end-->
+	<bean id="com910waService" class="com.tlg.db2.service.impl.Com910waServiceImpl">
+		<property name="com910waDao" ref="com910waDao"/>
+	</bean>
+	
+	<bean id="com910wbService" class="com.tlg.db2.service.impl.Com910wbServiceImpl">
+		<property name="com910wbDao" ref="com910wbDao"/>
+	</bean>
+	
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 START-->
+	<bean id="as400InrcfilService" class="com.tlg.db2.service.impl.As400InrcfilServiceImpl">
+		<property name="inrcfilService" ref="inrcfilService"></property>
+		<property name="as400InrcfilDao" ref="as400InrcfilDao"/>
+	</bean>
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 END-->
+	
+	<!--mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B START-->
+	<bean id="as400FilCustService" class="com.tlg.db2.service.impl.As400FilCustServiceImpl">
+		<property name="as400FilCustDao" ref="as400FilCustDao"/>
+	</bean>
+	<!--mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B END-->
+	<!-- business Service -->
+</beans>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<struts>
+	<package name="APS056Action" extends="BaseAction" namespace="/aps/056">
+	
+		<!-- default -->
+		<action name="default" class="APS056Action">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+		<!-- APS056E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="APS056Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+		<!-- 按下存檔鍵，做新增儲存動作 -->
+		<action name="btnCreate" class="APS056Action" method="btnCreate">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056A0.jsp</result>
+		</action>
+		
+		<!-- 按下存檔鍵，做修改儲存動作 -->
+		<action name="btnUpdate" class="APS056Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056U0.jsp</result>
+		</action>
+		
+		<!-- 連結到查詢頁面 -->
+		<action name="lnkGoQuery" class="APS056Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+		<!-- 連結至新增頁面 -->
+		<action name="lnkGoCreate" class="APS056Action" method="lnkGoCreate">
+			<result>/WEB-INF/pages/APS/APS056/APS056A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056A0.jsp</result>
+		</action>
+		
+		<!-- 連結到修改頁面 -->
+		<action name="lnkGoUpdate" class="APS056Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS056/APS056U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+		<!-- APS056E0.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS056Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+		<!-- APS056E0.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS056Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS056/APS056E0.jsp</result>
+		</action>
+		
+	</package>
+</struts>

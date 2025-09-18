@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+    
+<sqlMapConfig>
+
+	<!-- DMS -->
+	<sqlMap resource="ibatisXml/dms/PrpdNewCode.xml" />
+	<!-- mantis：OTH0087，處理人員：BJ085，需求單編號：OTH0087 AML手動登錄 -->
+	<sqlMap resource="ibatisXml/dms/PrpdRisk.xml" />	
+	
+	<!-- mantis：MAR0029_水險兌換率幣別 START-->
+	<sqlMap resource="ibatisXml/dms/Prpdexch.xml" />
+	<!-- mantis：MAR0029_水險兌換率幣別 END-->
+	
+</sqlMapConfig>

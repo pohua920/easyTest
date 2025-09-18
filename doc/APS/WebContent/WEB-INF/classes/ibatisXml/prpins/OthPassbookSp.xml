@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 -->
+<sqlMap namespace="OthPassbookSp">
+   <!-- 水險保單 -->
+   <parameterMap id="spOthPassbookMarPParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookMarP" parameterMap="spOthPassbookMarPParamMap"> 
+       {call SP_OTH_PASSBOOK_MAR_P(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 水險批單 -->
+   <parameterMap id="spOthPassbookMarEParamMap" class="java.util.HashMap" >
+	  <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookMarE" parameterMap="spOthPassbookMarEParamMap"> 
+       {call SP_OTH_PASSBOOK_MAR_E(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 火險保單 -->
+   <parameterMap id="spOthPassbookFirPParamMap" class="java.util.HashMap" >
+   	  <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookFirP" parameterMap="spOthPassbookFirPParamMap"> 
+       {call SP_OTH_PASSBOOK_FIR_P(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 火險批單 -->
+   <parameterMap id="spOthPassbookFirEParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookFirE" parameterMap="spOthPassbookFirEParamMap"> 
+       {call SP_OTH_PASSBOOK_FIR_E(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 強制車險保單 -->
+   <parameterMap id="spOthPassbookCalPParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookCalP" parameterMap="spOthPassbookCalPParamMap"> 
+       {call SP_OTH_PASSBOOK_CAL_P(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 強制車險批單 -->
+   <parameterMap id="spOthPassbookCalEParamMap" class="java.util.HashMap" >
+   	 <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+   	 <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+     <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+     <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+     <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+     <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookCalE" parameterMap="spOthPassbookCalEParamMap"> 
+       {call SP_OTH_PASSBOOK_CAL_E(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 任意車險保單 -->
+   <parameterMap id="spOthPassbookCarPParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookCarP" parameterMap="spOthPassbookCarPParamMap"> 
+       {call SP_OTH_PASSBOOK_CAR_P(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 任意車險批單 -->
+   <parameterMap id="spOthPassbookCarEParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookCarE" parameterMap="spOthPassbookCarEParamMap"> 
+       {call SP_OTH_PASSBOOK_CAR_E(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 意外險保單 -->
+   <parameterMap id="spOthPassbookLopPParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookLopP" parameterMap="spOthPassbookLopPParamMap"> 
+       {call SP_OTH_PASSBOOK_LOP_P(?,?,?,?,?,?)} 
+   </procedure>
+   
+   <!-- 意外險批單 -->
+   <parameterMap id="spOthPassbookLopEParamMap" class="java.util.HashMap" >
+      <parameter property="inBatchNoNc" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+      <parameter property="inRiskcode" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="inUndate" jdbcType="TIMESTAMP" javaType="java.util.Date" mode="IN"/> 
+      <parameter property="inUser" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="inPolicyno" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpOthPassbookLopE" parameterMap="spOthPassbookLopEParamMap"> 
+       {call SP_OTH_PASSBOOK_LOP_E(?,?,?,?,?,?)} 
+   </procedure>
+   
+</sqlMap>

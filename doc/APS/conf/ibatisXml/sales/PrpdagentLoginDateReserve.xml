@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+<sqlMap namespace="PrpdagentLoginDateReserve">
+  <resultMap class="com.tlg.sales.entity.PrpdagentLoginDateReserve" id="BaseResultMap">
+    <result column="AGENTCODE" jdbcType="VARCHAR" property="agentCode" />
+    <result column="CERTINO" jdbcType="VARCHAR" property="certiNo" />
+    <result column="LOGINCODE" jdbcType="VARCHAR" property="loginCode" />
+    <result column="BUSINESSSOURCE" jdbcType="VARCHAR" property="businessSource" />
+    <result column="LOGINDATE" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="LOGINENDDATE" jdbcType="TIMESTAMP" property="loginEndDate" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="RUNDATE" jdbcType="TIMESTAMP" property="runDate" />
+  </resultMap>
+  
+  <resultMap class="com.tlg.aps.vo.SalesAgentDateReserveVo" id="agentDateReserveVoResultMap">
+    <result column="AGENTCODE" jdbcType="VARCHAR" property="agentCode" />
+    <result column="CERTINO" jdbcType="VARCHAR" property="certiNo" />
+    <result column="LOGINCODE" jdbcType="VARCHAR" property="loginCode" />
+    <result column="BUSINESSSOURCE" jdbcType="VARCHAR" property="businessSource" />
+    <result column="LOGINDATE" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="LOGINENDDATE" jdbcType="TIMESTAMP" property="loginEndDate" />
+    <result column="CREATEDATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="RUNDATE" jdbcType="TIMESTAMP" property="runDate" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+  	  AGENTCODE, CERTINO, LOGINCODE, BUSINESSSOURCE, LOGINDATE, LOGINENDDATE, CREATEDATE, RUNDATE
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="agentCode">
+			AGENTCODE = #agentcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="certiNo">
+			CERTINO = #certino#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginCode">
+			LOGINCODE = #logincode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessSource">
+			BUSINESSSOURCE = #businesssource#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginDate">
+			LOGINDATE = #logindate:TIMESTAMP#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="runDate">
+			RUNDATE = #rundate:TIMESTAMP#
+		</isNotEmpty>
+	</dynamic>
+	<include refid="Utils.sql2" />
+  </select>
+  
+  <select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*) FROM <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="agentCode">
+			AGENTCODE = #agentCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="certiNo">
+			CERTINO = #certiNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginCode">
+			LOGINCODE = #loginCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessSource">
+			BUSINESSSOURCE = #businessSource#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginDate">
+			LOGINDATE = #loginDate:TIMESTAMP#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="rundate">
+			RUNDATE = #rundate:TIMESTAMP#
+		</isNotEmpty>
+	</dynamic>
+  </select>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	SELECT * FROM <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="agentCode">
+			AGENTCODE = #agentCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="certiNo">
+			CERTINO = #certiNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginCode">
+			LOGINCODE = #loginCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessSource">
+			BUSINESSSOURCE = #businessSource#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="loginDate">
+			LOGINDATE = #loginDate:TIMESTAMP#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="runDate">
+			RUNDATE = #runDate:TIMESTAMP#
+		</isNotEmpty>
+	</dynamic>
+  </select>
+  <!--  不知道為何發生錯誤  須研究研究
+  <select id="selectByUK" resultClass="com.tlg.sales.entity.Prpdagent" parameterClass="java.util.Map" >
+	SELECT * FROM <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+	where AGENTCODE = #agentCode:VARCHAR#
+  </select>
+	
+  <delete id="delete" parameterClass="com.tlg.sales.entity.Prpdagent">
+    delete from <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+    where AGENTCODE = #agentCode:VARCHAR#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.tlg.sales.entity.PrpdagentLoginDateReserve">
+    insert into <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE (
+    AGENTCODE, CERTINO, LOGINCODE, BUSINESSSOURCE, LOGINDATE, LOGINENDDATE, CREATEDATE, RUNDATE
+    )
+    values (#agentCode:VARCHAR#, #certiNo:VARCHAR#, #loginCode:VARCHAR#, #businessSource:VARCHAR#,
+      #loginDate:TIMESTAMP#,#loginendDate:TIMESTAMP#,#createDate:TIMESTAMP#,#runDate:TIMESTAMP#)
+  </insert>
+
+  <update id="update" parameterClass="com.tlg.sales.entity.PrpdagentLoginDateReserve">
+    update <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+    <dynamic prepend="set">
+		<isNotEmpty prepend="," property="agentCode">
+			AGENTCODE = #agentCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="certiNo">
+			CERTINO = #certiNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="loginCode">
+			LOGINCODE = #loginCode#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="businessSource">
+			BUSINESSSOURCE = #businessSource#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="loginDate">
+			LOGINDATE = #loginDate:TIMESTAMP#
+		</isNotEmpty>
+		<isNotEmpty prepend="," property="runDate">
+			RUNDATE = #runDate:TIMESTAMP#
+		</isNotEmpty>
+    </dynamic>
+    where AGENTCODE = #agentCode:VARCHAR#
+  </update> 
+  ForSaveReserve
+   -->
+  
+  <update id="update" parameterClass="com.tlg.sales.entity.PrpdagentLoginDateReserve">
+    update <include refid="Utils.salesSchema"/>PRPDAGENTLOGINDATERESERVE
+    <dynamic prepend="set">
+		<isNotEmpty prepend="," property="runDate">
+			RUNDATE = #runDate:TIMESTAMP#
+		</isNotEmpty>
+    </dynamic>
+    <dynamic prepend="WHERE">
+		AGENTCODE = #agentCode# 
+		<![CDATA[
+		AND RUNDATE > SYSDATE OR RUNDATE IS NULL 
+		]]>
+	</dynamic>
+  </update>
+  
+  <!-- SAMPLE  -->
+  <select id="selectForAgentLoginDateReserve" resultMap="agentDateReserveVoResultMap" parameterClass="java.util.Map">
+		SELECT AG.AGENTCODE,AG.CERTINO,AG.LOGINCODE,AG.BUSINESSSOURCE,AG.LOGINDATE,AG.LOGINENDDATE,AG.CREATEDATE,AG.RUNDATE
+		FROM SALES.PRPDAGENTLOGINDATERESERVE AG 
+		WHERE (
+		<![CDATA[
+		AG.RUNDATE > SYSDATE OR AG.RUNDATE IS NULL
+		]]> )
+		<isNotEmpty prepend="AND" property="sysdate">
+			<![CDATA[
+			AG.LOGINDATE <= TO_DATE(#sysdate#,'YYYY-MM-DD')
+			]]>
+		</isNotEmpty>
+  </select>
+  
+  
+</sqlMap>

@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 -->
+<sqlMap namespace="FirRenewListDtl" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirRenewListDtl" >
+    <result column="OID" jdbcType="DECIMAL" property="oid" />
+    <result column="BATCH_NO" jdbcType="VARCHAR" property="batchNo" />
+    <result column="OLD_POLICYNO" jdbcType="VARCHAR" property="oldPolicyno" />
+    <result column="OLD_ENDDATE" jdbcType="TIMESTAMP" property="oldEnddate" />
+    <result column="RN_TYPE" jdbcType="VARCHAR" property="rnType" />
+    <result column="BUSINESSNATURE" jdbcType="VARCHAR" property="businessnature" />
+    <result column="PROPOSALNO" jdbcType="VARCHAR" property="proposalno" />
+    <result column="IS_ADD_INS" jdbcType="VARCHAR" property="isAddIns" />
+    <result column="IS_ADD_CALC" jdbcType="VARCHAR" property="isAddCalc" />
+    <result column="IS_AUTO_RENEW" jdbcType="VARCHAR" property="isAutoRenew" />
+    <result column="RN_PAYWAY" jdbcType="VARCHAR" property="rnPayway" />
+    <result column="RN_PAYDATA" jdbcType="VARCHAR" property="rnPaydata" />
+    <result column="OLD_AMT_F1" jdbcType="DECIMAL" property="oldAmtF1" />
+    <result column="OLD_AMT_F2" jdbcType="DECIMAL" property="oldAmtF2" />
+    <result column="OLD_AMT_Q" jdbcType="DECIMAL" property="oldAmtQ" />
+    <result column="OLD_PREM_F1" jdbcType="DECIMAL" property="oldPremF1" />
+    <result column="OLD_PREM_F2" jdbcType="DECIMAL" property="oldPremF2" />
+    <result column="OLD_PREM_Q" jdbcType="DECIMAL" property="oldPremQ" />
+    <result column="OLD_PREM_A" jdbcType="DECIMAL" property="oldPremA" />
+    <result column="OID_FIR_PREMCALC_TMP" jdbcType="DECIMAL" property="oidFirPremcalcTmp" />
+    <result column="AMT_F1" jdbcType="DECIMAL" property="amtF1" />
+    <result column="AMT_F2" jdbcType="DECIMAL" property="amtF2" />
+    <result column="AMT_Q" jdbcType="DECIMAL" property="amtQ" />
+    <result column="OID_FIR_PREMCALC_TMP2" jdbcType="DECIMAL" property="oidFirPremcalcTmp2" />
+    <result column="PREM_F1" jdbcType="DECIMAL" property="premF1" />
+    <result column="PREM_F2" jdbcType="DECIMAL" property="premF2" />
+    <result column="PREM_Q" jdbcType="DECIMAL" property="premQ" />
+    <result column="PREM_A" jdbcType="DECIMAL" property="premA" />
+    <result column="INSUREDNAME" jdbcType="VARCHAR" property="insuredname" />
+    <result column="APPLINAME" jdbcType="VARCHAR" property="appliname" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="POSTADDRESS" jdbcType="VARCHAR" property="postaddress" />
+    <result column="DATA_STATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+    <result column="DELETE_USER" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="DELETE_DATE" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+    <result column="MORTGAGEE" jdbcType="VARCHAR" property="mortgagee" />
+    <result column="HAS_ENDORSE" jdbcType="VARCHAR" property="hasEndorse" />
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+  </resultMap>
+  
+  <resultMap id="ForPremResultMap" class="com.tlg.aps.vo.FirRenewListForPremVo" >
+    <result column="OID" property="oid" jdbcType="DECIMAL" />
+    <result column="RN_TYPE" property="rnType" jdbcType="VARCHAR" />
+    <result column="RN_PAYWAY" property="rnPayway" jdbcType="VARCHAR" />
+    <result column="OLD_POLICYNO" property="oldPolicyno" jdbcType="VARCHAR" />
+    <result column="OLD_ENDDATE" property="oldEnddate" jdbcType="TIMESTAMP" />
+    <result column="OLD_AMT_Q" property="oldAmtQ" jdbcType="DECIMAL" />
+    <result column="OLD_AMT_F1" property="oldAmtF1" jdbcType="DECIMAL" />
+    <result column="OLD_AMT_F2" property="oldAmtF2" jdbcType="DECIMAL" />
+    <result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+    <result column="BUILDAREA" property="buildarea" jdbcType="DECIMAL" />
+    <!-- mantis：FIR0657，處理人員：BJ085，需求單編號：FIR0657 住火_配合造價表調整重算外銀續保保額 start-->
+    <result column="AMT_F1" property="amtF1" jdbcType="DECIMAL" />
+    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+    <!-- mantis：FIR0657，處理人員：BJ085，需求單編號：FIR0657 住火_配合造價表調整重算外銀續保保額 end-->
+  </resultMap>
+  
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 start -->
+  <resultMap id="ForAps044DtlResultMap" class="com.tlg.aps.vo.Aps044DetailVo" >
+    <result column="OID" jdbcType="DECIMAL" property="oid" />
+    <result column="BATCH_NO" jdbcType="VARCHAR" property="batchNo" />
+    <result column="OLD_POLICYNO" jdbcType="VARCHAR" property="oldPolicyno" />
+    <result column="OLD_ENDDATE" jdbcType="TIMESTAMP" property="oldEnddate" />
+    <result column="RN_TYPE" jdbcType="VARCHAR" property="rnType" />
+    <result column="BUSINESSNATURE" jdbcType="VARCHAR" property="businessnature" />
+    <result column="PROPOSALNO" jdbcType="VARCHAR" property="proposalno" />
+    <result column="IS_ADD_INS" jdbcType="VARCHAR" property="isAddIns" />
+    <result column="IS_ADD_CALC" jdbcType="VARCHAR" property="isAddCalc" />
+    <result column="IS_AUTO_RENEW" jdbcType="VARCHAR" property="isAutoRenew" />
+    <result column="RN_PAYWAY" jdbcType="VARCHAR" property="rnPayway" />
+    <result column="RN_PAYDATA" jdbcType="VARCHAR" property="rnPaydata" />
+    <result column="OLD_AMT_F1" jdbcType="DECIMAL" property="oldAmtF1" />
+    <result column="OLD_AMT_F2" jdbcType="DECIMAL" property="oldAmtF2" />
+    <result column="OLD_AMT_Q" jdbcType="DECIMAL" property="oldAmtQ" />
+    <result column="OLD_PREM_F1" jdbcType="DECIMAL" property="oldPremF1" />
+    <result column="OLD_PREM_F2" jdbcType="DECIMAL" property="oldPremF2" />
+    <result column="OLD_PREM_Q" jdbcType="DECIMAL" property="oldPremQ" />
+    <result column="OLD_PREM_A" jdbcType="DECIMAL" property="oldPremA" />
+    <result column="OID_FIR_PREMCALC_TMP" jdbcType="DECIMAL" property="oidFirPremcalcTmp" />
+    <result column="AMT_F1" jdbcType="DECIMAL" property="amtF1" />
+    <result column="AMT_F2" jdbcType="DECIMAL" property="amtF2" />
+    <result column="AMT_Q" jdbcType="DECIMAL" property="amtQ" />
+    <result column="OID_FIR_PREMCALC_TMP2" jdbcType="DECIMAL" property="oidFirPremcalcTmp2" />
+    <result column="PREM_F1" jdbcType="DECIMAL" property="premF1" />
+    <result column="PREM_F2" jdbcType="DECIMAL" property="premF2" />
+    <result column="PREM_Q" jdbcType="DECIMAL" property="premQ" />
+    <result column="PREM_A" jdbcType="DECIMAL" property="premA" />
+    <result column="INSUREDNAME" jdbcType="VARCHAR" property="insuredname" />
+    <result column="APPLINAME" jdbcType="VARCHAR" property="appliname" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="POSTADDRESS" jdbcType="VARCHAR" property="postaddress" />
+    <result column="DATA_STATUS" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+    <result column="DELETE_USER" jdbcType="VARCHAR" property="deleteUser" />
+    <result column="DELETE_DATE" jdbcType="TIMESTAMP" property="deleteDate" />
+    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+    <result column="IS_RENEWAL" jdbcType="VARCHAR" property="isRenewal" />
+    <result column="IS_PRINTVIRTUALCODE" jdbcType="VARCHAR" property="isPrintvirtualcode" />
+    <result column="IS_INSURED" jdbcType="VARCHAR" property="isInsured" />
+    <result column="POLICYNO" jdbcType="VARCHAR" property="policyno" />
+    <result column="HANDLER1CODE" jdbcType="VARCHAR" property="handler1code" />
+    <result column="PRINTVIRTUALCODE" jdbcType="VARCHAR" property="printvirtualcode" />
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+    <result column="MORTGAGEE" jdbcType="VARCHAR" property="mortgagee" />
+    <result column="HAS_ENDORSE" jdbcType="VARCHAR" property="hasEndorse" />
+    <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end -->
+  </resultMap>
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 end -->
+   <!-- mantis：FIR0570_1，處理人員：DP0706，需求單編號：FIR0570_1 住火_APS每月應續件產生排程START -->
+   <resultMap id="ForMailResultMap" class="com.tlg.aps.vo.FirRenewListForPremVo" >
+  	<result column="RN_TYPE" property="rnType" jdbcType="VARCHAR" />   
+    <result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="NREC" property="nrec" jdbcType="DECIMAL" />  
+  </resultMap>
+  <!-- mantis：FIR0570_1，處理人員：DP0706，需求單編號：FIR0570_1 住火_APS每月應續件產生排程END -->
+  
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start -->
+  <resultMap id="ForFileResultMap" class="com.tlg.aps.vo.FirRenewListForFileVo" >
+  	<result column="OLD_POLICYNO" jdbcType="VARCHAR" property="oldPolicyno" />   
+  	<result column="INSUREDNAME" jdbcType="VARCHAR" property="insuredname" />   
+    <result column="APPLINAME" jdbcType="VARCHAR" property="appliname" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="POSTADDRESS" jdbcType="VARCHAR" property="postaddress" />
+    <result column="ADDRESSCODE" jdbcType="VARCHAR" property="addresscode" />
+    <result column="ADDRESSDETAILINFO" jdbcType="VARCHAR" property="addressdetailinfo" />
+    <result column="OLD_AMT_F" jdbcType="VARCHAR" property="oldAmtF" />
+    <result column="OLD_AMT_Q" jdbcType="VARCHAR" property="oldAmtQ" />
+    <result column="OLD_PREM_F" jdbcType="VARCHAR" property="oldPremF" />
+    <result column="OLD_PREM_Q" jdbcType="VARCHAR" property="oldPremQ" />
+    <result column="OLD_PREM_A" jdbcType="VARCHAR" property="oldPremA" />
+    <result column="OLD_PREM" jdbcType="VARCHAR" property="oldPrem" />
+    <result column="OLD_Y" jdbcType="VARCHAR" property="oldY" />
+    <result column="OLD_M" jdbcType="VARCHAR" property="oldM" />
+    <result column="OLD_D" jdbcType="VARCHAR" property="oldD" />
+    <result column="NEW_Y" jdbcType="VARCHAR" property="newY" />
+    <result column="NEW_M" jdbcType="VARCHAR" property="newM" />
+    <result column="NEW_D" jdbcType="VARCHAR" property="newD" />
+    <result column="HANDLER1CODE" jdbcType="VARCHAR" property="handler1code" />
+    <result column="HANDLER1NAME" jdbcType="VARCHAR" property="handler1name" />
+    <result column="AMT_F" jdbcType="VARCHAR" property="amtF" />
+    <result column="PREM_F" jdbcType="VARCHAR" property="premF" />
+    <result column="AMT_Q" jdbcType="VARCHAR" property="amtQ" />
+    <result column="PREM_Q" jdbcType="VARCHAR" property="premQ" />
+    <result column="PREM_A" jdbcType="VARCHAR" property="premA" />
+    <result column="PREM" jdbcType="VARCHAR" property="prem" />
+    <result column="MORTGAGEE" jdbcType="VARCHAR" property="mortgagee" />
+    <result column="BUSINESSNATURE" jdbcType="VARCHAR" property="businessnature" />
+    <result column="HANDLERIDENTIFYNUMBER" jdbcType="VARCHAR" property="handleridentifynumber" />
+    <result column="BUSINESSENAME" jdbcType="VARCHAR" property="businessename" />
+    <result column="IS_AUTO_RENEW" jdbcType="VARCHAR" property="isAutoRenew" />
+    <result column="HANDLERNAME" jdbcType="VARCHAR" property="handlername" />
+    <result column="EXTRACOMNAME" jdbcType="VARCHAR" property="extracomname" />
+    <result column="RN_PAYWAY" jdbcType="VARCHAR" property="rnPayway" />
+    <result column="RN_CREDITNO" jdbcType="VARCHAR" property="rnCreditno" />
+    <result column="RN_CREDITDATE" jdbcType="VARCHAR" property="rnCreditdate" />
+  </resultMap>
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end -->
+   
+  <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL
+		<dynamic prepend="WHERE">
+		  <isNotEmpty prepend="AND" property="oid">
+			OID = #oid#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="batchNo">
+	        BATCH_NO = #batchNo#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="oldPolicyno">
+			OLD_POLICYNO = #oldPolicyno#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="rnType">
+	        RN_TYPE = #rnType#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="businessnature">
+	        BUSINESSNATURE = #businessnature#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="proposalno">
+	        PROPOSALNO = #proposalno#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="isAddIns">
+	        IS_ADD_INS = #isAddIns#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="isAddCalc">
+	        IS_ADD_CALC = #isAddCalc#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="isAutoRenew">
+	        IS_AUTO_RENEW = #isAutoRenew#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="dataStatus">
+	        DATA_STATUS = #dataStatus#
+	      </isNotEmpty>
+		</dynamic>
+	<include refid="Utils.sql2" />
+  </select>
+  
+  <select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL
+	<dynamic prepend="WHERE">
+	  <isNotEmpty prepend="AND" property="oid">
+		OID = #oid#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="batchNo">
+        BATCH_NO = #batchNo#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="oldPolicyno">
+		OLD_POLICYNO = #oldPolicyno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rnType">
+        RN_TYPE = #rnType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="businessnature">
+        BUSINESSNATURE = #businessnature#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proposalno">
+        PROPOSALNO = #proposalno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAddIns">
+        IS_ADD_INS = #isAddIns#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAddCalc">
+        IS_ADD_CALC = #isAddCalc#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="dataStatus">
+        DATA_STATUS = #dataStatus#
+      </isNotEmpty>
+	</dynamic>
+  </select>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+	SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL
+	<dynamic prepend="WHERE">
+	  <isNotEmpty prepend="AND" property="oid">
+		OID = #oid#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="batchNo">
+        BATCH_NO = #batchNo#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="oldPolicyno">
+		OLD_POLICYNO = #oldPolicyno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rnType">
+        RN_TYPE = #rnType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="businessnature">
+        BUSINESSNATURE = #businessnature#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proposalno">
+        PROPOSALNO = #proposalno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAddIns">
+        IS_ADD_INS = #isAddIns#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAddCalc">
+        IS_ADD_CALC = #isAddCalc#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="dataStatus">
+        DATA_STATUS = #dataStatus#
+      </isNotEmpty>
+	</dynamic>
+  </select>
+  
+  <select id="selectRenewListForPrem" resultMap="ForPremResultMap" parameterClass="java.util.Map">
+	SELECT DTL.OID, DTL.RN_TYPE, DTL.OLD_POLICYNO, DTL.OLD_ENDDATE, DTL.RN_PAYWAY,
+	DTL.OLD_AMT_Q, DTL.OLD_AMT_F1, DTL.OLD_AMT_F2, DTL.PROPOSALNO,
+	PADDR.ADDRESSCODE, PROP.WALLMATERIAL, PROP.ROOFMATERIAL, PROP.SUMFLOORS, PROP.BUILDAREA,
+	<!-- mantis：FIR0657，處理人員：BJ085，需求單編號：FIR0657 住火_配合造價表調整重算外銀續保保額 -->
+	DTL.AMT_F1, DTL.BUSINESSNATURE
+	FROM FIR_RENEW_LIST_DTL DTL
+	LEFT JOIN PRPCADDRESS PADDR ON DTL.OLD_POLICYNO = PADDR.POLICYNO AND PADDR.ADDRESSNO = '1'
+	LEFT JOIN PRPCMAINPROP PROP ON DTL.OLD_POLICYNO = PROP.POLICYNO AND PROP.BUILDINGNO = '1'
+	WHERE BATCH_NO = #batchNo#
+	AND (RN_TYPE <![CDATA[<>]]> '1' OR (RN_TYPE = '1' AND RN_PAYWAY IS NOT NULL))
+	ORDER BY DTL.RN_TYPE, DTL.OLD_POLICYNO
+  </select>
+  
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 start -->
+  <select id="selectForAps044Detail" resultMap="ForAps044DtlResultMap" parameterClass="java.util.Map">
+	<include refid="Utils.sql1" />
+		SELECT DTL.*,
+		CASE
+			WHEN DTL.PROPOSALNO IS NULL THEN 'N'
+		    WHEN DTL.RN_TYPE = '1' AND DTL.IS_ADD_INS = 'Y' AND DTL.PROPOSALNO IS NOT NULL AND (DTL.IS_ADD_CALC <![CDATA[<>]]> 'Y' OR DTL.IS_ADD_CALC IS NULL) THEN 'C'
+		    WHEN DTL.RN_TYPE = '1' AND DTL.PROPOSALNO IS NOT NULL THEN 'Y'
+		    WHEN DTL.RN_TYPE IN ('2','3') THEN NULL 
+	    END AS IS_RENEWAL,
+		CASE 
+  			WHEN DTL.RN_TYPE = '1' AND PRT.PRINTVIRTUALCODE IS NOT NULL THEN 'Y'
+  			WHEN DTL.RN_TYPE = '1' THEN 'N'
+  			ELSE NULL 
+		END AS IS_PRINTVIRTUALCODE,
+		CASE 
+  			WHEN PT.POLICYNO IS NOT NULL THEN 'Y'
+  			ELSE 'N' 
+		END AS IS_INSURED,
+		PT.POLICYNO, PT.HANDLER1CODE, PRT.PRINTVIRTUALCODE
+		FROM FIR_RENEW_LIST_DTL DTL 
+		LEFT JOIN PRPTMAIN PT ON DTL.PROPOSALNO = PT.PROPOSALNO
+		LEFT JOIN PRPDPRINT PRT ON DTL.PROPOSALNO = PRT.PROPOSALNO AND PRT.RISKCODE = 'F02'
+		<dynamic prepend="WHERE">
+		  <isNotEmpty prepend="AND" property="batchNo">
+			DTL.BATCH_NO = #batchNo#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="oldPolicyno">
+	        DTL.OLD_POLICYNO = #oldPolicyno#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="rnType">
+			DTL.RN_TYPE = #rnType#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="businessnature">
+			DTL.BUSINESSNATURE = #businessnature#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="policyno">
+	        PT.POLICYNO = #policyno#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="comcode">
+	        PT.COMCODE = #comcode#
+	      </isNotEmpty>
+	      <isEqual prepend="AND" property="isRenewal" compareValue="Y">
+			DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NOT NULL AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+		  </isEqual>
+	      <isEqual prepend="AND" property="isRenewal" compareValue="N">
+			DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NULL
+		  </isEqual>
+	      <isEqual prepend="AND" property="isRenewal" compareValue="C">
+			DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NOT NULL AND DTL.IS_ADD_INS = 'Y' AND (DTL.IS_ADD_CALC <![CDATA[<>]]> 'Y' OR DTL.IS_ADD_CALC IS NULL)
+		  </isEqual>
+	      <isNotEmpty prepend="AND" property="isAddIns">
+	        IS_ADD_INS = #isAddIns#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="isAutoRenew">
+	        IS_AUTO_RENEW = #isAutoRenew#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="AND" property="rnPayway">
+	        RN_PAYWAY = #rnPayway#
+	      </isNotEmpty>
+	      <isEqual prepend="AND" property="isVirtualCode" compareValue="Y">
+			DTL.RN_TYPE='1' AND PRT.PRINTVIRTUALCODE IS NOT NULL
+		  </isEqual>
+	      <isEqual prepend="AND" property="isVirtualCode" compareValue="N">
+			DTL.RN_TYPE='1' AND PRT.PRINTVIRTUALCODE IS NULL
+		  </isEqual>
+	      <isEqual prepend="AND" property="isInsured" compareValue="Y">
+			PT.POLICYNO IS NOT NULL
+		  </isEqual>
+	      <isEqual prepend="AND" property="isInsured" compareValue="N">
+			PT.POLICYNO IS NULL
+		  </isEqual>
+	      <isNotEmpty prepend="AND" property="deleteFlag">
+	        DTL.DELETE_FLAG = #deleteFlag#
+	      </isNotEmpty>
+	      <isEqual prepend="AND" property="isRemark" compareValue="Y">
+			DTL.REMARK IS NOT NULL
+		  </isEqual>
+	      <isEqual prepend="AND" property="isRemark" compareValue="N">
+			DTL.REMARK IS NULL
+		  </isEqual>
+		</dynamic>
+	<include refid="Utils.sql2" />
+  </select>
+  
+  <select id="countForAps044Detail" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*) FROM FIR_RENEW_LIST_DTL DTL 
+		LEFT JOIN PRPTMAIN PT ON DTL.PROPOSALNO = PT.PROPOSALNO
+		LEFT JOIN PRPDPRINT PRT ON DTL.PROPOSALNO = PRT.PROPOSALNO AND PRT.RISKCODE = 'F02'
+	<dynamic prepend="WHERE">
+	  <isNotEmpty prepend="AND" property="batchNo">
+		DTL.BATCH_NO = #batchNo#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="oldPolicyno">
+        DTL.OLD_POLICYNO = #oldPolicyno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rnType">
+		DTL.RN_TYPE = #rnType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="businessnature">
+		DTL.BUSINESSNATURE = #businessnature#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="policyno">
+        PT.POLICYNO = #policyno#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="comcode">
+        PT.COMCODE = #comcode#
+      </isNotEmpty>
+      <isEqual prepend="AND" property="isRenewal" compareValue="Y">
+		DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NOT NULL AND (DTL.IS_ADD_INS = 'N' OR (DTL.IS_ADD_INS = 'Y' AND DTL.IS_ADD_CALC = 'Y'))
+	  </isEqual>
+      <isEqual prepend="AND" property="isRenewal" compareValue="N">
+		DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NULL
+	  </isEqual>
+      <isEqual prepend="AND" property="isRenewal" compareValue="C">
+		DTL.RN_TYPE='1' AND DTL.PROPOSALNO IS NOT NULL AND DTL.IS_ADD_INS = 'Y' AND (DTL.IS_ADD_CALC <![CDATA[<>]]> 'Y' OR DTL.IS_ADD_CALC IS NULL)
+	  </isEqual>
+      <isNotEmpty prepend="AND" property="isAddIns">
+        IS_ADD_INS = #isAddIns#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rnPayway">
+        RN_PAYWAY = #rnPayway#
+      </isNotEmpty>
+      <isEqual prepend="AND" property="isVirtualCode" compareValue="Y">
+		DTL.RN_TYPE='1' AND PRT.PRINTVIRTUALCODE IS NOT NULL
+	  </isEqual>
+      <isEqual prepend="AND" property="isVirtualCode" compareValue="N">
+		DTL.RN_TYPE='1' AND PRT.PRINTVIRTUALCODE IS NULL
+	  </isEqual>
+      <isEqual prepend="AND" property="isInsured" compareValue="Y">
+		PT.POLICYNO IS NOT NULL
+	  </isEqual>
+      <isEqual prepend="AND" property="isInsured" compareValue="N">
+		PT.POLICYNO IS NULL
+	  </isEqual>
+      <isNotEmpty prepend="AND" property="deleteFlag">
+        DTL.DELETE_FLAG = #deleteFlag#
+      </isNotEmpty>
+      <isEqual prepend="AND" property="isRemark" compareValue="Y">
+		DTL.REMARK IS NOT NULL
+	  </isEqual>
+      <isEqual prepend="AND" property="isRemark" compareValue="N">
+		DTL.REMARK IS NULL
+	  </isEqual>
+	</dynamic>
+  </select>
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 end -->
+
+  <delete id="delete" parameterClass="com.tlg.prpins.entity.FirRenewListDtl" >
+    delete from <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL
+    where OID = #oid:DECIMAL#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirRenewListDtl" >
+    <selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	   SELECT FIR_RENEW_LIST_DTL_SEQ.NEXTVAL AS OID FROM DUAL    
+	</selectKey>
+    insert into <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL 
+    (OID, BATCH_NO, OLD_POLICYNO, OLD_ENDDATE, RN_TYPE,
+      BUSINESSNATURE, PROPOSALNO, IS_ADD_INS, IS_ADD_CALC, IS_AUTO_RENEW, RN_PAYWAY, RN_PAYDATA,
+      OLD_AMT_F1, OLD_AMT_F2, OLD_AMT_Q, OLD_PREM_F1, OLD_PREM_F2, OLD_PREM_Q, OLD_PREM_A,
+      OID_FIR_PREMCALC_TMP, AMT_F1, AMT_F2, AMT_Q, OID_FIR_PREMCALC_TMP2, PREM_F1, PREM_F2, PREM_Q,
+      PREM_A, INSUREDNAME, APPLINAME, POSTCODE, POSTADDRESS, DATA_STATUS, REMARK, DELETE_FLAG,
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格-->
+      DELETE_USER, DELETE_DATE, ICREATE, DCREATE, IUPDATE, DUPDATE, MORTGAGEE, HAS_ENDORSE )
+    values (#oid:DECIMAL#, #batchNo:VARCHAR#, #oldPolicyno:VARCHAR#, #oldEnddate:TIMESTAMP#,
+      #rnType:VARCHAR#, #businessnature:VARCHAR#, #proposalno:VARCHAR#, #isAddIns:VARCHAR#,
+      #isAddCalc:VARCHAR#, #isAutoRenew:VARCHAR#, #rnPayway:VARCHAR#, #rnPaydata:VARCHAR#,
+      #oldAmtF1:DECIMAL#, #oldAmtF2:DECIMAL#, #oldAmtQ:DECIMAL#, #oldPremF1:DECIMAL#,
+      #oldPremF2:DECIMAL#, #oldPremQ:DECIMAL#, #oldPremA:DECIMAL#, #oidFirPremcalcTmp:DECIMAL#,
+      #amtF1:DECIMAL#, #amtF2:DECIMAL#, #amtQ:DECIMAL#, #oidFirPremcalcTmp2:DECIMAL#,
+      #premF1:DECIMAL#, #premF2:DECIMAL#, #premQ:DECIMAL#, #premA:DECIMAL#, #insuredname:VARCHAR#,
+      #appliname:VARCHAR#, #postcode:VARCHAR#, #postaddress:VARCHAR#, #dataStatus:VARCHAR#,
+      #remark:VARCHAR#, #deleteFlag:VARCHAR#, #deleteUser:VARCHAR#, #deleteDate:TIMESTAMP#,
+      #icreate:VARCHAR#, #dcreate:TIMESTAMP#, #iupdate:VARCHAR#, #dupdate:TIMESTAMP#,
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格-->
+      #mortgagee:VARCHAR#, #hasEndorse:VARCHAR#)
+  </insert>
+
+  <update id="update" parameterClass="com.tlg.prpins.entity.FirRenewListDtl" >
+    update <include refid="Utils.prpinsSchema"/>FIR_RENEW_LIST_DTL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="batchNo">
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPolicyno">
+        OLD_POLICYNO = #oldPolicyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldEnddate">
+        OLD_ENDDATE = #oldEnddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="rnType">
+        RN_TYPE = #rnType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessnature">
+        BUSINESSNATURE = #businessnature:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="proposalno">
+        PROPOSALNO = #proposalno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isAddIns">
+        IS_ADD_INS = #isAddIns:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isAddCalc">
+        IS_ADD_CALC = #isAddCalc:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isAutoRenew">
+        IS_AUTO_RENEW = #isAutoRenew:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="rnPayway">
+        RN_PAYWAY = #rnPayway:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="rnPaydata">
+        RN_PAYDATA = #rnPaydata:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldAmtF1">
+        OLD_AMT_F1 = #oldAmtF1:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldAmtF2">
+        OLD_AMT_F2 = #oldAmtF2:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldAmtQ">
+        OLD_AMT_Q = #oldAmtQ:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPremF1">
+        OLD_PREM_F1 = #oldPremF1:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPremF2">
+        OLD_PREM_F2 = #oldPremF2:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPremQ">
+        OLD_PREM_Q = #oldPremQ:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oldPremA">
+        OLD_PREM_A = #oldPremA:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oidFirPremcalcTmp">
+        OID_FIR_PREMCALC_TMP = #oidFirPremcalcTmp:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="amtF1">
+        AMT_F1 = #amtF1:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="amtF2">
+        AMT_F2 = #amtF2:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="amtQ">
+        AMT_Q = #amtQ:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="oidFirPremcalcTmp2">
+        OID_FIR_PREMCALC_TMP2 = #oidFirPremcalcTmp2:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="premF1">
+        PREM_F1 = #premF1:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="premF2">
+        PREM_F2 = #premF2:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="premQ">
+        PREM_Q = #premQ:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="premA">
+        PREM_A = #premA:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredname">
+        INSUREDNAME = #insuredname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="appliname">
+        APPLINAME = #appliname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="postcode">
+        POSTCODE = #postcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="postaddress">
+        POSTADDRESS = #postaddress:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dataStatus">
+        DATA_STATUS = #dataStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark">
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="deleteFlag">
+        DELETE_FLAG = #deleteFlag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="deleteUser">
+        DELETE_USER = #deleteUser:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="deleteDate">
+        DELETE_DATE = #deleteDate:TIMESTAMP#
+      </isNotNull>
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 start -->
+      <isNull prepend="," property="deleteUser">
+        DELETE_USER = NULL
+      </isNull>
+      <isNull prepend="," property="deleteDate">
+        DELETE_DATE = NULL
+      </isNull>
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業 end -->
+      <isNotNull prepend="," property="icreate">
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate">
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="iupdate">
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dupdate">
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+      <isNotNull prepend="," property="mortgagee">
+        MORTGAGEE = #mortgagee:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="hasEndorse">
+        HAS_ENDORSE = #hasEndorse:VARCHAR#
+      </isNotNull>
+      <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+    </dynamic>
+    where OID = #oid:DECIMAL#
+  </update>
+  
+  <!-- mantis：FIR0570_1，處理人員：DP0706，需求單編號：FIR0570_1 住火_APS每月應續件產生排程START -->
+   <select id="selectRenewListForMail" resultMap="ForMailResultMap" parameterClass="java.util.Map">
+    SELECT CASE RN_TYPE WHEN '1' THEN '1.核心續件' WHEN '2' THEN '2.中信件' 
+	WHEN '3' THEN '3.外銀件' END AS RN_TYPE, DATA_STATUS , COUNT(*) AS NREC
+	FROM FIR_RENEW_LIST_DTL
+	WHERE BATCH_NO = #batchNo#
+	GROUP BY RN_TYPE, DATA_STATUS
+	ORDER BY RN_TYPE, DATA_STATUS
+  </select>
+  <!-- mantis：FIR0570_1，處理人員：DP0706，需求單編號：FIR0570_1 住火_APS每月應續件產生排程END -->
+  
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 start-->
+  <select id="selectRenewListForOtherFile" resultMap="ForFileResultMap" parameterClass="java.util.Map">
+    SELECT DTL.OLD_POLICYNO, DTL.INSUREDNAME, DTL.APPLINAME, DTL.POSTCODE, 
+	DTL.POSTADDRESS, PADDR.ADDRESSCODE, PADDR.ADDRESSDETAILINFO,
+	NVL(DTL.OLD_AMT_F1,0) + NVL(DTL.OLD_AMT_F2,0) AS OLD_AMT_F, 
+	NVL(DTL.OLD_PREM_F1,0) + NVL(DTL.OLD_PREM_F2,0) AS OLD_PREM_F, DTL.OLD_AMT_Q, DTL.OLD_PREM_Q, DTL.OLD_PREM_A,
+	NVL(DTL.OLD_PREM_F1,0) + NVL(DTL.OLD_PREM_F2,0) + NVL(DTL.OLD_PREM_Q,0) + NVL(DTL.OLD_PREM_A,0) AS OLD_PREM,
+	TO_CHAR(DTL.OLD_ENDDATE, 'yyy', 'NLS_CALENDAR= ''ROC Official''') AS OLD_Y, 
+	TO_CHAR(DTL.OLD_ENDDATE,'MM') AS OLD_M, TO_CHAR(DTL.OLD_ENDDATE,'DD') AS OLD_D,
+	TO_NUMBER(TO_CHAR(DTL.OLD_ENDDATE, 'yyy', 'NLS_CALENDAR= ''ROC Official''')) +1 AS NEW_Y, 
+	TO_CHAR(DTL.OLD_ENDDATE,'MM') AS NEW_M, TO_CHAR(DTL.OLD_ENDDATE,'DD') AS NEW_D,
+	PC.HANDLER1CODE, PC.HANDLER1NAME,
+	NVL(DTL.AMT_F1,0) + NVL(DTL.AMT_F2,0) AS AMT_F, 
+	NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) AS PREM_F, 
+	DTL.AMT_Q, DTL.PREM_Q, DTL.PREM_A,
+	NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) + NVL(DTL.PREM_Q,0) + NVL(DTL.PREM_A,0) AS PREM, 
+	DTL.MORTGAGEE, DTL.BUSINESSNATURE, PC.HANDLERIDENTIFYNUMBER,
+	DECODE(PG.CLAUSECODE, 'RA0023', 'Y', '' ) AS IS_AUTO_RENEW,
+	(SELECT SUBSTR(CODECNAME,0,6) FROM CCICDMS.PRPDNEWCODE WHERE CODETYPE='BusinessChannel' AND CODECODE = DTL.BUSINESSNATURE) AS BUSINESSENAME,
+	'' AS HANDLERNAME,
+	'' AS EXTRACOMNAME,
+	'' AS RN_PAYWAY, 
+	'' AS RN_CREDITNO,
+	'' AS RN_CREDITDATE
+	FROM FIR_RENEW_LIST_DTL DTL
+	LEFT JOIN PRPCADDRESS PADDR ON DTL.OLD_POLICYNO = PADDR.POLICYNO AND ADDRESSNO = '1'
+	LEFT JOIN PRPCMAIN PC ON DTL.OLD_POLICYNO = PC.POLICYNO
+	LEFT JOIN PRPCENGAGE PG ON DTL.OLD_POLICYNO = PG.POLICYNO AND PG.CLAUSECODE = 'RA0023'
+	WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+	<dynamic>
+	  <isNotEmpty prepend="AND" property="rnType">
+		DTL.RN_TYPE = #rnType:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="businessnature">
+		DTL.BUSINESSNATURE = #businessnature:VARCHAR#
+	  </isNotEmpty>
+	</dynamic>
+	<!-- mantis：FIR0657，處理人員：BJ085，需求單編號：FIR0657 住火_配合造價表調整重算外銀續保保額 -->
+	AND DTL.BUSINESSNATURE NOT IN ('I99055')
+	ORDER BY DTL.OLD_POLICYNO
+  </select>
+  
+  <select id="selectRenewListForCoreFile" resultMap="ForFileResultMap" parameterClass="java.util.Map">
+    SELECT DTL.OLD_POLICYNO, DTL.INSUREDNAME, DTL.APPLINAME, DTL.POSTCODE, 
+	DTL.POSTADDRESS, PADDR.ADDRESSCODE, PADDR.ADDRESSDETAILINFO,
+	NVL(DTL.OLD_AMT_F1,0) + NVL(DTL.OLD_AMT_F2,0) AS OLD_AMT_F, 
+	NVL(DTL.OLD_PREM_F1,0) + NVL(DTL.OLD_PREM_F2,0) AS OLD_PREM_F, DTL.OLD_AMT_Q, DTL.OLD_PREM_Q, DTL.OLD_PREM_A,
+	NVL(DTL.OLD_PREM_F1,0) + NVL(DTL.OLD_PREM_F2,0) + NVL(DTL.OLD_PREM_Q,0) + NVL(DTL.OLD_PREM_A,0) AS OLD_PREM,
+	TO_CHAR(DTL.OLD_ENDDATE, 'yyy', 'NLS_CALENDAR= ''ROC Official''') AS OLD_Y, 
+	TO_CHAR(DTL.OLD_ENDDATE,'MM') AS OLD_M, TO_CHAR(DTL.OLD_ENDDATE,'DD') AS OLD_D,
+	TO_NUMBER(TO_CHAR(DTL.OLD_ENDDATE, 'yyy', 'NLS_CALENDAR= ''ROC Official''')) +1 AS NEW_Y, 
+	TO_CHAR(DTL.OLD_ENDDATE,'MM') AS NEW_M, TO_CHAR(DTL.OLD_ENDDATE,'DD') AS NEW_D,
+	PC.HANDLER1CODE, PC.HANDLER1NAME,
+	NVL(DTL.AMT_F1,0) + NVL(DTL.AMT_F2,0) AS AMT_F, 
+	NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) AS PREM_F, 
+	DTL.AMT_Q, DTL.PREM_Q, DTL.PREM_A,
+	NVL(DTL.PREM_F1,0) + NVL(DTL.PREM_F2,0) + NVL(DTL.PREM_Q,0) + NVL(DTL.PREM_A,0) AS PREM, 
+	DTL.MORTGAGEE, DTL.BUSINESSNATURE, PC.HANDLERIDENTIFYNUMBER, PC.HANDLERNAME,
+	(SELECT SUBSTR(CODECNAME,0,6) FROM CCICDMS.PRPDNEWCODE WHERE CODETYPE='BusinessChannel' AND CODECODE = DTL.BUSINESSNATURE) AS BUSINESSENAME,
+	DECODE(PG.CLAUSECODE, 'RA0023', 'Y', '' ) AS IS_AUTO_RENEW,
+	CASE WHEN SUBSTR(PC.CHANNELTYPE,0,1) IN ('2','3') OR PC.BUSINESSNATURE IN('B88801','B99901') THEN SUBSTR(PC.EXTRACOMNAME,0,4) 
+	ELSE '' END AS EXTRACOMNAME,
+	DECODE(PPM.RN_PAYWAY,'2','信用卡','其他') AS RN_PAYWAY, 
+	DECODE(PPM.RN_CREDITNO, NULL, '', ('************'||SUBSTR(PPM.RN_CREDITNO,13,16))) AS RN_CREDITNO,
+	PPM.RN_CREDITDATE
+	FROM FIR_RENEW_LIST_DTL DTL
+	LEFT JOIN PRPCADDRESS PADDR ON DTL.OLD_POLICYNO = PADDR.POLICYNO AND ADDRESSNO = 1
+	LEFT JOIN PRPCMAIN PC ON DTL.OLD_POLICYNO = PC.POLICYNO
+	LEFT JOIN PRPCENGAGE PG ON DTL.OLD_POLICYNO = PG.POLICYNO AND PG.CLAUSECODE = 'RA0023'
+	LEFT JOIN PRPCPAYMENT PPM ON DTL.OLD_POLICYNO = PPM.POLICYNO
+	WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+	<dynamic>
+	  <isNotEmpty prepend="AND" property="isAddIns">
+		DTL.IS_ADD_INS = #isAddIns:VARCHAR#
+	  </isNotEmpty>
+	</dynamic>
+	AND DTL.RN_TYPE = '1'
+	AND DTL.BUSINESSNATURE NOT IN ('I99055', 'Y00008', 'Y00006')
+	<!-- mantis： FIR0685 ，處理人員： CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式  start -->
+	<dynamic>
+	  <isNotEmpty prepend="AND" property="businessNature">
+		DTL.BUSINESSNATURE = #businessNature:VARCHAR#
+	  </isNotEmpty>
+	</dynamic>
+	<dynamic>
+	  <isNotEmpty prepend="AND" property="excludeBusinessNature">
+		DTL.BUSINESSNATURE <![CDATA[<>]]> #excludeBusinessNature:VARCHAR#
+	  </isNotEmpty>
+	</dynamic>
+	<!-- mantis： FIR0685 ，處理人員： CF048，住火_APS續保通知檔案產生作業_原產生核心續件到期通知-無附加險_新增I40503勤業通路產檔格式  end -->
+	ORDER BY DTL.OLD_POLICYNO
+  </select>
+  <!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 end-->
+  
+</sqlMap>

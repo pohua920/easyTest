@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="APS999Action" extends="BaseAction" namespace="/aps/999">
+		<!-- default -->
+		<action name="default" class="APS999Action">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result type="redirectAction" name="redirect">
+	            <param name="actionName">default</param>
+	            <param name="namespace">/aps/002</param>
+        	</result>
+		</action>
+		
+		<!-- 中信新件匯入 -->
+		<action name="btnQuery" class="APS999Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<!-- 中信新件產生回饋檔 -->
+		<action name="btnQuery2" class="APS999Action" method="btnQuery2">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<!-- 寵物險附加檔下載 -->
+		<action name="btnQuery3" class="APS999Action" method="btnQuery3">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery4" class="APS999Action" method="btnQuery4">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery5" class="APS999Action" method="btnQuery5">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery6" class="APS999Action" method="btnQuery6">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery7" class="APS999Action" method="btnQuery7">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery8" class="APS999Action" method="btnQuery8">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery9" class="APS999Action" method="btnQuery9">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery10" class="APS999Action" method="btnQuery10">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery11" class="APS999Action" method="btnQuery11">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery12" class="APS999Action" method="btnQuery12">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery13" class="APS999Action" method="btnQuery13">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery14" class="APS999Action" method="btnQuery14">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery15" class="APS999Action" method="btnQuery15">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery16" class="APS999Action" method="btnQuery16">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery17" class="APS999Action" method="btnQuery17">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery18" class="APS999Action" method="btnQuery18">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery19" class="APS999Action" method="btnQuery19">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery20" class="APS999Action" method="btnQuery20">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery21" class="APS999Action" method="btnQuery21">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery22" class="APS999Action" method="btnQuery22">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+		<action name="btnQuery23" class="APS999Action" method="btnQuery23">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+		<!-- APS999E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQueryCancel" class="APS999Action" method="btnQueryCancel">
+			<result>/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS999/APS999E0.jsp</result>
+		</action>
+	</package>
+</struts>

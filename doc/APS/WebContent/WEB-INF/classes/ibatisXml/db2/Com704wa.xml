@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Com704wa">
+
+	<resultMap id="BaseResultMap" class="com.tlg.db2.entity.Com704wa" >
+	    <result column="WA01" property="wa01" jdbcType="VARCHAR" />
+	    <result column="WA02" property="wa02" jdbcType="VARCHAR" />
+	    <result column="WA03" property="wa03" jdbcType="VARCHAR" />
+	    <result column="WA04" property="wa04" jdbcType="VARCHAR" />
+	    <result column="WA05" property="wa05" jdbcType="VARCHAR" />
+	    <result column="WA06" property="wa06" jdbcType="VARCHAR" />
+	    <result column="WA07" property="wa07" jdbcType="VARCHAR" />
+	    <result column="WA08" property="wa08" jdbcType="VARCHAR" />
+	    <result column="WA09" property="wa09" jdbcType="VARCHAR" />
+	    <result column="WA10" property="wa10" jdbcType="VARCHAR" />
+	    <result column="WA11" property="wa11" jdbcType="VARCHAR" />
+	    <result column="WA12" property="wa12" jdbcType="VARCHAR" />
+	    <result column="WA13" property="wa13" jdbcType="VARCHAR" />
+	    <result column="WA14" property="wa14" jdbcType="VARCHAR" />
+	    <result column="WA15" property="wa15" jdbcType="VARCHAR" />
+	    <result column="WA16" property="wa16" jdbcType="VARCHAR" />
+	    <result column="WA17" property="wa17" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT Strip(WA01) AS WA01,
+			   Strip(WA02) AS WA02,
+			   Strip(WA03) AS WA03,
+			   Strip(WA04) AS WA04,
+			   Strip(WA05) AS WA05,
+			   Strip(WA06) AS WA06,
+			   Strip(WA07) AS WA07,
+			   Strip(WA08) AS WA08,
+			   Strip(WA09) AS WA09,
+			   Strip(WA10) AS WA10,
+			   Strip(WA11) AS WA11,
+			   Strip(WA12) AS WA12,
+			   Strip(WA13) AS WA13,
+			   Strip(WA14) AS WA14,
+			   Strip(WA15) AS WA15,
+			   Strip(WA16) AS WA16,
+			   Strip(WA17) AS WA17 
+			   FROM <include refid="Utils.db2CommData"/>COM704WA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wa01">
+				Strip(WA01) = #wa01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa02">
+				Strip(WA02) = #wa02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa03">
+				Strip(WA03) = #wa03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa04">
+				Strip(WA04) = #wa04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa05">
+				Strip(WA05) = #wa05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa06">
+				Strip(WA06) = #wa06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa08">
+				Strip(WA08) = #wa08#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa16IsNull">
+				Strip(wa16) = ''
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT Strip(WA01) AS WA01,
+			   Strip(WA02) AS WA02,
+			   Strip(WA03) AS WA03,
+			   Strip(WA04) AS WA04,
+			   Strip(WA05) AS WA05,
+			   Strip(WA06) AS WA06,
+			   Strip(WA07) AS WA07,
+			   Strip(WA08) AS WA08,
+			   Strip(WA09) AS WA09,
+			   Strip(WA10) AS WA10,
+			   Strip(WA11) AS WA11,
+			   Strip(WA12) AS WA12,
+			   Strip(WA13) AS WA13,
+			   Strip(WA14) AS WA14,
+			   Strip(WA15) AS WA15,
+			   Strip(WA16) AS WA16,
+			   Strip(WA17) AS WA17 
+			   FROM <include refid="Utils.db2CommData"/>COM704WA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wa01">
+				Strip(WA01) = #wa01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa02">
+				Strip(WA02) = #wa02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa03">
+				Strip(WA03) = #wa03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa04">
+				Strip(WA04) = #wa04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa05">
+				Strip(WA05) = #wa05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa06">
+				Strip(WA06) = #wa06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa08">
+				Strip(WA08) = #wa08#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa16IsNull">
+				Strip(wa16) = ''
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 未使用
+	<select id="selectForBlklt" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * <include refid="Utils.db2CommData"/>FROM COM704WA
+		WHERE CONVERT(DATE, GETDATE(), 111) <![CDATA[>=]]> CONVERT(DATE, DEFFDATE,111) AND (CONVERT(DATE, GETDATE(), 111) <![CDATA[<=]]> CONVERT(DATE, DEXPDATE,111) OR DEXPDATE IS NULL)
+		AND (NISSU = #nissu# OR IISSU = #iissu# OR ITAG = #itag# OR IENGINE = #iengine#)
+	</select>
+ 	-->
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.db2CommData"/>COM704WA
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wa01">
+				Strip(WA01) = #wa01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa02">
+				Strip(WA02) = #wa02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa03">
+				Strip(WA03) = #wa03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa04">
+				Strip(WA04) = #wa04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa05">
+				Strip(WA05) = #wa05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa06">
+				Strip(WA06) = #wa06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa08">
+				Strip(WA08) = #wa08#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wa16IsNull">
+				Strip(wa16) = ''
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectByUK" resultClass="com.tlg.db2.entity.Com704wa" parameterClass="java.util.Map" >
+		SELECT Strip(WA01) AS WA01,
+			   Strip(WA02) AS WA02,
+			   Strip(WA03) AS WA03,
+			   Strip(WA04) AS WA04,
+			   Strip(WA05) AS WA05,
+			   Strip(WA06) AS WA06,
+			   Strip(WA07) AS WA07,
+			   Strip(WA08) AS WA08,
+			   Strip(WA09) AS WA09,
+			   Strip(WA10) AS WA10,
+			   Strip(WA11) AS WA11,
+			   Strip(WA12) AS WA12,
+			   Strip(WA13) AS WA13,
+			   Strip(WA14) AS WA14,
+			   Strip(WA15) AS WA15,
+			   Strip(WA16) AS WA16,
+			   Strip(WA17) AS WA17    
+			   FROM <include refid="Utils.db2CommData"/>COM704WA
+		where Strip(WA02) = #wa02:VARCHAR#
+	</select>
+	
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.db2.entity.Com704wa" >
+		SELECT COUNT(*) FROM <include refid="Utils.db2CommData"/>COM704WA
+		where Strip(WA02) = #wa02:VARCHAR#
+	</select>	
+	
+	<insert id="insert" parameterClass="com.tlg.db2.entity.Com704wa" >
+		insert into <include refid="Utils.db2CommData"/>COM704WA (WA01, WA02, WA03, WA04, WA05, WA06, WA07, WA08, WA09, WA10, WA11, WA12,
+      WA13, WA14, WA15, WA16, WA17)
+    values (#wa01:VARCHAR#, #wa02:VARCHAR#, #wa03:VARCHAR#, #wa04:VARCHAR#, #wa05:VARCHAR#, #wa06:VARCHAR#,
+      #wa07:VARCHAR#, #wa08:VARCHAR#, #wa09:VARCHAR#, #wa10:VARCHAR#, #wa11:VARCHAR#, #wa12:VARCHAR#, #wa13:VARCHAR#,
+      #wa14:VARCHAR#, #wa15:VARCHAR#, #wa16:VARCHAR#, #wa17:VARCHAR#)
+	</insert>
+
+
+	<update id="update" parameterClass="com.tlg.db2.entity.Com704wa">
+		UPDATE <include refid="Utils.db2CommData" />COM704WA
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="wa01">
+				WA01 = #wa01:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa03">
+				WA03 = #wa03:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa04">
+				WA04 = #wa04:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa05">
+				WA05 = #wa05:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa06">
+				WA06 = #wa06:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa07">
+				WA07 = #wa07:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa08">
+				WA08 = #wa08:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa09">
+				WA09 = #wa09:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa10">
+				WA10 = #wa10:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa11">
+				WA11 = #wa11:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa12">
+				WA12 = #wa12:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa13">
+				WA13 = #wa13:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa14">
+				WA14 = #wa14:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa15">
+				WA15 = #wa15:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa16">
+				WA16 = #wa16:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wa17">
+				WA17 = #wa17:VARCHAR#
+			</isNotNull>
+		</dynamic>
+		where Strip(WA02) = #wa02:VARCHAR#
+	</update>
+
+</sqlMap>

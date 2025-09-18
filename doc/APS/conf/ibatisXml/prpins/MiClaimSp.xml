@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+<sqlMap namespace="MiClaimSp">
+   <parameterMap id="fetmispTonewclaimParamMap" class="java.util.HashMap" >
+      <parameter property="dataYm" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>       
+      <parameter property="wda55Var" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/> 
+      <parameter property="outResult" jdbcType="DECIMAL" javaType="java.lang.Integer" mode="OUT"/>
+      <parameter property="outErrmsg" jdbcType="VARCHAR" javaType="java.lang.String" mode="OUT"/>
+      <parameter property="outSpmemo" jdbcType="VARCHAR" javaType="java.lang.String" mode="OUT"/>
+   </parameterMap>
+   <procedure id="executeSpFetmispTonewclaim" parameterMap="fetmispTonewclaimParamMap"> 
+       {call FETMISP_TONEWCLAIM(?,?,?,?,?)} 
+   </procedure>
+   
+</sqlMap>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+    
+<sqlMapConfig>
+
+	<!-- DB2 -->
+	<sqlMap resource="ibatisXml/db2/Com580WK.xml" />
+	<sqlMap resource="ibatisXml/db2/Com704wa.xml" />
+	<sqlMap resource="ibatisXml/db2/Com704wb.xml" />
+	<sqlMap resource="ibatisXml/db2/Com051wa.xml" />
+	<sqlMap resource="ibatisXml/db2/Com051wb.xml" />
+	<sqlMap resource="ibatisXml/db2/Com051wc.xml" />
+	<sqlMap resource="ibatisXml/db2/Com051we.xml" />
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table start-->
+	<sqlMap resource="ibatisXml/db2/Com890wa.xml" />
+	<sqlMap resource="ibatisXml/db2/Com890wb.xml" />
+	<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table end-->
+	<sqlMap resource="ibatisXml/db2/Com910wa.xml" />
+	<sqlMap resource="ibatisXml/db2/Com910wb.xml" />	
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400-->
+	<sqlMap resource="ibatisXml/db2/As400Inrcfil.xml" />
+	<!-- mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B -->
+	<sqlMap resource="ibatisXml/db2/As400FilCust.xml" />
+</sqlMapConfig>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：OTH0159，處理人員：CD094，需求單編號：OTH0159 電子保單系統條款檢核不通過資料通知(APS) -->
+<sqlMap namespace="Newepolicyresult">
+	<resultMap id="BaseResultMap" class="com.tlg.xchg.entity.Newepolicyresult">
+
+		<result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+		<result column="LOGFILENAME" property="logfilename" jdbcType="VARCHAR" />
+		<result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+		<result column="ENDORSENO" property="endorseno" jdbcType="VARCHAR" />
+		<result column="RESULTCODE" property="resultcode" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE" property="resultmessage"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE" property="errormessage" jdbcType="VARCHAR" />
+		<result column="TIMESTAMP" property="timestamp" jdbcType="VARCHAR" />
+		<result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+		<result column="DMODIFY" property="dmodify" jdbcType="TIMESTAMP" />
+		<result column="RESULTCODE2" property="resultcode2" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE2" property="resultmessage2"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE2" property="errormessage2"
+			jdbcType="VARCHAR" />
+		<result column="TIMESTAMP2" property="timestamp2" jdbcType="VARCHAR" />
+		<result column="RESULTCODE3" property="resultcode3" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE3" property="resultmessage3"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE3" property="errormessage3"
+			jdbcType="VARCHAR" />
+		<result column="TIMESTAMP3" property="timestamp3" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="QueryResultMap" class="com.tlg.aps.vo.NewepolicyVo">
+
+		<result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+		<result column="LOGFILENAME" property="logfilename" jdbcType="VARCHAR" />
+		<result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+		<result column="RISKCODE" property="riskcode" jdbcType="VARCHAR" />
+		<result column="ENDORSENO" property="endorseno" jdbcType="VARCHAR" />
+		<result column="RESULTCODE" property="resultcode" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE" property="resultmessage"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE" property="errormessage" jdbcType="VARCHAR" />
+		<result column="TIMESTAMP" property="timestamp" jdbcType="VARCHAR" />
+		<result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+		<result column="DMODIFY" property="dmodify" jdbcType="TIMESTAMP" />
+		<result column="RESULTCODE2" property="resultcode2" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE2" property="resultmessage2"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE2" property="errormessage2"
+			jdbcType="VARCHAR" />
+		<result column="TIMESTAMP2" property="timestamp2" jdbcType="VARCHAR" />
+		<result column="RESULTCODE3" property="resultcode3" jdbcType="VARCHAR" />
+		<result column="RESULTMESSAGE3" property="resultmessage3"
+			jdbcType="VARCHAR" />
+		<result column="ERRORMESSAGE3" property="errormessage3"
+			jdbcType="VARCHAR" />
+		<result column="TIMESTAMP3" property="timestamp3" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from
+		<include refid="Utils.prpinsSchema" />
+		NEWEPOLICYRESULT r
+		left join newepolicymain m on r.policyno=m.policyno
+		where resultcode like'%E%' and r.policyno!='null'
+		<isNotEmpty prepend="AND" property="policyno">
+			r.POLICYNO= #policyno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="riskcode">
+			m.RISKCODE= #riskcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			r.DCREATE <![CDATA[>=]]>
+			to_date(#startCreateDate# , 'yyyy/MM/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endCreateDate">
+			r.DCREATE <![CDATA[<=]]>
+			to_date(#endCreateDate# , 'yyyy/MM/dd hh24:mi:ss')
+		</isNotEmpty>
+	</select>
+
+
+	<select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		<!-- <include refid="Utils.sql1" /> -->
+		SELECT * FROM
+		<include refid="Utils.prpinsSchema" />
+		NEWEPOLICYRESULT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="," property="filename">
+				#filename:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="logfilename">
+				#logfilename:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="policyno">
+				#policyno:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="endorseno">
+				#endorseno:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultcode">
+				#resultcode:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultmessage">
+				#resultmessage:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="errormessage">
+				#errormessage:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="timestamp">
+				#timestamp:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dcreate">
+				#dcreate:TIMESTAMP#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="dmodify">
+				#dmodify:TIMESTAMP#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultcode2">
+				#resultcode2:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultmessage2">
+				#resultmessage2:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="errormessage2">
+				#errormessage2:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="timestamp2">
+				#timestamp2:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultcode3">
+				#resultcode3:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="resultmessage3">
+				#resultmessage3:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="errormessage3">
+				#errormessage3:VARCHAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="timestamp3">
+				#timestamp3:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+
+	<select id="selectByErr" parameterClass="java.util.Map"
+		resultMap="QueryResultMap">
+		<include refid="Utils.sql1" />
+		select r.* ,m.riskcode
+		from newepolicyresult r
+		left join newepolicymain
+		m on r.policyno=m.policyno
+		where resultcode like'%E%' AND
+		r.policyno!='null'
+
+		<isNotEmpty prepend="AND" property="policyno">
+			r.POLICYNO= #policyno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="riskcode">
+			m.RISKCODE= #riskcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			r.DCREATE <![CDATA[>=]]>
+			to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endCreateDate">
+			r.DCREATE <![CDATA[<=]]>
+			to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="selectByYdayErr" parameterClass="java.util.Map"
+		resultMap="QueryResultMap">
+		select r.* ,m.riskcode
+		from newepolicyresult r
+		left join newepolicymain
+		m on r.policyno=m.policyno
+		where resultcode like'%E%' AND
+		r.policyno!='null'
+		
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			r.DCREATE <![CDATA[>=]]>
+			to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endCreateDate">
+			r.DCREATE <![CDATA[<=]]>
+			to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		order by dcreate desc
+
+	</select>
+	
+	<select id="selectForUrl" parameterClass="java.util.Map"
+		resultClass="java.lang.String">
+		select pdf_url from epolicymainsms where filename=(
+ 		select filename from newepolicymain 
+ 		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="," property="policyno">
+				POLICYNO=#policyno:VARCHAR#
+			</isNotEmpty>
+		</dynamic>
+ 		and REGEXP_LIKE (filename,#pattern#))
+ 
+		
+
+	</select>
+
+
+
+
+</sqlMap>

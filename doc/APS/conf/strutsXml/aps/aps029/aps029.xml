@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 -->
+<struts>
+	<package name="APS029Action" extends="BaseAction" namespace="/aps/029">
+		<!-- default -->
+		<action name="default" class="APS029Action">
+			<result>/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+		</action>
+		
+		<!-- APS029E0.jsp頁面按下查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="com.tlg.aps.action.APS029Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+		</action>
+		
+		<!-- APS029E0.jsp頁面點選資料成功筆數，搜尋資料-->
+		<action name="btnQuery2" class="com.tlg.aps.action.APS029Action" method="btnQuery2">
+			<result>/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+		</action>
+		
+		<!-- APS029E0.jsp頁面點選資料失敗筆數，搜尋資料-->
+		<action name="btnQuery3" class="com.tlg.aps.action.APS029Action" method="btnQuery3">
+			<result>/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+		</action>
+
+		<!-- APS029E0.jsp 連結至查詢頁面-->
+		<action name="lnkGoQuery" class="APS029Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+		</action>		
+
+		<!-- APS029U0.jsp 連結至檔案上傳頁面 -->
+		<action name="lnkGoUpload" class="APS029Action" method="lnkGoUpload">
+			<result>/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+		</action>
+
+		<!-- (主檔)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS029Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS029Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E0.jsp</result>
+		</action>
+		
+		<!-- (匯入成功資料頁面)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtEChangePageIndex" class="APS029Action" method="txtEChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+		</action>
+
+		<!-- (匯入成功資料頁面)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlEPageSizeChanged" class="APS029Action" method="ddlEPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E1.jsp</result>
+		</action>
+		
+		<!-- (異常訊息頁面)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtFChangePageIndex" class="APS029Action" method="txtFChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+		</action>
+
+		<!-- (異常訊息頁面)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlFPageSizeChanged" class="APS029Action" method="ddlFPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029E2.jsp</result>
+		</action>
+
+		<!-- AS400續保資料匯入作業 -->
+		<action name="btnDataImport" class="APS029Action" method="btnDataImport">
+			<result>/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+		</action>
+		
+		<!-- 下載sample檔案 -->
+		<action name="btnDowloadSample" class="APS029Action" method="btnDowloadSample">
+			<result>/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS029/APS029U0.jsp</result>
+				<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+</struts>

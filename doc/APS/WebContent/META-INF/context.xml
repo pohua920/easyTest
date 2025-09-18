@@ -1,0 +1,277 @@
+﻿<Context>
+	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 START-->
+	<!-- 因應 sql server環境升級:jdk1.7->1.8/tomcat7->8:修改1.factory 2.mssql url add ;encrypt=false -->
+	<!--  -->
+	<Resource name="jdbc/coreplus" auth="Application" type="javax.sql.DataSource"
+	           maxActive="2" maxIdle="2" maxWait="2"
+	           username="COREPLUS" password="coreplus" driverClassName="oracle.jdbc.driver.OracleDriver"
+	           url="jdbc:oracle:thin:@192.168.112.97:1521:tlgqastwo" />
+
+	<Resource name="jdbc/prpins" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@192.168.112.97:1521:tlgqasTWO"
+		username="business" password="business" maxActive="5" maxIdle="3" maxWait="-1"
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+		
+	<Resource name="jdbc/dms" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@192.168.112.97:1521:tlgqasTWO"
+		username="ccicdms" password="ccicdms" maxActive="5" maxIdle="3" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+
+	<Resource name="jdbc/db2" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.ibm.as400.access.AS400JDBCDriver"
+		url="jdbc:as400://192.168.11.251;transaction isolation=none"
+		username="TLGD30A" password="EXCHANGE" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+      	
+	<Resource name="jdbc/xchg" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@192.168.112.97:1521:CHEXUAT"
+		username="xchg" password="Asgard" maxActive="5" maxIdle="3" maxWait="-1"
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+    <!--mantis：OTH0184，處理人員：DP0706，需求單編號：APS要被保人通訊地址比對作業增加資料來源(XCHG)START-->
+    <Resource name="jdbc/xchg2" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@192.168.112.75:1521:XCHG"
+		username="xchg" password="Asgard" maxActive="5" maxIdle="3" maxWait="-1"
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+	<!--mantis：OTH0184，處理人員：DP0706，需求單編號：APS要被保人通訊地址比對作業增加資料來源(XCHG)END-->
+	<Resource name="jdbc/msSqlSh" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.216:1433;databaseName=STOCKHOLDER;encrypt=false"
+		username="tlgb2b" password="Tlg*IK&lt;" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+
+	<Resource name="jdbc/sales" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@192.168.112.97:1521:tlgqasTWO"
+		username="sales" password="sales" maxActive="5" maxIdle="3" maxWait="-1"
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+      	
+	<Resource name="jdbc/msSqlSms" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.216:1433;databaseName=FETSMS;encrypt=false"
+		username="tlgb2b" password="Tlg*IK&lt;" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+      	
+	<Resource name="jdbc/msSqlAs400" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.216:1433;databaseName=AS400DB;encrypt=false"
+		username="tlgb2b" password="Tlg*IK&lt;" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+
+	<Resource name="jdbc/msSqlMob" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.110:1433;databaseName=TLG_MOBILE_INS;encrypt=false"
+		username="apfet" password="5FhZDc3W" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+    <!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400-->   	
+	<Resource name="jdbc/msSqlRdm" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.216:1433;databaseName=ReinsDataMart;encrypt=false"
+		username="SoftLeaderReins" password="1qaz@WSX!@" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+      <!--mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B-->   	
+      <Resource name="jdbc/msSqlRdcB2b" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://192.168.112.188:1433;databaseName=TLGRDCB2BSIT;encrypt=false"
+		username="tlgb2b" password="Tlg*IK&lt;" maxActive="5" maxIdle="5" maxWait="-1" 
+		testWhileIdle="true"  
+     	testOnBorrow="true"  
+      	testOnReturn="false"  
+	    validationInterval="30000"  
+      	timeBetweenEvictionRunsMillis="30000"  
+      	removeAbandonedTimeout="60"  
+      	removeAbandoned="true"  
+      	logAbandoned="true"  
+      	minEvictableIdleTimeMillis="30000"  
+      	jmxEnabled="true"  
+      	jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer" />
+      	
+
+	<!-- 
+
+	<Resource name="jdbc/unetl" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://UNDB-04:1433;databaseName=UNETL"
+		username="SQ_Report" password="SQ0334" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+	<Resource name="jdbc/undbfi" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://10.224.1.115:1433;databaseName=UNDB_FI"
+		username="SQ_Report" password="SQ0334" maxActive="5" maxIdle="5" maxWait="-1" />
+
+	<Resource name="jdbc/coredb" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://HQETLDB:1433;databaseName=UNDB_AM"
+		username="UNDB_AM" password="undbam" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+		
+	<Resource name="jdbc/idqFns" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		url="jdbc:oracle:thin:@10.224.15.8:1521:COREDBA"
+		username="WFSAP" password="03110001" maxActive="5" maxIdle="3" maxWait="-1" />
+		
+	<Resource name="jdbc/unionB2b" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://10.224.1.103:5000;databaseName=unioninsB2B"
+		username="wkap0" password="SQ0334%!" maxActive="5" maxIdle="3" maxWait="-1" />
+		
+		
+	<Resource name="jdbc/odsFI" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://HQETLDB:1433;databaseName=UNDB_FI"
+		username="UNDB_FI" password="undbfi" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+	<Resource name="jdbc/coredb" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+		url="jdbc:sqlserver://undw-01:1433;databaseName=COREDB"
+		username="SQ_Report" password="SQ0334" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+
+	<Resource name="jdbc/unetl" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="net.sourceforge.jtds.jdbc.Driver"
+		url="jdbc:jtds:sqlserver://10.224.1.115:1433;databaseName=UNETL"
+		username="SQ_Report" password="SQ0334" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+		
+	<Resource name="jdbc/undbfi" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+		driverClassName="net.sourceforge.jtds.jdbc.Driver"
+		url="jdbc:jtds:sqlserver://10.224.1.115:1433;databaseName=UNDB_FI"
+		username="SQ_Report" password="SQ0334" maxActive="5" maxIdle="5" maxWait="-1" />
+		
+ 	-->
+ 	<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 END-->
+</Context>

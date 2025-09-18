@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程  -->
+	<sqlMap resource="ibatisXml/sales/PrpdAgreement.xml" />
+	
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 start -->
+	<sqlMap resource="ibatisXml/sales/Prpdagent.xml" />
+	<sqlMap resource="ibatisXml/sales/HandlercodeTmp.xml" />
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 end -->
+
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求  -->
+	<sqlMap resource="ibatisXml/sales/Prpdagentsub.xml" />
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<sqlMap resource="ibatisXml/sales/CommdataCmemfil.xml" />
+	
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<sqlMap resource="ibatisXml/sales/PrpdagentLoginDateReserve.xml" />
+	
+	<!-- mantis：SALES0033 ，處理人員： DP0713 ，需求單編號：銷管系統-業務員換證日期更新排程及通知 -->
+	<sqlMap resource="ibatisXml/sales/PrpdagentIdv.xml" />
+</sqlMapConfig>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!--mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400-->    
+<sqlMapConfig>
+
+	<sqlMap resource="ibatisXml/msSqlRdm/Inrcfil.xml" />
+	
+</sqlMapConfig>

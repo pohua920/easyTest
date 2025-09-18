@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 -->
+<struts>
+	<package name="APS061Action" extends="BaseAction" namespace="/aps/061">
+		<!-- default -->
+		<action name="default" class="APS061Action">
+			<result>/WEB-INF/pages/APS/APS061/APS061E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS061/APS061E0.jsp</result>
+		</action>
+		
+		<!-- APS061E0.jsp頁面按下確定鍵,開始執行再保帳單介接 -->
+		<action name="btnExecute" class="APS061Action" method="btnExecute">
+			<result>/WEB-INF/pages/APS/APS061/APS061E0.jsp</result>
+			<result name="success">/WEB-INF/pages/APS/APS061/APS061E0.jsp</result>
+		</action>
+		
+		
+		
+	</package>
+</struts>

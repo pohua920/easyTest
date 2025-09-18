@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="AJAX002Action" extends="BaseAction" namespace="/aps/ajax002">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		<action name="stage1" class="AJAX002Action" method="stage1">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		<action name="stage2" class="AJAX002Action" method="stage2">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

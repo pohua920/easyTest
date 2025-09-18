@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- 
+mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核 start
+-->
+<sqlMap namespace="FirTmpDatacheck" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirTmpDatacheck" >
+
+    <result column="OID" property="oid" jdbcType="DECIMAL" />
+    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+    <result column="UNDERWRITEENDDATE" property="underwriteenddate" jdbcType="TIMESTAMP" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="ADDRESSNO" property="addressno" jdbcType="DECIMAL" />
+    <result column="BUILDINGNO" property="buildingno" jdbcType="VARCHAR" />
+    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+    <result column="P_STATUS" property="pStatus" jdbcType="VARCHAR" />
+    <result column="WARN_MSG" property="warnMsg" jdbcType="OTHER" />
+    <result column="ERR_MSG" property="errMsg" jdbcType="OTHER" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+    select * from <include refid="Utils.prpinsSchema"/>FIR_TMP_DATACHECK
+    	<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="pStatus">
+				P_STATUS = #pStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+		</dynamic>
+  </select>
+  
+  <select id="selectBatchesByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+    select * from <include refid="Utils.prpinsSchema"/>FIR_TMP_DATACHECK
+    	WHERE ROWNUM <![CDATA[<=]]> 1000
+		<isNotEmpty prepend="AND" property="pStatus">
+			P_STATUS = #pStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oid">
+			OID = #oid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="policyno">
+			POLICYNO = #policyno#
+		</isNotEmpty>
+  </select>
+
+  <select id="count" resultClass="java.lang.Integer">
+	  	SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_TMP_DATACHECK
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="pStatus">
+				P_STATUS = #pStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+		</dynamic>
+  </select>
+  
+  <update id="update" parameterClass="com.tlg.prpins.entity.FirTmpDatacheck" >
+    update <include refid="Utils.prpinsSchema"/>FIR_TMP_DATACHECK
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="policyno" >
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="underwriteenddate" >
+        UNDERWRITEENDDATE = #underwriteenddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="startdate" >
+        STARTDATE = #startdate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="enddate" >
+        ENDDATE = #enddate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="addressno" >
+        ADDRESSNO = #addressno:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="buildingno" >
+        BUILDINGNO = #buildingno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="addresscode" >
+        ADDRESSCODE = #addresscode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="addressdetailinfo" >
+        ADDRESSDETAILINFO = #addressdetailinfo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="structure" >
+        STRUCTURE = #structure:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sumfloors" >
+        SUMFLOORS = #sumfloors:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="wallmaterial" >
+        WALLMATERIAL = #wallmaterial:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="roofmaterial" >
+        ROOFMATERIAL = #roofmaterial:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="pStatus" >
+        P_STATUS = #pStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="warnMsg" >
+        WARN_MSG = #warnMsg:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="errMsg" >
+        ERR_MSG = #errMsg:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate" >
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate" >
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="iupdate" >
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dupdate" >
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+    where OID = #oid:DECIMAL#
+  </update>
+  
+  <delete id="delete" parameterClass="java.math.BigDecimal">
+    delete <include refid="Utils.prpinsSchema"/>from FIR_TMP_DATACHECK
+    where OID = #oid:DECIMAL#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirTmpDatacheck">
+  		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT FIR_TMP_DATACHECK_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+    insert into <include refid="Utils.prpinsSchema"/>FIR_TMP_DATACHECK (OID, POLICYNO, UNDERWRITEENDDATE, STARTDATE, ENDDATE, ADDRESSNO,
+      BUILDINGNO, ADDRESSCODE, ADDRESSDETAILINFO, STRUCTURE, SUMFLOORS, WALLMATERIAL, ROOFMATERIAL,
+      P_STATUS, WARN_MSG, ERR_MSG, ICREATE, DCREATE, IUPDATE, DUPDATE)
+    values (#oid:DECIMAL#, #policyno:VARCHAR#, #underwriteenddate:TIMESTAMP#, #startdate:TIMESTAMP#,
+      #enddate:TIMESTAMP#, #addressno:DECIMAL#, #buildingno:VARCHAR#, #addresscode:VARCHAR#,
+      #addressdetailinfo:VARCHAR#, #structure:VARCHAR#, #sumfloors:VARCHAR#, #wallmaterial:VARCHAR#,
+      #roofmaterial:VARCHAR#, #pStatus:VARCHAR#, #warnMsg:OTHER#, #errMsg:OTHER#, #icreate:VARCHAR#,
+      #dcreate:TIMESTAMP#, #iupdate:VARCHAR#, #dupdate:TIMESTAMP#)
+  </insert>
+</sqlMap>

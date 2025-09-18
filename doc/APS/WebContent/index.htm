@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+
+<body>
+	<object id="WebBrowser" width=0 height=0 classid=CLSID:8856F961-340A-11D0-A96B-00C04FD705A2></object>
+	<script type="text/javascript">
+
+		var parameters = "location=no,resizable=yes,menubar=no,titlebar=no,toolbar=no,status=true,left=0,top=0";
+			parameters += ",width="+(screen.width-10)+",height="+(screen.height-65);
+		window.setTimeout("close_self()",1000);
+		function close_self() {
+			try{
+				var webBrowser = document.getElementById("WebBrowser");
+				webBrowser.ExecWB(45,1);
+					//document.all.WebBrowser.ExecWB(45,1); 
+			} catch(e){
+				window.opener =null; 
+				//window.open("wwoa","_self");
+	 			window.close(); 
+			}
+		}
+	</script>
+</body>
+</html>

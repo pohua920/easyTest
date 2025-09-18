@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0676，處理人員：DP0706，需求單編號：FIR0676_住火_元大續保作業_N+1比對擔保品檔案 -->
+<sqlMap namespace="FirAgtrnYcbUpload" >
+	  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirAgtrnYcbUpload" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER" property="collateralnumber" jdbcType="VARCHAR" />
+	    <result column="IS_RENEW" property="isRenew" jdbcType="OTHER" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" /><!--mantis：FIR0684，處理人員：DP0706，需求單編號：FIR0684_住火_APS元大續保作業_N+1轉檔新增填寫出單業務員欄位-->
+	  </resultMap>
+	  
+	  <resultMap id="Aps060MainDtlVoMap" class="com.tlg.aps.vo.Aps060MainDtlVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchseq" jdbcType="OTHER" />
+	    <result column="OID" property="oid" jdbcType="VARCHAR" />
+	  </resultMap>
+  
+	   <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_YCB_UPLOAD
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	  </select>
+		
+	  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_YCB_UPLOAD
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyNo">
+				OLDPOLICYNO = #oldpolicyNo#
+			</isNotEmpty>
+		</dynamic>
+	  </select>
+  
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_YCB_UPLOAD
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.prpins.entity.FirAgtrnYcbUpload" >
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_YCB_UPLOAD
+		where BATCH_NO = #batchNo:VARCHAR#
+  	</select>
+  
+	<delete id="deleteByEntity" parameterClass="com.tlg.prpins.entity.FirAgtrnYcbUpload" >
+    	delete from FIR_AGTRN_YCB_UPLOAD
+   		where BATCH_NO = #batchNo:VARCHAR#
+	</delete>  
+  <!--mantis：FIR0684，處理人員：DP0706，需求單編號：FIR0684_住火_APS元大續保作業_N+1轉檔新增填寫出單業務員欄位-->
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirAgtrnYcbUpload" >
+    insert into FIR_AGTRN_YCB_UPLOAD (BATCH_NO, OLDPOLICYNO, COLLATERALNUMBER, IS_RENEW, ICREATE,
+      DCREATE, HANDLERIDENTIFYNUMBER)
+    values (#batchNo:VARCHAR#, #oldpolicyno:VARCHAR#, #collateralnumber:VARCHAR#, #isRenew:OTHER#,
+      #icreate:VARCHAR#, #dcreate:TIMESTAMP#, #handleridentifynumber:VARCHAR#)
+  </insert>
+  
+  <update id="update"  parameterClass="com.tlg.prpins.entity.FirAgtrnYcbUpload" >
+     update FIR_AGTRN_YCB_UPLOAD
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="batchNo" >
+        BATCH_NO = #batchNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="oldpolicyno" >
+        OLDPOLICYNO = #oldpolicyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="collateralnumber" >
+        COLLATERALNUMBER = #collateralnumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isRenew" >
+        IS_RENEW = #isRenew:OTHER#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate" >
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate" >
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <!--mantis：FIR0684，處理人員：DP0706，需求單編號：FIR0684_住火_APS元大續保作業_N+1轉檔新增填寫出單業務員欄位-->
+       <isNotNull prepend="," property="handleridentifynumber" >
+        HANDLERIDENTIFYNUMBER = #handleridentifynumber:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where BATCH_NO = #batchNo:VARCHAR#
+  </update>
+  
+   <select id="selectAgtMainAndDtlForImport" resultMap="Aps060MainDtlVoMap" parameterClass="java.util.Map">
+		SELECT DTL.BATCH_NO, DTL.OLDPOLICYNO, DTL.CHECK_ERR_MSG, DTL.BATCH_SEQ, MAIN.OID
+		FROM FIR_AGTRN_BATCH_DTL DTL 
+		LEFT JOIN FIR_AGT_TOCORE_MAIN MAIN ON DTL.BATCH_NO = MAIN.BATCH_NO AND DTL.OLDPOLICYNO = MAIN.OLDPOLICYNO
+		where DTL.DATA_STATUS IN ('2','D')
+		<isNotEmpty prepend="AND" property="batchNo">
+			DTL.BATCH_NO = #batchNo#
+		</isNotEmpty>
+  </select>
+  
+</sqlMap>

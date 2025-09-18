@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	<bean id="rs000ApDao" class="com.tlg.msSqlSh.dao.impl.Rs000ApDaoImpl">
+		<property name="sqlMapClient" ref="msSqlShSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 start -->
+	<bean id="ctbcStockholderTempDao" class="com.tlg.msSqlSh.dao.impl.CtbcStockholderTempDaoImpl">
+		<property name="sqlMapClient" ref="msSqlShSqlMapClient"/>
+	</bean>
+	<bean id="msSqlSHSpDao" class="com.tlg.msSqlSh.dao.impl.MsSqlSHSpDaoImpl">
+		<property name="sqlMapClient" ref="msSqlShSqlMapClient"/>
+	</bean>
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 end -->
+
+	<!-- Base Service -->
+	<bean id="rs000ApService" class="com.tlg.msSqlSh.service.impl.Rs000ApServiceImpl">
+		<property name="rs000ApDao" ref="rs000ApDao"/>
+	</bean>
+
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 start -->
+	<bean id="ctbcStockholderTempService" class="com.tlg.msSqlSh.service.impl.CtbcStockholderTempServiceImpl">
+		<property name="ctbcStockholderTempDao" ref="ctbcStockholderTempDao"/>
+	</bean>
+	<bean id="msSqlSHSpService" class="com.tlg.msSqlSh.service.impl.MsSqlSHSpServiceImpl">
+		<property name="msSqlSHSpDao" ref="msSqlSHSpDao"/>
+	</bean>
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 end -->
+	
+
+</beans>
