@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：OTH0087，處理人員：BJ085，需求單編號：OTH0087 AML手動登錄 start -->
+<struts>
+	<package name="APS011Action" extends="BaseAction" namespace="/aps/011">
+		<!-- default -->
+		<action name="default" class="APS011Action">
+			<result >/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- APS011A0.jsp頁面按下送出，呼叫webService做新增動作 -->
+		<action name="btnCreate" class="APS011Action" method="btnCreate">
+			<result>/WEB-INF/pages/APS/APS011/APS011A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- APS011A0.jsp頁面按下清除鍵，做清除動作 -->
+		<action name="btnCreateCancel" class="APS011Action" method="btnCreateCancel">
+			<result>/WEB-INF/pages/APS/APS011/APS011A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011A0.jsp</result>
+		</action>
+		
+		<!-- APS011E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="APS011Action" method="btnQuery">
+			<result name="success">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- 連結到查詢頁面 -->
+		<action name="lnkGoQuery" class="APS011Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- 連結到新增頁面 -->
+		<action name="lnkGoCreate" class="APS011Action" method="lnkGoCreate">
+			<result>/WEB-INF/pages/APS/APS011/APS011A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011A0.jsp</result>
+		</action>
+
+		<!-- APS011E0.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS011Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- APS011E0.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS011Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- APS011E0.jsp頁面連結到明細檔查詢頁面 -->
+		<action name="lnkDtlGoQuery" class="APS011Action" method="lnkDtlGoQuery">
+			<result>/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+		</action>
+		
+		<!-- (明細)APS011E1.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtDtlChangePageIndex" class="APS011Action" method="txtDtlChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+		</action>
+		
+		<!-- (明細)APS011E1.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlDtlPageSizeChanged" class="APS011Action" method="ddlDtlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+		</action>
+		
+		<!-- (掃描結果明細)APS011E1.jsp，點選重送資料或查詢最新結果按鈕，呼叫webService重新查詢 -->
+		<action name="btnResend" class="APS011Action" method="btnResend">
+			<result>/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+		</action>
+		
+		<!-- 連結到修改頁面 -->
+		<action name="lnkGoEdit" class="APS011Action" method="lnkGoEdit">
+			<result>/WEB-INF/pages/APS/APS011/APS011U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011E1.jsp</result>
+		</action>
+		
+		<!-- APS011U0.jsp頁面按下送出，呼叫webService做修改重送動作 -->
+		<action name="btnUpdate" class="APS011Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS011/APS011E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS011/APS011U0.jsp</result>
+		</action>
+	</package>
+</struts>

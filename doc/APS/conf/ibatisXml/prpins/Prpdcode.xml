@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Prpdcode">
+	<resultMap class="com.tlg.prpins.entity.Prpdcode" id="BaseResultMap">
+		<result column="CODECODE" jdbcType="VARCHAR" property="codecode" />
+		<result column="CODETYPE" jdbcType="VARCHAR" property="codetype" />
+		<result column="CODECNAME" jdbcType="VARCHAR" property="codecname" />
+		<result column="CODEENAME" jdbcType="VARCHAR" property="codeename" />
+		<result column="NEWCODECODE" jdbcType="VARCHAR" property="newcodecode" />
+		<result column="VALIDSTATUS" jdbcType="VARCHAR" property="validstatus" />
+		<result column="FLAG" jdbcType="VARCHAR" property="flag" />
+		<result column="UPPERCODE" jdbcType="VARCHAR" property="uppercode" />
+	</resultMap>
+
+
+	<select id="selectByPrimaryKey" parameterClass="com.tlg.prpins.entity.Prpdcode" resultMap="BaseResultMap">
+		select * from <include refid="Utils.prpinsSchema"/>PRPDCODE
+		where CODETYPE = #codetype:VARCHAR#
+		and CODECODE = #codecode:VARCHAR#
+	</select>
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from <include refid="Utils.prpinsSchema"/>PRPDCODE
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="codetype">
+				CODETYPE = #codetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="codecode">
+				CODECODE = #codecode#
+			</isNotEmpty>
+			<isEqual prepend="AND" property="damageCode" compareValue="Y">
+				newcodecode IN (
+				SELECT codecode FROM prpdcoderisk
+				WHERE ( riskcode IN (SELECT riskcode FROM ccicdms.prpdrisk WHERE classcode = #classcode# AND codetype = 'DamageCode') )
+				)
+			</isEqual>
+		</dynamic>
+		ORDER BY　CODECODE ASC
+	</select>
+
+</sqlMap>

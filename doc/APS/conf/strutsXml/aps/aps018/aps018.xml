@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="APS018Action" extends="BaseAction" namespace="/aps/018">
+		<!-- default -->
+		<action name="default" class="APS018Action">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+
+		<action name="btnQuery" class="APS018Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+		
+		<action name="btnRunJob" class="APS018Action" method="btnRunJob">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+
+		<!-- (主檔)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS018Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS018Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)查詢結果點選上下三角型排序 -->
+		<action name="lnkSortQuery" class="APS018Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS018/APS018E0.jsp</result>
+		</action>
+
+	</package>
+</struts>

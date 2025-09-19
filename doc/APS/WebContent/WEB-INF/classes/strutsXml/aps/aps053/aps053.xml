@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業    start-->
+<struts>
+	<package name="APS053Action" extends="BaseAction" namespace="/aps/053">
+	
+		<!-- default -->
+		<action name="default" class="APS053Action">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<!-- APS053E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="APS053Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<!-- 按下存檔鍵，做新增儲存動作 -->
+		<action name="btnCreate" class="APS053Action" method="btnCreate">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053A0.jsp</result>
+		</action>
+		
+		<!-- 按下存檔鍵，做修改儲存動作 -->
+		<action name="btnUpdate" class="APS053Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053U0.jsp</result>
+		</action>
+		
+		<!-- 連結到查詢頁面 -->
+		<action name="lnkGoQuery" class="APS053Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<!-- 連結至新增頁面 -->
+		<action name="lnkGoCreate" class="APS053Action" method="lnkGoCreate">
+			<result>/WEB-INF/pages/APS/APS053/APS053A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053A0.jsp</result>
+		</action>
+		
+		<!-- 連結到修改頁面 -->
+		<action name="lnkGoUpdate" class="APS053Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS053/APS053U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<!-- APS053E0.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS053Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<!-- APS053E0.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS053Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+		</action>
+		
+		<action name="downloadFile" class="APS053Action" method="downloadFile">
+			<result>/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS053/APS053E0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業    end-->
+</struts>

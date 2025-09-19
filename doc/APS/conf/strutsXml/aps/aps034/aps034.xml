@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0454，處理人員：BJ085，需求單編號：FIR0454 住火-APS富邦續件資料接收排程 -->
+<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+<struts>
+	<package name="APS034Action" extends="BaseAction" namespace="/aps/034">
+		<!-- default -->
+		<action name="default" class="APS034Action">
+			<result>/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp頁面按下執行鍵,開始執行 -->
+		<action name="btnExecuteFbrn" class="APS034Action" method="btnExecuteFbrn">
+			<result>/WEB-INF/pages/APS/APS004/APS004E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS004/APS004E0.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp頁面按下查詢鍵,開始查詢主檔資料 -->
+		<action name="btnQuery" class="APS034Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp(主檔)分頁資料中，重新輸入要顯示的頁數  -->
+		<action name="txtChangePageIndex" class="APS034Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp，(主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS034Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp頁面按下主檔批次號碼資料，查詢明細資料 -->
+		<action name="lnkGoDetailQuery" class="APS034Action" method="lnkGoDetailQuery">
+			<result>/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E1.jsp(明細)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtDtlChangePageIndex" class="APS034Action" method="txtDtlChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+		</action>
+		
+		<!-- APS034E1.jsp(明細)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlDtlPageSizeChanged" class="APS034Action" method="ddlDtlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+		</action>
+
+		<!-- APS034E1.jsp(明細)分頁資料中， 查詢結果點選上下三角型排序 -->
+		<action name="lnkSortQuery" class="APS034Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+		</action>
+		
+		<!-- APS034E1.jsp(明細)分頁資料中， 點選序號進入資料修改頁面 -->
+		<action name="lnkGoUpdate" class="APS034Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS034/APS034U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E1.jsp</result>
+		</action>
+		
+		<!-- APS034E0.jsp頁面按下進入，進入檔案產生、下載頁面  -->
+		<action name="lnkGoDownload" class="APS034Action" method="lnkGoDownload">
+			<result>/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E0.jsp</result>
+		</action>
+		
+		<!-- APS034E2.jsp頁面產生檔案  -->
+		<action name="btnGenFile" class="APS034Action" method="btnGenFile">
+			<result>/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+		</action>
+		
+		<!-- APS034E2.jsp頁面下載檔案  -->
+		<action name="btnDownloadFile" class="APS034Action" method="btnDownloadFile">
+			<result>/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFilename}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+		</action>
+		
+		<!-- APS034U0.jsp 按下儲存鍵，做資料修改的動作  -->
+		<action name="btnUpdate" class="APS034Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS034/APS034U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034U0.jsp</result>
+		</action>
+		
+		<!-- APS034E2檔案產生頁面，產生大保單作業按下上傳大保單按鈕，將檔案自FTS上下載後上傳至富邦SFTP  -->
+		<action name="btnUploadBigPolicyFile" class="APS034Action" method="btnUploadBigPolicyFile">
+			<result>/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS034/APS034E2.jsp</result>
+		</action>
+		
+	</package>
+</struts>

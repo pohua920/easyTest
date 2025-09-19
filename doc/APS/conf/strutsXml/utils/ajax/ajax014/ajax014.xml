@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- mantis：FIR0521，處理人員：CC009，需求單編號：FIR0521 火險地址維護作業增加處理正規化功能 start -->
+<struts>
+	<package name="AJAX014Action" extends="BaseAction" namespace="/aps/ajax014">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		<action name="exportFirAddrCkdata" class="AJAX014Action" method="exportFirAddrCkdata">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

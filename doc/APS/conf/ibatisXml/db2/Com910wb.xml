@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：OTH0132，處理人員：BI086，需求單編號：OTH0132  保單存摺AS400資料寫入核心中介Table -->
+<sqlMap namespace="Com910wb">
+
+	<resultMap id="BaseResultMap" class="com.tlg.db2.entity.Com910wb" >
+	    <result column="WB01" property="wb01" jdbcType="VARCHAR" />
+	    <result column="WB02" property="wb02" jdbcType="VARCHAR" />
+	    <result column="WB03" property="wb03" jdbcType="VARCHAR" />
+	    <result column="WB04" property="wb04" jdbcType="VARCHAR" />
+	    <result column="WB05" property="wb05" jdbcType="VARCHAR" />
+	    <result column="WB06" property="wb06" jdbcType="VARCHAR" />
+	    <result column="WB07" property="wb07" jdbcType="VARCHAR" />
+	    <result column="WB08" property="wb08" jdbcType="VARCHAR" />
+	    <result column="WB09" property="wb09" jdbcType="VARCHAR" />
+	    <result column="WB10" property="wb10" jdbcType="VARCHAR" />
+	    <result column="WB11" property="wb11" jdbcType="VARCHAR" />
+	    <result column="WB12" property="wb12" jdbcType="VARCHAR" />
+	    <result column="WB13" property="wb13" jdbcType="VARCHAR" />
+	    <result column="WB14" property="wb14" jdbcType="VARCHAR" />
+	    <result column="WB15" property="wb15" jdbcType="VARCHAR" />
+	    <result column="WB16" property="wb16" jdbcType="VARCHAR" />
+	    <result column="WB17" property="wb17" jdbcType="VARCHAR" />
+	    <result column="WB18" property="wb18" jdbcType="VARCHAR" />
+	    <result column="WB19" property="wb19" jdbcType="VARCHAR" />
+	    <result column="WB20" property="wb20" jdbcType="VARCHAR" />
+	    <result column="WB21" property="wb21" jdbcType="VARCHAR" />
+	    <result column="WB22" property="wb22" jdbcType="VARCHAR" />
+	    <result column="WB23" property="wb23" jdbcType="VARCHAR" />
+  	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT STRIP(WB01) AS WB01,
+				STRIP(WB02) AS WB02,
+				STRIP(WB03) AS WB03,
+				STRIP(WB04) AS WB04,
+				STRIP(WB05) AS WB05,
+				STRIP(WB06) AS WB06,
+				STRIP(WB07) AS WB07,
+				STRIP(WB08) AS WB08,
+				STRIP(WB09) AS WB09,
+				STRIP(WB10) AS WB10,
+				STRIP(WB11) AS WB11,
+				STRIP(WB12) AS WB12,
+				STRIP(WB13) AS WB13,
+				STRIP(WB14) AS WB14,
+				STRIP(WB15) AS WB15,
+				STRIP(WB16) AS WB16,
+				STRIP(WB17) AS WB17,
+				STRIP(WB18) AS WB18,
+				STRIP(WB19) AS WB19,
+				STRIP(WB20) AS WB20,
+				STRIP(WB21) AS WB21,
+				STRIP(WB22) AS WB22,
+				STRIP(WB23) AS WB23
+			FROM <include refid="Utils.db2CommData"/>COM910WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb01">
+				STRIP(WB01) = #wb01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb02">
+				STRIP(WB02) = #wb02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb03">
+				STRIP(WB03) = #wb03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb05">
+				STRIP(WB05) = #wb05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb06">
+				STRIP(WB06) = #wb06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb07">
+				STRIP(WB07) = #wb07#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb11">
+				STRIP(WB11) = #wb11#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb23">
+				STRIP(WB23) = #wb23#
+			</isNotEmpty>
+		</dynamic>
+		<isEqual property="orderBySchdule" compareValue="Y">
+			ORDER BY WB07
+		</isEqual>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT STRIP(WB01) AS WB01,
+				STRIP(WB02) AS WB02,
+				STRIP(WB03) AS WB03,
+				STRIP(WB04) AS WB04,
+				STRIP(WB05) AS WB05,
+				STRIP(WB06) AS WB06,
+				STRIP(WB07) AS WB07,
+				STRIP(WB08) AS WB08,
+				STRIP(WB09) AS WB09,
+				STRIP(WB10) AS WB10,
+				STRIP(WB11) AS WB11,
+				STRIP(WB12) AS WB12,
+				STRIP(WB13) AS WB13,
+				STRIP(WB14) AS WB14,
+				STRIP(WB15) AS WB15,
+				STRIP(WB16) AS WB16,
+				STRIP(WB17) AS WB17,
+				STRIP(WB18) AS WB18,
+				STRIP(WB19) AS WB19,
+				STRIP(WB20) AS WB20,
+				STRIP(WB21) AS WB21,
+				STRIP(WB22) AS WB22,
+				STRIP(WB23) AS WB23
+			FROM <include refid="Utils.db2CommData"/>COM910WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb01">
+				STRIP(WB01) = #wb01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb02">
+				STRIP(WB02) = #wb02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb03">
+				STRIP(WB03) = #wb03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb05">
+				STRIP(WB05) = #wb05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb06">
+				STRIP(WB06) = #wb06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb07">
+				STRIP(WB07) = #wb07#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb11">
+				STRIP(WB11) = #wb11#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb23">
+				STRIP(WB23) = #wb23#
+			</isNotEmpty>
+		</dynamic>
+		<isEqual property="orderBySchdule" compareValue="Y">
+			ORDER BY WB07
+		</isEqual>
+	</select>
+
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.db2CommData"/>COM910WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb01">
+				STRIP(WB01) = #wb01#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb02">
+				STRIP(WB02) = #wb02#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb03">
+				STRIP(WB03) = #wb03#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb05">
+				STRIP(WB05) = #wb05#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb06">
+				STRIP(WB06) = #wb06#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb07">
+				STRIP(WB07) = #wb07#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb11">
+				STRIP(WB11) = #wb11#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb23">
+				STRIP(WB23) = #wb23#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+</sqlMap>

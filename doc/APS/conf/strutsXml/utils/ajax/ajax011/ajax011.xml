@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：SALES0015，處理人員：DP0706，需求單編號：SALES0015 銷管系統-APS-保經代分支機構地址正規化 -->
+<struts>
+	<package name="AJAX011Action" extends="BaseAction" namespace="/aps/ajax011">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		
+		<action name="formatAddressCheck" class="AJAX011Action" method="formatAddressCheck">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

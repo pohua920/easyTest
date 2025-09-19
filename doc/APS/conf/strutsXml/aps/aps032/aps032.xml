@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 -->
+<struts>
+	<package name="APS032Action" extends="BaseAction" namespace="/aps/032">
+		<!-- default -->
+		<action name="default" class="APS032Action">
+			<result>/WEB-INF/pages/APS/APS032/APS032E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS032/APS032E0.jsp</result>
+		</action>
+		
+		<!-- APS032E0.jsp頁面按下執行鍵,開始執行 -->
+		<action name="btnExecute" class="APS032Action" method="btnExecute">
+			<result>/WEB-INF/pages/APS/APS032/APS032E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS032/APS032E0.jsp</result>
+		</action>
+	</package>
+</struts>

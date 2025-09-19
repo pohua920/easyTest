@@ -1,0 +1,1723 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 
+	 mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業start -->
+<sqlMap namespace="FirAgtrnBatchDtl" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirAgtrnBatchDtl" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+    <result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+    <result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+    <result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+    <result column="PRPINS_BATCH_ERRMSG" property="prpinsBatchErrmsg" jdbcType="VARCHAR" />
+    <result column="TRANS_TMP_TIME" property="transTmpTime" jdbcType="TIMESTAMP" />
+    <result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+    <result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+    <result column="DQUAKE_STATUS" property="dquakeStatus" jdbcType="VARCHAR" />
+    <result column="DQUAKE_NO" property="dquakeNo" jdbcType="VARCHAR" />
+    <result column="OID_FIR_PREMCALC_TMP" property="oidFirPremcalcTmp" jdbcType="DECIMAL" />
+    <result column="FAMT_STATUS" property="famtStatus" jdbcType="VARCHAR" />
+    <result column="WS_FIR_AMT" property="wsFirAmt" jdbcType="DECIMAL" />
+    <result column="QAMT_STATUS" property="qamtStatus" jdbcType="VARCHAR" />
+    <result column="WS_QUAKE_AMT" property="wsQuakeAmt" jdbcType="DECIMAL" />
+    <result column="ADDR_STATUS" property="addrStatus" jdbcType="VARCHAR" />
+    <result column="ADDR_DETAIL" property="addrDetail" jdbcType="VARCHAR" />
+    <result column="OID_FIR_PREMCALC_TMP2" property="oidFirPremcalcTmp2" jdbcType="DECIMAL" />
+    <result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+    <result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+    <result column="DELETE_FLAG" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+    <result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+    <!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start -->
+    <result column="SF_FLAG" jdbcType="VARCHAR" property="sfFlag" />
+    <result column="SF_REASON" jdbcType="VARCHAR" property="sfReason" />
+    <result column="SF_USER" jdbcType="VARCHAR" property="sfUser" />
+    <result column="SF_DATE" jdbcType="TIMESTAMP" property="sfDate" />
+    <!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end -->
+  </resultMap>
+  
+  <resultMap id="joinTocoreMainResultMap" class="com.tlg.aps.vo.Aps016DetailVo" >
+		<!-- dtl -->
+		<result column="DQUAKE_STATUS" property="dquakeStatus" jdbcType="VARCHAR" />
+		<result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+		<result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+    	<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		
+		<!-- tocoreMain -->
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="IS_NEW" property="isNew" jdbcType="VARCHAR" />
+	    <result column="PRINTVIRTUALCODE" property="printvirtualcode" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="RATIONCODE" property="rationcode" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="AGENTCODE" property="agentcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+	    <result column="CHANNELTYPE" property="channeltype" jdbcType="VARCHAR" />
+	    <result column="PROJECTCODE" property="projectcode" jdbcType="VARCHAR" />
+	    <result column="INTRODUCERID" property="introducerid" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="MAILDATE" property="maildate" jdbcType="TIMESTAMP" />
+	    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+	    <result column="SERIALNO_1" property="serialno1" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_1" property="mortgageepcode1" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_1" property="sequenceno1" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_1" property="creditnumber1" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_1" property="collateralnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_1" property="loansbehalfnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_1" property="loanaccount1" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_1" property="loansdepartment1" jdbcType="VARCHAR" />
+	    <result column="SERIALNO_2" property="serialno2" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_2" property="mortgageepcode2" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_2" property="sequenceno2" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_2" property="creditnumber2" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_2" property="collateralnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_2" property="loansbehalfnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_2" property="loanaccount2" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_2" property="loansdepartment2" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNO" property="addressno" jdbcType="DECIMAL" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="REPEATPOLICYNO" property="repeatpolicyno" jdbcType="VARCHAR" />
+	    <result column="POSSESSNATURECODE" property="possessnaturecode" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO" property="buildingno" jdbcType="DECIMAL" />
+	    <result column="PROP_ADDRESSNO" property="propAddressno" jdbcType="DECIMAL" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE_TEXT" property="structureText" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="KINDCODE_F" property="kindcodeF" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_F" property="kindnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_F" property="itemcodeF" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_F" property="itemnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_F" property="itemnatureF" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_F" property="buildingnoF" jdbcType="DECIMAL" />
+	    <result column="HIGHRISEFEE" property="highrisefee" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_F" property="commrateF" jdbcType="DECIMAL" />
+	    <result column="KINDCODE_Q" property="kindcodeQ" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_Q" property="kindnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_Q" property="itemcodeQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_Q" property="itemnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_Q" property="itemnatureQ" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_Q" property="buildingnoQ" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_Q" property="commrateQ" jdbcType="DECIMAL" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_T" property="premiumT" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F_AGT" property="amountFAgt" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_AGT" property="amountQAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_AGT" property="premiumFAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_AGT" property="premiumQAgt" jdbcType="VARCHAR" />
+	    <!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start -->
+	    <result column="SF_FLAG" jdbcType="VARCHAR" property="sfFlag" />
+	    <result column="SF_REASON" jdbcType="VARCHAR" property="sfReason" />
+	    <result column="SF_USER" jdbcType="VARCHAR" property="sfUser" />
+	    <result column="SF_DATE" jdbcType="TIMESTAMP" property="sfDate" />
+	    <result column="TEMP_8" jdbcType="VARCHAR" property="temp8" />
+	    <!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end -->
+	</resultMap>
+	
+	<resultMap id="forExcelResultMap" class="com.tlg.aps.vo.Aps016DetailVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="IDENTIFYNUMBER" property="identifynumber" jdbcType="VARCHAR" />
+	    <result column="INSUREDNAME" property="insuredname" jdbcType="VARCHAR" />
+		<result column="IDENTIFYNUMBER_1" property="identifynumber1" jdbcType="VARCHAR" />
+	    <result column="INSUREDNAME_1" property="insuredname1" jdbcType="VARCHAR" />
+		<result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+		<result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+		<result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+		<result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+		<result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+		<result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+		<result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+		<result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+		<result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+		<result column="PREMIUM_T" property="premiumT" jdbcType="VARCHAR" />
+		<result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+		<result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+		<result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+		<result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start -->
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end -->
+	</resultMap>
+	
+	<resultMap id="forDetailResultMap" class="com.tlg.aps.vo.Aps016DetailVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start -->
+		<result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		<result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+		<result column="ISUPDATE" property="isupdate" jdbcType="VARCHAR" />
+		<result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end -->
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyno">
+				OLDPOLICYNO = #oldpolicyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyno">
+				OLDPOLICYNO = #oldpolicyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+			<isEqual prepend="AND" property="fixUserNull" compareValue="Y">
+				FIX_USER IS NULL
+			</isEqual>
+			<isNotEmpty property="sortBy">
+				ORDER BY $sortBy$ 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+	<select id="selectInsuredDataJoinTocoreMain" resultMap="joinTocoreMainResultMap" parameterClass="java.util.Map">
+		SELECT DTL.DQUAKE_STATUS, DTL.PRPINS_BATCH_STATUS, DTL.TRANS_PPS_TIME, 
+		DTL.FIX_USER, DTL.FIX_DATE,
+		DTL.DATA_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, MAIN.*, 
+		DTL.SF_FLAG, DTL.SF_REASON, DTL.SF_USER, DTL.SF_DATE
+		FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL DTL
+		INNER JOIN FIR_AGT_TOCORE_MAIN MAIN　
+		ON DTL.BATCH_NO = MAIN.BATCH_NO AND DTL.BATCH_SEQ = MAIN.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				DTL.BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+	
+	<select id="selectFirAgtrnBatchDtlForExcel" resultMap="forExcelResultMap" parameterClass="java.lang.String">
+		SELECT DTL.BATCH_NO, DTL.BATCH_SEQ, 
+		CASE DTL.DATA_STATUS
+			WHEN '0' THEN '未處理'
+			WHEN '1' THEN 'APS暫存失敗'
+			WHEN '2' THEN 'APS暫存成功'
+			WHEN '3' THEN '轉核心暫存成功'
+			WHEN '4' THEN '轉核心暫存失敗'
+			WHEN '5' THEN '轉核心要保成功'
+			WHEN '6' THEN '轉核心要保失敗'
+			WHEN '7' THEN '轉核心完成'
+			WHEN '8' THEN '轉核心失敗-收付失敗'
+			ELSE '未定義'
+		END AS DATA_STATUS,
+		DTL.OLDPOLICYNO, DTL.ORDERSEQ, 
+		MA.STARTDATE, 
+		INS2.IDENTIFYNUMBER, INS2.INSUREDNAME, 
+		INS1.IDENTIFYNUMBER AS IDENTIFYNUMBER_1, INS1.INSUREDNAME AS INSUREDNAME_1,
+		MA.ADDRESSCODE, MA.ADDRESSDETAILINFO, MA.WALLMATERIAL, MA.ROOFMATERIAL, MA.BUILDAREA,
+		MA.SUMFLOORS, MA.BUILDYEARS, MA.STRUCTURE,
+		MA.AMOUNT_F, MA.PREMIUM_F, MA.AMOUNT_Q, MA.PREMIUM_Q, MA.PREMIUM_T,
+		MA.COMCODE, MA.HANDLER1CODE, PU.USERNAME, MA.HANDLERIDENTIFYNUMBER, MA.EXTRACOMCODE,
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 -->
+		DTL.CHECK_ERR_MSG, CHECK_WARN_MSG
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN MA ON DTL.BATCH_NO = MA.BATCH_NO AND DTL.BATCH_SEQ = MA.BATCH_SEQ
+		LEFT JOIN FIR_AGT_TOCORE_INSURED INS1 ON DTL.BATCH_NO = INS1.BATCH_NO AND DTL.BATCH_SEQ = INS1.BATCH_SEQ AND INS1.INSUREDFLAG = '1' AND INS1.INSURED_SEQ = 1
+		LEFT JOIN FIR_AGT_TOCORE_INSURED INS2 ON DTL.BATCH_NO = INS2.BATCH_NO AND DTL.BATCH_SEQ = INS2.BATCH_SEQ AND INS2.INSUREDFLAG = '2' AND INS2.INSURED_SEQ = 1
+		LEFT JOIN PRPDUSER PU ON MA.HANDLER1CODE = PU.USERCODE
+		WHERE MA.BATCH_NO = #batchNo# ORDER BY DTL.BATCH_SEQ
+	</select>
+	
+	<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+	<select id="selectForDetail" resultMap="forDetailResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT DTL.BATCH_NO, DTL.BATCH_SEQ, DTL.OLDPOLICYNO, DTL.ORDERSEQ, DTL.DATA_STATUS, DTL.FIX_USER,
+			DTL.TRANS_PPS_TIME, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG,
+			CM.HANDLER1CODE, PU.USERNAME, DTL.SF_FLAG, 
+			CASE WHEN CM.IUPDATE IS NULL THEN 'N' ELSE 'Y' END AS ISUPDATE
+		 	FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL DTL
+		 	LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+			LEFT JOIN PRPDUSER PU ON CM.HANDLER1CODE = PU.USERCODE
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+	
+	<select id="countForDetail" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*)	FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL DTL
+	 	LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+		LEFT JOIN PRPDUSER PU ON CM.HANDLER1CODE = PU.USERCODE
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyno">
+				OLDPOLICYNO = #oldpolicyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+			<isEqual prepend="AND" property="fixUserNull" compareValue="Y">
+				FIX_USER IS NULL
+			</isEqual>
+			<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+			<isNotEmpty prepend="AND" property="sfFlag">
+				SF_FLAG = #sfFlag#
+			</isNotEmpty>
+			<isEqual prepend="AND" property="iupdateNull" compareValue="Y">
+				BATCH_SEQ IN ( SELECT BATCH_SEQ FROM FIR_AGT_TOCORE_MAIN WHERE BATCH_NO = #batchNo# AND IUPDATE IS NULL)
+			</isEqual>
+			<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+		</dynamic>
+	</select>
+	
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchDtl" >
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		where BATCH_NO = #batchNo:VARCHAR#
+		and BATCH_SEQ = #batchSeq#
+	</select>
+
+	<delete id="delete" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchDtl" >
+		delete from <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		where BATCH_NO = #batchNo:VARCHAR#
+		and BATCH_SEQ = #batchSeq:DECIMAL#
+	</delete>
+
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchDtl" >
+		insert into <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL 
+			(BATCH_NO, BATCH_SEQ, DATA_STATUS, OLDPOLICYNO, ORDERSEQ,
+			POLICYNO, PRPINS_BATCH_NO, PRPINS_BATCH_ERRMSG, TRANS_TMP_TIME,
+			TRANS_PPS_TIME, PROPOSALNO, DQUAKE_STATUS, DQUAKE_NO, OID_FIR_PREMCALC_TMP, FAMT_STATUS, WS_FIR_AMT,
+			QAMT_STATUS, WS_QUAKE_AMT, ADDR_STATUS, ADDR_DETAIL, OID_FIR_PREMCALC_TMP2, CHECK_ERR_MSG, CHECK_WARN_MSG,
+			DELETE_FLAG, FIX_USER, FIX_DATE, ICREATE, DCREATE, IUPDATE, DUPDATE, SF_FLAG, SF_REASON, SF_USER, SF_DATE)
+		values (#batchNo:VARCHAR#, #batchSeq:DECIMAL#, #dataStatus:VARCHAR#, #oldpolicyno:VARCHAR#,
+			#orderseq:VARCHAR#, #policyno:VARCHAR#, #prpinsBatchNo:VARCHAR#,
+			#prpinsBatchErrmsg:VARCHAR#, #transTmpTime:TIMESTAMP#, #transPpsTime:TIMESTAMP#,#proposalno:VARCHAR#,
+			#dquakeStatus:VARCHAR#, #dquakeNo:VARCHAR#, #oidFirPremcalcTmp:DECIMAL#, #famtStatus:VARCHAR#,
+			#wsFirAmt:DECIMAL#, #qamtStatus:VARCHAR#, #wsQuakeAmt:DECIMAL#, #addrStatus:VARCHAR#,#addrDetail:VARCHAR#,
+			#oidFirPremcalcTmp2:DECIMAL#, #checkErrMsg:VARCHAR#, #checkWarnMsg:VARCHAR#, #deleteFlag:VARCHAR#,
+			#fixUser:VARCHAR#, #fixDate:TIMESTAMP#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#,#iupdate:VARCHAR#, #dupdate:TIMESTAMP#, 
+			#sfFlag:VARCHAR#, #sfReason:VARCHAR#, #sfUser:VARCHAR#, #sfDate:TIMESTAMP#)
+	</insert>
+  
+	<update id="update" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchDtl" >
+		update <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL
+		<dynamic prepend="set" >
+			<isNotNull prepend="," property="dataStatus" >
+				DATA_STATUS = #dataStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="oldpolicyno" >
+				OLDPOLICYNO = #oldpolicyno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="orderseq" >
+				ORDERSEQ = #orderseq:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="policyno" >
+				POLICYNO = #policyno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prpinsBatchNo" >
+				PRPINS_BATCH_NO = #prpinsBatchNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prpinsBatchStatus" >
+				PRPINS_BATCH_STATUS = #prpinsBatchStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prpinsBatchErrmsg" >
+				PRPINS_BATCH_ERRMSG = #prpinsBatchErrmsg:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="transTmpTime" >
+				TRANS_TMP_TIME = #transTmpTime:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="transPpsTime" >
+				TRANS_PPS_TIME = #transPpsTime:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="proposalno" >
+				PROPOSALNO = #proposalno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dquakeStatus" >
+				DQUAKE_STATUS = #dquakeStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dquakeNo" >
+				DQUAKE_NO = #dquakeNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="oidFirPremcalcTmp" >
+				OID_FIR_PREMCALC_TMP = #oidFirPremcalcTmp:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="famtStatus" >
+				FAMT_STATUS = #famtStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wsFirAmt" >
+				WS_FIR_AMT = #wsFirAmt:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="qamtStatus" >
+				QAMT_STATUS = #qamtStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wsQuakeAmt" >
+				WS_QUAKE_AMT = #wsQuakeAmt:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="addrStatus" >
+				ADDR_STATUS = #addrStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="addrDetail" >
+				ADDR_DETAIL = #addrDetail:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="checkErrMsg" >
+				CHECK_ERR_MSG = #checkErrMsg:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="checkWarnMsg" >
+				CHECK_WARN_MSG = #checkWarnMsg:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="deleteFlag" >
+				DELETE_FLAG = #deleteFlag:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="fixUser" >
+				FIX_USER = #fixUser:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="fixDate" >
+				FIX_DATE = #fixDate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="icreate" >
+				ICREATE = #icreate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dcreate" >
+				DCREATE = #dcreate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="iupdate" >
+				IUPDATE = #iupdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dupdate" >
+				DUPDATE = #dupdate:TIMESTAMP#
+			</isNotNull>
+			<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+			<isNotNull prepend="," property="sfFlag">
+        		SF_FLAG = #sfFlag:VARCHAR#
+      		</isNotNull>
+      		<isNotNull prepend="," property="sfReason">
+        		SF_REASON = #sfReason:VARCHAR#
+      		</isNotNull>
+	      	<isNotNull prepend="," property="sfUser">
+	        	SF_USER = #sfUser:VARCHAR#
+	      	</isNotNull>
+	      	<isNotNull prepend="," property="sfDate">
+	        	SF_DATE = #sfDate:TIMESTAMP#
+	      	</isNotNull>
+	      	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+		</dynamic>
+		where BATCH_NO = #batchNo:VARCHAR#
+		and BATCH_SEQ = #batchSeq:DECIMAL#
+	</update>
+	
+	<!--  mantis：FIR0349，處理人員：BJ085，需求單編號：FIR0349 外銀板信續件扣款前置檔產生作業 start -->
+	<resultMap id="bopRenewalDataResultMap" class="com.tlg.aps.vo.FirBopRenewalDataVo" >
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+	    <result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+		<result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+		<result column="COMCNAME" property="comcname" jdbcType="VARCHAR" />
+		<result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="forCountPolicyMap" class="com.tlg.aps.vo.FirBopRenewalDataVo" >
+		 <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		 <result column="nTOTAL" property="ntotal" jdbcType="DECIMAL" />
+		 <result column="nPM" property="npm" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="bopDeductionFileResultMap" class="com.tlg.aps.vo.FirBopRenewalDataVo" >
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="TEMP_1" property="temp1" jdbcType="VARCHAR" />
+	    <result column="TEMP_2" property="temp2" jdbcType="VARCHAR" />
+	    <result column="TEMP_3" property="temp3" jdbcType="VARCHAR" />
+	    <result column="TEMP_4" property="temp4" jdbcType="VARCHAR" />
+	    <result column="TEMP_5" property="temp5" jdbcType="VARCHAR" />
+	    <result column="TEMP_6" property="temp6" jdbcType="VARCHAR" />
+	    <result column="TEMP_7" property="temp7" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_1" property="loanaccount1" jdbcType="VARCHAR" />
+	    <result column="CREDITNUMBER_1" property="creditnumber1" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_1" property="collateralnumber1" jdbcType="VARCHAR" />
+	    <!-- mantis：FIR0608，處理人員：BJ085，需求單編號：FIR0608 外銀板信續件扣款前置檔產生作業_新增保單序號欄位 -->
+	    <result column="TEMP_8" property="temp8" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectRenewalDataByBatchNo" resultMap="bopRenewalDataResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT A.* , PU.USERNAME, PCOM.COMCNAME
+			FROM (
+			    SELECT DTL.OLDPOLICYNO, DTL.ORDERSEQ, DTL.TRANS_PPS_TIME, 
+			    DTL.PROPOSALNO, PM.POLICYNO, 
+			    NVL(PM.COMCODE, CM.COMCODE) AS COMCODE,
+			    NVL(PM.HANDLER1CODE, CM.HANDLER1CODE) AS HANDLER1CODE
+			    FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL DTL
+			    LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO
+			                AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+			    LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ 
+			                AND PM.BUSINESSNATURE = 'I99065'
+				<dynamic prepend="WHERE">
+					<isNotEmpty prepend="AND" property="batchNo">
+						DTL.BATCH_NO = #batchNo#
+					</isNotEmpty>
+				</dynamic>
+			) A
+			LEFT JOIN PRPDUSER PU ON A.HANDLER1CODE = PU.USERCODE
+			LEFT JOIN PRPDCOMPANY PCOM ON A.COMCODE = PCOM.COMCODE
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="countRenewalDataByBatchNo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*)
+			FROM (
+			    SELECT DTL.OLDPOLICYNO, DTL.ORDERSEQ, DTL.TRANS_PPS_TIME, 
+			    DTL.PROPOSALNO, PM.POLICYNO, 
+			    NVL(PM.COMCODE, CM.COMCODE) AS COMCODE,
+			    NVL(PM.HANDLER1CODE, CM.HANDLER1CODE) AS HANDLER1CODE
+			    FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_DTL DTL
+			    LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO
+			                AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+			    LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ 
+			                AND PM.BUSINESSNATURE = 'I99065'
+				<dynamic prepend="WHERE">
+					<isNotEmpty prepend="AND" property="batchNo">
+						DTL.BATCH_NO = #batchNo#
+					</isNotEmpty>
+				</dynamic>
+			) A
+			LEFT JOIN PRPDUSER PU ON A.HANDLER1CODE = PU.USERCODE
+			LEFT JOIN PRPDCOMPANY PCOM ON A.COMCODE = PCOM.COMCODE
+	</select>
+	
+	<select id="countPolicyByBatchNo" resultMap="forCountPolicyMap" parameterClass="java.util.Map">
+		SELECT TMPA.BATCH_NO, TMPA.nTOTAL, 
+		CASE WHEN TMPB.nPM IS NULL THEN 0 ELSE TMPB.nPM END AS nPM
+		FROM (
+		    SELECT BATCH_NO, COUNT(*) AS nTOTAL 
+		    FROM FIR_AGTRN_BATCH_DTL 
+		    <dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="batchNo">
+					BATCH_NO = #batchNo#
+				</isNotEmpty>
+			</dynamic>
+		    GROUP BY BATCH_NO
+		) TMPA LEFT JOIN (
+		    SELECT DTL.BATCH_NO, COUNT(*) AS nPM
+		    FROM FIR_AGTRN_BATCH_DTL DTL
+		    INNER JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ 
+		    AND PM.BUSINESSNATURE = 'I99065'
+		    <dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="batchNo">
+					DTL.BATCH_NO = #batchNo#
+				</isNotEmpty>
+			</dynamic>
+		    GROUP BY DTL.BATCH_NO
+		) TMPB ON TMPA.BATCH_NO = TMPB.BATCH_NO
+	</select>
+	
+	<select id="selectBopRnDataForExcel" resultMap="bopDeductionFileResultMap" parameterClass="java.util.Map">
+		SELECT DTL.ORDERSEQ, PM.POLICYNO, CM.EXTRACOMCODE, CM.TEMP_1, CM.TEMP_2, CM.TEMP_3, 
+		CM.LOANACCOUNT_1, CM.TEMP_4, CM.CREDITNUMBER_1, CM.TEMP_5, CM.TEMP_6, CM.TEMP_7, 
+		<!-- mantis：FIR0608，處理人員：BJ085，需求單編號：FIR0608 外銀板信續件扣款前置檔產生作業_新增保單序號欄位 -->
+		CM.COLLATERALNUMBER_1, CM.TEMP_8
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ AND PM.RISKCODE = 'F02'
+		LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectRenewalDataForExcelByBatchNo" resultMap="bopRenewalDataResultMap" parameterClass="java.lang.String">
+		SELECT A.* , PU.USERNAME, PCOM.COMCNAME
+		FROM (
+		    SELECT DTL.OLDPOLICYNO, DTL.ORDERSEQ, DTL.TRANS_PPS_TIME, 
+		    DTL.PROPOSALNO, PM.POLICYNO, 
+		    NVL(PM.COMCODE, CM.COMCODE) AS COMCODE,
+		    NVL(PM.HANDLER1CODE, CM.HANDLER1CODE) AS HANDLER1CODE
+		    FROM FIR_AGTRN_BATCH_DTL DTL
+		    LEFT JOIN FIR_AGT_TOCORE_MAIN CM ON DTL.BATCH_NO = CM.BATCH_NO
+		                AND DTL.BATCH_SEQ = CM.BATCH_SEQ
+		    LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ 
+		                AND PM.BUSINESSNATURE = 'I99065'
+			WHERE DTL.BATCH_NO = #batchNo#
+		) A
+		LEFT JOIN PRPDUSER PU ON A.HANDLER1CODE = PU.USERCODE
+		LEFT JOIN PRPDCOMPANY PCOM ON A.COMCODE = PCOM.COMCODE
+		ORDER BY A.OLDPOLICYNO ASC
+	</select>
+	<!--  mantis：FIR0349，處理人員：BJ085，需求單編號：FIR0349 外銀板信續件扣款前置檔產生作業 end -->
+
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+	<resultMap id="FbrnDetailResultMap" class="com.tlg.aps.vo.Aps034FbDetailVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+		<result column="INSUREDNAME_A" property="insurednameA" jdbcType="VARCHAR" />
+		<result column="INSUREDNAME_I" property="insurednameI" jdbcType="VARCHAR" />
+	    <result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+	    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+	    <result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		<result column="DIFF_FLAG" property="diffFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="FbrnInsuredResultMap" class="com.tlg.aps.vo.Aps034FbDetailVo" >
+		<!-- dtl -->
+		<result column="DQUAKE_STATUS" property="dquakeStatus" jdbcType="VARCHAR" />
+		<result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    	<result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    	<result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    	<result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+		<result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+		<result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+    	<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+    	<result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR"  />
+    	<result column="SF_REASON" property="sfReason" jdbcType="VARCHAR"/>
+    	<result column="SF_USER" property="sfUser" jdbcType="VARCHAR" />
+    	<result column="SF_DATE" property="sfDate" jdbcType="TIMESTAMP" />
+    	<!-- fbTmp -->
+    	<result column="DIFF_FLAG" property="diffFlag" jdbcType="VARCHAR" />
+    	<result column="DIFF_REASON" property="diffReason" jdbcType="VARCHAR" />
+		
+		<!-- tocoreMain -->
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="IS_NEW" property="isNew" jdbcType="VARCHAR" />
+	    <result column="PRINTVIRTUALCODE" property="printvirtualcode" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="RATIONCODE" property="rationcode" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="AGENTCODE" property="agentcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+	    <result column="CHANNELTYPE" property="channeltype" jdbcType="VARCHAR" />
+	    <result column="PROJECTCODE" property="projectcode" jdbcType="VARCHAR" />
+	    <result column="INTRODUCERID" property="introducerid" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="MAILDATE" property="maildate" jdbcType="TIMESTAMP" />
+	    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+	    <result column="SERIALNO_1" property="serialno1" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_1" property="mortgageepcode1" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_1" property="sequenceno1" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_1" property="creditnumber1" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_1" property="collateralnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_1" property="loansbehalfnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_1" property="loanaccount1" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_1" property="loansdepartment1" jdbcType="VARCHAR" />
+	    <result column="SERIALNO_2" property="serialno2" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_2" property="mortgageepcode2" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_2" property="sequenceno2" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_2" property="creditnumber2" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_2" property="collateralnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_2" property="loansbehalfnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_2" property="loanaccount2" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_2" property="loansdepartment2" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNO" property="addressno" jdbcType="DECIMAL" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="REPEATPOLICYNO" property="repeatpolicyno" jdbcType="VARCHAR" />
+	    <result column="POSSESSNATURECODE" property="possessnaturecode" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO" property="buildingno" jdbcType="DECIMAL" />
+	    <result column="PROP_ADDRESSNO" property="propAddressno" jdbcType="DECIMAL" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE_TEXT" property="structureText" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="KINDCODE_F" property="kindcodeF" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_F" property="kindnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_F" property="itemcodeF" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_F" property="itemnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_F" property="itemnatureF" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_F" property="buildingnoF" jdbcType="DECIMAL" />
+	    <result column="HIGHRISEFEE" property="highrisefee" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_F" property="commrateF" jdbcType="DECIMAL" />
+	    <result column="KINDCODE_Q" property="kindcodeQ" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_Q" property="kindnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_Q" property="itemcodeQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_Q" property="itemnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_Q" property="itemnatureQ" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_Q" property="buildingnoQ" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_Q" property="commrateQ" jdbcType="DECIMAL" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_T" property="premiumT" jdbcType="VARCHAR" />
+	    <result column="EPOLICY" property="epolicy" jdbcType="VARCHAR" />
+	    <result column="CLAUSE_SENDTYPE" property="clauseSendtype" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="TEMP_1" property="temp1" jdbcType="VARCHAR" />
+	    <result column="TEMP_2" property="temp2" jdbcType="VARCHAR" />
+	    <result column="TEMP_3" property="temp3" jdbcType="VARCHAR" />
+	    <result column="TEMP_4" property="temp4" jdbcType="VARCHAR" />
+	    <result column="TEMP_5" property="temp5" jdbcType="VARCHAR" />
+	    <result column="TEMP_6" property="temp6" jdbcType="VARCHAR" />
+	    <result column="TEMP_7" property="temp7" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F_AGT" property="amountFAgt" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_AGT" property="amountQAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_AGT" property="premiumFAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_AGT" property="premiumQAgt" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+		<result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="FbRejectFileResultMap" class="com.tlg.aps.vo.Aps034genFileVo" >
+		<result column="SF_REASON" jdbcType="VARCHAR" property="sfReason" />
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+	    <result column="RAWDATA" property="rawdata" jdbcType="VARCHAR" />
+	    <result column="P_STATUS" property="pStatus" jdbcType="VARCHAR" />
+	    <result column="DIFF_FLAG" property="diffFlag" jdbcType="VARCHAR" />
+	    <result column="DIFF_REASON" property="diffReason" jdbcType="VARCHAR" />
+	    <result column="FB_POLICYNO_F" property="fbPolicynoF" jdbcType="VARCHAR" />
+	    <result column="FB_POLICYNO_Q" property="fbPolicynoQ" jdbcType="VARCHAR" />
+	    <result column="FB_NAME_I" property="fbNameI" jdbcType="VARCHAR" />
+	    <result column="FB_ID_I" property="fbIdI" jdbcType="VARCHAR" />
+	    <result column="FB_STARTDATE" property="fbStartdate" jdbcType="TIMESTAMP" />
+	    <result column="FB_ENDDATE" property="fbEnddate" jdbcType="TIMESTAMP" />
+	    <result column="FB_ADDRESS" property="fbAddress" jdbcType="VARCHAR" />
+	    <result column="FB_MORTGAGEE" property="fbMortgagee" jdbcType="VARCHAR" />
+	    <result column="FB_WALLNO" property="fbWallno" jdbcType="VARCHAR" />
+	    <result column="FB_SUMFLOORS" property="fbSumfloors" jdbcType="VARCHAR" />
+	    <result column="FB_BUILDAREA" property="fbBuildarea" jdbcType="VARCHAR" />
+	    <result column="FB_USE_NATURE" property="fbUseNature" jdbcType="VARCHAR" />
+	    <result column="FB_AMOUNT_F" property="fbAmountF" jdbcType="VARCHAR" />
+	    <result column="FB_AMOUNT_Q" property="fbAmountQ" jdbcType="VARCHAR" />
+	    <result column="FB_COL_INSURC_NO" property="fbColInsurcNo" jdbcType="VARCHAR" />
+	    <result column="FB_ID_A" property="fbIdA" jdbcType="VARCHAR" />
+	    <result column="FB_NAME_A" property="fbNameA" jdbcType="VARCHAR" />
+	    <result column="FB_INS_COM" property="fbInsCom" jdbcType="VARCHAR" />
+	    <result column="FB_PROCESS_CENTER" property="fbProcessCenter" jdbcType="VARCHAR" />
+	    <result column="FB_SALES_NAME" property="fbSalesName" jdbcType="VARCHAR" />
+	    <result column="FB_SALES_ID" property="fbSalesId" jdbcType="VARCHAR" />
+	    <result column="NAME_I" property="nameI" jdbcType="VARCHAR" />
+	    <result column="ID_I" property="idI" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="WALLNO" property="wallno" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="DECIMAL" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="DECIMAL" />
+	    <result column="ID_A" property="idA" jdbcType="VARCHAR" />
+	    <result column="NAME_A" property="nameA" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="FbRenewalResultMap" class="com.tlg.aps.vo.Aps034genFileVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="COLLATERALNUMBER" property="collateralnumber" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="PII_INSUREDNAME" property="piiInsuredname" jdbcType="VARCHAR" />
+	    <result column="PII_ID" property="piiId" jdbcType="VARCHAR" />
+	    <result column="PIA_INSUREDNAME" property="piaInsuredname" jdbcType="VARCHAR" />
+	    <result column="PIA_ID" property="piaId" jdbcType="VARCHAR" />
+	    <result column="PIA_POSTCODE" property="piaPostcode" jdbcType="VARCHAR" />
+	    <result column="POSTADDRESS" property="postaddress" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="BUILDDETAILINFO" property="builddetailinfo" jdbcType="VARCHAR" />
+	    <!-- 兩個相同名稱欄位 型態不同 -->
+	    <result column="STR_SUMFLOORS" property="strSumfloors" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <!-- 兩個相同名稱欄位 型態不同 -->
+	    <result column="NUM_BUILDAREA" property="numBuildarea" jdbcType="DECIMAL" />
+	    <result column="CODECNAME" property="codecname" jdbcType="VARCHAR" />
+	    <result column="AMT_Q" property="amtQ" jdbcType="VARCHAR" />
+	    <result column="PREM_Q" property="premQ" jdbcType="VARCHAR" />
+	    <result column="RENEWINSURANCEFLAG" property="renewinsuranceflag" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+		<result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="FbFkindResultMap" class="com.tlg.aps.vo.Aps034genFileVo" >
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="AMOUNT" property="amount" jdbcType="VARCHAR" />
+	    <result column="PREMIUM" property="premium" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="CoreNotInsuredResultMap" class="com.tlg.aps.vo.Aps034genFileVo" >
+	    <result column="BSEQ" property="bseq" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectForFbrnDetail" resultMap="FbrnDetailResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT DTL.BATCH_NO,
+			DTL.BATCH_SEQ, 
+			DTL.DATA_STATUS,
+			DTL.OLDPOLICYNO, CIA.INSUREDNAME AS INSUREDNAME_A, CII.INSUREDNAME AS INSUREDNAME_I, DTL.SF_FLAG,
+			DTL.FIX_USER, DTL.PRPINS_BATCH_STATUS,
+			DTL.TRANS_PPS_TIME, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, TFB.DIFF_FLAG
+			FROM FIR_AGTRN_BATCH_DTL DTL
+			LEFT JOIN FIR_AGT_TOCORE_INSURED CIA ON DTL.BATCH_NO = CIA.BATCH_NO AND DTL.BATCH_SEQ = CIA.BATCH_SEQ AND CIA.INSUREDFLAG = '2'
+			LEFT JOIN FIR_AGT_TOCORE_INSURED CII ON DTL.BATCH_NO = CII.BATCH_NO AND DTL.BATCH_SEQ = CII.BATCH_SEQ AND CII.INSUREDFLAG = '1'
+			LEFT JOIN FIR_AGTRN_TMP_FB TFB ON DTL.BATCH_NO = TFB.BATCH_NO AND DTL.BATCH_SEQ = TFB.BATCH_SEQ
+			<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="countForFbrnDetail" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_INSURED CIA ON DTL.BATCH_NO = CIA.BATCH_NO AND DTL.BATCH_SEQ = CIA.BATCH_SEQ AND CIA.INSUREDFLAG = '2'
+		LEFT JOIN FIR_AGT_TOCORE_INSURED CII ON DTL.BATCH_NO = CII.BATCH_NO AND DTL.BATCH_SEQ = CII.BATCH_SEQ AND CII.INSUREDFLAG = '1'
+		LEFT JOIN FIR_AGTRN_TMP_FB TFB ON DTL.BATCH_NO = TFB.BATCH_NO AND DTL.BATCH_SEQ = TFB.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectFbrnInsuredData" resultMap="FbrnInsuredResultMap" parameterClass="java.util.Map">
+		SELECT DTL.DQUAKE_STATUS, DTL.PRPINS_BATCH_STATUS, DTL.TRANS_PPS_TIME, 
+		DTL.ICREATE, DTL.DCREATE, DTL.IUPDATE, DTL.DUPDATE, DTL.FIX_USER, DTL.FIX_DATE,
+		DTL.DATA_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, 
+		DTL.SF_FLAG, DTL.SF_REASON, DTL.SF_USER, DTL.SF_DATE, 
+		DTL.PRPINS_BATCH_NO, DTL.PROPOSALNO,
+		TFB.DIFF_FLAG, TFB.DIFF_REASON,
+		MA.*
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		INNER JOIN FIR_AGT_TOCORE_MAIN MA
+		ON DTL.BATCH_NO = MA.BATCH_NO AND DTL.BATCH_SEQ = MA.BATCH_SEQ
+		LEFT JOIN FIR_AGTRN_TMP_FB TFB
+		ON DTL.BATCH_NO = TFB.BATCH_NO AND DTL.BATCH_SEQ = TFB.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				DTL.BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查詢富邦剔退檔資料 -->
+	<select id="selectFbRejectFile" resultMap="FbRejectFileResultMap" parameterClass="java.util.Map">
+	  	SELECT TFB.*, DTL.SF_REASON FROM 
+	  	FIR_AGTRN_BATCH_DTL DTL 
+		LEFT JOIN FIR_AGTRN_TMP_FB TFB 
+		ON DTL.BATCH_NO = TFB.BATCH_NO AND DTL.BATCH_SEQ = TFB.BATCH_SEQ
+		WHERE DTL.SF_FLAG = 'Y' 
+		AND DTL.BATCH_NO = #batchNo:VARCHAR#
+    </select>
+    
+    <!-- 查詢富邦大保單、續保明細表資料 -->
+    <select id="selectFbRenewalData" resultMap="FbRenewalResultMap" parameterClass="java.util.Map">
+	  	SELECT DTL.BATCH_NO, DTL.BATCH_SEQ, MG.COLLATERALNUMBER, PM.POLICYNO, RN.OLDPOLICYNO, 
+		PIINAME.INSUREDNAME AS PII_INSUREDNAME, PII.IDENTIFYNUMBER AS PII_ID, 
+		PIANAME.INSUREDNAME AS PIA_INSUREDNAME, PIA.IDENTIFYNUMBER AS PIA_ID, 
+		SUBSTR(PIA.POSTCODE,1,3) AS PIA_POSTCODE, PIA.POSTADDRESS,
+		PM.STARTDATE, PM.ENDDATE, PA.ADDRESSCODE, PA.ADDRESSDETAILINFO,
+		SUBSTR(PPROP.BUILDDETAILINFO,1,16) AS BUILDDETAILINFO, 
+		PPROP.SUMFLOORS AS STR_SUMFLOORS, PPROP.STRUCTURE, PPROP.BUILDAREA AS NUM_BUILDAREA,
+		PPROP.WALLMATERIAL,
+		PCODE.CODECNAME,
+		QKIND.AMOUNT AS AMT_Q,
+		QKIND.PREMIUM AS PREM_Q,
+		PM.RENEWINSURANCEFLAG, PM.EXTRACOMCODE
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN PRPCMAIN PM ON DTL.PROPOSALNO = PM.PROPOSALNO
+		LEFT JOIN PRPCMORTGAGEE MG ON PM.POLICYNO = MG.POLICYNO
+		LEFT JOIN PRPCRENEWAL RN ON PM.POLICYNO = RN.POLICYNO
+		LEFT JOIN (
+     		SELECT FB_POLICYNO_F AS OLDPOLICYNO, FB_ID_I AS ID_I, FB_ID_A AS ID_A FROM FIR_AGTRN_TMP_FB WHERE FB_POLICYNO_F IS NOT NULL
+     		UNION 
+     		SELECT FB_POLICYNO_Q AS OLDPOLICYNO, FB_ID_I AS ID_I, FB_ID_A AS ID_A FROM FIR_AGTRN_TMP_FB WHERE FB_POLICYNO_F IS NULL AND FB_POLICYNO_Q IS NOT NULL ) TFB ON RN.OLDPOLICYNO = TFB.OLDPOLICYNO
+		LEFT JOIN (
+     		SELECT POLICYNO,LISTAGG(INSUREDNAME,',') WITHIN GROUP (ORDER BY SERIALNO) AS INSUREDNAME  FROM PRPCINSURED WHERE INSUREDFLAG = '1' GROUP BY POLICYNO) 
+     	PIINAME ON PM.POLICYNO = PIINAME.POLICYNO
+		LEFT JOIN (
+     		SELECT * FROM PRPCINSURED WHERE INSUREDFLAG = '1' ) 
+     	PII ON PM.POLICYNO = PII.POLICYNO AND PII.IDENTIFYNUMBER = TFB.ID_I
+		LEFT JOIN (
+     		SELECT POLICYNO,LISTAGG(INSUREDNAME,',') WITHIN GROUP (ORDER BY SERIALNO) AS INSUREDNAME  FROM PRPCINSURED WHERE INSUREDFLAG = '2' GROUP BY POLICYNO) PIANAME 
+		ON PM.POLICYNO = PIANAME.POLICYNO
+		LEFT JOIN (
+     		SELECT * FROM PRPCINSURED WHERE INSUREDFLAG = '2' ) 
+     	PIA ON PM.POLICYNO = PIA.POLICYNO AND PIA.IDENTIFYNUMBER = TFB.ID_A
+		LEFT JOIN PRPCADDRESS PA ON PM.POLICYNO = PA.POLICYNO
+		LEFT JOIN PRPCMAINPROP PPROP ON PM.POLICYNO = PPROP.POLICYNO
+		LEFT JOIN PRPCITEMKIND QKIND ON PM.POLICYNO = QKIND.POLICYNO AND QKIND.KINDCODE = 'FR2'
+		LEFT JOIN PRPDNEWCODE PCODE ON PPROP.ROOFMATERIAL = PCODE.CODECODE AND PCODE.CODETYPE = 'RoofMaterial'
+		WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+		AND SF_FLAG = 'N'
+		AND DTL.FIX_USER IS NOT NULL
+		AND PM.POLICYNO IS NOT NULL
+		ORDER BY PM.EXTRACOMCODE, PM.POLICYNO
+    </select>
+    
+    <!-- 查詢大保單、續保明細表住火保額、保費資料 -->
+    <select id="selectFbRenewalFkind" resultMap="FbFkindResultMap" parameterClass="java.util.Map">
+    	SELECT FK.POLICYNO, SUM(FK.AMOUNT) AS AMOUNT, SUM(FK.PREMIUM) AS PREMIUM
+		FROM FIR_AGTRN_BATCH_DTL FD
+		INNER JOIN PRPTMAIN PT ON FD.PROPOSALNO = PT.PROPOSALNO
+		INNER JOIN PRPCITEMKIND FK ON PT.POLICYNO = FK.POLICYNO
+		WHERE FD.BATCH_NO = #batchNo:VARCHAR#
+		AND PT.UNDERWRITEFLAG = '1'
+		AND FK.KINDCODE = 'FR3'
+		GROUP BY FK.POLICYNO
+    </select>
+    
+    <!-- 以批次號查詢新核心已出單筆數 -->
+    <select id="countCoreInsured" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+    	SELECT COUNT(*)
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		INNER JOIN PRPCMAIN PM ON DTL.PROPOSALNO = PM.PROPOSALNO
+		WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+    </select>
+    
+    <!-- 以批次號查詢新核心未出單資料 -->
+    <select id="selectCoreNotInsuredData" resultMap="CoreNotInsuredResultMap" parameterClass="java.util.Map">
+		SELECT LISTAGG(A.BATCH_SEQ || '-' || A.PROPOSALNO,',') 
+		WITHIN GROUP (ORDER BY A.BATCH_SEQ) AS BSEQ 
+		FROM (
+		    SELECT DTL.BATCH_SEQ, DTL.PROPOSALNO
+		    FROM FIR_AGTRN_BATCH_DTL DTL
+		    LEFT JOIN PRPCMAIN PM ON DTL.PROPOSALNO = PM.PROPOSALNO
+		    WHERE DTL.BATCH_NO = #batchNo:VARCHAR#
+		    AND SF_FLAG = 'N'
+		    AND DTL.FIX_USER IS NOT NULL 
+		    AND PM.POLICYNO IS NULL 
+		  ) A
+	</select>
+    <!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+    
+    <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start -->
+    <resultMap id="BotrnDetailResultMap" class="com.tlg.aps.vo.Aps055BotDetailVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+	    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		<result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+		<result column="ISUPDATE" property="isupdate" jdbcType="VARCHAR" />
+	</resultMap>
+    
+    <select id="selectForBotrnDetail" resultMap="BotrnDetailResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT 
+			DTL.BATCH_NO, DTL.BATCH_SEQ, DTL.DATA_STATUS, DTL.OLDPOLICYNO, DTL.ORDERSEQ,
+            TMAIN.HANDLER1CODE, TMAIN.COMCODE, DTL.SF_FLAG, DTL.FIX_USER,
+            DTL.PRPINS_BATCH_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, TMAIN.IS_AUTO_RENEW,
+            CASE WHEN TMAIN.IUPDATE IS NULL THEN 'N' ELSE 'Y' END AS ISUPDATE
+			FROM FIR_AGTRN_BATCH_DTL DTL
+			LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO = TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+			<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="batchNo">
+					DTL.BATCH_NO = #batchNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="orderseq">
+					DTL.ORDERSEQ = #orderseq#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="oldpolicyno">
+					DTL.OLDPOLICYNO  = #oldpolicyno#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="comcode">
+					TMAIN.COMCODE = #comcode#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handler1code">
+					TMAIN.HANDLER1CODE = #handler1code#
+				</isNotEmpty>
+			</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="countForBotrnDetail" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO = TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderseq">
+				DTL.ORDERSEQ = #orderseq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyno">
+				DTL.OLDPOLICYNO  = #oldpolicyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="comcode">
+				TMAIN.COMCODE = #comcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handler1code">
+				TMAIN.HANDLER1CODE = #handler1code#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查詢明細資料下載EXCEL -->
+	<resultMap id="BotrnXlsResultMap" class="com.tlg.aps.vo.Aps055BotGenFileVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+	    <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 第二階段 -->
+	    <result column="ACCOUNTNO" property="accountno" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="AGENTNAME" property="agentname" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ID_A" property="idA" jdbcType="VARCHAR" />
+	    <result column="NAME_A" property="nameA" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+	    <result column="POSTADDRESS" property="postaddress" jdbcType="VARCHAR" />
+	    <result column="ID_I" property="idI" jdbcType="VARCHAR" />
+	    <result column="NAME_I" property="nameI" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="ID_I" property="idI" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- mantis：FIR0668_0328，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業  -->
+	<select id="selectForBotrnXls" resultMap="BotrnXlsResultMap" parameterClass="java.util.Map">
+		SELECT DTL.BATCH_NO, DTL.BATCH_SEQ, 
+		CASE DTL.DATA_STATUS
+		  WHEN '0' THEN '未處理'
+		  WHEN '1' THEN 'APS暫存失敗'
+		  WHEN '2' THEN 'APS暫存成功'
+		  WHEN '3' THEN '轉核心暫存成功'
+		  WHEN '4' THEN '轉核心暫存失敗'
+		  WHEN '5' THEN '轉核心要保成功'
+		  WHEN '6' THEN '轉核心要保失敗'
+		  WHEN '7' THEN '轉核心完成'
+		  WHEN '8' THEN '轉核心失敗-收付失敗'
+		  WHEN 'A' THEN '人工判定不轉核心'
+		  WHEN 'D' THEN '比對元大續保明細未完成'
+		  ELSE '未定義'
+		END AS DATA_STATUS,
+		DTL.SF_FLAG, TMAIN.COMCODE, TMAIN.HANDLER1CODE, PU.USERNAME, 
+		<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start -->
+		TMAIN.ACCOUNTNO, TMAIN.HANDLERIDENTIFYNUMBER, PD.AGENTNAME,
+		TMAIN.EXTRACOMCODE, TMAIN.EXTRACOMNAME, TMAIN.OLDPOLICYNO,
+		APPLY.IDENTIFYNUMBER AS ID_A, APPLY.INSUREDNAME AS NAME_A, TMAIN.STARTDATE, ADD_MONTHS(TMAIN.STARTDATE, 12) AS ENDDATE,
+		TMAIN.ADDRESSCODE, TMAIN.ADDRESSDETAILINFO, TMAIN.WALLMATERIAL, TMAIN.ROOFMATERIAL,
+		TMAIN.STRUCTURE, TMAIN.BUILDAREA, TMAIN.BUILDYEARS, TMAIN.SUMFLOORS,
+		APPLY.POSTCODE, APPLY.POSTADDRESS, INSURED.IDENTIFYNUMBER AS ID_I, INSURED.INSUREDNAME AS NAME_I,
+		TMAIN.AMOUNT_F_LAST, TMAIN.AMOUNT_Q_LAST, TMAIN.PREMIUM_F_LAST, TMAIN.PREMIUM_Q_LAST,
+		TMAIN.AMOUNT_F, TMAIN.AMOUNT_Q, TMAIN.PREMIUM_F, TMAIN.PREMIUM_Q,
+		DTL.CHECK_ERR_MSG,DTL.CHECK_WARN_MSG
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO= TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+		LEFT JOIN PRPDUSER PU ON TMAIN.HANDLER1CODE = PU.USERCODE
+		LEFT JOIN SALES.PRPYDDAGENT PD ON TMAIN.HANDLERIDENTIFYNUMBER = PD.AGENTID AND PD.BUSINESSSOURCE='I99004'
+		LEFT JOIN(
+		    SELECT BATCH_SEQ, IDENTIFYNUMBER, INSUREDNAME, POSTCODE, POSTADDRESS FROM FIR_AGT_TOCORE_INSURED WHERE BATCH_NO = #batchNo# AND INSUREDFLAG = '2' AND INSURED_SEQ = 1
+		)APPLY ON APPLY.BATCH_SEQ = TMAIN.BATCH_SEQ
+		LEFT JOIN(
+		    SELECT BATCH_SEQ, IDENTIFYNUMBER, INSUREDNAME FROM FIR_AGT_TOCORE_INSURED WHERE BATCH_NO = #batchNo# AND INSUREDFLAG = '1' AND INSURED_SEQ = 1
+		)INSURED ON INSURED.BATCH_SEQ = TMAIN.BATCH_SEQ
+		WHERE DTL.BATCH_NO = #batchNo#
+		<isNotEmpty prepend="AND" property="batchNo">
+			DTL.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderseq">
+			DTL.ORDERSEQ = #orderseq#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oldpolicyno">
+			DTL.OLDPOLICYNO  = #oldpolicyno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="comcode">
+			TMAIN.COMCODE = #comcode#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="handler1code">
+			TMAIN.HANDLER1CODE = #handler1code#
+		</isNotEmpty>
+	</select>
+	
+	<resultMap id="BotrnInsuredResultMap" class="com.tlg.aps.vo.Aps055BotDetailVo" >
+		<!-- dtl -->
+		<result column="DQUAKE_STATUS" property="dquakeStatus" jdbcType="VARCHAR" />
+		<result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+		<result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+    	<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+    	<result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR"  />
+    	<result column="SF_REASON" property="sfReason" jdbcType="VARCHAR"/>
+    	<result column="SF_USER" property="sfUser" jdbcType="VARCHAR" />
+    	<result column="SF_DATE" property="sfDate" jdbcType="TIMESTAMP" />
+    	<result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+    	<result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+		
+		<!-- tocoreMain -->
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="IS_NEW" property="isNew" jdbcType="VARCHAR" />
+	    <result column="PRINTVIRTUALCODE" property="printvirtualcode" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="RATIONCODE" property="rationcode" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="AGENTCODE" property="agentcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+	    <result column="CHANNELTYPE" property="channeltype" jdbcType="VARCHAR" />
+	    <result column="PROJECTCODE" property="projectcode" jdbcType="VARCHAR" />
+	    <result column="INTRODUCERID" property="introducerid" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="MAILDATE" property="maildate" jdbcType="TIMESTAMP" />
+	    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+	    <result column="SERIALNO_1" property="serialno1" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_1" property="mortgageepcode1" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_1" property="sequenceno1" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_1" property="creditnumber1" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_1" property="collateralnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_1" property="loansbehalfnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_1" property="loanaccount1" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_1" property="loansdepartment1" jdbcType="VARCHAR" />
+	    <result column="SERIALNO_2" property="serialno2" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_2" property="mortgageepcode2" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_2" property="sequenceno2" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_2" property="creditnumber2" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_2" property="collateralnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_2" property="loansbehalfnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_2" property="loanaccount2" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_2" property="loansdepartment2" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNO" property="addressno" jdbcType="DECIMAL" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="REPEATPOLICYNO" property="repeatpolicyno" jdbcType="VARCHAR" />
+	    <result column="POSSESSNATURECODE" property="possessnaturecode" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO" property="buildingno" jdbcType="DECIMAL" />
+	    <result column="PROP_ADDRESSNO" property="propAddressno" jdbcType="DECIMAL" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE_TEXT" property="structureText" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="KINDCODE_F" property="kindcodeF" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_F" property="kindnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_F" property="itemcodeF" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_F" property="itemnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_F" property="itemnatureF" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_F" property="buildingnoF" jdbcType="DECIMAL" />
+	    <result column="HIGHRISEFEE" property="highrisefee" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_F" property="commrateF" jdbcType="DECIMAL" />
+	    <result column="KINDCODE_Q" property="kindcodeQ" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_Q" property="kindnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_Q" property="itemcodeQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_Q" property="itemnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_Q" property="itemnatureQ" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_Q" property="buildingnoQ" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_Q" property="commrateQ" jdbcType="DECIMAL" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_T" property="premiumT" jdbcType="VARCHAR" />
+	    <result column="EPOLICY" property="epolicy" jdbcType="VARCHAR" />
+	    <result column="CLAUSE_SENDTYPE" property="clauseSendtype" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="TEMP_1" property="temp1" jdbcType="VARCHAR" />
+	    <result column="TEMP_2" property="temp2" jdbcType="VARCHAR" />
+	    <result column="TEMP_3" property="temp3" jdbcType="VARCHAR" />
+	    <result column="TEMP_4" property="temp4" jdbcType="VARCHAR" />
+	    <result column="TEMP_5" property="temp5" jdbcType="VARCHAR" />
+	    <result column="TEMP_6" property="temp6" jdbcType="VARCHAR" />
+	    <result column="TEMP_7" property="temp7" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F_AGT" property="amountFAgt" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_AGT" property="amountQAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_AGT" property="premiumFAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_AGT" property="premiumQAgt" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+		<result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+		<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 第二階段 -->
+		<result column="ACCOUNTNO" property="accountno" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectBotrnInsuredData" resultMap="BotrnInsuredResultMap" parameterClass="java.util.Map">
+		SELECT DTL.DQUAKE_STATUS, DTL.PRPINS_BATCH_STATUS, DTL.TRANS_PPS_TIME, 
+		DTL.FIX_USER, DTL.FIX_DATE,
+		DTL.DATA_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, 
+		DTL.SF_FLAG, DTL.SF_REASON, DTL.SF_USER, DTL.SF_DATE,
+		DTL.PRPINS_BATCH_NO, DTL.PROPOSALNO,
+		MA.*
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		INNER JOIN FIR_AGT_TOCORE_MAIN MA
+		ON DTL.BATCH_NO = MA.BATCH_NO AND DTL.BATCH_SEQ = MA.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				DTL.BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end -->
+	
+  <!-- mantis：FIR0624，處理人員：BJ085，需求單編號：FIR0624 住火_臺銀續保作業_臺銀FD檔查詢作業 start -->  
+  <resultMap id="aps057ResultMap" class="com.tlg.aps.vo.Aps057ResultVo" >
+    <result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+    <result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+    <result column="FD_TYPE" property="fdType" jdbcType="VARCHAR" />
+    <result column="FD_DATE" property="fdDate" jdbcType="TIMESTAMP" />
+    <result column="STARTDATE_F" property="startdateF" jdbcType="TIMESTAMP" />
+    <result column="STARTDATE_Q" property="startdateQ" jdbcType="TIMESTAMP" />
+    <result column="ACCOUNT_NO" property="accountNo" jdbcType="VARCHAR" />
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+    <result column="BRANCH_NO" property="branchNo" jdbcType="VARCHAR" />
+    <result column="BANK_SALES" property="bankSales" jdbcType="VARCHAR" />
+    <result column="IS_APPROVAL" property="isApproval" jdbcType="VARCHAR" />
+    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+    <result column="STARTDATE_A" property="startdateA" jdbcType="TIMESTAMP" />
+    <result column="AMOUNT_F" property="amountF" jdbcType="DECIMAL" />
+    <result column="AMOUNT_Q" property="amountQ" jdbcType="DECIMAL" />
+    <result column="AMOUNT_A" property="amountA" jdbcType="DECIMAL" />
+    <result column="COMPARE_RESULT" property="compareResult" jdbcType="VARCHAR " />
+    <result column="LOANACCOUNT" property="loanaccount" jdbcType="VARCHAR" />
+    <result column="COMPARE_FLAG" property="compareFlag" jdbcType="VARCHAR" />
+    <result column="COMPARE_BATCH_NO" property="compareBatchNo" jdbcType="VARCHAR" />
+    <result column="COMPARE_TIME" property="compareTime" jdbcType="TIMESTAMP" />
+    <result column="COMPARE_USER" property="compareUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+	<select id="selectForAps057" resultMap="aps057ResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT DTL.DATA_STATUS, DTL.OLDPOLICYNO, DTL.PROPOSALNO, DTL.ORDERSEQ, PM.POLICYNO, 
+			DTL.BATCH_NO, FD.FD_TYPE,FD.FD_DATE, FD.STARTDATE_F, FD.STARTDATE_Q, FD.ACCOUNT_NO, FD.BRANCH_NO, 
+			FD.BANK_SALES, FD.IS_APPROVAL, FD.IS_AUTO_RENEW, FD.STARTDATE_A, 
+			FD.AMOUNT_F, FD.AMOUNT_Q, FD.AMOUNT_A, FD.LOANACCOUNT, 
+			FD.COMPARE_FLAG, FD.COMPARE_RESULT, FD.COMPARE_BATCH_NO, FD.COMPARE_TIME, FD.COMPARE_USER
+ 		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.ORDERSEQ = TMAIN.ORDERSEQ AND DTL.BATCH_NO = TMAIN.BATCH_NO
+		LEFT JOIN FIR_AGT_BOT_FD FD ON DTL.ORDERSEQ = FD.ORDERSEQ
+		LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ
+		WHERE DTL.FIX_USER IS NOT NULL AND TMAIN.BUSINESSNATURE = 'I99004'
+		<isNotEmpty prepend="AND" property="startDate">
+			FD.DCREATE <![CDATA[>=]]> to_date(#startDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endDate">
+			FD.DCREATE <![CDATA[<=]]> to_date(#endDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="batchNo">
+			DTL.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oldpolicyno">
+			DTL.OLDPOLICYNO = #oldpolicyno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderseq">
+			FD.ORDERSEQ = #orderseq#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="compareFlag">
+			FD.COMPARE_FLAG = #compareFlag#
+		</isNotEmpty>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="countForAps057" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*)
+ 		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.ORDERSEQ = TMAIN.ORDERSEQ AND DTL.BATCH_NO = TMAIN.BATCH_NO
+		LEFT JOIN FIR_AGT_BOT_FD FD ON DTL.ORDERSEQ = FD.ORDERSEQ
+		LEFT JOIN PRPCMAIN PM ON DTL.ORDERSEQ = PM.ORDERSEQ
+		WHERE DTL.FIX_USER IS NOT NULL AND TMAIN.BUSINESSNATURE = 'I99004'
+		<isNotEmpty prepend="AND" property="startDate">
+			FD.DCREATE <![CDATA[>=]]> to_date(#startDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endDate">
+			FD.DCREATE <![CDATA[<=]]> to_date(#endDate# , 'yyyy/mm/dd hh24:mi:ss')
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="batchNo">
+			DTL.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="oldpolicyno">
+			DTL.OLDPOLICYNO = #oldpolicyno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderseq">
+			FD.ORDERSEQ = #orderseq#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="compareFlag">
+			FD.COMPARE_FLAG = #compareFlag#
+		</isNotEmpty>
+	</select>
+	<!-- mantis：FIR0624，處理人員：BJ085，需求單編號：FIR0624 住火_臺銀續保作業_臺銀FD檔查詢作業 end -->
+	
+	<!-- mantis：FIR0668_0217，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 start -->
+    <resultMap id="YcbrnDetailResultMap" class="com.tlg.aps.vo.Aps060YcbDetailVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+	    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+		<result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+		<result column="NAME_A" property="nameA" jdbcType="VARCHAR" />
+		<result column="NAME_I" property="nameI" jdbcType="VARCHAR" />
+	</resultMap>
+    
+    <select id="selectForYcbrnDetail" resultMap="YcbrnDetailResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT 
+			DTL.BATCH_NO, DTL.BATCH_SEQ, DTL.DATA_STATUS, DTL.OLDPOLICYNO, DTL.ORDERSEQ,DTL.SF_FLAG, DTL.FIX_USER,
+            DTL.PRPINS_BATCH_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, TMAIN.IS_AUTO_RENEW,
+            APPLY.INSUREDNAME AS NAME_A, INSURED.INSUREDNAME AS NAME_I
+			FROM FIR_AGTRN_BATCH_DTL DTL
+			LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO = TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+			LEFT JOIN FIR_AGT_TOCORE_INSURED APPLY ON DTL.BATCH_NO = APPLY.BATCH_NO AND DTL.BATCH_SEQ = APPLY.BATCH_SEQ AND APPLY.INSUREDFLAG = '2' AND APPLY.INSURED_SEQ = '1'
+			LEFT JOIN FIR_AGT_TOCORE_INSURED INSURED ON DTL.BATCH_NO = INSURED.BATCH_NO AND DTL.BATCH_SEQ = INSURED.BATCH_SEQ AND INSURED.INSUREDFLAG = '1' AND INSURED.INSURED_SEQ = '1'
+			
+			<dynamic prepend="WHERE">
+				<isNotEmpty prepend="AND" property="batchNo">
+					DTL.BATCH_NO = #batchNo#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="orderseq">
+					DTL.ORDERSEQ = #orderseq#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="oldpolicyno">
+					DTL.OLDPOLICYNO  = #oldpolicyno#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="comcode">
+					TMAIN.COMCODE = #comcode#
+				</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handler1code">
+					TMAIN.HANDLER1CODE = #handler1code#
+				</isNotEmpty>
+			</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="countForYcbrnDetail" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO = TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="orderseq">
+				DTL.ORDERSEQ = #orderseq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="oldpolicyno">
+				DTL.OLDPOLICYNO  = #oldpolicyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="comcode">
+				TMAIN.COMCODE = #comcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handler1code">
+				TMAIN.HANDLER1CODE = #handler1code#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查詢明細資料下載EXCEL -->
+	<resultMap id="YcbrnXlsResultMap" class="com.tlg.aps.vo.Aps060YcbGenFileVo" >
+	    <result column="BATCH_NO" property="batchNo" jdbcType="DECIMAL" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+	    <result column="TEMP_3" property="temp3" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="AGENTNAME" property="agentname" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="ID_A" property="idA" jdbcType="VARCHAR" />
+	    <result column="NAME_A" property="nameA" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="ENDDATE" property="enddate" jdbcType="TIMESTAMP" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+	    <result column="POSTADDRESS" property="postaddress" jdbcType="VARCHAR" />
+	    <result column="ID_I" property="idI" jdbcType="VARCHAR" />
+	    <result column="NAME_I" property="nameI" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="ID_I" property="idI" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+		<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- mantis：FIR0668_0328，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業  -->
+	<select id="selectForYcbrnXls" resultMap="YcbrnXlsResultMap" parameterClass="java.util.Map">
+		SELECT DTL.BATCH_NO, DTL.BATCH_SEQ, 
+		CASE DTL.DATA_STATUS
+		  WHEN '0' THEN '未處理'
+		  WHEN '1' THEN 'APS暫存失敗'
+		  WHEN '2' THEN 'APS暫存成功'
+		  WHEN '3' THEN '轉核心暫存成功'
+		  WHEN '4' THEN '轉核心暫存失敗'
+		  WHEN '5' THEN '轉核心要保成功'
+		  WHEN '6' THEN '轉核心要保失敗'
+		  WHEN '7' THEN '轉核心完成'
+		  WHEN '8' THEN '轉核心失敗-收付失敗'
+		  WHEN 'A' THEN '人工判定不轉核心'
+		  WHEN 'D' THEN '比對元大續保明細未完成'
+		  ELSE '未定義'
+		END AS DATA_STATUS,
+		DTL.SF_FLAG, TMAIN.COMCODE, TMAIN.HANDLER1CODE, PU.USERNAME, 
+		TMAIN.TEMP_3, TMAIN.HANDLERIDENTIFYNUMBER, PD.AGENTNAME,
+		TMAIN.EXTRACOMCODE, TMAIN.EXTRACOMNAME, TMAIN.OLDPOLICYNO,
+		APPLY.IDENTIFYNUMBER AS ID_A, APPLY.INSUREDNAME AS NAME_A, TMAIN.STARTDATE, ADD_MONTHS(TMAIN.STARTDATE, 12) AS ENDDATE,
+		TMAIN.ADDRESSCODE, TMAIN.ADDRESSDETAILINFO, TMAIN.WALLMATERIAL, TMAIN.ROOFMATERIAL,
+		TMAIN.STRUCTURE, TMAIN.BUILDAREA, TMAIN.BUILDYEARS, TMAIN.SUMFLOORS,
+		APPLY.POSTCODE, APPLY.POSTADDRESS, INSURED.IDENTIFYNUMBER AS ID_I, INSURED.INSUREDNAME AS NAME_I,
+		TMAIN.AMOUNT_F_LAST, TMAIN.AMOUNT_Q_LAST, TMAIN.PREMIUM_F_LAST, TMAIN.PREMIUM_Q_LAST,
+		TMAIN.AMOUNT_F, TMAIN.AMOUNT_Q, TMAIN.PREMIUM_F, TMAIN.PREMIUM_Q,
+		DTL.CHECK_ERR_MSG,DTL.CHECK_WARN_MSG
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		LEFT JOIN FIR_AGT_TOCORE_MAIN TMAIN ON DTL.BATCH_NO= TMAIN.BATCH_NO AND DTL.BATCH_SEQ = TMAIN.BATCH_SEQ
+		LEFT JOIN PRPDUSER PU ON TMAIN.HANDLER1CODE = PU.USERCODE
+		LEFT JOIN SALES.PRPYDDAGENT PD ON TMAIN.HANDLERIDENTIFYNUMBER = PD.AGENTID AND PD.BUSINESSSOURCE='I99004'
+		LEFT JOIN(
+		    SELECT BATCH_SEQ, IDENTIFYNUMBER, INSUREDNAME, POSTCODE, POSTADDRESS FROM FIR_AGT_TOCORE_INSURED WHERE BATCH_NO = #batchNo# AND INSUREDFLAG = '2' AND INSURED_SEQ = 1
+		)APPLY ON APPLY.BATCH_SEQ = TMAIN.BATCH_SEQ
+		LEFT JOIN(
+		    SELECT BATCH_SEQ, IDENTIFYNUMBER, INSUREDNAME FROM FIR_AGT_TOCORE_INSURED WHERE BATCH_NO = #batchNo# AND INSUREDFLAG = '1' AND INSURED_SEQ = 1
+		)INSURED ON INSURED.BATCH_SEQ = TMAIN.BATCH_SEQ
+		WHERE DTL.BATCH_NO = #batchNo#
+		ORDER BY DTL.BATCH_SEQ ASC
+	</select>
+	
+	<resultMap id="YcbrnInsuredResultMap" class="com.tlg.aps.vo.Aps060YcbDetailVo" >
+		<!-- dtl -->
+		<result column="DQUAKE_STATUS" property="dquakeStatus" jdbcType="VARCHAR" />
+		<result column="PRPINS_BATCH_STATUS" property="prpinsBatchStatus" jdbcType="VARCHAR" />
+		<result column="TRANS_PPS_TIME" property="transPpsTime" jdbcType="TIMESTAMP" />
+		<result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+		<result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+		<result column="DATA_STATUS" property="dataStatus" jdbcType="VARCHAR" />
+		<result column="CHECK_ERR_MSG" property="checkErrMsg" jdbcType="VARCHAR" />
+    	<result column="CHECK_WARN_MSG" property="checkWarnMsg" jdbcType="VARCHAR" />
+    	<result column="SF_FLAG" property="sfFlag" jdbcType="VARCHAR"  />
+    	<result column="SF_REASON" property="sfReason" jdbcType="VARCHAR"/>
+    	<result column="SF_USER" property="sfUser" jdbcType="VARCHAR" />
+    	<result column="SF_DATE" property="sfDate" jdbcType="TIMESTAMP" />
+    	<result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+    	<result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+		
+		<!-- tocoreMain -->
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+	    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+	    <result column="IS_NEW" property="isNew" jdbcType="VARCHAR" />
+	    <result column="PRINTVIRTUALCODE" property="printvirtualcode" jdbcType="VARCHAR" />
+	    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+	    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+	    <result column="RATIONCODE" property="rationcode" jdbcType="VARCHAR" />
+	    <result column="OLDPOLICYNO" property="oldpolicyno" jdbcType="VARCHAR" />
+	    <result column="HANDLERIDENTIFYNUMBER" property="handleridentifynumber" jdbcType="VARCHAR" />
+	    <result column="HANDLER1CODE" property="handler1code" jdbcType="VARCHAR" />
+	    <result column="COMCODE" property="comcode" jdbcType="VARCHAR" />
+	    <result column="AGENTCODE" property="agentcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+	    <result column="EXTRACOMNAME" property="extracomname" jdbcType="VARCHAR" />
+	    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+	    <result column="CHANNELTYPE" property="channeltype" jdbcType="VARCHAR" />
+	    <result column="PROJECTCODE" property="projectcode" jdbcType="VARCHAR" />
+	    <result column="INTRODUCERID" property="introducerid" jdbcType="VARCHAR" />
+	    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+	    <result column="MAILDATE" property="maildate" jdbcType="TIMESTAMP" />
+	    <result column="UPDATEDATE" property="updatedate" jdbcType="TIMESTAMP" />
+	    <result column="SERIALNO_1" property="serialno1" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_1" property="mortgageepcode1" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_1" property="sequenceno1" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_1" property="creditnumber1" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_1" property="collateralnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_1" property="loansbehalfnumber1" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_1" property="loanaccount1" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_1" property="loansdepartment1" jdbcType="VARCHAR" />
+	    <result column="SERIALNO_2" property="serialno2" jdbcType="DECIMAL" />
+	    <result column="MORTGAGEEPCODE_2" property="mortgageepcode2" jdbcType="VARCHAR" />
+	    <result column="SEQUENCENO_2" property="sequenceno2" jdbcType="DECIMAL" />
+	    <result column="CREDITNUMBER_2" property="creditnumber2" jdbcType="VARCHAR" />
+	    <result column="COLLATERALNUMBER_2" property="collateralnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANSBEHALFNUMBER_2" property="loansbehalfnumber2" jdbcType="VARCHAR" />
+	    <result column="LOANACCOUNT_2" property="loanaccount2" jdbcType="VARCHAR" />
+	    <result column="LOANSDEPARTMENT_2" property="loansdepartment2" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNO" property="addressno" jdbcType="DECIMAL" />
+	    <result column="ADDRESSCODE" property="addresscode" jdbcType="VARCHAR" />
+	    <result column="ADDRESSNAME" property="addressname" jdbcType="VARCHAR" />
+	    <result column="ADDRESSDETAILINFO" property="addressdetailinfo" jdbcType="VARCHAR" />
+	    <result column="REPEATPOLICYNO" property="repeatpolicyno" jdbcType="VARCHAR" />
+	    <result column="POSSESSNATURECODE" property="possessnaturecode" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO" property="buildingno" jdbcType="DECIMAL" />
+	    <result column="PROP_ADDRESSNO" property="propAddressno" jdbcType="DECIMAL" />
+	    <result column="WALLMATERIAL" property="wallmaterial" jdbcType="VARCHAR" />
+	    <result column="ROOFMATERIAL" property="roofmaterial" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE" property="structure" jdbcType="VARCHAR" />
+	    <result column="STRUCTURE_TEXT" property="structureText" jdbcType="VARCHAR" />
+	    <result column="SUMFLOORS" property="sumfloors" jdbcType="VARCHAR" />
+	    <result column="BUILDAREA" property="buildarea" jdbcType="VARCHAR" />
+	    <result column="BUILDYEARS" property="buildyears" jdbcType="VARCHAR" />
+	    <result column="KINDCODE_F" property="kindcodeF" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_F" property="kindnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_F" property="itemcodeF" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_F" property="itemnameF" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_F" property="itemnatureF" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_F" property="buildingnoF" jdbcType="DECIMAL" />
+	    <result column="HIGHRISEFEE" property="highrisefee" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F" property="premiumF" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_F" property="commrateF" jdbcType="DECIMAL" />
+	    <result column="KINDCODE_Q" property="kindcodeQ" jdbcType="VARCHAR" />
+	    <result column="KINDNAME_Q" property="kindnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMCODE_Q" property="itemcodeQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNAME_Q" property="itemnameQ" jdbcType="VARCHAR" />
+	    <result column="ITEMNATURE_Q" property="itemnatureQ" jdbcType="VARCHAR" />
+	    <result column="BUILDINGNO_Q" property="buildingnoQ" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q" property="premiumQ" jdbcType="VARCHAR" />
+	    <result column="COMMRATE_Q" property="commrateQ" jdbcType="DECIMAL" />
+	    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_T" property="premiumT" jdbcType="VARCHAR" />
+	    <result column="EPOLICY" property="epolicy" jdbcType="VARCHAR" />
+	    <result column="CLAUSE_SENDTYPE" property="clauseSendtype" jdbcType="VARCHAR" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="TEMP_1" property="temp1" jdbcType="VARCHAR" />
+	    <result column="TEMP_2" property="temp2" jdbcType="VARCHAR" />
+	    <result column="TEMP_3" property="temp3" jdbcType="VARCHAR" />
+	    <result column="TEMP_4" property="temp4" jdbcType="VARCHAR" />
+	    <result column="TEMP_5" property="temp5" jdbcType="VARCHAR" />
+	    <result column="TEMP_6" property="temp6" jdbcType="VARCHAR" />
+	    <result column="TEMP_7" property="temp7" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_F_LAST" property="amountFLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_Q_LAST" property="amountQLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_F_LAST" property="premiumFLast" jdbcType="DECIMAL" />
+	    <result column="PREMIUM_Q_LAST" property="premiumQLast" jdbcType="DECIMAL" />
+	    <result column="AMOUNT_F_AGT" property="amountFAgt" jdbcType="VARCHAR" />
+	    <result column="AMOUNT_Q_AGT" property="amountQAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_F_AGT" property="premiumFAgt" jdbcType="VARCHAR" />
+	    <result column="PREMIUM_Q_AGT" property="premiumQAgt" jdbcType="VARCHAR" />
+	    <result column="PRPINS_BATCH_NO" property="prpinsBatchNo" jdbcType="VARCHAR" />
+		<result column="PROPOSALNO" property="proposalno" jdbcType="VARCHAR" />
+		<result column="ACCOUNTNO" property="accountno" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectYcbrnInsuredData" resultMap="YcbrnInsuredResultMap" parameterClass="java.util.Map">
+		SELECT DTL.DQUAKE_STATUS, DTL.PRPINS_BATCH_STATUS, DTL.TRANS_PPS_TIME, 
+		DTL.FIX_USER, DTL.FIX_DATE,
+		DTL.DATA_STATUS, DTL.CHECK_ERR_MSG, DTL.CHECK_WARN_MSG, 
+		DTL.SF_FLAG, DTL.SF_REASON, DTL.SF_USER, DTL.SF_DATE,
+		DTL.PRPINS_BATCH_NO, DTL.PROPOSALNO,
+		MA.*
+		FROM FIR_AGTRN_BATCH_DTL DTL
+		INNER JOIN FIR_AGT_TOCORE_MAIN MA
+		ON DTL.BATCH_NO = MA.BATCH_NO AND DTL.BATCH_SEQ = MA.BATCH_SEQ
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				DTL.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchSeq">
+				DTL.BATCH_SEQ = #batchSeq#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 end -->
+</sqlMap>

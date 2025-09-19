@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+<struts>
+	<package name="AJAX012Action" extends="BaseAction" namespace="/aps/ajax012">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		
+		<action name="compareDataCount" class="AJAX012Action" method="compareDataCount">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="ckeckDiffData" class="AJAX012Action" method="ckeckDiffData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="countFixData" class="AJAX012Action" method="countFixData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="verifyBasicData" class="AJAX012Action" method="verifyBasicData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkStructureLeval" class="AJAX012Action" method="checkStructureLeval">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

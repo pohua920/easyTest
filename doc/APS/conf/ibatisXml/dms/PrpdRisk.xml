@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+mantis：OTH0087，處理人員：BJ085，需求單編號：OTH0087 AML手動登錄 start
+-->
+<sqlMap namespace="PrpdRisk">
+  <resultMap class="com.tlg.dms.entity.PrpdRisk" id="BaseResultMap">
+    <result column="RISKCODE" jdbcType="VARCHAR" property="riskcode" />
+    <result column="OLDRISKCODE" jdbcType="VARCHAR" property="oldriskcode" />
+    <result column="RISKCNAME" jdbcType="VARCHAR" property="riskcname" />
+    <result column="RISKSCNAME" jdbcType="VARCHAR" property="riskscname" />
+    <result column="RISKTNAME" jdbcType="VARCHAR" property="risktname" />
+    <result column="RISKENAME" jdbcType="VARCHAR" property="riskename" />
+    <result column="RISKSENAME" jdbcType="VARCHAR" property="risksename" />
+    <result column="RISKATTRIBUTE" jdbcType="VARCHAR" property="riskattribute" />
+    <result column="SALEAREALEVEL" jdbcType="VARCHAR" property="salearealevel" />
+    <result column="CLASSCODE" jdbcType="VARCHAR" property="classcode" />
+    <result column="FRAMECODE" jdbcType="VARCHAR" property="framecode" />
+    <result column="REPORTNO" jdbcType="VARCHAR" property="reportno" />
+    <result column="PROJECTCODE" jdbcType="VARCHAR" property="projectcode" />
+    <result column="PLANIND" jdbcType="VARCHAR" property="planind" />
+    <result column="ACCOUNTLEVEL" jdbcType="VARCHAR" property="accountlevel" />
+    <result column="REINSLEVEL" jdbcType="VARCHAR" property="reinslevel" />
+    <result column="MANAGEMENTLEVEL" jdbcType="VARCHAR" property="managementlevel" />
+    <result column="STATLEVEL" jdbcType="VARCHAR" property="statlevel" />
+    <result column="AUDITFLAG" jdbcType="VARCHAR" property="auditflag" />
+    <result column="AGRICULTUREFLAG" jdbcType="VARCHAR" property="agricultureflag" />
+    <result column="POLICYFLAG" jdbcType="VARCHAR" property="policyflag" />
+    <result column="POLICYPROCESSFLAG" jdbcType="VARCHAR" property="policyprocessflag" />
+    <result column="ISFORCE" jdbcType="VARCHAR" property="isforce" />
+    <result column="REQUIREDFLAG" jdbcType="VARCHAR" property="requiredflag" />
+    <result column="CREATORCODE" jdbcType="VARCHAR" property="creatorcode" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATERCODE" jdbcType="VARCHAR" property="updatercode" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="VALIDDATE" jdbcType="TIMESTAMP" property="validdate" />
+    <result column="INVALIDDATE" jdbcType="TIMESTAMP" property="invaliddate" />
+    <result column="VALIDIND" jdbcType="VARCHAR" property="validind" />
+    <result column="TCOL1" jdbcType="VARCHAR" property="tcol1" />
+    <result column="TCOL2" jdbcType="VARCHAR" property="tcol2" />
+    <result column="TCOL3" jdbcType="VARCHAR" property="tcol3" />
+    <result column="FLAG" jdbcType="VARCHAR" property="flag" />
+    <result column="RATEUNIT" jdbcType="DECIMAL" property="rateunit" />
+    <result column="SHORTRATEFLAG" jdbcType="VARCHAR" property="shortrateflag" />
+    <result column="CLASSFLAG" jdbcType="VARCHAR" property="classflag" />
+    <result column="RISKFLAG" jdbcType="VARCHAR" property="riskflag" />
+    <result column="AUTOPAYMENTFLAG" jdbcType="VARCHAR" property="autopaymentflag" />
+    <result column="ENDUPDATERCODE" jdbcType="VARCHAR" property="endupdatercode" />
+    <result column="OPERATETIMEFORHIS" jdbcType="TIMESTAMP" property="operatetimeforhis" />
+    <result column="POLICYTYPE" jdbcType="VARCHAR" property="policytype" />
+	<result column="SALEAREACODE" jdbcType="CLOB" property="saleareacode" />
+    <result column="SALEAREANAME" jdbcType="CLOB" property="saleareaname" />
+    <result column="MATERIALCONTXT" jdbcType="CLOB" property="materialcontxt" />
+    <result column="REMARK" jdbcType="CLOB" property="remark" />
+  </resultMap>
+
+ 	 <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>PRPDRISK
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="classcode">
+				CLASSCODE = #classcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcname">
+				RISKCNAME = #riskcname#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+  	</select>
+  
+  	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>PRPDRISK
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="classcode">
+				CLASSCODE = #classcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcname">
+				RISKCNAME = #riskcname#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>PRPDRISK
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="classcode">
+				CLASSCODE = #classcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcname">
+				RISKCNAME = #riskcname#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

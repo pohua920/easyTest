@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 start -->
+<struts>
+	<package name="APS006Action" extends="BaseAction" namespace="/aps/006">
+		<!-- default -->
+		<action name="default" class="APS006Action">
+			<result>/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>
+		
+		<!-- APS006E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="APS006Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>
+		
+		<!-- 連結到查詢頁面 -->
+		<action name="lnkGoQuery" class="APS006Action" method="lnkGoQuery">
+			<result>/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>
+
+		<!-- APS006E0.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS006Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>
+		
+		<!-- APS006E0.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS006Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>		
+
+		<!-- APS006E0.jsp頁面連結到明細檔查詢頁面 -->
+		<action name="lnkDtlGoQuery" class="APS006Action" method="lnkDtlGoQuery">
+			<result>/WEB-INF/pages/APS/APS006/APS006E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E0.jsp</result>
+		</action>
+		
+		<!-- (明細)APS006E1.jsp，分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtDtlChangePageIndex" class="APS006Action" method="txtDtlChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS006/APS006E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E1.jsp</result>
+		</action>
+		
+		<!-- (明細)APS006E1.jsp，分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlDtlPageSizeChanged" class="APS006Action" method="ddlDtlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS006/APS006E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS006/APS006E1.jsp</result>
+		</action>
+	</package>
+</struts>

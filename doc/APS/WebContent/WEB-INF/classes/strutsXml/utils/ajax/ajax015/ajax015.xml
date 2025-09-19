@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+<struts>
+	<package name="AJAX015Action" extends="BaseAction" namespace="/aps/ajax015">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		
+		<action name="countForReviewData" class="AJAX015Action" method="countForReviewData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="countNclaimData" class="AJAX015Action" method="countNclaimData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 
+	 mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業start -->
+<struts>
+	<package name="APS016Action" extends="BaseAction" namespace="/aps/016">
+		<!-- default -->
+		<action name="default" class="APS016Action">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS004E0.jsp頁面按下手動執行鍵,開始執行Boprn -->
+		<action name="btnExecuteBoprn" class="APS016Action" method="btnExecuteBoprn">
+			<result>/WEB-INF/pages/APS/APS004/APS004E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS004/APS004E0.jsp</result>
+		</action>
+		
+		<!-- APS016E0.jsp按下查詢鍵，搜尋資料 -->
+		<action name="btnQuery" class="APS016Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+
+		<!-- APS016E0.jsp(主檔)分頁資料中，重新輸入要顯示的頁數  -->
+		<action name="txtChangePageIndex" class="APS016Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS016E0.jsp，(主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS016Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS016E0.jsp頁面按下主檔批次號碼資料，查詢明細資料 -->
+		<action name="lnkGoDetailQuery" class="APS016Action" method="lnkGoDetailQuery">
+			<result>/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS016E1.jsp(明細)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtDtlChangePageIndex" class="APS016Action" method="txtDtlChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS016E1.jsp(明細)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlDtlPageSizeChanged" class="APS016Action" method="ddlDtlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		
+		<!-- APS016E1.jsp(明細)分頁資料中， 查詢結果點選上下三角型排序 -->
+		<action name="lnkSortQuery" class="APS016Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+		</action>
+		
+		<!-- APS016E1.jsp 連結至修改頁面 -->
+		<action name="lnkGoUpdate" class="APS016Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS016/APS016U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E1.jsp</result>
+		</action>
+		
+		<!-- APS016U0.jsp按下儲存鍵，做資料修改的動作 -->
+		<action name="btnUpdate" class="APS016Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS016/APS016U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016U0.jsp</result>
+		</action>
+		
+		<!-- APS016E0.jsp 按下下載XLS，下載XLS檔案 -->
+		<action name="btnGenExcel" class="APS016Action" method="btnGenExcel">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+		<!-- APS016E0.jsp按下整批鎖定，鎖定整批續保資料 -->
+		<action name="btnFixData" class="APS016Action" method="btnFixData">
+			<result>/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS016/APS016E0.jsp</result>
+		</action>
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+	</package>
+</struts>

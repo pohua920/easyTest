@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈查詢、新增及更新攤賠案件排程 -->
+<sqlMap namespace="ClaimCompulsoryApplicant">
+
+	<resultMap id="BaseResultMap" class="com.tlg.prpins.entity.ClaimCompulsoryApplicant" >
+	    <result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="APPLICANT_ID_NUMBER_TYPE" property="applicantIdNumberType" jdbcType="VARCHAR" />
+	    <result column="APPLICANT_ID_NUMBER" property="applicantIdNumber" jdbcType="VARCHAR" />
+	    <result column="APPLICANT_BIRTHDAY" property="applicantBirthday" jdbcType="VARCHAR" />
+	    <result column="APPLICANT_NAME" property="applicantName" jdbcType="VARCHAR" />
+	    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+	    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+	    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+	    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+	    <result column="JOB_OID" property="jobOid" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jobOid">
+				JOB_OID = #jobOid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="applicantIdNumber">
+				APPLICANT_ID_NUMBER = #applicantIdNumber#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jobOid">
+				JOB_OID = #jobOid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="applicantIdNumber">
+				APPLICANT_ID_NUMBER = #applicantIdNumber#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="jobOid">
+				JOB_OID = #jobOid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="applicantIdNumber">
+				APPLICANT_ID_NUMBER = #applicantIdNumber#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.prpins.entity.ClaimCompulsoryApplicant" >
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT
+		where OID = #oid:DECIMAL#
+	</select>
+
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.ClaimCompulsoryApplicant" >
+		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT CLAIM_COMPULSORY_APPLICANT_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+      	
+      	insert into <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT(OID, APPLICANT_ID_NUMBER_TYPE, APPLICANT_ID_NUMBER,
+      APPLICANT_BIRTHDAY, APPLICANT_NAME, DCREATE, ICREATE, JOB_OID)
+    values (#oid:DECIMAL#, #applicantIdNumberType:VARCHAR#, #applicantIdNumber:VARCHAR#,
+      #applicantBirthday:VARCHAR#, #applicantName:VARCHAR#, #dcreate:TIMESTAMP#, #icreate:VARCHAR#, #jobOid:DECIMAL#)
+      	
+	</insert>
+
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.prpinsSchema"/>CLAIM_COMPULSORY_APPLICANT WHERE OID = #oid:DECIMAL#
+	</delete>
+
+	<update id="update" parameterClass="com.tlg.prpins.entity.ClaimCompulsoryApplicant">
+		UPDATE <include refid="Utils.prpinsSchema" />CLAIM_COMPULSORY_APPLICANT
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="applicantIdNumberType">
+				APPLICANT_ID_NUMBER_TYPE = #applicantIdNumberType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="applicantIdNumber">
+				APPLICANT_ID_NUMBER = #applicantIdNumber:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="applicantBirthday">
+				APPLICANT_BIRTHDAY = #applicantBirthday:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="applicantName">
+				APPLICANT_NAME = #applicantName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dupdate">
+				DUPDATE = #dupdate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="iupdate">
+				IUPDATE = #iupdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="jobOid">
+				JOB_OID = #jobOid:DECIMAL#
+			</isNotNull>
+		</dynamic>
+		WHERE OID = #oid:DECIMAL#
+	</update>
+
+</sqlMap>

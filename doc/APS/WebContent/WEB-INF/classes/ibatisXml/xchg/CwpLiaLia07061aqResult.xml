@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CwpLiaLia07061aqResult">
+
+	<resultMap id="BaseResultMap" class="com.tlg.xchg.entity.CwpLiaLia07061aqResult">
+		<result column="OID" jdbcType="DECIMAL" property="oid" />
+		<result column="CHECKNO" jdbcType="VARCHAR" property="checkno" />
+		<result column="KEYIDNO" jdbcType="VARCHAR" property="keyidno" />
+		<result column="DATASERNO" jdbcType="VARCHAR" property="dataserno" />
+		<result column="CMPTYPE" jdbcType="VARCHAR" property="cmptype" />
+		<result column="CMPNO" jdbcType="VARCHAR" property="cmpno" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="IDNO" jdbcType="VARCHAR" property="idno" />
+		<result column="BIRDATE" jdbcType="VARCHAR" property="birdate" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="INSNOM" jdbcType="VARCHAR" property="insnom" />
+		<result column="INSNO" jdbcType="VARCHAR" property="insno" />
+		<result column="ORIGIN" jdbcType="VARCHAR" property="origin" />
+		<result column="CHANNEL" jdbcType="VARCHAR" property="channel" />
+		<result column="PRDCODE" jdbcType="VARCHAR" property="prdcode" />
+		<result column="INSCLASS" jdbcType="VARCHAR" property="insclass" />
+		<result column="INSKIND" jdbcType="VARCHAR" property="inskind" />
+		<result column="INSITEM" jdbcType="VARCHAR" property="insitem" />
+		<result column="PAYTYPE" jdbcType="VARCHAR" property="paytype" />
+		<result column="ITEMA" jdbcType="VARCHAR" property="itema" />
+		<result column="ITEMB" jdbcType="VARCHAR" property="itemb" />
+		<result column="ITEMC" jdbcType="VARCHAR" property="itemc" />
+		<result column="ITEMD" jdbcType="VARCHAR" property="itemd" />
+		<result column="ITEME" jdbcType="VARCHAR" property="iteme" />
+		<result column="ITEMF" jdbcType="VARCHAR" property="itemf" />
+		<result column="ITEMG" jdbcType="VARCHAR" property="itemg" />
+		<result column="ITEMH" jdbcType="VARCHAR" property="itemh" />
+		<result column="ITEMI" jdbcType="VARCHAR" property="itemi" />
+		<result column="ITEMJ" jdbcType="VARCHAR" property="itemj" />
+		<result column="ITEMK" jdbcType="VARCHAR" property="itemk" />
+		<result column="ITEML" jdbcType="VARCHAR" property="iteml" />
+		<result column="ITEMM" jdbcType="VARCHAR" property="itemm" />
+		<result column="ITEMN" jdbcType="VARCHAR" property="itemn" />
+		<result column="ITEMO" jdbcType="VARCHAR" property="itemo" />
+		<result column="ITEMP" jdbcType="VARCHAR" property="itemp" />
+		<result column="ITEMQ" jdbcType="VARCHAR" property="itemq" />
+		<result column="ITEMR" jdbcType="VARCHAR" property="itemr" />
+		<result column="ITEMS" jdbcType="VARCHAR" property="items" />
+		<result column="VALDATE" jdbcType="VARCHAR" property="valdate" />
+		<result column="VALTIME" jdbcType="VARCHAR" property="valtime" />
+		<result column="OVRDATE" jdbcType="VARCHAR" property="ovrdate" />
+		<result column="OVRTIME" jdbcType="VARCHAR" property="ovrtime" />
+		<result column="PRM" jdbcType="VARCHAR" property="prm" />
+		<result column="BAMTTYPE" jdbcType="VARCHAR" property="bamttype" />
+		<result column="PRMYEARS" jdbcType="VARCHAR" property="prmyears" />
+		<result column="CON" jdbcType="VARCHAR" property="con" />
+		<result column="CONDATE" jdbcType="VARCHAR" property="condate" />
+		<result column="CONTIME" jdbcType="VARCHAR" property="contime" />
+		<result column="ASKNAME" jdbcType="VARCHAR" property="askname" />
+		<result column="ASKIDNO" jdbcType="VARCHAR" property="askidno" />
+		<result column="ASKBIRDATE" jdbcType="VARCHAR" property="askbirdate" />
+		<result column="ASKTYPE" jdbcType="VARCHAR" property="asktype" />
+		<result column="FILLDATE" jdbcType="VARCHAR" property="filldate" />
+		<result column="BROKTYPE" jdbcType="VARCHAR" property="broktype" />
+		<result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.xchgSchema"/>CWP_LIA_LIA07061AQ_RESULT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="checkno">
+				CHECKNO = #checkno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="idno">
+				IDNO = #idno#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="askidno">
+				ASKIDNO = #askidno#
+			</isNotEmpty>
+
+		</dynamic>
+
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.xchgSchema" />CWP_LIA_LIA07061AQ_RESULT WHERE 1 = 1
+		<isNotEmpty prepend="AND" property="oid">
+			OID = #oid#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="checkno">
+			CHECKNO = #checkno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="idno">
+			IDNO = #idno#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="askidno">
+			ASKIDNO = #askidno#
+		</isNotEmpty>
+		<isNotEmpty property="appCode">
+			<isNotEmpty prepend="AND" property="queryType">
+				CHECKNO IN (
+					SELECT DISTINCT CHECKNO FROM CWP_LIA_QUERY_CONDITION WHERE APP_CODE = #appCode# AND QUERY_TYPE = #queryType#
+				)
+			</isNotEmpty>
+		</isNotEmpty>
+
+	</select>
+	
+	<select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map">
+  		SELECT * FROM <include refid="Utils.schema"/>CWP_LIA_LIA07061AQ_RESULT
+  		WHERE CHECKNO = #checkno#
+  		AND DATASERNO = #dataserno#
+  	</select>
+  	
+	<select id="countByUK" parameterClass="com.tlg.xchg.entity.CwpLiaLia07061aqResult"
+		resultClass="java.lang.Integer">
+		SELECT COUNT(*) FROM <include refid="Utils.schema" />CWP_LIA_LIA07061AQ_RESULT
+  		WHERE CHECKNO = #checkno#
+  		AND DATASERNO = #dataserno#
+	</select>
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.xchgSchema"/>CWP_LIA_LIA07061AQ_RESULT
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="checkno">
+				CHECKNO = #checkno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="idno">
+				IDNO = #idno#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="askidno">
+				ASKIDNO = #askidno#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<insert id="insert" parameterClass="com.tlg.xchg.entity.CwpLiaLia07061aqResult" >
+		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT CWP_LIA_LIA07061AQ_RESULT_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+      	  
+	    insert into <include refid="Utils.xchgSchema"/>CWP_LIA_LIA07061AQ_RESULT (OID, CHECKNO, KEYIDNO, DATASERNO, CMPTYPE, CMPNO, NAME,
+      IDNO, BIRDATE, SEX, INSNOM, INSNO, ORIGIN, CHANNEL, PRDCODE, INSCLASS, INSKIND, INSITEM,
+      PAYTYPE, ITEMA, ITEMB, ITEMC, ITEMD, ITEME, ITEMF, ITEMG, ITEMH, ITEMI, ITEMJ, ITEMK, ITEML,
+      ITEMM, ITEMN, ITEMO, ITEMP, ITEMQ, ITEMR, ITEMS, VALDATE, VALTIME, OVRDATE, OVRTIME, PRM,
+      BAMTTYPE, PRMYEARS, CON, CONDATE, CONTIME, ASKNAME, ASKIDNO, ASKBIRDATE, ASKTYPE, FILLDATE,
+      BROKTYPE, DCREATE)
+    values (#oid:DECIMAL#, #checkno:VARCHAR#, #keyidno:VARCHAR#, #dataserno:VARCHAR#,
+      #cmptype:VARCHAR#, #cmpno:VARCHAR#, #name:VARCHAR#, #idno:VARCHAR#, #birdate:VARCHAR#,
+      #sex:VARCHAR#, #insnom:VARCHAR#, #insno:VARCHAR#, #origin:VARCHAR#, #channel:VARCHAR#,
+      #prdcode:VARCHAR#, #insclass:VARCHAR#, #inskind:VARCHAR#, #insitem:VARCHAR#,
+      #paytype:VARCHAR#, #itema:VARCHAR#, #itemb:VARCHAR#, #itemc:VARCHAR#, #itemd:VARCHAR#,
+      #iteme:VARCHAR#, #itemf:VARCHAR#, #itemg:VARCHAR#, #itemh:VARCHAR#, #itemi:VARCHAR#,
+      #itemj:VARCHAR#, #itemk:VARCHAR#, #iteml:VARCHAR#, #itemm:VARCHAR#, #itemn:VARCHAR#,
+      #itemo:VARCHAR#, #itemp:VARCHAR#, #itemq:VARCHAR#, #itemr:VARCHAR#, #items:VARCHAR#,
+      #valdate:VARCHAR#, #valtime:VARCHAR#, #ovrdate:VARCHAR#, #ovrtime:VARCHAR#, #prm:VARCHAR#,
+      #bamttype:VARCHAR#, #prmyears:VARCHAR#, #con:VARCHAR#, #condate:VARCHAR#, #contime:VARCHAR#,
+      #askname:VARCHAR#, #askidno:VARCHAR#, #askbirdate:VARCHAR#, #asktype:VARCHAR#,
+      #filldate:VARCHAR#, #broktype:VARCHAR#, #dcreate:TIMESTAMP#)
+	</insert>
+
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.xchgSchema"/>CWP_LIA_LIA07061AQ_RESULT WHERE OID = #oid:DECIMAL#
+	</delete>
+
+	<update id="update" parameterClass="com.tlg.xchg.entity.CwpLiaLia07061aqResult">
+		UPDATE <include refid="Utils.xchgSchema" />CWP_LIA_LIA07061AQ_RESULT
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="keyidno">
+				KEYIDNO = #keyidno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dataserno">
+				DATASERNO = #dataserno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="cmptype">
+				CMPTYPE = #cmptype:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="cmpno">
+				CMPNO = #cmpno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				NAME = #name:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="idno">
+				IDNO = #idno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="birdate">
+				BIRDATE = #birdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="sex">
+				SEX = #sex:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insnom">
+				INSNOM = #insnom:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insno">
+				INSNO = #insno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="origin">
+				ORIGIN = #origin:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="channel">
+				CHANNEL = #channel:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prdcode">
+				PRDCODE = #prdcode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insclass">
+				INSCLASS = #insclass:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="inskind">
+				INSKIND = #inskind:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insitem">
+				INSITEM = #insitem:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="paytype">
+				PAYTYPE = #paytype:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itema">
+				ITEMA = #itema:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemb">
+				ITEMB = #itemb:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemc">
+				ITEMC = #itemc:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemd">
+				ITEMD = #itemd:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="iteme">
+				ITEME = #iteme:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemf">
+				ITEMF = #itemf:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemg">
+				ITEMG = #itemg:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemh">
+				ITEMH = #itemh:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemi">
+				ITEMI = #itemi:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemj">
+				ITEMJ = #itemj:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemk">
+				ITEMK = #itemk:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="iteml">
+				ITEML = #iteml:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemm">
+				ITEMM = #itemm:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemn">
+				ITEMN = #itemn:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemo">
+				ITEMO = #itemo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemp">
+				ITEMP = #itemp:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemq">
+				ITEMQ = #itemq:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="itemr">
+				ITEMR = #itemr:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="items">
+				ITEMS = #items:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="valdate">
+				VALDATE = #valdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="valtime">
+				VALTIME = #valtime:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ovrdate">
+				OVRDATE = #ovrdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ovrtime">
+				OVRTIME = #ovrtime:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prm">
+				PRM = #prm:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="bamttype">
+				BAMTTYPE = #bamttype:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="prmyears">
+				PRMYEARS = #prmyears:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="con">
+				CON = #con:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="condate">
+				CONDATE = #condate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="contime">
+				CONTIME = #contime:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="askname">
+				ASKNAME = #askname:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="askidno">
+				ASKIDNO = #askidno:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="askbirdate">
+				ASKBIRDATE = #askbirdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="asktype">
+				ASKTYPE = #asktype:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="filldate">
+				FILLDATE = #filldate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="broktype">
+				BROKTYPE = #broktype:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dcreate">
+				DCREATE = #dcreate:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+		WHERE OID = #oid:DECIMAL#
+	</update>
+
+</sqlMap>

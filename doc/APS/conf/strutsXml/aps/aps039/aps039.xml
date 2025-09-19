@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：FIR0499，處理人員：BJ085，需求單編號：FIR0499_住火-中信保代網投_進件查詢作業  -->
+<struts>
+	<package name="APS039Action" extends="BaseAction" namespace="/aps/039">
+		<!-- default -->
+		<action name="default" class="APS039Action">
+			<result>/WEB-INF/pages/APS/APS039/APS039E0.jsp</result>
+		</action>
+		
+		<!-- APS039E0.jsp按下查詢鍵，搜尋資料 -->
+		<action name="btnQuery" class="APS039Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS039/APS039E0.jsp</result>
+		</action>
+
+		<!-- APS039E0.jsp(主檔)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS039Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS039/APS039E0.jsp</result>
+		</action>
+
+		<!-- APS039E0.jsp(主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS039Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS039/APS039E0.jsp</result>
+		</action>
+
+		<!-- APS039E0.jsp頁面按下主檔批次號碼資料，查詢明細資料 -->
+		<action name="lnkGoDetailQuery" class="APS039Action" method="lnkGoDetailQuery">
+			<result>/WEB-INF/pages/APS/APS039/APS039E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS039/APS039E0.jsp</result>
+		</action>
+		
+		<!-- APS039E1.jsp按下儲存鍵，做資料修改的動作 -->
+		<action name="btnUpdate" class="APS039Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS039/APS039E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS039/APS039E1.jsp</result>
+		</action>
+		
+		<!-- APS039E1.jsp按下下載鍵，下載投保證明 -->
+		<action name="lnkDownloadProve" class="APS039Action" method="lnkDownloadProve">
+			<result>/WEB-INF/pages/APS/APS039/APS039E1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS039/APS039E1.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${orderseq}.pdf"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+</struts>

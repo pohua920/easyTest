@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Prpdrationclausekind">
+
+  <resultMap class="com.tlg.aps.vo.EpolicyPrpdrationclausekindVo" id="EpolicyPrpdrationclausekindResultMap">
+    <result column="KINDCODE" jdbcType="VARCHAR" property="kindcode" />
+    <result column="MAX_INDEMNIFY" jdbcType="VARCHAR" property="maxIndemnify" />
+    <result column="DEDUCTIBLE" jdbcType="VARCHAR" property="deductible" />
+    <result column="UNIT_PREMIUM" jdbcType="VARCHAR" property="unitPremium" />
+    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 電子保單 START -->
+    <result column="BASEPREMIUM" jdbcType="VARCHAR" property="basePremium" />
+  </resultMap>
+  
+	<select id="selectForEpolicy" resultMap="EpolicyPrpdrationclausekindResultMap" parameterClass="java.util.Map">
+		Select KINDCODE, ALLOWANCEDAYSUPPER MAX_INDEMNIFY, TCOL3 DEDUCTIBLE, BASEPREMIUM/(TCOL10 * 12) UNIT_PREMIUM,
+		 TO_CHAR(BASEPREMIUM) BASEPREMIUM 
+		from CCICDMS.PRPDRATIONCLAUSEKIND 
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 電子保單 END -->
+		<dynamic prepend="WHERE">
+	    	<isNotEmpty prepend="AND" property="rationcode">
+	    		RATIONCODE = #rationcode#
+	    	</isNotEmpty>
+	    	<isNotEmpty prepend="AND" property="riskcode">
+	    		RISKCODE = #riskcode#
+	    	</isNotEmpty>
+	    </dynamic>
+	</select>
+</sqlMap>

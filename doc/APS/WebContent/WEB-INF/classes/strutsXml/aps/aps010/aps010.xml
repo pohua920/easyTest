@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<struts>
+	<package name="APS010Action" extends="BaseAction" namespace="/aps/010">
+		<!-- default -->
+		<action name="default" class="APS010Action">
+			<result>/WEB-INF/pages/APS/APS010/APS010E0.jsp</result>
+		</action>
+		
+		<!-- APS010E0.jsp頁面按下執行鍵,開始執行 -->
+		<action name="btnExecute" class="APS010Action" method="btnExecute">
+			<result>/WEB-INF/pages/APS/APS010/APS010E0.jsp</result>
+		</action>
+		
+		<!-- APS010E0.jsp頁面按下確定轉入鍵,上傳檔案 -->
+		<action name="btnFileUpd" class="APS010Action" method="btnFileUpd">
+			<result>/WEB-INF/pages/APS/APS010/APS010E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS010/APS010E0.jsp</result>
+		</action>
+	</package>
+</struts>

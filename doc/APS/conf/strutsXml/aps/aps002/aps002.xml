@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="APS002Action" extends="BaseAction" namespace="/aps/002">
+		<!-- default -->
+		<action name="default" class="APS002Action">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<!-- APS002E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery" class="APS002Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<!-- APS002E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQuery2" class="APS002Action" method="btnQuery2">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<!-- APS002E0.jsp頁面按下開始查詢鍵,搜尋資料 -->
+		<action name="btnQueryCancel" class="APS002Action" method="btnQueryCancel">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)分頁資料中，重新輸入要顯示的頁數 -->
+		<action name="txtChangePageIndex" class="APS002Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<!-- (主檔)分頁資料中，重新選擇下拉式選單中更改每頁所顯示的資料筆數 -->
+		<action name="ddlPageSizeChanged" class="APS002Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<action name="lnkGoDetail" class="APS002Action" method="lnkGoDetail">
+			<result>/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002E0.jsp</result>
+		</action>
+		
+		<action name="lnkDownloadPDF" class="APS002Action" method="lnkDownloadPDF">
+			<result>/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${aps002DetailVo.filenameTiff}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="lnkDownloadProve" class="APS002Action" method="lnkDownloadProve">
+			<result>/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${aps002DetailVo.fkOrderSeq}.pdf"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- mantis：FIR0181， 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) start
+		新增「轉檔異常資料修正」功能-->
+		<action name="lnkGoEditUnusualData" class="APS002Action" method="lnkGoEditUnusualData">
+			<result>/WEB-INF/pages/APS/APS002/APS002U1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002U0.jsp</result>
+			<result name="redirect" type="redirect">${url}</result>
+		</action>
+		
+		<action name="btnEditUnusualData" class="APS002Action" method="btnEditUnusualData">
+			<result>/WEB-INF/pages/APS/APS002/APS002U1.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS002/APS002U1.jsp</result>
+			<result name="redirect" type="redirect">${url}</result>
+		</action>
+		<!-- mantis：FIR0181， 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) end-->
+	</package>
+</struts>

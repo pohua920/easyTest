@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 -->
+<struts>
+	<package name="APS027Action" extends="BaseAction" namespace="/aps/027">
+		<!-- default -->
+		<action name="default" class="APS027Action">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery" class="APS027Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="txtChangePageIndex" class="APS027Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="ddlPageSizeChanged" class="APS027Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="lnkSortQuery" class="APS027Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="lnkGoUpdate" class="APS027Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS027/APS027U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<action name="btnUpdate" class="APS027Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<!-- mantis：SALES0014，處理人員：CC009，需求單編號：SALES0014 銷管系統-APS-所屬服務人員維護新增批次上下傳功能 START -->
+		<action name="lnkGobatchUploadAndDownload" class="APS027Action" method="lnkGobatchUploadAndDownload">
+			<result>/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS027E0.jsp</result>
+		</action>
+		
+		<!-- 下載檔案 -->
+		<action name="btnDownloadFile" class="APS027Action" method="btnDownloadFile">
+			<result>/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- 上傳檔案 -->
+		<action name="btnBatchUpload" class="APS027Action" method="btnBatchUpload">
+			<result>/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+		</action>
+		
+		<!-- 下載參考EXCEL -->
+		<action name="btnDowloadSample" class="APS027Action" method="btnDowloadSample">
+			<result>/WEB-INF/pages/APS/APS027/APS027A0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS027/APS015A0.jsp</result>
+				<result name="success" type="stream">
+				<param name="contentType">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<!-- mantis：SALES0014，處理人員：CC009，需求單編號：SALES0014 銷管系統-APS-所屬服務人員維護新增批次上下傳功能 END -->
+	</package>
+</struts>

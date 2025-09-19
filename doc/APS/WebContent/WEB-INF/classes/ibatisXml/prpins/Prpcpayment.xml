@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 -->
+<sqlMap namespace="Prpcpayment" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.Prpcpayment" >
+    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+    <result column="RISKCODE" property="riskcode" jdbcType="VARCHAR" />
+    <result column="FLAG" property="flag" jdbcType="VARCHAR" />
+    <result column="PAYWAY" property="payway" jdbcType="VARCHAR" />
+    <result column="CREDITNO" property="creditno" jdbcType="VARCHAR" />
+    <result column="CREDITDATE" property="creditdate" jdbcType="VARCHAR" />
+    <result column="PAYER_NAME" property="payerName" jdbcType="VARCHAR" />
+    <result column="PAYER_ID" property="payerId" jdbcType="VARCHAR" />
+    <result column="PAYER_TYPE" property="payerType" jdbcType="VARCHAR" />
+    <result column="PAYER_RELATION" property="payerRelation" jdbcType="VARCHAR" />
+    <result column="RELATION_DOC" property="relationDoc" jdbcType="VARCHAR" />
+    <result column="RN_PAYWAY" property="rnPayway" jdbcType="VARCHAR" />
+    <result column="RN_CREDITNO" property="rnCreditno" jdbcType="VARCHAR" />
+    <result column="RN_CREDITDATE" property="rnCreditdate" jdbcType="VARCHAR" />
+    <result column="RN_PAYER_NAME" property="rnPayerName" jdbcType="VARCHAR" />
+    <result column="RN_PAYER_ID" property="rnPayerId" jdbcType="VARCHAR" />
+    <result column="RN_PAYER_TYPE" property="rnPayerType" jdbcType="VARCHAR" />
+    <result column="RN_PAYER_RELATION" property="rnPayerRelation" jdbcType="VARCHAR" />
+    <result column="RN_RELATION_DOC" property="rnRelationDoc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+  	select * from Prpcpayment
+    <dynamic prepend="WHERE">
+    	<isNotEmpty prepend="AND" property="policyno">
+    		POLICYNO = #policyno#
+    	</isNotEmpty>
+    </dynamic>
+  </select>
+  
+</sqlMap>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="As400FilCust">
+	<resultMap id="BaseResultMap" class="com.tlg.db2.entity.As400FilToRptCoredata" >
+ 	<!--
+      mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B
+     -->
+	    <result column="POLDATE" property="polDate" jdbcType="VARCHAR" />	
+		<result column="POLICYNO" property="policyNo" jdbcType="VARCHAR" />	
+		<result column="ENDORSENO" property="endorseNo" jdbcType="VARCHAR" />	
+		<result column="INTYPE" property="inType" jdbcType="VARCHAR" />	
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />	
+		<result column="INSUID" property="insUid" jdbcType="VARCHAR" />	
+		<result column="INSUNAME" property="insuName" jdbcType="VARCHAR" />	
+		<result column="EFFDATE" property="effDate" jdbcType="VARCHAR" />	
+		<result column="STARTPERIODDATE" property="startPeriodDate" jdbcType="VARCHAR" />	
+		<result column="ENDPERIODDATE" property="endPeriodDate" jdbcType="VARCHAR" />	
+		<result column="TOTALPREM" property="totalPrem" jdbcType="NUMERIC" />
+		<result column="CHANNELID" property="channelId" jdbcType="VARCHAR" />
+		<result column="CHANNELNAME" property="channelName" jdbcType="VARCHAR" />
+		<result column="CHNLAGENTBUSSNO" property="chnlAgentBussNo" jdbcType="VARCHAR" />	
+		<result column="CHNLAGENTNAME" property="chnlAgentName" jdbcType="VARCHAR" />
+		<result column="POLAGENTID" property="polAgentId" jdbcType="VARCHAR" />
+		<result column="POLAGENTNAME" property="polAgentName" jdbcType="VARCHAR" />   
+  	</resultMap>
+  	
+	<select id="selectAs400FilByCustQueryStr" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		 select * from (
+		 	 $queryStr$
+		 )
+	</select>
+
+</sqlMap>

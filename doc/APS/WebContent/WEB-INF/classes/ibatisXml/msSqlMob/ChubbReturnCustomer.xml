@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+<sqlMap namespace="ChubbReturnCustomer" >
+  <resultMap id="BaseResultMap" class="com.tlg.msSqlMob.entity.ChubbReturnCustomer" >
+    <result column="oid" property="oid" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="contract_id" property="contractId" jdbcType="VARCHAR" />
+    <result column="application_id" property="applicationId" jdbcType="VARCHAR" />
+    <result column="policy_no" property="policyNo" jdbcType="VARCHAR" />
+    <result column="endorse_no" property="endorseNo" jdbcType="VARCHAR" />
+    <result column="endorse_type" property="endorseType" jdbcType="VARCHAR" />
+    <result column="endorse_content" property="endorseContent" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
+    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+    <result column="premium" property="premium" jdbcType="VARCHAR" />
+    <result column="pay_period" property="payPeriod" jdbcType="VARCHAR" />
+    <result column="pay_period_start_date" property="payPeriodStartDate" jdbcType="VARCHAR" />
+    <result column="pay_period_end_date" property="payPeriodEndDate" jdbcType="VARCHAR" />
+    <result column="proposal_file_name" property="proposalFileName" jdbcType="VARCHAR" />
+    <result column="return_status" property="returnStatus" jdbcType="VARCHAR" />
+    <result column="return_msg" property="returnMsg" jdbcType="VARCHAR" />
+    <result column="data_status" property="dataStatus" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="modified_by" property="modifiedBy" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+    <result column="data_src" jdbcType="VARCHAR" property="dataSrc" />
+    <result column="tx_id" jdbcType="VARCHAR" property="txId" />
+    <result column="ctbc_rcv_no" jdbcType="VARCHAR" property="ctbcRcvNo" />
+    <result column="billing_frequency" jdbcType="VARCHAR" property="billingFrequency" />
+    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+  </resultMap>
+  
+  <select id="select" parameterClass="java.util.Map" resultMap="BaseResultMap">
+  	<include refid="Utils.msSql1" />
+    select * from CHUBB_RETURN_CUSTOMER
+    <dynamic prepend="WHERE">
+	  <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  <isNotEmpty prepend="AND" property="dataSrc">
+	  	data_src = #dataSrc:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="txId">
+		tx_id = #txId:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="ctbcRcvNo">
+		ctbc_rcv_no = #ctbcRcvNo:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="billingFrequency">
+		billing_frequency = #billingFrequency:VARCHAR#
+	  </isNotEmpty>
+	  <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->    
+      <isNotEmpty prepend="AND" property="oid">
+        oid = #oid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="transactionId">
+        transaction_id = #transactionId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="contractId">
+        contract_id = #contractId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="applicationId">
+        application_id = #applicationId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="policyNo">
+        policy_no = #policyNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseNo">
+        endorse_no = #endorseNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseType">
+        endorse_type = #endorseType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseContent">
+        endorse_content = #endorseContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="startDate">
+        start_date = #startDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endDate">
+        end_date = #endDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projectCode">
+        project_code = #projectCode:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="premium">
+        premium = #premium:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriod">
+        pay_period = #payPeriod:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodStartDate">
+        pay_period_start_date = #payPeriodStartDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodEndDate">
+        pay_period_end_date = #payPeriodEndDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proposalFileName">
+        proposal_file_name = #proposalFileName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="returnStatus">
+        return_status = #returnStatus:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="dataStatus">
+        data_status = #dataStatus:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+    <include refid="Utils.msSql2" />
+  </select>
+  
+  <select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+    select * from CHUBB_RETURN_CUSTOMER
+    <dynamic prepend="WHERE">
+      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  <isNotEmpty prepend="AND" property="dataSrc">
+	  	data_src = #dataSrc:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="txId">
+		tx_id = #txId:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="ctbcRcvNo">
+		ctbc_rcv_no = #ctbcRcvNo:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="billingFrequency">
+		billing_frequency = #billingFrequency:VARCHAR#
+	  </isNotEmpty>
+	  <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->  
+      <isNotEmpty prepend="AND" property="oid">
+        oid = #oid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="transactionId">
+        transaction_id = #transactionId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="contractId">
+        contract_id = #contractId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="applicationId">
+        application_id = #applicationId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="policyNo">
+        policy_no = #policyNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseNo">
+        endorse_no = #endorseNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseType">
+        endorse_type = #endorseType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseContent">
+        endorse_content = #endorseContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="startDate">
+        start_date = #startDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endDate">
+        end_date = #endDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projectCode">
+        project_code = #projectCode:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="premium">
+        premium = #premium:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriod">
+        pay_period = #payPeriod:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodStartDate">
+        pay_period_start_date = #payPeriodStartDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodEndDate">
+        pay_period_end_date = #payPeriodEndDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proposalFileName">
+        proposal_file_name = #proposalFileName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="returnStatus">
+        return_status = #returnStatus:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="dataStatus">
+        data_status = #dataStatus:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </select>
+  
+  <select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+    select COUNT(*) from CHUBB_RETURN_CUSTOMER
+    <dynamic prepend="WHERE">
+      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  <isNotEmpty prepend="AND" property="dataSrc">
+	  	data_src = #dataSrc:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="txId">
+		tx_id = #txId:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="ctbcRcvNo">
+		ctbc_rcv_no = #ctbcRcvNo:VARCHAR#
+	  </isNotEmpty>
+	  <isNotEmpty prepend="AND" property="billingFrequency">
+		billing_frequency = #billingFrequency:VARCHAR#
+	  </isNotEmpty>
+	  <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+      <isNotEmpty prepend="AND" property="oid">
+        oid = #oid:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="transactionId">
+        transaction_id = #transactionId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="contractId">
+        contract_id = #contractId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="applicationId">
+        application_id = #applicationId:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="policyNo">
+        policy_no = #policyNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseNo">
+        endorse_no = #endorseNo:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseType">
+        endorse_type = #endorseType:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endorseContent">
+        endorse_content = #endorseContent:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="startDate">
+        start_date = #startDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="endDate">
+        end_date = #endDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projectCode">
+        project_code = #projectCode:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="premium">
+        premium = #premium:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriod">
+        pay_period = #payPeriod:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodStartDate">
+        pay_period_start_date = #payPeriodStartDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="payPeriodEndDate">
+        pay_period_end_date = #payPeriodEndDate:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proposalFileName">
+        proposal_file_name = #proposalFileName:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="returnStatus">
+        return_status = #returnStatus:VARCHAR#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="dataStatus">
+        data_status = #dataStatus:VARCHAR#
+      </isNotEmpty>
+    </dynamic>
+  </select>
+  
+  <select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map" >
+	SELECT * FROM CHUBB_RETURN_CUSTOMER
+	where oid = #oid:VARCHAR#
+  </select>
+  
+  <select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.msSqlMob.entity.ChubbReturnCustomer" >
+	SELECT COUNT(*) FROM CHUBB_RETURN_CUSTOMER
+	where oid = #oid:VARCHAR#
+  </select>
+  
+  <insert id="insert" parameterClass="com.tlg.msSqlMob.entity.ChubbReturnCustomer" >
+    insert into CHUBB_RETURN_CUSTOMER (oid, transaction_id, contract_id, application_id, policy_no,
+      endorse_no, endorse_type, endorse_content, start_date, end_date, project_code, premium,
+      pay_period, pay_period_start_date, pay_period_end_date, proposal_file_name, return_status,
+      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+      return_msg, data_status, created_by, created_time, modified_by, modified_time,
+      data_src,tx_id,ctbc_rcv_no,billing_frequency)
+    values (#oid:VARCHAR#, #transactionId:VARCHAR#, #contractId:VARCHAR#, #applicationId:VARCHAR#,
+      #policyNo:VARCHAR#, #endorseNo:VARCHAR#, #endorseType:VARCHAR#, #endorseContent:VARCHAR#,
+      #startDate:VARCHAR#, #endDate:VARCHAR#, #projectCode:VARCHAR#, #premium:VARCHAR#,
+      #payPeriod:VARCHAR#, #payPeriodStartDate:VARCHAR#, #payPeriodEndDate:VARCHAR#,
+      #proposalFileName:VARCHAR#, #returnStatus:VARCHAR#, #returnMsg:VARCHAR#, #dataStatus:VARCHAR#,
+      #createdBy:VARCHAR#, #createdTime:TIMESTAMP#, #modifiedBy:VARCHAR#, #modifiedTime:TIMESTAMP#,
+      #dataSrc:VARCHAR#,#txId:VARCHAR#,#ctbcRcvNo:VARCHAR#,#billingFrequency:VARCHAR#)
+      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+  </insert>
+  
+  <delete id="delete" parameterClass="com.tlg.msSqlMob.entity.ChubbReturnCustomer">
+    delete from CHUBB_RETURN_CUSTOMER
+    where oid = #oid:VARCHAR#
+  </delete>
+  
+  <update id="update" parameterClass="com.tlg.msSqlMob.entity.ChubbReturnCustomer">
+    update CHUBB_RETURN_CUSTOMER
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="transactionId" >
+        transaction_id = #transactionId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="contractId" >
+        contract_id = #contractId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="applicationId" >
+        application_id = #applicationId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="policyNo" >
+        policy_no = #policyNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endorseNo" >
+        endorse_no = #endorseNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endorseType" >
+        endorse_type = #endorseType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endorseContent" >
+        endorse_content = #endorseContent:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="startDate" >
+        start_date = #startDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="endDate" >
+        end_date = #endDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="projectCode" >
+        project_code = #projectCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="premium" >
+        premium = #premium:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payPeriod" >
+        pay_period = #payPeriod:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payPeriodStartDate" >
+        pay_period_start_date = #payPeriodStartDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="payPeriodEndDate" >
+        pay_period_end_date = #payPeriodEndDate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="proposalFileName" >
+        proposal_file_name = #proposalFileName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="returnStatus" >
+        return_status = #returnStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="returnMsg" >
+        return_msg = #returnMsg:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dataStatus" >
+        data_status = #dataStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createdBy" >
+        created_by = #createdBy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createdTime" >
+        created_time = #createdTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="modifiedBy" >
+        modified_by = #modifiedBy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="modifiedTime" >
+        modified_time = #modifiedTime:TIMESTAMP#
+      </isNotNull>
+      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	  <isNotNull prepend="," property="dataSrc">
+		data_src = #dataSrc:VARCHAR#
+	  </isNotNull>
+	  <isNotNull prepend="," property="txId">
+		tx_id = #txId:VARCHAR#
+	  </isNotNull>
+	  <isNotNull prepend="," property="ctbcRcvNo">
+		 ctbc_rcv_no = #ctbcRcvNo:VARCHAR#
+	  </isNotNull>
+	  <isNotNull prepend="," property="billingFrequency">
+		 billing_frequency = #billingFrequency:VARCHAR#
+	  </isNotNull>
+	  <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+    </dynamic>
+    where oid = #oid:VARCHAR#
+  </update>
+ 
+</sqlMap>

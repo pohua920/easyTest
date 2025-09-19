@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+    
+<sqlMapConfig>
+
+	<!-- prpins -->
+	<sqlMap resource="ibatisXml/prpins/UtiRecorder.xml" />
+	<sqlMap resource="ibatisXml/prpins/PrpdPropStruct.xml" />
+	<sqlMap resource="ibatisXml/prpins/PrpdBaseRate.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremcalcTmp.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremcalcTmpdtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirDangerGrade.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremiumRate.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremiumRate1.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremiumRate2.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirPremiumRate3.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirDoubleQuakeQlist.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremcalcCklist.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbCklistGroup.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbCklistScore.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate1.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate2.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate4.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremcalcClause.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpdbankinfo.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCalcamtWallno.xml" />
+	<sqlMap resource="ibatisXml/prpins/Uwblacklist.xml" />
+	<sqlMap resource="ibatisXml/prpins/PrplClaim.xml" />
+	<!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核  -->
+	<sqlMap resource="ibatisXml/prpins/FirTmpDatacheck.xml" />
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 start -->
+	<sqlMap resource="ibatisXml/prpins/FirAddrImportlist.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAddrCkdata.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAddrImporterr.xml" />
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 end -->
+	<!-- mantis：FIR0238，處理人員：BJ085，需求單編號：FIR0238 稽核議題檢核-例外地址維護作業  -->
+	<sqlMap resource="ibatisXml/prpins/FirRuleAddrExcp.xml" />
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 start -->
+	<sqlMap resource="ibatisXml/prpins/AmlQueryObjMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/AmlQueryObjDetail.xml" />
+	<sqlMap resource="ibatisXml/prpins/MetaAmlResultMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/MetaAmlResultDetail.xml" />	
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 end -->
+	<!-- mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程 -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBatchMain.xml" />
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 start -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBatchDtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtBop01.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtBop02.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtBatchGenfile.xml" />
+	<!-- mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 end -->
+	<sqlMap resource="ibatisXml/prpins/Prpduser.xml" />
+	
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 start -->
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRnproposalMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRnproposalDtl.xml" />
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 end -->
+	
+	<!-- 公共意外責任險-->
+	<sqlMap resource="ibatisXml/prpins/PbActivityCklistScore.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbDangerGrade.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremcalcAdditionTerm.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremcalcTmp.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremcalcTmpdtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbQueryDetail.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate0.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate5.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate6.xml" />
+	
+	<!-- 
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate10.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate7.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate8.xml" />
+	<sqlMap resource="ibatisXml/prpins/PbPremiumRate9.xml" />
+	
+	-->
+	<sqlMap resource="ibatisXml/prpins/CarTradevanApplyLog.xml" />
+	
+	<!-- 中信新件流程-->
+	<sqlMap resource="ibatisXml/prpins/FirBatchInfo.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirBatchLog.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcBatchDtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcBatchMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcSig.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcSnn.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcStl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcTmpPbl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcTmpSnn.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcTmpStl.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prptmain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRst.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirSp.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirRptCtbcCtf.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcDeptinfo.xml" />
+	<!-- mantis：FIR0181， 中信新件流程-排程查詢作業(含產生查詢及回饋查詢) -->
+	<sqlMap resource="ibatisXml/prpins/FirApsCtbcHandler.xml" />
+	
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 start -->
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewNoticeBatch.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewOriginal180.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewDontnotice.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewFix180.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewMatchLog.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewNoshowword.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewSnn.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcaddress.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcinsured.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcinsurednature.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcitemkind.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcmain.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcmainprop.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirCtbcRewMatchname.xml" />
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220_中信代理投保通知處理 end -->
+	
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 start -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnBatchMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnTmpBop.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnBatchDtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtSalesMapping.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtTocoreMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtTocoreInsured.xml" />
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 end -->
+	
+	<!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業 -->
+	<sqlMap resource="ibatisXml/prpins/Prpyddagent.xml" />
+	
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 START-->
+	<sqlMap resource="ibatisXml/prpins/Prpdnewcode.xml" />
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 END-->
+	
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 START-->
+	<sqlMap resource="ibatisXml/prpins/FirBatchSendmailDetail.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirBatchSendmailOk.xml" />
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 END-->
+	
+	<!-- mantis：MAR0037，處理人員：BJ085，需求單編號：MAR0037 高風險地區新增維護檔 -->
+	<sqlMap resource="ibatisXml/prpins/PrpdhighareaMc.xml" />
+	
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程 -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBotAp.xml" />
+	
+	<!-- mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程 -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBotFh.xml" />
+
+	<!-- mantis：FIR0369，處理人員：BJ085，需求單編號：FIR0369 增加電子保單不寄送單位業務來源設定 -->
+	<sqlMap resource="ibatisXml/prpins/FirBatchmailExcludedata.xml" />
+	
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 -->
+	<sqlMap resource="ibatisXml/prpins/PrpcinsuredContactChk0.xml" />
+
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 start-->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnAs400DataUplist.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnAs400Data.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnAs400DataErr.xml" />
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 end-->
+	
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 -->
+	<sqlMap resource="ibatisXml/prpins/FirBatchPins01.xml" />
+	
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 start -->
+	<sqlMap resource="ibatisXml/prpins/FirBatchPins01Detail.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirBatchPins01SpMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirBatchPins01SpDtl.xml" />
+	<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 end -->
+	
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 start -->
+	<sqlMap resource="ibatisXml/prpins/Renewalnotice.xml" />
+	<sqlMap resource="ibatisXml/prpins/TiiTvbcm.xml" />
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 end -->
+	
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 -->
+	<sqlMap resource="ibatisXml/prpins/TiiTvmcq.xml" />
+	
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnBatchFb.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnTmpFb.xml" />
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+	
+	<!-- 再保險分進業務輸入 start -->
+	<sqlMap resource="ibatisXml/prpins/ReinsInwardMainData.xml" />
+	<sqlMap resource="ibatisXml/prpins/ReinsInwardInsData.xml" />
+	<sqlMap resource="ibatisXml/prpins/ReinsInwardNo.xml" />
+	<!-- 再保險分進業務輸入 end -->
+	
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 start -->
+	<sqlMap resource="ibatisXml/prpins/OthBatchPassbook.xml" /> 
+	<sqlMap resource="ibatisXml/prpins/OthBatchPassbookList.xml" />
+	<sqlMap resource="ibatisXml/prpins/OthBatchPassbookKind.xml" />
+	<!-- mantis：OTH0127，處理人員：CC009，需求單編號：OTH0127 保發中心_保單存摺產生排程規格 end -->
+	
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 start -->
+	<sqlMap resource="ibatisXml/prpins/OthBatchPassbookNcData.xml" />
+	<sqlMap resource="ibatisXml/prpins/OthPassbookSp.xml" />
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 end -->
+	
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 START -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBop03.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtBop04.xml" />
+	<!-- mantis：FIR0494，處理人員：CC009，需求單編號：FIR0494_板信回饋檔產生排程規格_新版 END -->
+
+    <!-- mantis：FIR0680，處理人員：DP0714，住火_元大回饋檔產生排程規格 -->
+    <sqlMap resource="ibatisXml/prpins/FirAgtYcb02.xml" />
+
+	<!-- mantis：FIR0497，處理人員：BJ085，需求單編號：FIR0497 中信保代網投_新件回饋檔產生排程規格_新增保經代網投 -->
+	<sqlMap resource="ibatisXml/prpins/FirCtbcB2b2c.xml" />
+	
+	<!-- mantis：OTH0138，處理人員：CC009，需求單編號：OTH0138 保發中心_保單存摺回饋檔回存資料庫規格 -->
+	<sqlMap resource="ibatisXml/prpins/OthBatchPassbookReturnLog.xml" />
+	
+	<!-- mantis：CAR0507，處理人員：BJ085，需求單編號：CAR0507 承保系統新增電子保單產生追蹤機制(車險&旅平險) -->
+	<sqlMap resource="ibatisXml/prpins/FirBatchSendmail.xml" />
+	
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業   -->
+	<sqlMap resource="ibatisXml/prpins/Prpdcarmodelext.xml" />
+	
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 start -->
+	<sqlMap resource="ibatisXml/prpins/CarAddrImportlist.xml" />
+	<sqlMap resource="ibatisXml/prpins/Tii30nometp.xml" />
+	<sqlMap resource="ibatisXml/prpins/TiiTvmetp.xml" />
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 end --> 
+	
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 start -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtUb01.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirAgtUb02.xml" />
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 end -->
+	
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 start -->
+	<sqlMap resource="ibatisXml/prpins/FirRepeatpolicyBatchMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirRepeatpolicyBatchDtl.xml" />
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 end -->
+	
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 start-->
+	<sqlMap resource="ibatisXml/prpins/FirRenewListDtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/FirRenewList.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcpayment.xml" />
+	<!-- mantis：FIR0570，處理人員：BJ085，需求單編號：FIR0570 住火_APS每月應續件產生排程 end-->
+	
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 start -->
+	<sqlMap resource="ibatisXml/prpins/Fetclaimmain.xml" />
+	<sqlMap resource="ibatisXml/prpins/Fetclaimpay.xml" />
+	<sqlMap resource="ibatisXml/prpins/Fetclaimkind.xml" />
+	<sqlMap resource="ibatisXml/prpins/Fetclaimcomm.xml" />
+	<sqlMap resource="ibatisXml/prpins/Tmpfetclaimmain.xml" />
+	<sqlMap resource="ibatisXml/prpins/Tmpfetclaimpay.xml" />
+	<sqlMap resource="ibatisXml/prpins/Tmpfetclaimkind.xml" />
+	<sqlMap resource="ibatisXml/prpins/Tmpfetclaimcomm.xml" />
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 end -->
+	
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 start -->
+	<sqlMap resource="ibatisXml/prpins/Intfprpjpayrefrec.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcplan.xml" />	
+	<!--  mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業 end -->
+	
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 start-->
+	<sqlMap resource="ibatisXml/prpins/FirBatchTiiList.xml" />	
+	<sqlMap resource="ibatisXml/prpins/FirBatchTii.xml" />	
+	<sqlMap resource="ibatisXml/prpins/FirBatchTiiAddr.xml" />	
+	<!-- mantis：FIR0579，處理人員：BJ085，需求單編號：FIR0579 保發中心-住火保批資料產生排程規格 end-->
+	
+	<!-- mantis：FIR0580，處理人員：BJ085，需求單編號：FIR0580 保發中心-住火保批資料回饋檔回存資料庫 -->
+	<sqlMap resource="ibatisXml/prpins/FirBatchTiiReturnLog.xml" />
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業-新增印刷廠產檔作業規格 -->
+	<sqlMap resource="ibatisXml/prpins/FirRenewPhone.xml" />
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+	<sqlMap resource="ibatisXml/prpins/MiClaimSp.xml" />
+	
+	<sqlMap resource="ibatisXml/prpins/Prpdrationclausekind.xml" /> 
+	<sqlMap resource="ibatisXml/prpins/Prpdclausereport.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpccommission.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpcopycommission.xml" />
+	
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 -->
+	<sqlMap resource="ibatisXml/prpins/CarReinsurancePlan.xml" />
+	
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215  TA雄獅回饋檔 start-->
+	<sqlMap resource="ibatisXml/prpins/HasBatchInfo.xml" />	
+	<sqlMap resource="ibatisXml/prpins/HasBatchLog.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtBatchMain.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtBatchDtl.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtLionAC.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtLionCH.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtLionCL.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtLionCM.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasAgtLionOP.xml" />
+	<sqlMap resource="ibatisXml/prpins/HasSp.xml" />	
+	<!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215  TA雄獅回饋檔 end-->
+
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 start -->
+    <sqlMap resource="ibatisXml/prpins/HasAgtLawPol.xml" />
+    <sqlMap resource="ibatisXml/prpins/HasAgtLawPolDetail.xml" />
+    <!-- mantis：OTH0161，處理人員：DP0714，錠嵂保經全險種回饋檔 end -->
+
+	<!-- mantis：OTH0146，處理人員：BI086，需求單編號：OTH0146  理賠再保險分進業務輸入 -->
+	<sqlMap resource="ibatisXml/prpins/ReinsInwardClaimData.xml" />
+	<sqlMap resource="ibatisXml/prpins/ReinsInwardClaimInsData.xml" />
+	<sqlMap resource="ibatisXml/prpins/Prpdcode.xml" />
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業-->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnBatchBot.xml" />
+	
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 start-->
+	<sqlMap resource="ibatisXml/prpins/PrpLuser.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryApplicant.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryApportion.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryCase.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryCharges.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryJob.xml" />
+	<sqlMap resource="ibatisXml/prpins/ClaimCompulsoryStatePrices.xml" />
+	<!-- mantis：CLM0168，處理人員：BI086，需求單編號：CLM0168  區塊鏈新增及更新攤賠案件排程 end-->
+	
+    <!-- mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  -->
+	<sqlMap resource="ibatisXml/prpins/FirAgtBotFd.xml" />
+	
+	<!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業-->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnBatchYcb.xml" />
+	
+	<!-- mantis：FIR0676，處理人員：DP0706，需求單編號：FIR0676_住火_元大續保作業_N+1比對擔保品檔案-->
+	<sqlMap resource="ibatisXml/prpins/FirAgtrnYcbUpload.xml" />
+	
+	<!-- mantis：HAS0284，處理人員：DP0706，需求單編號：HAS0284_遠傳優化需求-比對同要保人但生日或姓名不同-->
+	<sqlMap resource="ibatisXml/prpins/HasBatchMatchFet.xml" />
+	
+</sqlMapConfig>

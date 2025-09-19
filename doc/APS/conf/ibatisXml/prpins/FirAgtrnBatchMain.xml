@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程 start -->
+<sqlMap namespace="FirAgtrnBatchMain" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirAgtrnBatchMain" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="BUSINESSNATURE" property="businessnature" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="VARCHAR" />
+    <result column="TRANS_STATUS" property="transStatus" jdbcType="VARCHAR" />
+    <result column="DELETE_FLAG" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+    <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 -->
+    <result column="RN_YYYYMM" property="rnYyyymm" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 start-->
+  <resultMap id="FbrnDlResultMap" class="com.tlg.aps.vo.Aps034DownloadlVo">
+  	<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="DIFF_USER" property="diffUser" jdbcType="VARCHAR" />
+    <result column="DIFF_TIME" property="diffTime" jdbcType="TIMESTAMP" />
+    <result column="DIFF_MEMO" property="diffMemo" jdbcType="VARCHAR" />
+    <result column="DIFF_BNO" property="diffBno" jdbcType="VARCHAR" />
+    <result column="SF_USER" property="sfUser" jdbcType="VARCHAR" />
+    <result column="SF_TIME" property="sfTime" jdbcType="TIMESTAMP" />
+    <result column="SF_MEMO" property="sfMemo" jdbcType="VARCHAR" />
+    <result column="SF_BNO" property="sfBno" jdbcType="VARCHAR" />
+    <result column="BP_USER" property="bpUser" jdbcType="VARCHAR" />
+    <result column="BP_TIME" property="bpTime" jdbcType="TIMESTAMP" />
+    <result column="BP_MEMO" property="bpMemo" jdbcType="VARCHAR" />
+    <result column="BP_BNO" property="bpBno" jdbcType="VARCHAR" />
+    <result column="PAYNO_USER" property="paynoUser" jdbcType="VARCHAR" />
+    <result column="PAYNO_TIME" property="paynoTime" jdbcType="TIMESTAMP" />
+    <result column="PAYNO_MEMO" property="paynoMemo" jdbcType="VARCHAR" />
+    <result column="PAYNO_BNO" property="paynoBno" jdbcType="VARCHAR" />
+    <result column="RNLIST_USER" property="rnlistUser" jdbcType="VARCHAR" />
+    <result column="RNLIST_TIME" property="rnlistTime" jdbcType="TIMESTAMP" />
+    <result column="RNLIST_MEMO" property="rnlistMemo" jdbcType="VARCHAR" />
+    <result column="RNLIST_BNO" property="rnlistBno" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+    <result column="FIX_NREC" property="fixNrec" jdbcType="VARCHAR" />
+    <result column="SF_NREC" property="sfNrec" jdbcType="VARCHAR" />
+    <result column="FIX_USER" property="fixUser" jdbcType="VARCHAR" />
+    <result column="FIX_DATE" property="fixDate" jdbcType="TIMESTAMP" />
+    <result column="BP_UPLOAD_USER" property="bpUploadUser" jdbcType="VARCHAR" />
+    <result column="BP_UPLOAD_TIME" property="bpUploadTime" jdbcType="TIMESTAMP" />
+    <result column="BP_UPLOAD_MEMO" property="bpUploadMemo" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+			<isNotEmpty prepend="AND" property="rnYyyymm">
+				RN_YYYYMM = #rnYyyymm#
+			</isNotEmpty>
+			<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+	
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 stsrt-->
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 end-->
+		  	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+		  	<isNotEmpty prepend="AND" property="rnYyyymm">
+				RN_YYYYMM = #rnYyyymm#
+			</isNotEmpty>
+			<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+		</dynamic>
+	</select>
+	
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchMain" >
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		where BATCH_NO = #batchNo:VARCHAR#
+	</select>
+	<!-- mantis：FIR0620，處理人員：CD094，需求單編號：FIR0620 住火-台銀續保作業   -->
+	<select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map" >
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		where BATCH_NO = #batchNo:VARCHAR#
+	</select>
+	
+	<delete id="delete" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchMain" >
+		delete from <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+		where BATCH_NO = #batchNo:VARCHAR#
+	</delete>
+	
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchMain" >
+		insert into <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN 
+			(BATCH_NO, FILENAME, BUSINESSNATURE, DATAQTY_T, DATAQTY_S,
+			<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+			DATAQTY_F, FILE_STATUS, TRANS_STATUS, DELETE_FLAG, REMARK, ICREATE, DCREATE, IUPDATE, DUPDATE,
+			RN_YYYYMM)
+			<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+		values (#batchNo:VARCHAR#, #filename:VARCHAR#, #businessnature:VARCHAR#, #dataqtyT:DECIMAL#,
+			#dataqtyS:DECIMAL#, #dataqtyF:DECIMAL#, #fileStatus:VARCHAR#, #transStatus:VARCHAR#,
+			#deleteFlag:VARCHAR#, #remark:VARCHAR#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#,
+			<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業-->
+			#iupdate:VARCHAR#, #dupdate:TIMESTAMP#, #rnYyyymm:VARCHAR#)
+	</insert>
+  
+  	<update id="update" parameterClass="com.tlg.prpins.entity.FirAgtrnBatchMain" >
+    	update <include refid="Utils.prpinsSchema"/>FIR_AGTRN_BATCH_MAIN
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="filename" >
+        FILENAME = #filename:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="businessnature" >
+        BUSINESSNATURE = #businessnature:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dataqtyT" >
+        DATAQTY_T = #dataqtyT:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="dataqtyS" >
+        DATAQTY_S = #dataqtyS:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="dataqtyF" >
+        DATAQTY_F = #dataqtyF:DECIMAL#
+      </isNotNull>
+      <isNotNull prepend="," property="fileStatus" >
+        FILE_STATUS = #fileStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="transStatus" >
+        TRANS_STATUS = #transStatus:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="deleteFlag" >
+        DELETE_FLAG = #deleteFlag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate" >
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate" >
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="iupdate" >
+        IUPDATE = #iupdate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dupdate" >
+        DUPDATE = #dupdate:TIMESTAMP#
+      </isNotNull>
+      <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+      <isNotNull prepend="," property="rnYyyymm">
+		RN_YYYYMM = #rnYyyymm:VARCHAR#
+	  </isNotNull>
+	  <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+    </dynamic>
+    where BATCH_NO = #batchNo:VARCHAR#
+  </update>
+  
+  <!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+  <select id="selectFbrnDownloadData" resultMap="FbrnDlResultMap" parameterClass="java.util.Map">
+	SELECT MA.BATCH_NO, MA.DATAQTY_T, MA.DATAQTY_S, MA.DATAQTY_F, FB.*, 
+	CASE WHEN FIX.FIX_NREC IS NULL THEN 0 
+	ELSE FIX.FIX_NREC 
+	END AS FIX_NREC, 
+	CASE WHEN SF.SF_NREC IS NULL THEN 0 
+	ELSE SF.SF_NREC 
+	END AS SF_NREC,
+	DTL.FIX_DATE, DTL.FIX_USER
+	FROM FIR_AGTRN_BATCH_MAIN MA
+	LEFT JOIN FIR_AGTRN_BATCH_FB FB ON MA.BATCH_NO = FB.BATCH_NO
+	LEFT JOIN (
+	    SELECT BATCH_NO, COUNT(*) AS FIX_NREC
+	    FROM FIR_AGTRN_BATCH_DTL
+	    WHERE BATCH_NO = #batchNo# AND FIX_USER IS NOT NULL 
+	    GROUP BY BATCH_NO
+	) FIX ON MA.BATCH_NO = FIX.BATCH_NO
+	LEFT JOIN (
+	    SELECT BATCH_NO, COUNT(*) AS SF_NREC
+	    FROM FIR_AGTRN_BATCH_DTL
+	    WHERE BATCH_NO = #batchNo# AND SF_FLAG = 'Y'
+	    GROUP BY BATCH_NO
+	) SF ON MA.BATCH_NO = SF.BATCH_NO
+	LEFT JOIN (
+	    SELECT MIN(BATCH_NO) AS BATCH_NO, MIN(FIX_DATE) AS FIX_DATE, MIN(FIX_USER) AS FIX_USER
+	    FROM FIR_AGTRN_BATCH_DTL
+	    WHERE BATCH_NO = #batchNo#
+	) DTL ON MA.BATCH_NO = DTL.BATCH_NO
+	
+	WHERE MA.BATCH_NO = #batchNo#
+  </select>
+  
+  <!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+  <resultMap id="BoprnMainResultMap" class="com.tlg.aps.vo.FirPahsinRenewalVo" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="VARCHAR" />
+    <result column="TRANS_STATUS" property="transStatus" jdbcType="VARCHAR" />
+    <result column="DATAQTY_SF" property="dataqtySf" jdbcType="VARCHAR" />
+    <result column="DATAQTY_FIX" property="dataqtyFix" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectBatchMainForBoprn" resultMap="BoprnMainResultMap" parameterClass="java.util.Map">
+    SELECT * FROM (SELECT A.*, ROWNUM RN FROM ( (
+		SELECT MAIN.BATCH_NO, MAIN.DCREATE, MAIN.DATAQTY_T, MAIN.DATAQTY_S, MAIN.DATAQTY_F, 
+		MAIN.FILE_STATUS, MAIN.TRANS_STATUS, 
+		CASE WHEN DTL.DATAQTY_SF IS NULL THEN 0 ELSE DTL.DATAQTY_SF END AS DATAQTY_SF,
+        CASE WHEN FIX.DATAQTY_FIX IS NULL THEN 0 ELSE FIX.DATAQTY_FIX END AS DATAQTY_FIX
+		FROM FIR_AGTRN_BATCH_MAIN MAIN
+		LEFT JOIN (
+			SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+		) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+		LEFT JOIN (
+	    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+	    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+		) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				MAIN.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				MAIN.BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				MAIN.FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				MAIN.TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				MAIN.DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		</dynamic>
+		order by  $sortBy$ $sortType$
+		)A ))WHERE RN BETWEEN #startRow# AND #endRow#
+  </select>
+  
+  <select id="countBatchMainForBoprn" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*)
+	FROM FIR_AGTRN_BATCH_MAIN MAIN
+	LEFT JOIN (
+		SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+	) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+	LEFT JOIN (
+    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+	) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="batchNo">
+			MAIN.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessnature">
+			MAIN.BUSINESSNATURE = #businessnature#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="fileStatus">
+			MAIN.FILE_STATUS = #fileStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="transStatus">
+			MAIN.TRANS_STATUS = #transStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="deleteFlag">
+			MAIN.DELETE_FLAG = #deleteFlag#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	  	<isNotEmpty prepend="AND" property="endCreateDate">
+			MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	</dynamic>
+  </select>
+  <!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+  
+  <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 start-->
+  <resultMap id="BotrnDlResultMap" class="com.tlg.aps.vo.Aps055DownloadlVo">
+  	<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="F01_NREC" property="f01Nrec" jdbcType="VARCHAR" />
+    <result column="F02_NREC" property="f02Nrec" jdbcType="VARCHAR" />
+    <result column="RN_YYYYMM" property="rnYyyymm" jdbcType="VARCHAR" />
+    <result column="RE_USER" property="reUser" jdbcType="VARCHAR" />
+    <result column="RE_TIME" property="reTime" jdbcType="TIMESTAMP" />
+    <result column="RE_MEMO" property="reMemo" jdbcType="VARCHAR" />
+    <result column="RE_BNO" property="reBno" jdbcType="VARCHAR" />
+    <result column="RNPRO_USER" property="rnproUser" jdbcType="VARCHAR" />
+    <result column="RNPRO_TIME" property="rnproTime" jdbcType="TIMESTAMP" />
+    <result column="RNPRO_MEMO" property="rnproMemo" jdbcType="VARCHAR" />
+    <result column="RNPRO_BNO" property="rnproBno" jdbcType="VARCHAR" />
+    <result column="EN_USER" property="enUser" jdbcType="VARCHAR" />
+    <result column="EN_TIME" property="enTime" jdbcType="TIMESTAMP" />
+    <result column="EN_MEMO" property="enMemo" jdbcType="VARCHAR" />
+    <result column="EN_BNO" property="enBno" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectBotrnDownloadData" resultMap="BotrnDlResultMap" parameterClass="java.util.Map">
+	SELECT MA.BATCH_NO, MA.DATAQTY_T, MA.DATAQTY_S, MA.DATAQTY_F, MA.RN_YYYYMM,
+	CASE WHEN F.F01_NREC IS NULL THEN 0 
+	ELSE F.F01_NREC
+	END AS F01_NREC, 
+	CASE WHEN R.F02_NREC IS NULL THEN 0 
+	ELSE R.F02_NREC
+	END AS F02_NREC,
+	BOT.*
+	FROM FIR_AGTRN_BATCH_MAIN MA
+	LEFT JOIN FIR_AGTRN_BATCH_BOT BOT ON MA.BATCH_NO = BOT.BATCH_NO
+	LEFT JOIN (
+	    SELECT BATCH_NO, COUNT(*) AS F01_NREC
+	    FROM FIR_AGT_TOCORE_MAIN
+	    WHERE BATCH_NO = #batchNo# AND TEMP_1 = '10'
+	    GROUP BY BATCH_NO
+	) F ON MA.BATCH_NO = F.BATCH_NO
+	LEFT JOIN (
+	    SELECT BATCH_NO, COUNT(*) AS F02_NREC
+	    FROM FIR_AGT_TOCORE_MAIN
+	    WHERE BATCH_NO = #batchNo# AND TEMP_1 = '11'
+	    GROUP BY BATCH_NO
+	) R ON MA.BATCH_NO = R.BATCH_NO
+	WHERE MA.BATCH_NO = #batchNo#
+  </select>
+  
+  <resultMap id="BotrnMainResultMap" class="com.tlg.aps.vo.Aps055BotDetailVo" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="VARCHAR" />
+    <result column="TRANS_STATUS" property="transStatus" jdbcType="VARCHAR" />
+    <result column="DATAQTY_SF" property="dataqtySf" jdbcType="VARCHAR" />
+    <result column="DATAQTY_FIX" property="dataqtyFix" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="RN_YYYYMM" property="rnYyyymm" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectBatchMainForBotrn" resultMap="BotrnMainResultMap" parameterClass="java.util.Map">
+    SELECT * FROM (SELECT A.*, ROWNUM RN FROM ( (
+		SELECT MAIN.BATCH_NO, MAIN.DCREATE, MAIN.DATAQTY_T, MAIN.DATAQTY_S, MAIN.DATAQTY_F, 
+		MAIN.FILE_STATUS, MAIN.TRANS_STATUS, RN_YYYYMM,
+		CASE WHEN DTL.DATAQTY_SF IS NULL THEN 0 ELSE DTL.DATAQTY_SF END AS DATAQTY_SF,
+        CASE WHEN FIX.DATAQTY_FIX IS NULL THEN 0 ELSE FIX.DATAQTY_FIX END AS DATAQTY_FIX
+		FROM FIR_AGTRN_BATCH_MAIN MAIN
+		LEFT JOIN (
+			SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+		) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+		LEFT JOIN (
+	    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+	    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+		) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				MAIN.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				MAIN.BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				MAIN.FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				MAIN.TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				MAIN.DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		</dynamic>
+		order by  $sortBy$ $sortType$
+		)A ))WHERE RN BETWEEN #startRow# AND #endRow#
+  </select>
+  
+  <select id="countBatchMainForBotrn" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*)
+	FROM FIR_AGTRN_BATCH_MAIN MAIN
+	LEFT JOIN (
+		SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+	) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+	LEFT JOIN (
+    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+	) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="batchNo">
+			MAIN.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessnature">
+			MAIN.BUSINESSNATURE = #businessnature#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="fileStatus">
+			MAIN.FILE_STATUS = #fileStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="transStatus">
+			MAIN.TRANS_STATUS = #transStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="deleteFlag">
+			MAIN.DELETE_FLAG = #deleteFlag#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	  	<isNotEmpty prepend="AND" property="endCreateDate">
+			MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	</dynamic>
+  </select>
+  <!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 end-->
+  
+  <!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程 start -->
+  <resultMap id="BotrnMainIntoCoreResultMap" class="com.tlg.aps.vo.Aps055BotDetailVo" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="BATCH_SEQ" property="batchSeq" jdbcType="DECIMAL" />
+    <result column="ORDERSEQ" property="orderseq" jdbcType="VARCHAR" />
+    <result column="STARTDATE" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="AMOUNT_F" property="amountF" jdbcType="VARCHAR" />
+    <result column="AMOUNT_Q" property="amountQ" jdbcType="VARCHAR" />
+    <result column="EXTRACOMCODE" property="extracomcode" jdbcType="VARCHAR" />
+    <result column="TEMP_2" property="temp2" jdbcType="VARCHAR" />
+    <result column="ACCOUNTNO" property="accountno" jdbcType="VARCHAR" />
+    <result column="IS_AUTO_RENEW" property="isAutoRenew" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectBatchMainForBotrnIntoCore" resultMap="BotrnMainIntoCoreResultMap" parameterClass="java.util.Map">
+   select DTL.BATCH_NO, DTL.BATCH_SEQ,DTL.ORDERSEQ, TMA.STARTDATE, TMA.AMOUNT_F, TMA.AMOUNT_Q,TMA.EXTRACOMCODE, TMA.TEMP_2,TMA.ACCOUNTNO, TMA.IS_AUTO_RENEW
+	from FIR_AGTRN_BATCH_MAIN MA
+	left join FIR_AGTRN_BATCH_DTL DTL on MA.BATCH_NO=DTL.BATCH_NO
+	left join FIR_AGT_TOCORE_MAIN TMA on TMA.BATCH_NO=MA.BATCH_NO AND TMA.ORDERSEQ = DTL.ORDERSEQ
+	where MA.BUSINESSNATURE = 'I99004' AND MA.TRANS_STATUS = 'Y'
+	AND MA.DELETE_FLAG='N' AND DTL.FIX_USER IS NOT NULL AND DATA_STATUS ='B'
+  </select>
+  <!--mantis：FIR0623，處理人員：CD094，需求單編號：FIR0623_住火_臺銀續保作業_臺銀RD簽屬檔接收排程  end-->
+  
+  <!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業START -->
+  <!-- FIR0690、FIR0693	 CF048住火	住火_APS_元大續保作業Ph2_N+1_產生保單副本&N+1產生出單明細檔-->
+  <resultMap id="YcbrnDlResultMap" class="com.tlg.aps.vo.Aps060DownloadlVo">
+  	<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="RN_YYYYMM" property="rnYyyymm" jdbcType="VARCHAR" />
+     <result column="RN_USER" property="rnUser" jdbcType="VARCHAR" />
+    <result column="RN_TIME" property="rnTime" jdbcType="TIMESTAMP" />
+    <result column="RN_MEMO" property="rnMemo" jdbcType="VARCHAR" />
+    <result column="RN_BNO" property="rnBno" jdbcType="VARCHAR" />
+    <result column="EN_USER" property="enUser" jdbcType="VARCHAR" />
+    <result column="EN_TIME" property="enTime" jdbcType="TIMESTAMP" />
+    <result column="EN_MEMO" property="enMemo" jdbcType="VARCHAR" />
+    <result column="EN_BNO" property="enBno" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="IUPDATE" property="iupdate" jdbcType="VARCHAR" />
+    <result column="DUPDATE" property="dupdate" jdbcType="TIMESTAMP" />
+    <result column="PO_USER" property="poUser" jdbcType="VARCHAR" />
+    <result column="PO_TIME" property="poTime" jdbcType="TIMESTAMP" />
+    <result column="PO_MEMO" property="poMemo" jdbcType="VARCHAR" />
+    <result column="PO_BNO" property="poBno" jdbcType="VARCHAR" />
+    <result column="CO_USER" property="coUser" jdbcType="VARCHAR" />
+    <result column="CO_TIME" property="coTime" jdbcType="TIMESTAMP" />
+    <result column="CO_MEMO" property="coMemo" jdbcType="VARCHAR" />
+    <result column="CO_BNO" property="coBno" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectYcbrnDownloadData" resultMap="YcbrnDlResultMap" parameterClass="java.util.Map">
+	SELECT MA.BATCH_NO, MA.DATAQTY_T, MA.DATAQTY_S, MA.DATAQTY_F, MA.RN_YYYYMM,
+		YCB.* 
+		FROM FIR_AGTRN_BATCH_MAIN MA
+		LEFT JOIN FIR_AGTRN_BATCH_YCB YCB ON MA.BATCH_NO = YCB.BATCH_NO
+		WHERE MA.BATCH_NO = #batchNo#
+  </select>
+  <resultMap id="YcbrnMainResultMap" class="com.tlg.aps.vo.Aps060YcbDetailVo" >
+    <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+    <result column="DATAQTY_T" property="dataqtyT" jdbcType="DECIMAL" />
+    <result column="DATAQTY_S" property="dataqtyS" jdbcType="DECIMAL" />
+    <result column="DATAQTY_F" property="dataqtyF" jdbcType="DECIMAL" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="VARCHAR" />
+    <result column="TRANS_STATUS" property="transStatus" jdbcType="VARCHAR" />
+    <result column="DATAQTY_SF" property="dataqtySf" jdbcType="VARCHAR" />
+    <result column="DATAQTY_FIX" property="dataqtyFix" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+    <result column="RN_YYYYMM" property="rnYyyymm" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectBatchMainForYcbrn" resultMap="YcbrnMainResultMap" parameterClass="java.util.Map">
+    SELECT * FROM (SELECT A.*, ROWNUM RN FROM ( (
+		SELECT MAIN.BATCH_NO, MAIN.DCREATE, MAIN.DATAQTY_T, MAIN.DATAQTY_S, MAIN.DATAQTY_F, 
+		MAIN.FILE_STATUS, MAIN.TRANS_STATUS, RN_YYYYMM,
+		CASE WHEN DTL.DATAQTY_SF IS NULL THEN 0 ELSE DTL.DATAQTY_SF END AS DATAQTY_SF,
+        CASE WHEN FIX.DATAQTY_FIX IS NULL THEN 0 ELSE FIX.DATAQTY_FIX END AS DATAQTY_FIX
+		FROM FIR_AGTRN_BATCH_MAIN MAIN
+		LEFT JOIN (
+			SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+		) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+		LEFT JOIN (
+	    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+	    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+		) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchNo">
+				MAIN.BATCH_NO = #batchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="businessnature">
+				MAIN.BUSINESSNATURE = #businessnature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fileStatus">
+				MAIN.FILE_STATUS = #fileStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transStatus">
+				MAIN.TRANS_STATUS = #transStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="deleteFlag">
+				MAIN.DELETE_FLAG = #deleteFlag#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startCreateDate">
+				MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		  	<isNotEmpty prepend="AND" property="endCreateDate">
+				MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+		  	</isNotEmpty>
+		</dynamic>
+		order by  $sortBy$ $sortType$
+		)A ))WHERE RN BETWEEN #startRow# AND #endRow#
+  </select>
+  <select id="countBatchMainForYcbrn" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+	SELECT COUNT(*)
+	FROM FIR_AGTRN_BATCH_MAIN MAIN
+	LEFT JOIN (
+		SELECT BATCH_NO,COUNT(*) AS DATAQTY_SF FROM FIR_AGTRN_BATCH_DTL WHERE SF_FLAG='Y' GROUP BY BATCH_NO 
+	) DTL ON MAIN.BATCH_NO = DTL.BATCH_NO
+	LEFT JOIN (
+    	SELECT BATCH_NO, COUNT(*) AS DATAQTY_FIX FROM FIR_AGTRN_BATCH_DTL 
+    	WHERE FIX_USER IS NOT NULL AND SF_FLAG = 'N' GROUP BY BATCH_NO
+	) FIX ON MAIN.BATCH_NO = FIX.BATCH_NO
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="batchNo">
+			MAIN.BATCH_NO = #batchNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="businessnature">
+			MAIN.BUSINESSNATURE = #businessnature#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="fileStatus">
+			MAIN.FILE_STATUS = #fileStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="transStatus">
+			MAIN.TRANS_STATUS = #transStatus#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="deleteFlag">
+			MAIN.DELETE_FLAG = #deleteFlag#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startCreateDate">
+			MAIN.DCREATE <![CDATA[>=]]> to_date(#startCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	  	<isNotEmpty prepend="AND" property="endCreateDate">
+			MAIN.DCREATE <![CDATA[<=]]> to_date(#endCreateDate# , 'yyyy/mm/dd hh24:mi:ss')
+	  	</isNotEmpty>
+	</dynamic>
+  </select>
+  <!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業END -->
+</sqlMap>

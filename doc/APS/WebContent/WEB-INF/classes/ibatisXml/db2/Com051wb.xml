@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Com051wb">
+
+	<resultMap id="BaseResultMap" class="com.tlg.db2.entity.Com051wb" >
+	    <result column="WB01" jdbcType="VARCHAR" property="wb01" />
+	    <result column="WB02" jdbcType="VARCHAR" property="wb02" />
+	    <result column="WB03" jdbcType="VARCHAR" property="wb03" />
+	    <result column="WB04" jdbcType="VARCHAR" property="wb04" />
+	    <result column="WB05" jdbcType="VARCHAR" property="wb05" />
+	    <result column="WB06" jdbcType="VARCHAR" property="wb06" />
+	    <result column="WB07" jdbcType="VARCHAR" property="wb07" />
+	    <result column="WB08" jdbcType="VARCHAR" property="wb08" />
+	    <result column="WB09" jdbcType="VARCHAR" property="wb09" />
+	    <result column="WB10" jdbcType="VARCHAR" property="wb10" />
+	    <result column="WB11" jdbcType="VARCHAR" property="wb11" />
+	    <result column="WB12" jdbcType="VARCHAR" property="wb12" />
+	    <result column="WB13" jdbcType="VARCHAR" property="wb13" />
+	    <result column="WB14" jdbcType="VARCHAR" property="wb14" />
+	    <result column="WB15" jdbcType="VARCHAR" property="wb15" />
+	    <result column="WB16" jdbcType="VARCHAR" property="wb16" />
+	    <result column="WB17" jdbcType="VARCHAR" property="wb17" />
+	    <result column="WB18" jdbcType="VARCHAR" property="wb18" />
+	    <result column="WB19" jdbcType="VARCHAR" property="wb19" />
+	    <result column="WB20" jdbcType="VARCHAR" property="wb20" />
+	    <result column="WB21" jdbcType="VARCHAR" property="wb21" />
+	    <result column="WB22" jdbcType="VARCHAR" property="wb22" />
+	    <result column="WB23" jdbcType="VARCHAR" property="wb23" />
+	    <result column="WB24" jdbcType="VARCHAR" property="wb24" />
+	    <result column="WB25" jdbcType="VARCHAR" property="wb25" />
+	    <result column="WB26" jdbcType="VARCHAR" property="wb26" />
+	    <result column="WB27" jdbcType="VARCHAR" property="wb27" />
+	    <result column="WB28" jdbcType="VARCHAR" property="wb28" />
+	    <result column="WB29" jdbcType="VARCHAR" property="wb29" />
+	    <result column="WB30" jdbcType="VARCHAR" property="wb30" />
+	    <result column="WB31" jdbcType="VARCHAR" property="wb31" />
+	    <result column="WB32" jdbcType="VARCHAR" property="wb32" />
+	    <result column="WB33" jdbcType="VARCHAR" property="wb33" />
+	    <result column="WB34" jdbcType="VARCHAR" property="wb34" />
+	    <result column="WB35" jdbcType="VARCHAR" property="wb35" />
+	    <result column="WB36" jdbcType="VARCHAR" property="wb36" />
+	    <result column="WB37" jdbcType="VARCHAR" property="wb37" />
+	    <result column="WB38" jdbcType="VARCHAR" property="wb38" />
+	    <result column="WB39" jdbcType="VARCHAR" property="wb39" />
+	    <result column="WB40" jdbcType="VARCHAR" property="wb40" />
+	    <result column="WB41" jdbcType="DECIMAL" property="wb41" />
+	    <result column="WB42" jdbcType="VARCHAR" property="wb42" />
+	    <result column="WB43" jdbcType="VARCHAR" property="wb43" />
+	    <result column="WB44" jdbcType="VARCHAR" property="wb44" />
+	    <result column="WB45" jdbcType="VARCHAR" property="wb45" />
+	    <result column="WB46" jdbcType="VARCHAR" property="wb46" />
+	    <result column="WB47" jdbcType="VARCHAR" property="wb47" />
+	    <result column="WB48" jdbcType="VARCHAR" property="wb48" />
+	    <result column="WB49" jdbcType="VARCHAR" property="wb49" />
+	    <result column="WB50" jdbcType="VARCHAR" property="wb50" />
+	    <result column="WB60" jdbcType="VARCHAR" property="wb60" />
+	    <result column="WB61" jdbcType="DECIMAL" property="wb61" />
+	    <result column="WB62" jdbcType="DECIMAL" property="wb62" />
+	</resultMap>
+	
+	<resultMap id="queryResultMap1" class="com.tlg.db2.entity.Com051wb" >
+	    <result column="WB04" property="wb04" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT 
+			   STRIP(WB01) AS WB01, STRIP(WB02) AS WB02, STRIP(WB03) AS WB03,
+			   STRIP(WB04) AS WB04, STRIP(WB05) AS WB05, STRIP(WB06) AS WB06,
+			   STRIP(WB07) AS WB07, STRIP(WB08) AS WB08, STRIP(WB09) AS WB09,
+			   STRIP(WB10) AS WB10, STRIP(WB11) AS WB11, STRIP(WB12) AS WB12,
+			   STRIP(WB13) AS WB13, STRIP(WB14) AS WB14, STRIP(WB15) AS WB15,
+			   STRIP(WB16) AS WB16, STRIP(WB17) AS WB17, STRIP(WB18) AS WB18,
+			   STRIP(WB19) AS WB19, STRIP(WB20) AS WB20, STRIP(WB21) AS WB21,
+			   STRIP(WB22) AS WB22, STRIP(WB23) AS WB23, STRIP(WB24) AS WB24,
+			   STRIP(WB25) AS WB25, STRIP(WB26) AS WB26, STRIP(WB27) AS WB27,
+			   STRIP(WB28) AS WB28, STRIP(WB29) AS WB29, STRIP(WB30) AS WB30,
+			   STRIP(WB31) AS WB31, STRIP(WB32) AS WB32, STRIP(WB33) AS WB33,
+			   STRIP(WB34) AS WB34, STRIP(WB35) AS WB35, STRIP(WB36) AS WB36,
+			   STRIP(WB37) AS WB37, STRIP(WB38) AS WB38, STRIP(WB39) AS WB39,
+			   STRIP(WB40) AS WB40, STRIP(WB41) AS WB41, STRIP(WB42) AS WB42,
+			   STRIP(WB43) AS WB43, STRIP(WB44) AS WB44, STRIP(WB45) AS WB45,
+			   STRIP(WB46) AS WB46, STRIP(WB47) AS WB47, STRIP(WB48) AS WB48,
+			   STRIP(WB49) AS WB49, STRIP(WB50) AS WB50,
+			   STRIP(WB60) AS WB60, STRIP(WB61) AS WB61, STRIP(WB62) AS WB62
+			   
+			   FROM <include refid="Utils.db2CommData"/>COM051WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb60IsNull">
+				STRIP(wb60) = ''
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb60NotEqualX">
+				STRIP(WB60) != 'X'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb61GreatThanSomeday">
+				STRIP(WB61) > #wb61GreatThanSomeday#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT 
+			   STRIP(WB01) AS WB01, STRIP(WB02) AS WB02, STRIP(WB03) AS WB03,
+			   STRIP(WB04) AS WB04, STRIP(WB05) AS WB05, STRIP(WB06) AS WB06,
+			   STRIP(WB07) AS WB07, STRIP(WB08) AS WB08, STRIP(WB09) AS WB09,
+			   STRIP(WB10) AS WB10, STRIP(WB11) AS WB11, STRIP(WB12) AS WB12,
+			   STRIP(WB13) AS WB13, STRIP(WB14) AS WB14, STRIP(WB15) AS WB15,
+			   STRIP(WB16) AS WB16, STRIP(WB17) AS WB17, STRIP(WB18) AS WB18,
+			   STRIP(WB19) AS WB19, STRIP(WB20) AS WB20, STRIP(WB21) AS WB21,
+			   STRIP(WB22) AS WB22, STRIP(WB23) AS WB23, STRIP(WB24) AS WB24,
+			   STRIP(WB25) AS WB25, STRIP(WB26) AS WB26, STRIP(WB27) AS WB27,
+			   STRIP(WB28) AS WB28, STRIP(WB29) AS WB29, STRIP(WB30) AS WB30,
+			   STRIP(WB31) AS WB31, STRIP(WB32) AS WB32, STRIP(WB33) AS WB33,
+			   STRIP(WB34) AS WB34, STRIP(WB35) AS WB35, STRIP(WB36) AS WB36,
+			   STRIP(WB37) AS WB37, STRIP(WB38) AS WB38, STRIP(WB39) AS WB39,
+			   STRIP(WB40) AS WB40, STRIP(WB41) AS WB41, STRIP(WB42) AS WB42,
+			   STRIP(WB43) AS WB43, STRIP(WB44) AS WB44, STRIP(WB45) AS WB45,
+			   STRIP(WB46) AS WB46, STRIP(WB47) AS WB47, STRIP(WB48) AS WB48,
+			   STRIP(WB49) AS WB49, STRIP(WB50) AS WB50,
+			   STRIP(WB60) AS WB60, STRIP(WB61) AS WB61, STRIP(WB62) AS WB62
+			   
+		FROM <include refid="Utils.db2CommData"/>COM051WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb60IsNull">
+				STRIP(wb60) = ''
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb60NotEqualX">
+				STRIP(WB60) != 'X'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb61GreatThanSomeday">
+				STRIP(WB61) > #wb61GreatThanSomeday#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 未使用
+	<select id="selectForBlklt" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * <include refid="Utils.db2CommData"/>FROM COM051WB
+		WHERE CONVERT(DATE, GETDATE(), 111) <![CDATA[>=]]> CONVERT(DATE, DEFFDATE,111) AND (CONVERT(DATE, GETDATE(), 111) <![CDATA[<=]]> CONVERT(DATE, DEXPDATE,111) OR DEXPDATE IS NULL)
+		AND (NISSU = #nissu# OR IISSU = #iissu# OR ITAG = #itag# OR IENGINE = #iengine#)
+	</select>
+ 	-->
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.db2CommData"/>COM051WB
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="wb60IsNull">
+				STRIP(wb60) = ''
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb04">
+				STRIP(WB04) = #wb04#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb60NotEqualX">
+				STRIP(WB60) != 'X'
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wb61GreatThanSomeday">
+				STRIP(WB61) > #wb61GreatThanSomeday#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 
+		因為會有WB60被押Y的情況發生，因此在200210714開始
+		改成在20210713之後判斷WB60非X的情況
+	 -->
+	<select id="selectByDistinctIdno" resultMap="queryResultMap1" parameterClass="java.util.Map">
+		SELECT DISTINCT STRIP(WB04) AS WB04 FROM <include refid="Utils.db2CommData"/>COM051WB 
+		WHERE STRIP(WB04) != ''
+		AND STRIP(WB60) != 'X'
+		AND STRIP(WB61) > '20210713'
+		ORDER BY STRIP(WB04) ASC
+		FETCH FIRST 1000 ROW ONLY
+	</select>
+	
+	<insert id="insert" parameterClass="com.tlg.db2.entity.Com051wb" >
+		insert into <include refid="Utils.db2CommData"/>COM051WB (WB01, WB02, WB03, WB04, WB05, WB06, WB07, WB08, WB09, WB10, WB11, WB12,
+      		WB13, WB14, WB15, WB16, WB17, WB18, WB19, WB20, WB21, WB22, WB23, WB24, WB25, WB26, WB27,
+      		WB28, WB29, WB30, WB31, WB32, WB33, WB34, WB35, WB36, WB37, WB38, WB39, WB40, WB41, WB42,
+      		WB43, WB44, WB45, WB46, WB47, WB48, WB49, WB50, WB60, WB61, WB62)
+    	values (#wb01:VARCHAR#, #wb02:VARCHAR#, #wb03:VARCHAR#, #wb04:VARCHAR#, #wb05:VARCHAR#, #wb06:VARCHAR#,
+      		#wb07:VARCHAR#, #wb08:VARCHAR#, #wb09:VARCHAR#, #wb10:VARCHAR#, #wb11:VARCHAR#, #wb12:VARCHAR#, #wb13:VARCHAR#,
+      		#wb14:VARCHAR#, #wb15:VARCHAR#, #wb16:VARCHAR#, #wb17:VARCHAR#, #wb18:VARCHAR#, #wb19:VARCHAR#, #wb20:VARCHAR#,
+      		#wb21:VARCHAR#, #wb22:VARCHAR#, #wb23:VARCHAR#, #wb24:VARCHAR#, #wb25:VARCHAR#, #wb26:VARCHAR#, #wb27:VARCHAR#,
+      		#wb28:VARCHAR#, #wb29:VARCHAR#, #wb30:VARCHAR#, #wb31:VARCHAR#, #wb32:VARCHAR#, #wb33:VARCHAR#, #wb34:VARCHAR#,
+      		#wb35:VARCHAR#, #wb36:VARCHAR#, #wb37:VARCHAR#, #wb38:VARCHAR#, #wb39:VARCHAR#, #wb40:VARCHAR#, #wb41:DECIMAL#,
+      		#wb42:VARCHAR#, #wb43:VARCHAR#, #wb44:VARCHAR#, #wb45:VARCHAR#, #wb46:VARCHAR#, #wb47:VARCHAR#, #wb48:VARCHAR#,
+      		#wb49:VARCHAR#, #wb50:VARCHAR#, #wb60:VARCHAR#, #wb61:DECIMAL#, #wb62:DECIMAL#)
+	</insert>
+
+
+	<update id="update" parameterClass="com.tlg.db2.entity.Com051wb">
+		UPDATE <include refid="Utils.db2CommData" />COM051WB
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="wb01">
+				WB01 = #wb01:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb02">
+				WB02 = #wb02:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb03">
+				WB03 = #wb03:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb06">
+				WB06 = #wb06:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb07">
+				WB07 = #wb07:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb09">
+				WB09 = #wb09:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb10">
+				WB10 = #wb10:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb11">
+				WB11 = #wb11:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb15">
+				WB15 = #wb15:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb16">
+				WB16 = #wb16:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb17">
+				WB17 = #wb17:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb18">
+				WB18 = #wb18:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb19">
+				WB19 = #wb19:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb20">
+				WB20 = #wb20:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb21">
+				WB21 = #wb21:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb22">
+				WB22 = #wb22:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb23">
+				WB23 = #wb23:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb24">
+				WB24 = #wb24:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb25">
+				WB25 = #wb25:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb26">
+				WB26 = #wb26:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb27">
+				WB27 = #wb27:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb28">
+				WB28 = #wb28:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb29">
+				WB29 = #wb29:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb30">
+				WB30 = #wb30:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb31">
+				WB31 = #wb31:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb32">
+				WB32 = #wb32:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb33">
+				WB33 = #wb33:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb34">
+				WB34 = #wb34:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb35">
+				WB35 = #wb35:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb36">
+				WB36 = #wb36:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb37">
+				WB37 = #wb37:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb38">
+				WB38 = #wb38:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb39">
+				WB39 = #wb39:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb40">
+				WB40 = #wb40:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb41">
+				WB41 = #wb41:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="wb43">
+				WB43 = #wb43:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb44">
+				WB44 = #wb44:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb45">
+				WB45 = #wb45:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb46">
+				WB46 = #wb46:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb47">
+				WB47 = #wb47:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb48">
+				WB48 = #wb48:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb49">
+				WB49 = #wb49:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb50">
+				WB50 = #wb50:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb60">
+				WB60 = #wb60:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="wb61">
+				WB61 = #wb61:DECIMAL#
+			</isNotNull>
+			<isNotNull prepend="," property="wb62">
+				WB62 = #wb62:DECIMAL#
+			</isNotNull>
+		</dynamic>
+		WHERE STRIP(WB04) = #wb04:VARCHAR#
+		AND STRIP(WB05) = #wb05:VARCHAR#
+		AND STRIP(WB08) = #wb08:VARCHAR#
+		AND STRIP(WB12) = #wb12:VARCHAR#
+		AND STRIP(WB13) = #wb13:VARCHAR#
+		AND STRIP(WB14) = #wb14:VARCHAR#
+		AND STRIP(WB42) = #wb42:VARCHAR#
+	</update>
+	
+	<update id="updateForWb60" parameterClass="com.tlg.db2.entity.Com051wb">
+		UPDATE <include refid="Utils.db2CommData" />COM051WB
+		SET WB60 = 'X'
+		WHERE STRIP(WB04) = #wb04:VARCHAR#
+		AND STRIP(WB05) = #wb05:VARCHAR#
+		AND STRIP(WB08) = #wb08:VARCHAR#
+		AND STRIP(WB12) = #wb12:VARCHAR#
+		AND STRIP(WB13) = #wb13:VARCHAR#
+		AND STRIP(WB14) = #wb14:VARCHAR#
+		AND STRIP(WB42) = #wb42:VARCHAR#
+	</update>
+	
+	<update id="clearForWb60" parameterClass="java.util.Map">
+		UPDATE <include refid="Utils.db2CommData" />COM051WB
+		SET WB60 = ''
+		WHERE 1 = 1
+		AND STRIP(WB61) = #yyyyMMdd#
+		AND (STRIP(WB62) <![CDATA[>]]> #hhmm1# AND STRIP(WB62) <![CDATA[<=]]> #hhmm2#) 
+	</update>
+
+
+</sqlMap>

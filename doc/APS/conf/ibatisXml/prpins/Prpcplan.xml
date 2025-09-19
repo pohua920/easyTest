@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Prpcplan">
+	<resultMap class="com.tlg.prpins.entity.Prpcplan" id="BaseResultMap">
+		<result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+		<result column="SERIALNO" property="serialno" jdbcType="DECIMAL" />
+		<result column="ENDORSENO" property="endorseno" jdbcType="VARCHAR" />
+		<result column="PAYNO" property="payno" jdbcType="DECIMAL" />
+		<result column="PAYREASON" property="payreason" jdbcType="VARCHAR" />
+		<result column="PLANDATE" property="plandate" jdbcType="TIMESTAMP" />
+		<result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+		<result column="PLANFEE" property="planfee" jdbcType="DECIMAL" />
+		<result column="DELINQUENTFEE" property="delinquentfee" jdbcType="DECIMAL" />
+		<result column="FLAG" property="flag" jdbcType="VARCHAR" />
+		<result column="PLANSTARTDATE" property="planstartdate" jdbcType="TIMESTAMP" />
+		<result column="CURRENCY2" property="currency2" jdbcType="VARCHAR" />
+		<result column="EXCHANGERATECNY" property="exchangeratecny" jdbcType="DECIMAL" />
+		<result column="PLANFEE2" property="planfee2" jdbcType="DECIMAL" />
+	</resultMap>
+
+
+	<select id="selectByParams" parameterClass="java.util.Map" resultMap="BaseResultMap">
+		select * from PRPCPLAN
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="serialno">
+				SERIALNO = #serialno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="payno">
+				PAYNO = #payno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dateBetween">
+				TO_DATE(#dateBetween#,'yyyymmdd') BETWEEN PLANSTARTDATE AND PLANDATE
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from PRPCPLAN
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="serialno">
+				SERIALNO = #serialno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseno">
+				ENDORSENO = #endorseno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="payno">
+				PAYNO = #payno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dateBetween">
+				TO_DATE(#dateBetween#,'yyyymmdd') BETWEEN PLANSTARTDATE AND PLANDATE
+			</isNotEmpty>			
+		</dynamic>
+	</select>
+
+</sqlMap>

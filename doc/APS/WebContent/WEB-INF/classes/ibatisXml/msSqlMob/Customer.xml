@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Customer">
+
+	<resultMap id="BaseResultMap" class="com.tlg.msSqlMob.entity.Customer" >
+	    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+	    <result column="batch_date" property="batchDate" jdbcType="VARCHAR" />
+	    <result column="batch_status" property="batchStatus" jdbcType="VARCHAR" />
+	    <result column="ctbc_aml_status" property="ctbcAmlStatus" jdbcType="VARCHAR" />
+	    <result column="ctbc_blacklist_status" property="ctbcBlacklistStatus" jdbcType="VARCHAR" />
+	    <result column="ctbc_stockholder_status" property="ctbcStockholderStatus" jdbcType="VARCHAR" />
+	    <result column="seq" property="seq" jdbcType="VARCHAR" />
+	    <result column="rpt_date" property="rptDate" jdbcType="VARCHAR" />
+	    <result column="contract_id" property="contractId" jdbcType="VARCHAR" />
+	    <result column="subscriber_id" property="subscriberId" jdbcType="VARCHAR" />
+	    <result column="billing_cycle" property="billingCycle" jdbcType="VARCHAR" />
+	    <result column="store_id" property="storeId" jdbcType="VARCHAR" />
+	    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+	    <result column="employee_id" property="employeeId" jdbcType="VARCHAR" />
+	    <result column="feature_name" property="featureName" jdbcType="VARCHAR" />
+	    <result column="service_effective_date" property="serviceEffectiveDate" jdbcType="VARCHAR" />
+	    <result column="service_termination_date" property="serviceTerminationDate" jdbcType="VARCHAR" />
+	    <result column="service_termination_reason" property="serviceTerminationReason" jdbcType="VARCHAR" />
+	    <result column="transaction_type" property="transactionType" jdbcType="VARCHAR" />
+	    <result column="transaction_reason" property="transactionReason" jdbcType="VARCHAR" />
+	    <result column="cycle_code" property="cycleCode" jdbcType="VARCHAR" />
+	    <result column="channel_type" property="channelType" jdbcType="VARCHAR" />
+	    <result column="offer_instance_id" property="offerInstanceId" jdbcType="VARCHAR" />
+	    <result column="msisdn" property="msisdn" jdbcType="VARCHAR" />
+	    <result column="rpt_batch_no" property="rptBatchNo" jdbcType="VARCHAR" />
+	    <result column="form_type" property="formType" jdbcType="VARCHAR" />
+	    <result column="is_fet_supply" property="isFetSupply" jdbcType="VARCHAR" />
+	    <result column="in_prepaid_period" property="inPrepaidPeriod" jdbcType="VARCHAR" />
+	    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+	    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+	    <result column="modified_by" property="modifiedBy" jdbcType="VARCHAR" />
+	    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+	    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+    	<result column="data_src" jdbcType="VARCHAR" property="dataSrc" />
+    	<result column="tx_id" jdbcType="VARCHAR" property="txId" />
+    	<result column="ctbc_rcv_no" jdbcType="VARCHAR" property="ctbcRcvNo" />
+    	<result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+    	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	</resultMap>
+	
+	<resultMap id="Aps050ResultMap" class="com.tlg.aps.vo.Aps050ResultVo" >
+		<result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+	    <result column="batch_date" property="batchDate" jdbcType="VARCHAR" />
+	    <result column="contract_id" property="contractId" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+	    <result column="msisdn" property="msisdn" jdbcType="VARCHAR" />
+	    <result column="feature_name" property="featureName" jdbcType="VARCHAR" />
+	    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+	    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
+	    <result column="chubb_return_status" property="chubbReturnStatus" jdbcType="VARCHAR" />
+	    <result column="chubb_return_msg" property="chubbReturnMsg" jdbcType="VARCHAR" />
+	    <result column="data_status" property="dataStatus" jdbcType="VARCHAR" />
+	    <result column="policy_no" property="policyNo" jdbcType="VARCHAR" />
+	    <result column="endorse_no" property="endorseNo" jdbcType="VARCHAR" />
+	    <result column="proposal_file_check" property="proposalFileCheck" jdbcType="VARCHAR" />
+	    <result column="store_id" property="storeId" jdbcType="VARCHAR" />
+	    <result column="transaction_type" property="transactionType" jdbcType="VARCHAR" />
+	    <result column="form_type" property="formType" jdbcType="VARCHAR" /><!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 -->
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP" /><!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修正APS查詢畫面要保人ID抓取資料欄位值 -->
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+    	<result column="data_src" jdbcType="VARCHAR" property="dataSrc" />
+    	<result column="tx_id" jdbcType="VARCHAR" property="txId" />
+    	<result column="ctbc_rcv_no" jdbcType="VARCHAR" property="ctbcRcvNo" />
+    	<result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+    	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	</resultMap>
+	
+	<resultMap id="Aps050DetailResultMap" class="com.tlg.aps.vo.Aps050DetailResultVo" >
+		<result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+	    <result column="prodno" property="prodno" jdbcType="VARCHAR" />
+	    <result column="prodname" property="prodname" jdbcType="VARCHAR" />
+	    <result column="imei" property="imei" jdbcType="VARCHAR" />
+	    <result column="type" property="type" jdbcType="VARCHAR" />
+	    <result column="brand" property="brand" jdbcType="VARCHAR" />
+	    <result column="model" property="model" jdbcType="VARCHAR" />
+	    <result column="rrp" property="rrp" jdbcType="VARCHAR" />
+	    <result column="msisdn" property="msisdn" jdbcType="VARCHAR" />
+	    <result column="purchase_date" property="purchaseDate" jdbcType="VARCHAR" />
+	    <result column="is_fet_supply" property="isFetSupply" jdbcType="VARCHAR" />
+	    <result column="store_id" property="storeId" jdbcType="VARCHAR" />
+	    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+	    <result column="endorse_content" property="endorseContent" jdbcType="VARCHAR" />
+	    <result column="proposal_file_name" property="proposalFileName" jdbcType="VARCHAR" />
+	    <result column="is_claim" property="isClaim" jdbcType="VARCHAR" />
+	    <!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 START-->
+	    <result column="contract_id" property="contractId" jdbcType="VARCHAR" />
+	    <result column="application_id" property="applicationId" jdbcType="VARCHAR" />
+	    <result column="policy_no" property="policyNo" jdbcType="VARCHAR" />
+	    <result column="insured_name" property="insuredName" jdbcType="VARCHAR" />
+	    <result column="channel_type" property="channelType" jdbcType="VARCHAR" />
+	    <result column="sales_id" property="salesId" jdbcType="VARCHAR" />
+	    <result column="employee_id" property="employeeId" jdbcType="VARCHAR" />
+	    <!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 END-->
+	    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+    	<result column="data_src" jdbcType="VARCHAR" property="dataSrc" />
+    	<result column="tx_id" jdbcType="VARCHAR" property="txId" />
+    	<result column="ctbc_rcv_no" jdbcType="VARCHAR" property="ctbcRcvNo" />
+    	<result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+    	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	</resultMap>
+
+	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+	<resultMap id="ReturnPolicyNoToG10ResultMap" class="com.tlg.aps.vo.ReturnPolicyNoToG10Vo" >
+		<result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+		<result column="tx_id" jdbcType="VARCHAR" property="txId" />
+		<result column="ctbc_rcv_no" jdbcType="VARCHAR" property="ctbcRcvNo" />
+		<result column="project_code" jdbcType="VARCHAR" property="projectCode" />
+		<result column="data_src" jdbcType="VARCHAR" property="dataSrc" />
+		<result column="policy_no" jdbcType="VARCHAR" property="policyNo" />
+    	<result column="endorse_no" jdbcType="VARCHAR" property="endorseNo" />
+    	<result column="endorse_type" jdbcType="VARCHAR" property="endorseType" />
+    	<result column="endorse_content" jdbcType="VARCHAR" property="endorseContent" />
+    	<result column="chubb_return_status" jdbcType="VARCHAR" property="chubbReturnStatus" />
+    	<result column="chubb_return_msg" jdbcType="VARCHAR" property="chubbReturnMsg" />
+	</resultMap>
+	<select id="returnPolicyNoToG10" resultMap="ReturnPolicyNoToG10ResultMap" parameterClass="java.util.Map">
+		SELECT ap.transaction_id,ap.rpt_batch_no,ct.tx_id, ct.ctbc_rcv_no,ct.project_code, ct.data_src, ap.policy_no, ap.endorse_no, 
+			   ap.endorse_type, ap.endorse_content, ap.chubb_return_status,ap.chubb_return_msg
+        FROM CUSTOMER ct INNER JOIN APPLICATION ap ON ct.data_src = ap.data_src AND  ct.TRANSACTION_ID = ap.TRANSACTION_ID  
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="dataSrc">
+				ct.data_src = #dataSrc#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rptBatchNo">
+				ap.rpt_batch_no = #rptBatchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noDeprecateStatus">
+				ap.DATA_STATUS != 'DEPRECATE' 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="applicationStatus">
+        		ap.application_status = #applicationStatus:VARCHAR#
+      		</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+	
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.msSql1" />
+		SELECT * FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotEmpty prepend="AND" property="dataSrc">
+				data_src = #dataSrc#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="txId">
+				tx_id = #txId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcRcvNo">
+				ctbc_rcv_no = #ctbcRcvNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectCode">
+				project_code = #projectCode#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rptBatchNo">
+				rpt_batch_no = #rptBatchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchDate">
+				batch_date = #batchDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchStatus">
+				batch_status = #batchStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcAmlStatus">
+				ctbc_aml_status = #ctbcAmlStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcBlacklistStatus">
+				ctbc_blacklist_status = #ctbcBlacklistStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcStockholderStatus">
+				ctbc_stockholder_status = #ctbcStockholderStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				contract_id = #contractId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="seq">
+				seq = #seq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transactionType">
+				transaction_type = #transactionType#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotEmpty prepend="AND" property="dataSrc">
+				data_src = #dataSrc#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="txId">
+				tx_id = #txId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcRcvNo">
+				ctbc_rcv_no = #ctbcRcvNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="projectCode">
+				project_code = #projectCode#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rptBatchNo">
+				rpt_batch_no = #rptBatchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchDate">
+				batch_date = #batchDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchStatus">
+				batch_status = #batchStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcAmlStatus">
+				ctbc_aml_status = #ctbcAmlStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcBlacklistStatus">
+				ctbc_blacklist_status = #ctbcBlacklistStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcStockholderStatus">
+				ctbc_stockholder_status = #ctbcStockholderStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				contract_id = #contractId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="seq">
+				seq = #seq#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="transactionType">
+				transaction_type = #transactionType#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="countForAps050" resultClass="java.lang.Integer"  parameterClass="java.util.Map">
+		select COUNT(*) 
+		from CUSTOMER ct 
+		inner join APPLICATION alct on ct.TRANSACTION_ID = alct.TRANSACTION_ID
+		inner join APPLICANT alc on ct.TRANSACTION_ID = alc.TRANSACTION_ID
+		<dynamic prepend="WHERE">
+		    <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotEmpty prepend="AND" property="dataSrc">
+				ct.data_src = #dataSrc#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="txId">
+				ct.tx_id = #txId#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面  start-->
+			<isNotEmpty prepend="AND" property="noDeprecateStatus">
+				alct.DATA_STATUS != 'DEPRECATE' 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchDateStart">
+				ct.BATCH_DATE BETWEEN #batchDateStart# AND #batchDateEnd# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="proposalFileCheck">
+				alct.PROPOSAL_FILE_CHECK = #proposalFileCheck# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				ct.CONTRACT_ID = #contractId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				alc.NAME = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="customerId">
+				alc.customer_id = #customerId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="msisdn">
+				ct.MSISDN = #msisdn#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featureName">
+				ct.FEATURE_NAME = #featureName#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startDate">
+				alct.START_DATE = #startDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endDate">
+				alct.END_DATE = #endDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dataStatus">
+				alct.DATA_STATUS = #dataStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyNo">
+				alct.POLICY_NO = #policyNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseNo">
+				alct.ENDORSE_NO = #endorseNo#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectForAps050" resultMap="Aps050ResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.msSql1" />
+		select ct.TRANSACTION_ID, ct.BATCH_DATE,ct.CONTRACT_ID,alc.NAME, alc.customer_id, ct.MSISDN, ct.FEATURE_NAME, 
+		alct.START_DATE, alct.END_DATE, alct.chubb_return_status, alct.chubb_return_msg,
+		alct.DATA_STATUS, alct.POLICY_NO, alct.ENDORSE_NO, alct.proposal_file_check, ct.store_id, ct.transaction_type 
+		, ct.form_type , ct.CREATED_TIME <!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 -->
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+		, ct.data_src , ct.tx_id, ct.ctbc_rcv_no, ct.project_code 
+		from CUSTOMER ct 
+		inner join APPLICATION alct on ct.TRANSACTION_ID = alct.TRANSACTION_ID
+		inner join APPLICANT alc on ct.TRANSACTION_ID = alc.TRANSACTION_ID
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="dataSrc">
+				ct.data_src = #dataSrc#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="txId">
+				ct.tx_id = #txId#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="noDeprecateStatus">
+				alct.DATA_STATUS != 'DEPRECATE' 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchDateStart">
+				ct.BATCH_DATE BETWEEN #batchDateStart# AND #batchDateEnd# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="proposalFileCheck">
+				alct.PROPOSAL_FILE_CHECK = #proposalFileCheck# 
+			</isNotEmpty>
+		<!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面  end-->
+			<isNotEmpty prepend="AND" property="contractId">
+				ct.CONTRACT_ID = #contractId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				alc.NAME = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="customerId">
+				alc.customer_id = #customerId#<!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修正APS查詢畫面要保人ID抓取資料欄位值 -->
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="msisdn">
+				ct.MSISDN = #msisdn#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featureName">
+				ct.FEATURE_NAME = #featureName#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startDate">
+				alct.START_DATE = #startDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endDate">
+				alct.END_DATE = #endDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="dataStatus">
+				alct.DATA_STATUS = #dataStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyNo">
+				alct.POLICY_NO = #policyNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endorseNo">
+				alct.ENDORSE_NO = #endorseNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="formType"><!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 -->
+				ct.FORM_TYPE = #formType#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.msSql2" />
+	</select>
+	
+	<select id="selectForAps050Detail" resultMap="Aps050DetailResultMap" parameterClass="java.util.Map">
+		select ct.TRANSACTION_ID, pd.PRODNO, pd.PRODNAME, pd.IMEI, pd.TYPE, pd.BRAND, pd.MODEL, pd.RRP, 
+		ct.MSISDN, pd.PURCHASE_DATE, ct.IS_FET_SUPPLY, ct.STORE_ID, ct.STORE_NAME, 
+		alct.ENDORSE_CONTENT, alct.PROPOSAL_FILE_NAME, '' as IS_CLAIM
+		<!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 START-->
+		,ct.contract_id, alct.application_id, alct.policy_no, ins.name as insured_name, ct.channel_type, alct.sales_id, ct.employee_id
+		<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+		, ct.data_src , ct.tx_id, ct.ctbc_rcv_no, ct.project_code 
+		from CUSTOMER ct 
+		inner join APPLICATION alct on ct.TRANSACTION_ID = alct.TRANSACTION_ID
+		inner join PRODUCT pd on ct.TRANSACTION_ID = pd.TRANSACTION_ID 
+		inner join INSURED ins on ct.TRANSACTION_ID = ins.TRANSACTION_ID 
+		<!-- mantis：MOB0025，處理人員：CE035，需求單編號：MOB0025 新增要保書紙本進件流程，修改APS查詢畫面 END-->
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="dataSrc">
+				ct.data_src = #dataSrc#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				ct.TRANSACTION_ID = #transactionId#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 未使用
+	<select id="selectForBlklt" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * <include refid="Utils.msSqlMobSchema"/>FROM CUSTOMER
+		WHERE CONVERT(DATE, GETDATE(), 111) <![CDATA[>=]]> CONVERT(DATE, DEFFDATE,111) AND (CONVERT(DATE, GETDATE(), 111) <![CDATA[<=]]> CONVERT(DATE, DEXPDATE,111) OR DEXPDATE IS NULL)
+		AND (NISSU = #nissu# OR IISSU = #iissu# OR ITAG = #itag# OR IENGINE = #iengine#)
+	</select>
+ 	-->
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+		<dynamic prepend="WHERE">
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotEmpty prepend="AND" property="dataSrc">
+				ct.data_src = #dataSrc#
+			</isNotEmpty>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+			<isNotEmpty prepend="AND" property="transactionId">
+				transaction_id = #transactionId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="rptBatchNo">
+				rpt_batch_no = #rptBatchNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchDate">
+				batch_date = #batchDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="batchStatus">
+				batch_status = #batchStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcAmlStatus">
+				ctbc_aml_status = #ctbcAmlStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcBlacklistStatus">
+				ctbc_blacklist_status = #ctbcBlacklistStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ctbcStockholderStatus">
+				ctbc_stockholder_status = #ctbcStockholderStatus#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="contractId">
+				contract_id = #contractId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="seq">
+				seq = #seq#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map" >
+		SELECT * FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+		where transaction_id = #transactionId:VARCHAR#
+	</select>
+	
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.msSqlMob.entity.Customer" >
+		SELECT COUNT(*) FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+		where transaction_id = #transactionId:VARCHAR#
+	</select>	
+	
+	<insert id="insert" parameterClass="com.tlg.msSqlMob.entity.Customer" >
+		insert into <include refid="Utils.msSqlMobSchema"/>CUSTOMER (transaction_id, batch_date, batch_status, ctbc_aml_status,
+		      ctbc_blacklist_status, ctbc_stockholder_status, seq, rpt_date, contract_id, subscriber_id,
+		      billing_cycle, store_id, store_name, employee_id, feature_name, service_effective_date,
+		      service_termination_date, service_termination_reason, transaction_type, transaction_reason,
+		      cycle_code, channel_type, offer_instance_id, msisdn, rpt_batch_no, form_type, is_fet_supply,
+		      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+		      in_prepaid_period, created_by, created_time, modified_by, modified_time,
+		      data_src , tx_id, ctbc_rcv_no, project_code)
+		    values (#transactionId:VARCHAR#, #batchDate:VARCHAR#, #batchStatus:VARCHAR#,
+		      #ctbcAmlStatus:VARCHAR#, #ctbcBlacklistStatus:VARCHAR#, #ctbcStockholderStatus:VARCHAR#,
+		      #seq:VARCHAR#, #rptDate:VARCHAR#, #contractId:VARCHAR#, #subscriberId:VARCHAR#,
+		      #billingCycle:VARCHAR#, #storeId:VARCHAR#, #storeName:VARCHAR#, #employeeId:VARCHAR#,
+		      #featureName:VARCHAR#, #serviceEffectiveDate:VARCHAR#, #serviceTerminationDate:VARCHAR#,
+		      #serviceTerminationReason:VARCHAR#, #transactionType:VARCHAR#, #transactionReason:VARCHAR#,
+		      #cycleCode:VARCHAR#, #channelType:VARCHAR#, #offerInstanceId:VARCHAR#, #msisdn:VARCHAR#,
+		      #rptBatchNo:VARCHAR#, #formType:VARCHAR#, #isFetSupply:VARCHAR#, #inPrepaidPeriod:VARCHAR#,
+		      #createdBy:VARCHAR#, #createdTime:TIMESTAMP#, #modifiedBy:VARCHAR#, #modifiedTime:TIMESTAMP#,
+		      #dataSrc:VARCHAR#, #txId:VARCHAR#, #ctbcRcvNo:VARCHAR#, #projectCode:VARCHAR#) 
+		      <!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->     	
+	</insert>
+
+	<delete id="deleteByEntity" parameterClass="com.tlg.msSqlMob.entity.Customer" >
+    	DELETE FROM <include refid="Utils.msSqlMobSchema"/>CUSTOMER
+    	where transaction_id = #transactionId:VARCHAR#
+	</delete>
+
+	<update id="update" parameterClass="com.tlg.msSqlMob.entity.Customer">
+		UPDATE <include refid="Utils.msSqlMobSchema" />CUSTOMER
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="batchDate">
+				batch_date = #batchDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="batchStatus">
+				batch_status = #batchStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ctbcAmlStatus">
+				ctbc_aml_status = #ctbcAmlStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ctbcBlacklistStatus">
+				ctbc_blacklist_status = #ctbcBlacklistStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ctbcStockholderStatus">
+				ctbc_stockholder_status = #ctbcStockholderStatus:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="seq">
+				seq = #seq:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="rptDate">
+				rpt_date = #rptDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="contractId">
+				contract_id = #contractId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="subscriberId">
+				subscriber_id = #subscriberId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="billingCycle">
+				billing_cycle = #billingCycle:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="storeId">
+				store_id = #storeId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="storeName">
+				store_name = #storeName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="employeeId">
+				employee_id = #employeeId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="featureName">
+				feature_name = #featureName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="serviceEffectiveDate">
+				service_effective_date = #serviceEffectiveDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="serviceTerminationDate">
+				service_termination_date = #serviceTerminationDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="serviceTerminationReason">
+				service_termination_reason = #serviceTerminationReason:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="transactionType">
+				transaction_type = #transactionType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="transactionReason">
+				transaction_reason = #transactionReason:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="cycleCode">
+				cycle_code = #cycleCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="channelType">
+				channel_type = #channelType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="offerInstanceId">
+				offer_instance_id = #offerInstanceId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="msisdn">
+				msisdn = #msisdn:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="rptBatchNo">
+				rpt_batch_no = #rptBatchNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="formType">
+				form_type = #formType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="isFetSupply">
+				is_fet_supply = #isFetSupply:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="inPrepaidPeriod">
+				in_prepaid_period = #inPrepaidPeriod:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="createdBy">
+				created_by = #createdBy:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="createdTime">
+				created_time = #createdTime:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="modifiedBy">
+				modified_by = #modifiedBy:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="modifiedTime">
+				modified_time = #modifiedTime:TIMESTAMP#
+			</isNotNull>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 START -->
+			<isNotNull prepend="," property="dataSrc">
+				data_src = #dataSrc:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="txId">
+				tx_id = #txId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ctbcRcvNo">
+				ctbc_rcv_no = #ctbcRcvNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="projectCode">
+				project_code = #projectCode:VARCHAR#
+			</isNotNull>
+			<!-- mantis：MOB0031，處理人員：CE035，需求單編號：MOB0031 行動裝置險estore網投案開發 出單流程 END -->
+		</dynamic>
+		where transaction_id = #transactionId:VARCHAR#
+	</update>
+
+</sqlMap>

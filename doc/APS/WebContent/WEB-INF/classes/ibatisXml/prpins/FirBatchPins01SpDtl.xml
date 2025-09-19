@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<!-- mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業 -->
+<sqlMap namespace="FirBatchPins01SpDtl" >
+  <resultMap id="BaseResultMap" class="com.tlg.prpins.entity.FirBatchPins01SpDtl" >
+    <result column="OID" property="oid" jdbcType="DECIMAL" />
+    <result column="BNO" property="bno" jdbcType="VARCHAR" />
+    <result column="RISKCODE" property="riskcode" jdbcType="VARCHAR" />
+    <result column="POLICYNO" property="policyno" jdbcType="VARCHAR" />
+    <result column="IDENTIFYNUMBER" property="identifynumber" jdbcType="VARCHAR" />
+    <result column="INSUREDNAME" property="insuredname" jdbcType="VARCHAR" />
+    <result column="INSUREDFLAG" property="insuredflag" jdbcType="VARCHAR" />
+    <result column="POSTADDRESS" property="postaddress" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PHONENUMBER" property="phonenumber" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ICREATE" property="icreate" jdbcType="VARCHAR" />
+    <result column="DCREATE" property="dcreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+			SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_BATCH_PINS01_SP_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bno">
+				BNO = #bno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+  </select>
+
+  <select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>FIR_BATCH_PINS01_SP_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bno">
+				BNO = #bno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+		</dynamic>
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>FIR_BATCH_PINS01_SP_DTL
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bno">
+				BNO = #bno#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="riskcode">
+				RISKCODE = #riskcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="policyno">
+				POLICYNO = #policyno#
+			</isNotEmpty>
+		</dynamic>
+  </select>
+  
+  <select id="selectByUK" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM FIR_BATCH_PINS01_SP_DTL
+		where OID = #oid:DECIMAL#
+  </select>
+  
+  <delete id="delete" parameterClass="java.math.BigDecimal" >
+    delete from FIR_BATCH_PINS01_SP_DTL
+    where OID = #oid:DECIMAL#
+  </delete>
+  
+  <delete id="truncate">
+    TRUNCATE TABLE <include refid="Utils.schema"/>FIR_BATCH_PINS01_SP_DTL
+  </delete>
+  
+  <insert id="insert" parameterClass="com.tlg.prpins.entity.FirBatchPins01SpDtl" >
+    insert into FIR_BATCH_PINS01_SP_DTL (OID, BNO, RISKCODE, POLICYNO, IDENTIFYNUMBER, INSUREDNAME,
+      INSUREDFLAG, POSTADDRESS, MOBILE, PHONENUMBER, EMAIL, ICREATE, DCREATE)
+    values (#oid:DECIMAL#, #bno:VARCHAR#, #riskcode:VARCHAR#, #policyno:VARCHAR#,
+      #identifynumber:VARCHAR#, #insuredname:VARCHAR#, #insuredflag:VARCHAR#, #postaddress:VARCHAR#,
+      #mobile:VARCHAR#, #phonenumber:VARCHAR#, #email:VARCHAR#, #icreate:VARCHAR#,
+      #dcreate:TIMESTAMP#)
+  </insert>
+  
+  <update id="update" parameterClass="com.tlg.prpins.entity.FirBatchPins01SpDtl" >
+    update FIR_BATCH_PINS01_SP_DTL
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="bno" >
+        BNO = #bno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="riskcode" >
+        RISKCODE = #riskcode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="policyno" >
+        POLICYNO = #policyno:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="identifynumber" >
+        IDENTIFYNUMBER = #identifynumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredname" >
+        INSUREDNAME = #insuredname:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="insuredflag" >
+        INSUREDFLAG = #insuredflag:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="postaddress" >
+        POSTADDRESS = #postaddress:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="mobile" >
+        MOBILE = #mobile:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="phonenumber" >
+        PHONENUMBER = #phonenumber:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="email" >
+        EMAIL = #email:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="icreate" >
+        ICREATE = #icreate:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="dcreate" >
+        DCREATE = #dcreate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+    where OID = #oid:DECIMAL#
+  </update>
+</sqlMap>

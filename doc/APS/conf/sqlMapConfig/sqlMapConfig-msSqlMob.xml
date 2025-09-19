@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+    
+<sqlMapConfig>
+
+	<!-- sqlserver 行動裝置 -->
+	<sqlMap resource="ibatisXml/msSqlMob/Customer.xml" />
+	
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 start -->
+	<sqlMap resource="ibatisXml/msSqlMob/Applicant.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/Application.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ExtCol.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/Insured.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/MobileInsBatchInfo.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/Product.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/FetPolicyImportError.xml" />
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 end-->
+	
+	<!-- mantis：MOB0003，處理人員：CC009，需求單編號：MOB0003 從遠傳抓取要保書檔作業 -->
+	<sqlMap resource="ibatisXml/msSqlMob/ProposalFile.xml" />
+	
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表 START -->
+	<sqlMap resource="ibatisXml/msSqlMob/ChFile.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/AcFile.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/AccountFile.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ClFile.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/CmFile.xml" />
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表 END -->
+	
+	<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+	<sqlMap resource="ibatisXml/msSqlMob/ChubbReturnCustomer.xml" />
+	
+	<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  -->
+	<sqlMap resource="ibatisXml/msSqlMob/FetMobilePolicy.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/FetMobilePolicyInsurantInfo.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/FetMobilePolicyDevice.xml" />
+	
+	<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  -->
+	<sqlMap resource="ibatisXml/msSqlMob/ApplicantEndorse.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/CustomerEndorse.xml" />
+	
+	<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業  -->
+	<sqlMap resource="ibatisXml/msSqlMob/InsuredEndorse.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ProductEndorse.xml" />
+	
+	<sqlMap resource="ibatisXml/msSqlMob/FetMobileEpolicy.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/BatchRepairMain.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/BatchRepairDetail.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/TerminationNotice.xml" />
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業  -->
+	<sqlMap resource="ibatisXml/msSqlMob/FetclaimTypecm.xml" />
+	
+	<sqlMap resource="ibatisXml/msSqlMob/FetPaid.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/FetPayable.xml" />
+	
+	<sqlMap resource="ibatisXml/msSqlMob/ChubbApplicantEndorse.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ChubbCustomerEndorse.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ChubbInsuredEndorse.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/ChubbProductEndorse.xml" />
+	
+	<sqlMap resource="ibatisXml/msSqlMob/ProposalInsufficientSms.xml" />
+	
+	<sqlMap resource="ibatisXml/msSqlMob/FetCancelNotification.xml" />
+	<sqlMap resource="ibatisXml/msSqlMob/FetMobilePolicySales.xml" />
+
+	<sqlMap resource="ibatisXml/msSqlMob/FetAmlRecord.xml" />
+</sqlMapConfig>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MobileInsSms">
+
+	<resultMap id="BaseResultMap" class="com.tlg.xchg.entity.MobileInsSms" >
+	    <result column="OID" jdbcType="VARCHAR" property="oid" />
+	    <result column="RISKCNAME" jdbcType="VARCHAR" property="riskcname" />
+	    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="CLOSEDATE" jdbcType="TIMESTAMP" property="closedate" />
+	    <result column="PDF_URL" jdbcType="VARCHAR" property="pdfUrl" />
+	    <result column="SMSDATE" jdbcType="TIMESTAMP" property="smsdate" />
+	    <result column="EMAIL_DATE" jdbcType="TIMESTAMP" property="emailDate" />
+	    <result column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="GUID64" jdbcType="VARCHAR" property="guid64" />
+	    <result column="SHORTPATH" jdbcType="VARCHAR" property="shortpath" />
+	    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+	    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+	    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+	    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+	</resultMap>
+	
+	<resultMap id="unsendNoticeMap" class="com.tlg.aps.vo.MobileInsUnsendSmsVo" >
+	    <result column="OID" jdbcType="VARCHAR" property="oid" />
+	    <result column="RISKCNAME" jdbcType="VARCHAR" property="riskcname" />
+	    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="CLOSEDATE" jdbcType="TIMESTAMP" property="closedate" />
+	    <result column="PDF_URL" jdbcType="VARCHAR" property="pdfUrl" />
+	    <result column="SMSDATE" jdbcType="TIMESTAMP" property="smsdate" />
+	    <result column="EMAIL_DATE" jdbcType="TIMESTAMP" property="emailDate" />
+	    <result column="GUID" jdbcType="VARCHAR" property="guid" />
+	    <result column="GUID64" jdbcType="VARCHAR" property="guid64" />
+	    <result column="SHORTPATH" jdbcType="VARCHAR" property="shortpath" />
+	    <result column="ICREATE" jdbcType="VARCHAR" property="icreate" />
+	    <result column="DCREATE" jdbcType="TIMESTAMP" property="dcreate" />
+	    <result column="IUPDATE" jdbcType="VARCHAR" property="iupdate" />
+	    <result column="DUPDATE" jdbcType="TIMESTAMP" property="dupdate" />
+	    <result column="POLICYNO" jdbcType="VARCHAR" property="policyNo" />
+	    <result column="INSUREDNAME" jdbcType="VARCHAR" property="insuredName" />
+	    <result column="PHONENUMBER" jdbcType="VARCHAR" property="phoneNumber" />
+	    <result column="SERVICE_TERMINATION_DATE" jdbcType="VARCHAR" property="serviceTerminationDate" />
+	    <result column="UNPAID_DATE" jdbcType="VARCHAR" property="unpaidDate" />
+	    
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.xchgSchema"/>MOBILE_INS_SMS
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid">
+				GUID = #guid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="filename">
+				FILENAME = #filename#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid64">
+				GUID64 = #guid64#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="likeOid">
+				OID like #likeOid# ||'%'
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+
+	<select id="selectUnsendCancelNotice" resultMap="unsendNoticeMap" parameterClass="java.util.Map">
+		SELECT *
+		FROM (
+		    SELECT MOBILE_INS_SMS.*,LIA_MI_NOTICE_CANCLE.POLICYNO,LIA_MI_NOTICE_CANCLE.INSUREDNAME,LIA_MI_NOTICE_CANCLE.PHONENUMBER,LIA_MI_NOTICE_CANCLE.SERVICE_TERMINATION_DATE,NULL AS UNPAID_DATE  
+		    FROM MOBILE_INS_SMS 
+		    LEFT JOIN LIA_MI_NOTICE_CANCLE 
+		    ON MOBILE_INS_SMS.OID = LIA_MI_NOTICE_CANCLE.SERIALNO
+		    WHERE LIA_MI_NOTICE_CANCLE.SERIALNO IS NOT NULL
+		    AND MOBILE_INS_SMS.SHORTPATH IS NOT NULL
+		)
+		WHERE (MOBILE IS NOT NULL AND SMSDATE IS NULL)
+	</select>
+	
+	<select id="selectUnsendUnpaidNotice" resultMap="unsendNoticeMap" parameterClass="java.util.Map">
+		SELECT *
+		FROM (
+		    SELECT MOBILE_INS_SMS.*,LIA_MI_NOTICE_UNPAID.POLICYNO,LIA_MI_NOTICE_UNPAID.INSUREDNAME,LIA_MI_NOTICE_UNPAID.PHONENUMBER,LIA_MI_NOTICE_UNPAID.UNPAID_DATE,NULL AS SERVICE_TERMINATION_DATE  
+		    FROM MOBILE_INS_SMS 
+		    LEFT JOIN LIA_MI_NOTICE_UNPAID 
+		    ON MOBILE_INS_SMS.OID = LIA_MI_NOTICE_UNPAID.SERIALNO
+		    WHERE LIA_MI_NOTICE_UNPAID.SERIALNO IS NOT NULL
+		    AND MOBILE_INS_SMS.SHORTPATH IS NOT NULL
+		)
+		WHERE (MOBILE IS NOT NULL AND SMSDATE IS NULL)
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.xchgSchema"/>MOBILE_INS_SMS
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid">
+				GUID = #guid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="filename">
+				FILENAME = #filename#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid64">
+				GUID64 = #guid64#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 未使用
+	<select id="selectForBlklt" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * <include refid="Utils.xchgSchema"/>FROM MOBILE_INS_SMS
+		WHERE CONVERT(DATE, GETDATE(), 111) <![CDATA[>=]]> CONVERT(DATE, DEFFDATE,111) AND (CONVERT(DATE, GETDATE(), 111) <![CDATA[<=]]> CONVERT(DATE, DEXPDATE,111) OR DEXPDATE IS NULL)
+		AND (NISSU = #nissu# OR IISSU = #iissu# OR ITAG = #itag# OR IENGINE = #iengine#)
+	</select>
+ 	-->
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.xchgSchema"/>MOBILE_INS_SMS
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid">
+				GUID = #guid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="filename">
+				FILENAME = #filename#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="guid64">
+				GUID64 = #guid64#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 未使用
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.car.entity.CarpBlklist" >
+		SELECT COUNT(*) FROM <include refid="Utils.xchgSchema"/>MOBILE_INS_SMS
+		<dynamic prepend="WHERE">
+		</dynamic>
+	</select>
+	-->
+	
+	
+	<insert id="insert" parameterClass="com.tlg.xchg.entity.MobileInsSms" >
+		insert into <include refid="Utils.xchgSchema"/> MOBILE_INS_SMS (OID, RISKCNAME, MOBILE, EMAIL, CLOSEDATE, PDF_URL, SMSDATE,
+      EMAIL_DATE, GUID, GUID64, SHORTPATH, ICREATE, DCREATE)
+    values (#oid:VARCHAR#, #riskcname:VARCHAR#, #mobile:VARCHAR#, #email:VARCHAR#,
+      #closedate:TIMESTAMP#, #pdfUrl:VARCHAR#, #smsdate:TIMESTAMP#, #emailDate:TIMESTAMP#,
+      #guid:VARCHAR#, #guid64:VARCHAR#, #shortpath:VARCHAR#, #icreate:VARCHAR#, #dcreate:TIMESTAMP#)
+	</insert>
+
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.xchgSchema"/>MOBILE_INS_SMS WHERE OID = #oid:VARCHAR#
+	</delete>
+
+	<update id="update" parameterClass="com.tlg.xchg.entity.MobileInsSms">
+		UPDATE <include refid="Utils.xchgSchema" />MOBILE_INS_SMS
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="riskcname">
+				RISKCNAME = #riskcname:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="mobile">
+				MOBILE = #mobile:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="email">
+				EMAIL = #email:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="closedate">
+				CLOSEDATE = #closedate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="pdfUrl">
+				PDF_URL = #pdfUrl:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="smsdate">
+				SMSDATE = #smsdate:TIMESTAMP#
+			</isNotNull>
+			<isNotNull prepend="," property="emailDate">
+				EMAIL_DATE = #emailDate:TIMESTAMP#
+			</isNotNull>
+      		<isNotNull prepend="," property="guid">
+        		GUID = #guid:VARCHAR#
+      		</isNotNull>
+			<isNotNull prepend="," property="guid64">
+				GUID64 = #guid64:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="shortpath">
+				SHORTPATH = #shortpath:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="iupdate">
+				IUPDATE = #iupdate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="dupdate">
+				DUPDATE = #dupdate:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+		WHERE OID = #oid:VARCHAR#
+	</update>
+
+</sqlMap>

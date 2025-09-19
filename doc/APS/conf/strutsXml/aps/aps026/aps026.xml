@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"> 
+<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 -->
+<struts>
+	<package name="APS026Action" extends="BaseAction" namespace="/aps/026">
+		<!-- default -->
+		<action name="default" class="APS026Action">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		
+		<action name="btnQuery" class="APS026Action" method="btnQuery">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		
+		<action name="txtChangePageIndex" class="APS026Action" method="txtChangePageIndex">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		
+		<action name="ddlPageSizeChanged" class="APS026Action" method="ddlPageSizeChanged">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		<!--mantis：OTH0184，處理人員：DP0706，需求單編號：APS要被保人通訊地址比對作業增加資料來源(XCHG)START-->
+		<action name="ddlPageSizeChanged2" class="APS026Action" method="ddlPageSizeChanged2">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		<!--mantis：OTH0184，處理人員：DP0706，需求單編號：APS要被保人通訊地址比對作業增加資料來源(XCHG)END-->
+		<action name="lnkSortQuery" class="APS026Action" method="lnkSortQuery">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		
+		<action name="lnkGoUpdate" class="APS026Action" method="lnkGoUpdate">
+			<result>/WEB-INF/pages/APS/APS026/APS026U0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+		
+		<action name="btnUpdate" class="APS026Action" method="btnUpdate">
+			<result>/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+			<result name="input">/WEB-INF/pages/APS/APS026/APS026E0.jsp</result>
+		</action>
+	</package>
+</struts>

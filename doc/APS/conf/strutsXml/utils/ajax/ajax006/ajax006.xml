@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- mantis：FIR0295，處理人員：BJ085，需求單編號：FIR0295 外銀板信續件移回新核心-維護作業  -->
+<struts>
+	<package name="AJAX006Action" extends="BaseAction" namespace="/aps/ajax006">
+		<result-types>
+    		<result-type name="string" class="com.tlg.util.resultType.StringResultType"></result-type>
+        </result-types>	
+		<!-- default -->
+		<action name="renewalBasicDataCheck" class="AJAX006Action" method="renewalBasicDataCheck">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkExtracomcode" class="AJAX006Action" method="checkExtracomcode">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="findPrpdNewCodeBycodetype" class="AJAX006Action" method="findPrpdNewCodeBycodetype">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="verifyIdentifynumber" class="AJAX006Action" method="verifyIdentifynumber">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkDateLessThanNewDate" class="AJAX006Action" method="checkDateLessThanNewDate">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="saveDataToCheck" class="AJAX006Action" method="saveDataToCheck">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkStructureLeval" class="AJAX006Action" method="checkStructureLeval">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="checkHandleridentifynumber" class="AJAX006Action" method="checkHandleridentifynumber">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<action name="findAS400Data" class="AJAX006Action" method="findAS400Data">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 start-->
+		<action name="findCoreData" class="AJAX006Action" method="findCoreData">
+			<result name="success" type="string">
+				<param name="stringName">result</param>
+			</result>
+		</action>
+		<!-- mantis：FIR0590，處理人員：BJ085，需求單編號：FIR0590 住火_APS板信續保作業_第二年優化_維護作業 end-->
+	</package>
+</struts>

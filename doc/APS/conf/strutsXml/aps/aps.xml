@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="/strutsXml/aps/aps001/aps001.xml"/>
+	<include file="/strutsXml/aps/aps002/aps002.xml"/>
+	<include file="/strutsXml/aps/aps003/aps003.xml"/>
+	<!-- mantis：FIR0225，處理人員：BJ085，需求單編號：FIR0225 稽核議題調整-過往資料檢核  -->
+	<include file="/strutsXml/aps/aps004/aps004.xml"/>
+	<!-- mantis：FIR0183，處理人員：BJ085，需求單編號：FIR0183 火險地址資料匯入 -->
+	<include file="/strutsXml/aps/aps005/aps005.xml"/>
+	<!-- mantis：OTH0065，處理人員：BJ085，需求單編號：OTH0065 建置AML洗錢查詢畫面 -->
+	<include file="/strutsXml/aps/aps006/aps006.xml"/>
+	<!-- mantis：FIR0238，處理人員：BJ085，需求單編號：FIR0238 稽核議題檢核-例外地址維護作業  -->
+	<include file="/strutsXml/aps/aps007/aps007.xml"/>
+	<!-- mantis：OTH0075，處理人員：BJ085，需求單編號：OTH0075 400轉AML手動執行作業  -->
+	<include file="/strutsXml/aps/aps008/aps008.xml"/>
+	<!-- mantis：FIR0265，處理人員：BJ085，需求單編號：FIR0265 板信受理檔產生排程
+	 	 mantis：FIR0266，處理人員：BJ085，需求單編號：FIR0266 板信資料交換處理作業 -->
+	<include file="/strutsXml/aps/aps009/aps009.xml"/>
+	<!-- mantis：                       ，處理人員：BI086，需求單編號：                            傷害險通報手動執行作業  -->
+	<include file="/strutsXml/aps/aps010/aps010.xml"/>
+	<!-- mantis：OTH0087，處理人員：BJ085，需求單編號：OTH0087 AML手動登錄 -->
+	<include file="/strutsXml/aps/aps011/aps011.xml"/>
+	<!-- mantis：OTH0093，處理人員：BJ085，需求單編號：OTH0093 傷害險通報查詢、重送介面 -->
+	<include file="/strutsXml/aps/aps013/aps013.xml"/>
+
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理  START-->
+	<include file="/strutsXml/aps/aps012/aps012.xml"/>
+	<include file="/strutsXml/aps/aps015/aps015.xml"/>
+	<!-- mantis：FIR0220，處理人員：BJ016，需求單編號：FIR0220 中信代理投保通知處理  END-->
+
+	<!-- mantis：FIR0182，處理人員：BJ085，需求單編號：FIR0182 中信新件服務人員維護作業 -->
+	<include file="/strutsXml/aps/aps014/aps014.xml"/>
+	
+	<!-- mantis：FIR0294，處理人員：BJ085，需求單編號：FIR0294 外銀板信續件移回新核心-資料接收排程  -->
+	<include file="/strutsXml/aps/aps016/aps016.xml"/>
+	
+	<!-- mantis：FIR0310，處理人員：BJ016，需求單編號：FIR0310 住火保經代分行服務人員對照表 -->
+	<include file="/strutsXml/aps/aps017/aps017.xml"/>
+	
+	<!-- mantis：FIR0299_APS查詢電子保單發送結果 處理人員：BJ016-->
+	<include file="/strutsXml/aps/aps018/aps018.xml"/>
+	
+	<!-- mantis：MAR0029_水險兌換率幣別 處理人員：BJ016-->
+	<include file="/strutsXml/aps/aps019/aps019.xml"/>
+	
+	<!-- mantis：HAS0094	提供外部呼叫以產生PA電子保單：BI086-->
+	<include file="/strutsXml/aps/aps020/aps020.xml"/>
+	
+	<!-- mantis：MAR0037，處理人員：BJ085，需求單編號：MAR0037 高風險地區新增維護檔 -->
+	<include file="/strutsXml/aps/aps021/aps021.xml"/>
+
+	<!-- mantis：FIR0314，處理人員：BJ085，需求單編號：FIR0314 台銀保經-APS新件要保檔產生排程
+      	 mantis：FIR0315，處理人員：BJ085，需求單編號：FIR0315 台銀保經-APS保單檔產生排程-->
+	<include file="/strutsXml/aps/aps022/aps022.xml"/>
+	
+	<!-- mantis：FIR0349，處理人員：BJ085，需求單編號：FIR0349 外銀板信續件扣款前置檔產生作業 -->
+	<include file="/strutsXml/aps/aps023/aps023.xml"/>
+	
+	<!-- mantis：FIR0357，處理人員：BJ085，需求單編號：FIR0357 火險地址維護作業 -->
+	<include file="/strutsXml/aps/aps024/aps024.xml"/>
+	
+	<!-- mantis：FIR0369，處理人員：BJ085，需求單編號：FIR0369 增加電子保單不寄送單位業務來源設定 -->
+	<include file="/strutsXml/aps/aps025/aps025.xml"/>
+	
+	<!-- mantis：OTH0106，處理人員：BJ085，需求單編號：OTH0106 要被保人通訊資料比對確認作業 -->
+	<include file="/strutsXml/aps/aps026/aps026.xml"/>
+	
+	<!-- mantis：SALES0007，處理人員：BJ085，需求單編號：SALES0007 新增業務人員所屬服務人員維護 -->
+	<include file="/strutsXml/aps/aps027/aps027.xml"/>
+	
+	<!-- mantis：SALES0008，處理人員：BJ085，需求單編號：SALES0008 保經代分支機構維護程式需求 -->
+	<include file="/strutsXml/aps/aps028/aps028.xml"/>
+
+	<!-- mantis：FIR0388，處理人員：BJ085，需求單編號：FIR0388 AS400續保資料匯入 -->
+	<include file="/strutsXml/aps/aps029/aps029.xml"/>
+	
+	<!-- mantis：OTH0101，處理人員：BJ085，需求單編號：OTH0101 取得金控利關人資料同步排程 -->
+	<include file="/strutsXml/aps/aps030/aps030.xml"/>
+	
+	<!-- mantis：FIR0427，處理人員：BJ085，需求單編號：FIR0427 個人險-保單通訊資料產生及下載作業 
+		 mantis：FIR0436，處理人員：BJ085，需求單編號：FIR0436 住火-APS保單通訊資料產生及下載作業批次作業-->
+	<include file="/strutsXml/aps/aps031/aps031.xml"/>
+	
+	<!-- mantis：CAR0417，處理人員：BJ085，需求單編號：CAR0417 機車強制車險重新投保發對接功能 -->
+	<include file="/strutsXml/aps/aps032/aps032.xml"/>
+	
+	<!-- mantis：CAR0427，處理人員：BJ085，需求單編號：CAR0427 機車強制車險重新投保發對接功能-第四次明信片 -->
+	<include file="/strutsXml/aps/aps033/aps033.xml"/>
+	
+	<!-- mantis：FIR0455，處理人員：BJ085，需求單編號：FIR0455 住火-APS富邦續件處理作業 -->
+	<include file="/strutsXml/aps/aps034/aps034.xml"/>
+	
+	<!-- mantis：FIR0459，處理人員：CC009，需求單編號：FIR0459 住火-APS中信續件要保書-排程查詢作業 -->
+	<include file="/strutsXml/aps/aps035/aps035.xml"/>
+	
+	<!-- mantis：                       ，處理人員：BI086，需求單編號：                         再保險分進業務輸入 -->
+	<include file="/strutsXml/aps/aps036/aps036.xml"/>
+	
+	<!-- mantis：OTH0131，處理人員：BJ085，需求單編號：OTH0131 保發中心-保單存摺各險寫入中介Table作業 -->
+	<include file="/strutsXml/aps/aps037/aps037.xml"/>
+	
+	<!-- mantis：FIR0495，處理人員：CC009，需求單編號：FIR0495_住火-APS板信回饋檔-排程查詢作業 -->
+	<include file="/strutsXml/aps/aps038/aps038.xml"/>
+	
+	<!-- mantis：FIR0499，處理人員：BJ085，需求單編號：FIR0499_住火-中信保代網投_進件查詢作業-->
+	<include file="/strutsXml/aps/aps039/aps039.xml"/>
+	
+	<!-- mantis：CAR0504，處理人員：CC009，需求單編號：CAR0504 微型電動二輪車【已領牌&未領牌】資料交換作業 -->
+	<include file="/strutsXml/aps/aps040/aps040.xml"/>
+	
+	<!-- mantis：FIR0547，處理人員：CC009，需求單編號：FIR0547 聯邦新件資料交換查詢作業 -->
+	<include file="/strutsXml/aps/aps041/aps041.xml"/>
+	
+	<!-- mantis：FIR0565，處理人員：CC009，需求單編號：FIR0565 住火_複保險通知轉檔作業 -->
+	<include file="/strutsXml/aps/aps042/aps042.xml"/>
+	
+	<!-- mantis：Sales0024，處理人員：CC009，需求單編號：Sales0024 銷管系統-業務員登錄證到期提醒Mail與簡訊通知排程 -->
+	<include file="/strutsXml/aps/aps043/aps043.xml"/>
+	
+	<!-- mantis：FIR0571，處理人員：BJ085，需求單編號：FIR0571 住火_APS到期通知處理作業  -->
+	<include file="/strutsXml/aps/aps044/aps044.xml"/>
+	<!-- mantis：MOB0017，處理人員：BI086，需求單編號：MOB0017 行動裝置險理賠資料轉入作業  -->
+	<include file="/strutsXml/aps/aps045/aps045.xml"/>
+	
+	<!-- mantis：MOB0018，處理人員：BJ085，需求單編號：MOB0018 理賠資料提交及列印作業 -->
+	<include file="/strutsXml/aps/aps046/aps046.xml"/>
+	
+	<!-- mantis：MOB0019，處理人員：BJ085，需求單編號：MOB0019 理賠審核確認作業 -->
+	<include file="/strutsXml/aps/aps047/aps047.xml"/>
+	
+	<!-- mantis：OTH0146，處理人員：BI086，需求單編號：OTH0146  理賠再保分進維護功能 -->
+	<include file="/strutsXml/aps/aps048/aps048.xml"/>
+	
+	<!-- mantis：CAR0553，處理人員：DP0706，需求單編號：CAR0553.APS-車險再保註記設定維護功能 -->
+	<include file="/strutsXml/aps/aps049/aps049.xml"/>
+	
+	<!-- mantis：，處理人員：BJ016，需求單編號：行動裝置險批次號手動下載作業 -->
+	<include file="/strutsXml/aps/aps050/aps050.xml"/>
+	
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 -->
+	<include file="/strutsXml/aps/aps051/aps051.xml"/>
+	
+    <!-- mantis：HAS0215，處理人員：CD094，需求單編號：HAS0215 TA雄獅回饋  -->
+	<include file="/strutsXml/aps/aps052/aps052.xml"/>
+
+	<!-- mantis：CAR0563，處理人員：CD078，需求單編號：CAR0563 廠牌車型代號外部資料單筆維護查詢作業  -->
+	<include file="/strutsXml/aps/aps053/aps053.xml"/>
+	
+	<!-- mantis：OTH0159，處理人員：CD094，需求單編號：OTH0159 電子保單系統條款檢核不通過資料通知(APS) -->
+	<include file="/strutsXml/aps/aps054/aps054.xml"/>
+	
+	<!-- mantis：FIR0621，處理人員：BJ085，需求單編號：FIR0621 住火_臺銀續保作業_續件資料處理作業 -->
+	<include file="/strutsXml/aps/aps055/aps055.xml"/>
+
+    <!-- mantis：FIR0651，處理人員：DP0714，商住火65歲業務員高齡教育訓練檢核及APS例外設定 -->
+    <include file="/strutsXml/aps/aps056/aps056.xml"/>
+
+    <!-- mantis：FIR0624，處理人員：BJ085，需求單編號：FIR0624 住火_臺銀續保作業_臺銀FD檔查詢作業 -->
+    <include file="/strutsXml/aps/aps057/aps057.xml"/>
+
+    <!-- mantis： HAS0254，處理人員：DP0706，需求單編號：HAS0254_傷害險中信銀行投調整信用卡加密及檔案上下傳 -->
+    <include file="/strutsXml/aps/aps059/aps059.xml"/>
+    
+    <!-- mantis：FIR0668，處理人員：DP0706，需求單編號：FIR0668_住火_元大續保作業_續件資料處理作業 -->
+    <include file="/strutsXml/aps/aps060/aps060.xml"/>
+    
+    <!-- mantis：REI00021，處理人員：DP0706，需求單編號：REI00021 再保帳單介接400 -->
+    <include file="/strutsXml/aps/aps061/aps061.xml"/>
+
+    <!-- mantis：FIR0681，處理人員：DP0714，住火-APS元大回饋檔-排程查詢作業 -->
+    <include file="/strutsXml/aps/aps062/aps062.xml"/>
+    
+    <!-- mantis：OTH0175，處理人員：DP0706，需求單編號：OTH0175_APS-收件收件報備系統 已出單資料回拋B2B -->
+    <include file="/strutsXml/aps/aps063/aps063.xml"/>
+
+	<include file="/strutsXml/aps/aps998/aps998.xml"/>
+	<include file="/strutsXml/aps/aps999/aps999.xml"/>
+</struts>

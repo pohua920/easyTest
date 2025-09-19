@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="CarTradevanApplyLog">
+
+	<resultMap id="BaseResultMap" class="com.tlg.prpins.entity.CarTradevanApplyLog" >
+		<result column="OID" property="oid" jdbcType="DECIMAL" />
+	    <result column="INSURED_CARD_NO" property="insuredCardNo" jdbcType="VARCHAR" />
+	    <result column="OWNER_ID" property="ownerId" jdbcType="VARCHAR" />
+	    <result column="OWNER_NAME" property="ownerName" jdbcType="VARCHAR" />
+	    <result column="OWNER_NAME_PIC" property="ownerNamePic" jdbcType="VARCHAR" />
+	    <result column="COMP_BEGIN_DATE" property="compBeginDate" jdbcType="VARCHAR" />
+	    <result column="COMP_END_DATE" property="compEndDate" jdbcType="VARCHAR" />
+	    <result column="CARRIAGE_TYPE" property="carriageType" jdbcType="VARCHAR" />
+	    <result column="INSURED_CAR_TYPE" property="insuredCarType" jdbcType="VARCHAR" />
+	    <result column="ORG_ISSUE_DATE" property="orgIssueDate" jdbcType="VARCHAR" />
+	    <result column="BRAND_MODEL" property="brandModel" jdbcType="VARCHAR" />
+	    <result column="BRAND_MODEL_NAME" property="brandModelName" jdbcType="VARCHAR" />
+	    <result column="CYLINDER" property="cylinder" jdbcType="VARCHAR" />
+	    <result column="ENGINE_NO" property="engineNo" jdbcType="VARCHAR" />
+	    <result column="PLATE_NO" property="plateNo" jdbcType="VARCHAR" />
+	    <result column="FEE_GRADE" property="feeGrade" jdbcType="VARCHAR" />
+	    <result column="COMP_NO" property="compNo" jdbcType="VARCHAR" />
+	    <result column="SIGN_DATE" property="signDate" jdbcType="VARCHAR" />
+	    <result column="COMP_PREMIUM" property="compPremium" jdbcType="VARCHAR" />
+	    <result column="TRADING_KIND" property="tradingKind" jdbcType="VARCHAR" />
+	    <result column="TRADING_UNITED_NO" property="tradingUnitedNo" jdbcType="VARCHAR" />
+	    <result column="TRADING_NAME" property="tradingName" jdbcType="VARCHAR" />
+	    <result column="PRODUCER_REG_NO" property="producerRegNo" jdbcType="VARCHAR" />
+	    <result column="TRANS_ANGENCY" property="transAngency" jdbcType="VARCHAR" />
+	    <result column="CHECK_VALUE" property="checkValue" jdbcType="VARCHAR" />
+	    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+	    <result column="RESULT_RECEIVE_TIME" property="resultReceiveTime" jdbcType="TIMESTAMP" />
+	    <result column="INSURED_CARD" property="insuredCard" jdbcType="VARCHAR" />
+	    <result column="RESULT_CODE" property="resultCode" jdbcType="VARCHAR" />
+	    <result column="RESULT_MSG" property="resultMsg" jdbcType="VARCHAR" />
+	    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+	    <result column="CARD_SEL_NO" property="cardSelNo" jdbcType="VARCHAR" />
+	    <result column="CARD_SEL_DATE" property="cardSelDate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="select" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		<include refid="Utils.sql1" />
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>CAR_TRADEVAN_APPLY_LOG
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				TYPE = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCardNo">
+				INSURED_CARD_NO = #insuredCardNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ownerId">
+				OWNER_ID = #ownerId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFalg">
+				PLATE_NO = #compNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compBeginDate">
+				COMP_BEGIN_DATE = #compBeginDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compEndDate">
+				COMP_END_DATE = #compEndDate#
+			</isNotEmpty>
+		</dynamic>
+		<include refid="Utils.sql2" />
+	</select>
+
+	<select id="selectByParams" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * FROM <include refid="Utils.prpinsSchema"/>CAR_TRADEVAN_APPLY_LOG
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				TYPE = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCardNo">
+				INSURED_CARD_NO = #insuredCardNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ownerId">
+				OWNER_ID = #ownerId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFalg">
+				PLATE_NO = #compNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compBeginDate">
+				COMP_BEGIN_DATE = #compBeginDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compEndDate">
+				COMP_END_DATE = #compEndDate#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 未使用
+	<select id="selectForBlklt" resultMap="BaseResultMap" parameterClass="java.util.Map">
+		SELECT * <include refid="Utils.prpinsSchema"/>FROM CAR_TRADEVAN_APPLY_LOG
+		WHERE CONVERT(DATE, GETDATE(), 111) <![CDATA[>=]]> CONVERT(DATE, DEFFDATE,111) AND (CONVERT(DATE, GETDATE(), 111) <![CDATA[<=]]> CONVERT(DATE, DEXPDATE,111) OR DEXPDATE IS NULL)
+		AND (NISSU = #nissu# OR IISSU = #iissu# OR ITAG = #itag# OR IENGINE = #iengine#)
+	</select>
+ 	-->
+ 	
+	<select id="count" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>CAR_TRADEVAN_APPLY_LOG
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="oid">
+				OID = #oid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				TYPE = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="insuredCardNo">
+				INSURED_CARD_NO = #insuredCardNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="ownerId">
+				OWNER_ID = #ownerId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="validFalg">
+				PLATE_NO = #compNo#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compBeginDate">
+				COMP_BEGIN_DATE = #compBeginDate#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="compEndDate">
+				COMP_END_DATE = #compEndDate#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 未使用
+	<select id="countByUK" resultClass="java.lang.Integer" parameterClass="com.tlg.car.entity.CarpBlklist" >
+		SELECT COUNT(*) FROM <include refid="Utils.prpinsSchema"/>CAR_TRADEVAN_APPLY_LOG
+		<dynamic prepend="WHERE">
+		</dynamic>
+	</select>
+	-->
+	<insert id="insert" parameterClass="com.tlg.prpins.entity.CarTradevanApplyLog" >
+		<selectKey resultClass="java.math.BigDecimal" keyProperty="oid" >    
+	       SELECT CAR_TRADEVAN_APPLY_LOG_SEQ.NEXTVAL AS OID FROM DUAL    
+	    </selectKey>
+
+		INSERT INTO <include refid="Utils.prpinsSchema"/> CAR_TRADEVAN_APPLY_LOG (OID, INSURED_CARD_NO, OWNER_ID, OWNER_NAME, OWNER_NAME_PIC,
+      	COMP_BEGIN_DATE, COMP_END_DATE, CARRIAGE_TYPE, INSURED_CAR_TYPE, ORG_ISSUE_DATE, BRAND_MODEL,
+      	BRAND_MODEL_NAME, CYLINDER, ENGINE_NO, PLATE_NO, FEE_GRADE, COMP_NO, SIGN_DATE, COMP_PREMIUM,
+      	TRADING_KIND, TRADING_UNITED_NO, TRADING_NAME, PRODUCER_REG_NO, TRANS_ANGENCY, CHECK_VALUE,
+      	CREATETIME, RESULT_RECEIVE_TIME, INSURED_CARD, RESULT_CODE, RESULT_MSG, TYPE, CARD_SEL_NO, CARD_SEL_DATE)
+    	values (#oid:DECIMAL#, #insuredCardNo:VARCHAR#, #ownerId:VARCHAR#, #ownerName:VARCHAR#,
+      	#ownerNamePic:VARCHAR#, #compBeginDate:VARCHAR#, #compEndDate:VARCHAR#,
+		#carriageType:VARCHAR#, #insuredCarType:VARCHAR#, #orgIssueDate:VARCHAR#,
+      	#brandModel:VARCHAR#, #brandModelName:VARCHAR#, #cylinder:VARCHAR#, #engineNo:VARCHAR#,
+      	#plateNo:VARCHAR#, #feeGrade:VARCHAR#, #compNo:VARCHAR#, #signDate:VARCHAR#,
+      	#compPremium:VARCHAR#, #tradingKind:VARCHAR#, #tradingUnitedNo:VARCHAR#, #tradingName:VARCHAR#,
+	      #producerRegNo:VARCHAR#, #transAngency:VARCHAR#, #checkValue:VARCHAR#, #createtime:TIMESTAMP#,
+      	#resultReceiveTime:TIMESTAMP#, #insuredCard:VARCHAR#, #resultCode:VARCHAR#, #resultMsg:VARCHAR#,
+      	#type:VARCHAR#, #cardSelNo:VARCHAR#, #cardSelDate:VARCHAR#)
+
+	</insert>
+
+	<delete id="delete" parameterClass="java.math.BigDecimal" >
+		DELETE FROM <include refid="Utils.prpinsSchema"/>CAR_TRADEVAN_APPLY_LOG WHERE OID = #oid:DECIMAL#
+	</delete>
+
+	<update id="update" parameterClass="com.tlg.prpins.entity.CarTradevanApplyLog">
+		UPDATE <include refid="Utils.prpinsSchema" />CAR_TRADEVAN_APPLY_LOG
+		<dynamic prepend="set">
+			<!-- 
+			<isNotNull prepend="," property="insuredCardNo">
+				INSURED_CARD_NO = #insuredCardNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ownerId">
+				OWNER_ID = #ownerId:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ownerName">
+				OWNER_NAME = #ownerName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="ownerNamePic">
+				OWNER_NAME_PIC = #ownerNamePic:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="compBeginDate">
+				COMP_BEGIN_DATE = #compBeginDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="compEndDate">
+				COMP_END_DATE = #compEndDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="carriageType">
+				CARRIAGE_TYPE = #carriageType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="insuredCarType">
+				INSURED_CAR_TYPE = #insuredCarType:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="orgIssueDate">
+				ORG_ISSUE_DATE = #orgIssueDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="brandModel">
+				BRAND_MODEL = #brandModel:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="brandModelName">
+				BRAND_MODEL_NAME = #brandModelName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="cylinder">
+				CYLINDER = #cylinder:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="engineNo">
+				ENGINE_NO = #engineNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="plateNo">
+				PLATE_NO = #plateNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="feeGrade">
+				FEE_GRADE = #feeGrade:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="compNo">
+				COMP_NO = #compNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="signDate">
+				SIGN_DATE = #signDate:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="compPremium">
+				COMP_PREMIUM = #compPremium:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="tradingKind">
+				TRADING_KIND = #tradingKind:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="tradingUnitedNo">
+				TRADING_UNITED_NO = #tradingUnitedNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="tradingName">
+				TRADING_NAME = #tradingName:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="producerRegNo">
+				PRODUCER_REG_NO = #producerRegNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="transAngency">
+				TRANS_ANGENCY = #transAngency:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="checkValue">
+				CHECK_VALUE = #checkValue:VARCHAR#
+			</isNotNull>
+			 -->
+			<isNotNull prepend="," property="resultReceiveTime">
+				RESULT_RECEIVE_TIME = #resultReceiveTime:TIMESTAMP#
+			</isNotNull>
+			<!-- 
+			<isNotNull prepend="," property="insuredCard">
+				INSURED_CARD = #insuredCard:VARCHAR#
+			</isNotNull>
+			 -->
+			<isNotNull prepend="," property="resultCode">
+				RESULT_CODE = #resultCode:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="resultMsg">
+				RESULT_MSG = #resultMsg:VARCHAR#
+			</isNotNull>
+			<!-- 
+			<isNotNull prepend="," property="type">
+				TYPE = #type:VARCHAR#
+			</isNotNull>
+			 -->
+			<isNotNull prepend="," property="cardSelNo">
+				CARD_SEL_NO = #cardSelNo:VARCHAR#
+			</isNotNull>
+			<isNotNull prepend="," property="cardSelDate">
+				CARD_SEL_DATE = #cardSelDate:VARCHAR#
+			</isNotNull>
+		</dynamic>
+		WHERE OID = #oid:DECIMAL#
+	</update>
+
+</sqlMap>
