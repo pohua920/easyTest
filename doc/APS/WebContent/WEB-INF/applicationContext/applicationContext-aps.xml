@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	 <!-- JNDI -->
+	<bean id="coreplus" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+        <property name="jndiName">  
+            <value>java:comp/env/jdbc/coreplus</value> 
+        </property>  
+    </bean>  	
+	
+	<bean id="confBeanManager"  
+ 	      class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+        <property name="location" value="/WEB-INF/classes/config.properties"/> 
+    </bean> 
+    
+    
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" scope="singleton">
+		<property name="configLocations">
+			<list>
+				<value>classpath:sqlMapConfig/sqlMapConfig.xml</value>
+				<value>classpath:sqlMapConfig/sqlMapConfig-sys.xml</value>
+				<value>classpath:sqlMapConfig/sqlMapConfig-cmn.xml</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="coreplus" /> 
+		<property name="useTransactionAwareDataSource" value="false" /> 
+	</bean>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="coreplus" />
+		<qualifier value="apsTransactionManager"/>
+	</bean>
+
+	<!-- Security的beans -->
+	<bean id="manageSecurityFilter" class="com.tlg.filter.ManageSecurityFilter">
+		<property name="excludePathRegex">
+			<set>
+				<!-- 
+				<value>/console/compass/manage.*</value>
+				<value>/console/coupon/.*</value>
+				<value>/console/customize/block/.*</value>
+				<value>/console/review/.*</value>
+				<value>/console/ripple/.*</value>
+				<value>/console/wdjcraw/.*</value>
+				<value>/console/audit/reason/.*</value>
+				<value>/console/audit/.*</value>
+				 -->
+			</set>
+		</property>
+	</bean>
+	
+</beans>

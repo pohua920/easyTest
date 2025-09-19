@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<!-- Base Dao  -->
+	<bean id="customerDao" class="com.tlg.msSqlMob.dao.impl.CustomerDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 start -->
+	<bean id="applicantDao" class="com.tlg.msSqlMob.dao.impl.ApplicantDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="applicationDao" class="com.tlg.msSqlMob.dao.impl.ApplicationDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="extColDao" class="com.tlg.msSqlMob.dao.impl.ExtColDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="insuredDao" class="com.tlg.msSqlMob.dao.impl.InsuredDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="mobileInsBatchInfoDao" class="com.tlg.msSqlMob.dao.impl.MobileInsBatchInfoDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="productDao" class="com.tlg.msSqlMob.dao.impl.ProductDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetPolicyImportErrorDao" class="com.tlg.msSqlMob.dao.impl.FetPolicyImportErrorDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 end -->
+	
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  start-->
+	<bean id="acFileDao" class="com.tlg.msSqlMob.dao.impl.AcFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="accountFileDao" class="com.tlg.msSqlMob.dao.impl.AccountFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="chFileDao" class="com.tlg.msSqlMob.dao.impl.ChFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="clFileDao" class="com.tlg.msSqlMob.dao.impl.ClFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="cmFileDao" class="com.tlg.msSqlMob.dao.impl.CmFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  end-->
+	
+	<!-- mantis：MOB0003，處理人員：CC009，需求單編號：MOB0003 從遠傳抓取要保書檔作業 -->
+	<bean id="proposalFileDao" class="com.tlg.msSqlMob.dao.impl.ProposalFileDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+	<bean id="chubbReturnCustomerDao" class="com.tlg.msSqlMob.dao.impl.ChubbReturnCustomerDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+
+	<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  start -->
+	<bean id="fetMobilePolicyDao" class="com.tlg.msSqlMob.dao.impl.FetMobilePolicyDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetMobilePolicyInsurantInfoDao" class="com.tlg.msSqlMob.dao.impl.FetMobilePolicyInsurantInfoDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetMobilePolicyDeviceDao" class="com.tlg.msSqlMob.dao.impl.FetMobilePolicyDeviceDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  end -->
+
+	<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  start-->
+	<bean id="applicantEndorseDao" class="com.tlg.msSqlMob.dao.impl.ApplicantEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="customerEndorseDao" class="com.tlg.msSqlMob.dao.impl.CustomerEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  end-->
+	
+	<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業  start-->
+	<bean id="insuredEndorseDao" class="com.tlg.msSqlMob.dao.impl.InsuredEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="productEndorseDao" class="com.tlg.msSqlMob.dao.impl.ProductEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業  end-->
+	
+	<bean id="fetMobileEpolicyDao" class="com.tlg.msSqlMob.dao.impl.FetMobileEpolicyDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 START-->
+	<bean id="terminationNoticeDao" class="com.tlg.msSqlMob.dao.impl.TerminationNoticeDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 END-->
+	
+	<bean id="batchRepairMainDao" class="com.tlg.msSqlMob.dao.impl.BatchRepairMainDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="batchRepairDetailDao" class="com.tlg.msSqlMob.dao.impl.BatchRepairDetailDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<!--  mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 -->
+	<bean id="fetclaimTypecmDao" class="com.tlg.msSqlMob.dao.impl.FetclaimTypecmDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetPaidDao" class="com.tlg.msSqlMob.dao.impl.FetPaidDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetPayableDao" class="com.tlg.msSqlMob.dao.impl.FetPayableDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="chubbApplicantEndorseDao" class="com.tlg.msSqlMob.dao.impl.ChubbApplicantEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="chubbCustomerEndorseDao" class="com.tlg.msSqlMob.dao.impl.ChubbCustomerEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="chubbInsuredEndorseDao" class="com.tlg.msSqlMob.dao.impl.ChubbInsuredEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="chubbProductEndorseDao" class="com.tlg.msSqlMob.dao.impl.ChubbProductEndorseDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="proposalInsufficientSmsDao" class="com.tlg.msSqlMob.dao.impl.ProposalInsufficientSmsDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetCancelNotificationDao" class="com.tlg.msSqlMob.dao.impl.FetCancelNotificationDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+	
+	<bean id="fetMobilePolicySalesDao" class="com.tlg.msSqlMob.dao.impl.FetMobilePolicySalesDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+
+	<bean id="fetAmlRecordDao" class="com.tlg.msSqlMob.dao.impl.FetAmlRecordDaoImpl">
+		<property name="sqlMapClient" ref="msSqlMobSqlMapClient"/>
+	</bean>
+
+	<!-- Base Service -->
+	<bean id="customerService" class="com.tlg.msSqlMob.service.impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"/>
+	</bean>
+	
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 start -->
+	<bean id="applicantService" class="com.tlg.msSqlMob.service.impl.ApplicantServiceImpl">
+		<property name="applicantDao" ref="applicantDao"/>
+	</bean>
+	
+	<bean id="applicationService" class="com.tlg.msSqlMob.service.impl.ApplicationServiceImpl">
+		<property name="applicationDao" ref="applicationDao"/>
+	</bean>
+	
+	<bean id="extColService" class="com.tlg.msSqlMob.service.impl.ExtColServiceImpl">
+		<property name="extColDao" ref="extColDao"/>
+	</bean>
+	
+	<bean id="insuredService" class="com.tlg.msSqlMob.service.impl.InsuredServiceImpl">
+		<property name="insuredDao" ref="insuredDao"/>
+	</bean>
+	
+	<bean id="mobileInsBatchInfoService" class="com.tlg.msSqlMob.service.impl.MobileInsBatchInfoServiceImpl">
+		<property name="mobileInsBatchInfoDao" ref="mobileInsBatchInfoDao"/>
+	</bean>
+	
+	<bean id="productService" class="com.tlg.msSqlMob.service.impl.ProductServiceImpl">
+		<property name="productDao" ref="productDao"/>
+	</bean>
+	
+	<bean id="fetPolicyImportErrorService" class="com.tlg.msSqlMob.service.impl.FetPolicyImportErrorServiceImpl">
+		<property name="fetPolicyImportErrorDao" ref="fetPolicyImportErrorDao"/>
+	</bean>
+	<!--  mantis：MOB0001，處理人員：CC009，需求單編號：MOB0001 遠傳手機保險投保&批改作業 end -->
+	
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  start-->
+	<bean id="acFileService" class="com.tlg.msSqlMob.service.impl.AcFileServiceImpl">
+		<property name="acFileDao" ref="acFileDao"/>
+	</bean>
+	
+	<bean id="accountFileService" class="com.tlg.msSqlMob.service.impl.AccountFileServiceImpl">
+		<property name="accountFileDao" ref="accountFileDao"/>
+	</bean>
+	
+	<bean id="chFileService" class="com.tlg.msSqlMob.service.impl.ChFileServiceImpl">
+		<property name="chFileDao" ref="chFileDao"/>
+	</bean>
+	
+	<bean id="clFileService" class="com.tlg.msSqlMob.service.impl.ClFileServiceImpl">
+		<property name="clFileDao" ref="clFileDao"/>
+	</bean>
+	
+	<bean id="cmFileService" class="com.tlg.msSqlMob.service.impl.CmFileServiceImpl">
+		<property name="cmFileDao" ref="cmFileDao"/>
+	</bean>
+	<!-- mantis：MOB0008，處理人員：BJ016，需求單編號：MOB0008 將安達提供的回饋檔記錄到相對應資料表  end-->
+	
+	<!-- mantis：MOB0003，處理人員：CC009，需求單編號：MOB0003 從遠傳抓取要保書檔作業 -->
+	<bean id="proposalFileService" class="com.tlg.msSqlMob.service.impl.ProposalFileServiceImpl">
+		<property name="proposalFileDao" ref="proposalFileDao"/>
+	</bean>
+	
+	<!-- mantis：MOB0010，處理人員：BJ085，需求單編號：MOB0010 安達回傳保單及批單處理結果狀態更新 -->
+	<bean id="chubbReturnCustomerService" class="com.tlg.msSqlMob.service.impl.ChubbReturnCustomerServiceImpl">
+		<property name="chubbReturnCustomerDao" ref="chubbReturnCustomerDao"/>
+	</bean>
+	
+	<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  start -->
+	<bean id="fetMobilePolicyService" class="com.tlg.msSqlMob.service.impl.FetMobilePolicyServiceImpl">
+		<property name="fetMobilePolicyDao" ref="fetMobilePolicyDao"/>
+	</bean>
+	
+	<bean id="fetMobilePolicyInsurantInfoService" class="com.tlg.msSqlMob.service.impl.FetMobilePolicyInsurantInfoServiceImpl">
+		<property name="fetMobilePolicyInsurantInfoDao" ref="fetMobilePolicyInsurantInfoDao"/>
+	</bean>
+	
+	<bean id="fetMobilePolicyDeviceService" class="com.tlg.msSqlMob.service.impl.FetMobilePolicyDeviceServiceImpl">
+		<property name="fetMobilePolicyDeviceDao" ref="fetMobilePolicyDeviceDao"/>
+	</bean>
+	<!-- mantis：MOB0011，處理人員：BI086，需求單編號：MOB0011 呼叫web service後結果狀態更新  end -->
+
+	<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  start-->
+	<bean id="applicantEndorseService" class="com.tlg.msSqlMob.service.impl.ApplicantEndorseServiceImpl">
+		<property name="applicantEndorseDao" ref="applicantEndorseDao"/>
+	</bean>
+	
+	<bean id="customerEndorseService" class="com.tlg.msSqlMob.service.impl.CustomerEndorseServiceImpl">
+		<property name="customerEndorseDao" ref="customerEndorseDao"/>
+	</bean>
+	<!-- mantis：MOB0012，處理人員：BI086，需求單編號：MOB0012 線下批單資料檢核作業  end-->
+
+	<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業  start-->
+	<bean id="insuredEndorseService" class="com.tlg.msSqlMob.service.impl.InsuredEndorseServiceImpl">
+		<property name="insuredEndorseDao" ref="insuredEndorseDao"/>
+	</bean>
+	
+	<bean id="productEndorseService" class="com.tlg.msSqlMob.service.impl.ProductEndorseServiceImpl">
+		<property name="productEndorseDao" ref="productEndorseDao"/>
+	</bean>
+	<!-- mantis：MOB0013，處理人員：BI086，需求單編號：MOB0013線下批單資料處理作業 end-->
+	
+	<bean id="fetMobileEpolicyService" class="com.tlg.msSqlMob.service.impl.FetMobileEpolicyServiceImpl">
+		<property name="fetMobileEpolicyDao" ref="fetMobileEpolicyDao"/>
+	</bean>
+	
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 START-->
+	<bean id="terminationNoticeService" class="com.tlg.msSqlMob.service.impl.TerminationNoticeServiceImpl">
+		<property name="terminationNoticeDao" ref="terminationNoticeDao"/>
+	</bean>
+	<!-- mantis：MOB0024，處理人員：BJ016，需求單編號：MOB0024 產生終止通知書 END-->
+	
+	<bean id="batchRepairMainService" class="com.tlg.msSqlMob.service.impl.BatchRepairMainServiceImpl">
+		<property name="batchRepairMainDao" ref="batchRepairMainDao"/>
+	</bean>
+	
+	<bean id="batchRepairDetailService" class="com.tlg.msSqlMob.service.impl.BatchRepairDetailServiceImpl">
+		<property name="batchRepairDetailDao" ref="batchRepairDetailDao"/>
+	</bean>
+	
+	<!-- mantis：MOB0020，處理人員：BI086，需求單編號：MOB0020 理賠盜打詐騙API及XML作業 -->
+	<bean id="fetclaimTypecmService" class="com.tlg.msSqlMob.service.impl.FetclaimTypecmServiceImpl">
+		<property name="fetclaimTypecmDao" ref="fetclaimTypecmDao"/>
+	</bean>
+	
+	<bean id="fetPaidService" class="com.tlg.msSqlMob.service.impl.FetPaidServiceImpl">
+		<property name="fetPaidDao" ref="fetPaidDao"/>
+	</bean>
+	
+	<bean id="fetPayableService" class="com.tlg.msSqlMob.service.impl.FetPayableServiceImpl">
+		<property name="fetPayableDao" ref="fetPayableDao"/>
+	</bean>
+	
+	<bean id="chubbApplicantEndorseService" class="com.tlg.msSqlMob.service.impl.ChubbApplicantEndorseServiceImpl">
+		<property name="chubbApplicantEndorseDao" ref="chubbApplicantEndorseDao"/>
+	</bean>
+	
+	<bean id="chubbCustomerEndorseService" class="com.tlg.msSqlMob.service.impl.ChubbCustomerEndorseServiceImpl">
+		<property name="chubbCustomerEndorseDao" ref="chubbCustomerEndorseDao"/>
+	</bean>
+	
+	<bean id="chubbInsuredEndorseService" class="com.tlg.msSqlMob.service.impl.ChubbInsuredEndorseServiceImpl">
+		<property name="chubbInsuredEndorseDao" ref="chubbInsuredEndorseDao"/>
+	</bean>
+	
+	<bean id="chubbProductEndorseService" class="com.tlg.msSqlMob.service.impl.ChubbProductEndorseServiceImpl">
+		<property name="chubbProductEndorseDao" ref="chubbProductEndorseDao"/>
+	</bean>
+	
+	<bean id="proposalInsufficientSmsService" class="com.tlg.msSqlMob.service.impl.ProposalInsufficientSmsServiceImpl">
+		<property name="proposalInsufficientSmsDao" ref="proposalInsufficientSmsDao"/>
+	</bean>
+	
+	<bean id="fetCancelNotificationService" class="com.tlg.msSqlMob.service.impl.FetCancelNotificationServiceImpl">
+		<property name="fetCancelNotificationDao" ref="fetCancelNotificationDao"/>
+	</bean>
+	
+	<bean id="fetMobilePolicySalesService" class="com.tlg.msSqlMob.service.impl.FetMobilePolicySalesServiceImpl">
+		<property name="fetMobilePolicySalesDao" ref="fetMobilePolicySalesDao"/>
+	</bean>
+	<bean id="fetAmlRecordService" class="com.tlg.msSqlMob.service.impl.FetAmlRecordServiceImpl">
+		<property name="fetAmlRecordDao" ref="fetAmlRecordDao"/>
+	</bean>
+</beans>
