@@ -1,0 +1,431 @@
+常用關鍵
+(prpphead.)endorType 85普通批改 40過戶 130傭金批改 (P:\05.參考資料\PRPPHEAD.ENDORTYPE) 01變更保險期間
+workStatus 00 不檢查 02查詢中 01待再查詢 改=>04正常可核保
+UNDERWRITEFLAG 10:待續保 0:新保
+打包 帶走 ***\BusiBaseAction.java	public void packPrpCmain(){....
+由cp to c ==> PolicyServiceSpringImpl.endorsenoToPolicy (核保後 會回到這個)
+CP to C
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\policy\service\spring\PolicyServiceSpringImpl.java
+		EvaluateUtil.simpleCopyFromCPToPolicy(prpCPmain, prpCmainNew);
+		
+批改生成就會做一次 =>eval D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\common\util\EvaluateUtil.java
+
+if("B".equals(BusinessType)){//報價單
+if("T".equals(BusinessType)){ //要保書
+if ("E".equals(BusinessType)) {//?????? //当时预约协议或暂保单时不送再保数据
+if("B01".equals(prpPmain.getRiskCode()) && !"130".equals(prpPheadtemp.getEndorType())){//130 內部佣金批改 不用送
+
+
+死在這裡 undwrt SIT提交核保(B找到這個資料庫有關係)
+select * from prpPdangerItem where endorseno = '182221CFE50001'
+
+CommonDealSubmitAction.java
+PolicyAction.java
+	public String savePolicy() throws Exception {
+		super.packPrpCmain();
+		...
+	public String saveTemporaryPolicy() throws Exception {
+		super.packPrpCmain();
+		...
+
+保費計算
+ProductCalPremiumServiceImpl.java
+
+Executed action
+
+F01住火  
+	批改 ==>(若批改後畫面上沒有提交核批 送批)批單查詢
+
+
+參考思路
+----聯想
+--itemkind
+\policy\mrisk\m01001\UIPrPoEnItemKindInput.jsp  
+
+--保單生成規則和批單生成規則重新定義，其他單號生成規則沿用系統getNo實現
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\common\service\spring\BillServiceSpringImpl.java
+public String getNoNew(String iTableName,String iFieldName,Object iObject) throws Exception{
+
+----STRUST 設定
+	特別
+		JS
+		fm.action = contextRootPath+"/print/coinsVisa_preAdd.do";
+
+		<!-- 共保收据列印跳转-->
+		<action name="coinsVisaPrint" class="coinsVisaAction" method="coinsVisaPrint">
+			<result name="query">/prpins/common/print/coinsVisa/UICoinsVisaQuery.jsp</result>
+		</action>
+		<action name="coinsVisa_*" class="coinsVisaAction" method="{1}">
+			<result name="query">/prpins/common/print/coinsVisa/UICoinsVisaQuery.jsp</result>
+			<result name="add">/prpins/common/print/coinsVisa/UICoinsVisaEdit.jsp</result>
+		</action>
+----DWR 
+水險M共保列印都有  查詢後點選修改
+查MAR0040
+DWRUtil
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\common\print\coinsVisa\UICoinsVisaEdit.js
+
+----WSDL
+FIR0327 WSDL genCode 需求位置
+genCode 目錄
+package com.tlg.webServicesClient.addressCheck;
+
+WSDL URL
+	http://192.168.112.6:8880/CWP/webService/addressCheckService?wsdl
+
+----Table :PRP開頭
+Q(報價單)->T(要保書)->C(保單)->P(批單變化)->CP(批單結果)->COPY(歷程)
+----特別簡體字
+<!-- 如果risk下存在险种的个性JS，则在此进行导入 -->
+<!-- 导入关系人信息（保险关系人）页面的私有JS（公共的） -->
+----【要保人/被保險人資料】
+--【要保區塊】
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\policy\mrisk\m17001\UIPoEnApplyGroupEdit.jsp
+
+--【被保區塊】
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\policy\mrisk\m17001\UIPoEnInsuredGroupEdit.jsp
+
+--【auto inser a year date 】
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\policy\mrisk\m27003\UIPoEnMainEdit.jsp  418 保險期限
+
+--【AGE hafe year add one year C_PE(LIA0072)&C_VI(LIA0170 已經退版 僅能用SVN LOG 查看)】
+C_VI  : \14prpins\webapp\prpins\policy\mrisk\m17001\UIPoEnApplyGroupEdit.jsp
+
+--【webserver FIR0214 + FIR0238】
+P:\01.需求變更\火險\FIR0209_FIR0212_FIR0213_FIR0214_FIR0225_FIR0238住火稽核議題調整
+http://localhost:7001/prpins/prpins/policy/common/cb/UIPoHeadButton.js
+
+--【要保列印 】PrintOthAction.java printMain(){}  AND into this.generateReportPdf(listMap, intCount, response); at line 1555
+--【列印 中間路徒】 listMap = printOthService.printProposalF(rootPath, prpTmainList); at line 264
+
+-->>--【衝破洗錢】 命中 解開  
+SELECT WORKSTATUS FROM BUSINESS.PRPTMAIN WHERE PROPOSALNO in ('9EL202000000057');
+--update BUSINESS.PRPTMAIN set WORKSTATUS='04' WHERE PROPOSALNO in ('9EL202000000057');
+04 解除
+
+--【Webservice convertBase64StrToObj & convertObjToBase64Str FIR0327】
+WebserviceObjConvert
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\common\util\WebserviceObjConvert.java
+CXF genCode by STS with workspace (D:\my-wsclient)
+D:\my-wsclient\pom.xml set up my <wsdl>http://192.168.112.6:8880/CWP/webService/addressCheckService?wsdl</wsdl> then run on right-mouse and choose MVN generate-code
+
+---【危險費率】
+FIR0261
+
+--【package of interface】 (tlgins/111) http://localhost:8080/interface-data-converter/TaskTrigger.jsp
+data truncation 被截斷 查LOG即可 http://localhost:8080/interface-data-converter/queryLogAction.action
+
+--【核保觸發】 EGN0019
+核保時,儲存PrpJfTime會觸發trigger T_COPY_PRPJFTIME
+最終觸發的PROC_ECPOLICY_INTERINFO,會insert ECWAA
+觸發程序PROC_ECPOLICY_INTERINFO
+
+參考262行
+--20210727 許馨燕修改PB
+	 '(case when t1.riskcode=''PB'' then (select max(dangerUnitAmount) from prpCmainLiab where POLICYNO=t1.policyno) else t3.HUGEDANGERCODE end), '||--WAC47  巨大危險數量代號
+	
+	'case when t1.RISKCODE in (''MN'') then null else (select dangerousSortCode from prpCmainLiab where policyno = t1.policyNo ) end,'||--WAA57  危險分類總項代號  ---待確認
+--【核保 + INTERFACE】
+-HAS0122
+需求 是 180022PA5000003 傷害的PA 要寫入(AS400.TSTORACLE)ZWAA.WAA 運行的是 PROC_CPOLICY_INTERINFO interface是跑 03. 傷害險 轉介(accident)
+另外提 工程及車 是跑 PROC_ECPOLICY_INTERINFO interface則是跑 04. 工程、責任 險 轉介(engineeringLiability)
+
+首先 要到一筆測試單會自己做 此項需求在  
+頁籤"要保人/被保險人資料及保險内容 " 的 要保人 進件序號：95441136200452 為 prpCinsuredIdvLists[0].inNo
+
+STEP1 保費核算 ==> 存檔 
+STEP2 核保通過
+STEP3 INTERFACE UI 選 03. 傷害險 轉介
+STEP4 查看SQL 
+	SELECT * FROM TSTORACLE.ZWAA WHERE WAA02='180022PA5000004';
+  OR SELECT a.WAA60,a.*  FROM TSTORACLE.ZWAA a WHERE a.WAA02 LIKE '%22PA5000%';
+  
+查閱原核心資料是否完整
+SELECT p.inno FROM BUSINESS.PRPCPINSURED p WHERE POLICYNO = '180022PA5000003'
+SELECT a.inno FROM BUSINESS.prpcinsured a WHERE  POLICYNO = '180022PA5000010' AND a.insuredflag = 2
+
+注意對應的欄位長度是否足夠 及有無算錯對應欄位(因為這兩個原因浪費了一整個早上)
+	
+--【RPT(Rpt_file) 追蹤 B2B0128】
+D:\iReport\iReport-5.1.0\bin\ireport.ext
+Modified : /NEWIMS/Rpt_File/fir/FIR00109/RPFIR00109_insured.jasper
+Modified : /NEWIMS/Rpt_File/fir/FIR00109/RPFIR00109_insured.jrxml
+input OID=1091 imageDIR:D:\Rpt_File\fir\FIR00109\image\
+  Compiling to file... D:\Rpt_File\fir\FIR00112\RPFIR00112_insured.jasper
+Select * from FIR_BUSSINESS_PRINT_TMP where OID =$P{OID}
+Select * from FIR_BUSSINESS_PRINT_TMP where OID = 1091
+
+--【電子保單(PE範例) 被保險寵物照片(還沒研究但知道它開發在這附近)】 SQL在下面SQL區
+\14prpins\component\com\sinosoft\prpins\policy\web\PrintOthAction.java
+public String printMain() throws Exception {...106
+..if("epolicyBD".equals(printType)){..495
+....}else if ("peEpolicy".equals(policyPrintType)) {....528
+==>listMap = printOthService.printPolicyPeEploicy(rootPath, prpCmainList,...543 ==>88769
+.....這裡也可以做多個PDF for(PrpCmain prpcmain : prpCmainList){...map1.put("templetPath", rootPath + "/pdf/PERULE_1.pdf");
+
+//資料雜湊區
+===>listMap.addAll(printPEService.printVisaC(rootPath, prpCmainList, EPOLICYFLAG_Y, printStyle)); ==> 88796
+
+//加上[綜合列印]時 出現 共列印幾分副本幾分正本之訊息  並[已產生過電子保單 不再寫入log]
+=====>writePrintOperateLogForEpolicy(1, 2, printType, printNumber);...PrintPEServerSpringImpl 884 加上[綜合列印]時 
+
+..mapList1.addAll(printPEService.printPolicyPE(rootPath, prpCmainList, "ePolicyPrint" ,riskCode, 1,0,userInfo, "1"));..1460
+..mapList2.addAll(printPEService.printVisaC(rootPath, prpCmainList, EPOLICYFLAG_Y, printStyle));..1461
+//★合併PDF 檔案名稱製作及刪除舊檔(D:\home\epolicytemp\)  ★★★存到檔案
+..result=mergePDF(mapList1, mapList2, rulePdfName, rootPath, prpCmainList, userInfo, businessType, intCount2, request, response, printStyle);..1462
+
+//=>public void generateReportPdfWithinFile(List<Map> listMap,int n, HttpServletResponse response) throws Exception {...1990
+//重點在最後列印時候  會跑each listMap  內容提到templetPath 有.pdf列印 
+//這就是前段 PrintOthServiceSpringImpl.java  =>printPolicyPeEploicy =>map1.put("templetPath", rootPath + "/pdf/PERULE_1.pdf");
+
+for (int j = 0; j < n; j++) {
+			for (int i = 0; i < listMap.size(); i++) {
+				String templetPath = (String) listMap.get(i).get("templetPath");
+				if(templetPath.indexOf(".pdf")!=-1){
+					File sourceFile = new File(templetPath);
+					byte[] fileContent = Files.readAllBytes(sourceFile.toPath());
+					if(bytes == null){
+						bytes = fileContent;
+					}else{
+						bytes = PdfboxUtil.merge(bytes, fileContent);
+					}
+					continue;
+				}
+--【核心 undwrt AmlServer 洗錢 判定點】
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\intf\undwrt\web\UndwrtAction.java
+896	public String submitUndwrtPolicy() throws Exception {....
+	workStatus = "00";//00:不執行
+	prpTmain.setWorkStatus("00");
+
+==================SSSSSSSSQQQQQQQQQQQQQQQLLLLLLLLLLLLLLLL====================================
+--【畫面 同步 AJAX 驗證欄位 呼叫SQL】
+		參考mantis： MAR0034，處理人員：Sam，需求單編號：MAR0034
+			/*
+			mantis： MAR0034，處理人員：Sam，需求單編號：MAR0034--- start
+			水險-畫面及出單規則調整，需求調整
+			*/
+			public boolean checkPrpLexternalAgency(String agentNo){
+				String sql="select count(0) from PrpLexternalAgency where agentno = ? ";
+				List<java.math.BigDecimal> rList = this.findBySql(sql,agentNo);
+				if(rList != null && rList.size() > 0 ){
+					if(rList.get(0).intValue() > 0){
+						return true;
+					}
+				}
+				return false;
+			}
+			/* mantis： MAR0034，處理人員：Sam，需求單編號：MAR0034 --- end */
+		/*
+		mantis： MAR0034，處理人員：Sam，需求單編號：MAR0034--- start
+		水險-畫面及出單規則調整，需求調整
+		*/
+		function checkPrpTmainCargoCheckAgentCode(){
+			var riskCode = document.getElementById("riskCode").value;
+			if(riskCode == 'MC'){
+				//校驗方法的回調方法
+				var callback = {
+					//校驗成功的回調方法
+					success:function(res) {
+						result = YAHOO.lang.JSON.parse(res.responseText); 
+						//保費核算成功后  彈出原因  liuhao
+						var message = result.message;
+						//mantis： FIR0304，處理人員：DP0717，需求單編號：商住火保費核算時歷時太久FIR0284延續問題
+						if(message == 'N'){
+							alert("找不到理賠代理資料。");
+							document.getElementById("prpCmainCargo.checkAgentCode").value="";
+							document.getElementById("prpCmainCargo.checkAgentCode").focus();
+							return false
+						}
+					},
+					//校驗失敗的回調方法
+					failure:function(res) {
+					}
+				}
+				//將fm表單中的數據發送到后臺進行校驗
+				YAHOO.util.Connect.setForm("fm");
+				var transaction = YAHOO.util.Connect.asyncRequest('POST','/prpins/policy/checkPrpLexternalAgency.do',callback,null);
+			}
+			return true;
+		}	
+	
+----【新增後端 sql query find: LIA0170 (已經退版 僅能用SVN LOG 查看)】
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\policy\service\facade\PolicyService.java  queryIdentifynumberExist
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\policy\service\spring\PolicyServiceSpringImpl.java   queryIdentifynumberExist
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\policy\web\PolicyAction.java   checkIdentifynumberExist() 
+D:\workspace\workSpaceBranch\14prpins\resources\struts\struts-prpins-policy.xml
+<action name="checkIdentifynumberExist" class="policyAction" method="checkIdentifynumberExist">
+
+
+--【客製 codeType codeSelect】 
+MAR0049 後來也有做 PRPDCARGOITEM JSP  TEXT對應input_common
+LIA0071 有做  else if (codeType.equals("EMCategory")) {
+INIT
+
+	//mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	var dangerClassificationItem = document.getElementById('prpCmainLiab.dangerClassificationItem');
+	if(dangerClassificationItem!=null && dangerClassificationItem.value!=""){
+		queryDangerousSortCodeSub(dangerClassificationItem,'onchange');
+	}
+	//mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+
+
+/////JAVA
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\common\service\spring\DictServiceSpringImpl.java
+public Page listCodeSelectLocal(String codeType, String riskCode,....
+
+10008
+//mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+		else if (codeType.equals("EMCategory")) {
+			try {
+				List<Object[]> retList = new ArrayList<Object[]>();
+				List<Object> tmpList = null;
+				String sql1="select T.CODECODE,T.CODECNAME,ROWNUM n from CCICDMS.PRPDNEWCODE T WHERE (T.CODETYPE='EMGeneralCategory' OR T.CODETYPE='EMProjectCategory')";
+				if(null!=matches && matches.indexOf("%") != -1){
+					matches = matches.replaceAll("%", "");
+				}..........
+//////////JS
+/**
+ * mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 C-責任險 [EM]/CN/AE 欄位擴充
+ * for 危險分類總項代號/[[危險分類細項代號]EMGeneralCategory]<queryDangerousSortCodeSub>
+ * @param field
+ * @param operateType
+ * @returns {Boolean}
+ */
+function queryDangerousSortCodeSub(field, operateType) {
+	debugger;
+	var riskCode = document.getElementById('prpCmain.riskCode').value;
+	var dangerousSortCode = document.getElementById("prpCmainLiab.dangerClassificationTotalItem").value;
+    if(dangerousSortCode==null || dangerousSortCode==""){
+	    errorMessage("請先選擇危險分類總項代號");//請先選擇行業類別一級分類！
+		return false;
+    }
+	if(operateType == "ondblclick") {
+		code_CodeSelect(field,'EMCategory','0,1','Y','riskCode='+riskCode+',otherCondition=','','',"");
+	} else {
+		code_CodeChange(field,'EMCategory','0,1','Y','riskCode='+riskCode+',otherCondition=','','',"");
+	}
+}
+
+//////////JSP
+				  <!-- EMGeneralCategory -->	    
+				<input type="text" id="prpCmainLiab.dangerClassificationItem"
+					name="prpCmainLiab.dangerClassificationItem" class="codeselect_code"
+					value="${prpCmainLiab.dangerClassificationItem}" title=""
+					style="width: 20%" maxlength="22" ondblclick="queryDangerousSortCodeSub(this, 'ondblclick')"
+						    onchange="queryDangerousSortCodeSub(this, 'onchange')"
+						    onkeypress="uppercaseKey();"/>
+							
+							
+--【codeType codeSelect】
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\common\service\spring\DictServiceSpringImpl.java
+查詢代碼，根據代碼獲取對應的名稱
+public String translateCode( 11255 
+這裡沒有新險種不會產生 
+SELECT * FROM CCICDMS.PRPDNEWCODERISK WHERE CODETYPE = 'Sex'
+select * from prpdnewcode prpdnewcod0_  where prpdnewcod0_.codetype='Sex'  and ( prpdnewcod0_.codecode like '%' ) 
+        and ( prpdnewcod0_.codecname like '%'  or prpdnewcod0_.codeename like '%' )  and prpdnewcod0_.validstatus=1
+select * from prpdnewcode prpdnewcod0_   where  prpdnewcod0_.CODECNAME = '男'
+
+--【JSP模板對應表】
+SELECT * FROM BUSINESS.PRPDRISKTEMPLATE WHERE RISKCODE in ('F01','CL')
+SELECT * FROM BUSINESS.PRPDRISKTEMPLATE WHERE TEMPLATECODE in ('m30002')
+
+----【開啟 編輯類型 複製保單 複製要保書】
+參考FIR0085
+D:\0MyFolder\0workship\FIR0085_報價單輸入編輯類型增加複製保單複製要保書.docx
+
+INSERT INTO ccicdms.prpdnewcoderisk (CODETYPE , CODECODE ,RISKCODE  , VALIDSTATUS) values ('EditType','COPY_POLICY','VI','1');
+INSERT INTO ccicdms.PrpDnewCode (CODETYPE , CODECODE ,CODECNAME ,NEWCODECODE , VALIDSTATUS) values ('EditType','COPY_POLICY','複製保單','COPY_POLICY','1');
+INSERT INTO ccicdms.PrpDnewCode (CODETYPE , CODECODE ,CODECNAME ,NEWCODECODE ,VALIDSTATUS) values ('EditType','COPY_PROPOSAL','複製要保書','COPY_PROPOSAL','1');
+
+INSERT INTO ccicdms.prpdnewcoderisk (CODETYPE , CODECODE ,RISKCODE  , VALIDSTATUS) values ('EditTypeQuota','COPY_POLICY','F02','1');
+INSERT INTO ccicdms.prpdnewcoderisk (CODETYPE , CODECODE ,RISKCODE  , VALIDSTATUS) values ('EditTypeQuota','COPY_PROPOSAL','F02','1');
+INSERT INTO ccicdms.PrpDnewCode (CODETYPE , CODECODE ,CODECNAME ,NEWCODECODE , VALIDSTATUS) values ('EditTypeQuota','COPY_POLICY','複製保單','COPY_POLICY','1');
+INSERT INTO ccicdms.PrpDnewCode (CODETYPE , CODECODE ,CODECNAME ,NEWCODECODE ,VALIDSTATUS) values ('EditTypeQuota','COPY_PROPOSAL','複製要保書','COPY_PROPOSAL','1');
+
+----【查詢 MAR0033 MC水險 [險別代號] [受益人]來源 [起運地]及[目的地] [賠款地點]及[賠款代理]】
+--【險別代號】
+select * from CCICDMS.PRPDRATION prpdration0_  where
+ prpdration0_.VALIDIND='1' 
+ and prpdration0_.VALIDDATE<=to_date('2021-06-10', 'YYYY-MM-DD') 
+ and prpdration0_.plancode='MC' 
+ and prpdration0_.RATIONTYPE='0'
+
+--【受益人】
+select * from CCICDMS.prpdnewcode prpdnewcod0_  where
+ prpdnewcod0_.codetype='BankCode1'  AND ( prpdnewcod0_.codecode like '%' ) 
+ and ( prpdnewcod0_.codecname like '%' or prpdnewcod0_.codeename like '%' ) 
+ and prpdnewcod0_.validstatus=1
+
+--【起運地 及 目的地】
+select * from CCICDMS.PrpDstartPlace prpdstartp0_ where
+ prpdstartp0_.CODECODE like '%'  or prpdstartp0_.PORTNAME like '%%'  or prpdstartp0_.COUNTRIES like '%%' 
+ order by prpdstartp0_.CODECODE asc
+
+--【賠款代理】
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\policy\service\spring\PolicyServiceSpringImpl.java 
+queryAgentUnit(
+        queryRule.addEqual("id.eachDistrict", substring);
+        List<PrpDagentUnit> prpDagentUnits = super.find(PrpDagentUnit.class,queryRule);
+SELECT p.CUSTOMERCNAME,p.CUSTOMERCLASS FROM BUSINESS.PRPDAGENTUNIT p WHERE EACHDISTRICT = '010105'
+
+
+--【電子保單】
+--HAS0087 產生電子保單 下列SQL 只有要一筆就無法列印電子保單
+select  * from BUSINESS.OPERATELOG this_   where
+  this_.policyNo='180021VIW000028' 
+  and this_.FLAG='Y' 
+  
+產生檔案 D:\home\epolicytemp\180021VIW00002800.pdf
+
+
+-- [中信網投B2B2C-介接表擴增受理編號欄位]
+branch 排程 URL: http://localhost:7001/prpins/policyImport/executeB2CImport.do?systemCode=commonview
+參考 mantis：CAR0341 中信網投B2B2C-介接表擴增受理編號欄位
+--CAR0341 結果驗證 核心排程 executeB2CImport 中介轉入核心
+SELECT p2.ORDERSEQ,p.ENFVRULECNT,p.ENFVADDPRICE,p2.*,p.* 
+FROM BUSINESS.PRPTITEMKIND p LEFT JOIN BUSINESS.PRPTMAIN p2 on p2.PROPOSALNO = p.PROPOSALNO 
+WHERE p2.POLICYNO IN ('180021D00096','180021C1D00020');
+
+--準備資料確認 CAR0341 CAR0349
+SELECT * FROM BUSINESS.INTFPRPBMAIN i WHERE POLICYNO IN ('180021D00032','180021C1D00008');
+SELECT * FROM BUSINESS.INTFPRPBITEMKIND i WHERE policyno in ('180021D00096','180021C1D00020');
+
+ --CAR0341 排程欄位新增  ENFVRULECNT, ENFVADDPRICE
+ SELECT * FROM BUSINESS.INTFPRPBITEMKIND i WHERE policyno in ('180021D00096','180021C1D00020');
+ 
+參考 mantis：CAR0363 中信網投B2B2C-介接表擴增欄位MANAGEERCOEFF, SERIESCODE
+SELECT i.STATUS,i.* FROM BUSINESS.INTFPRPBMAIN i WHERE i.POLICYNO = '180021D00025'
+SELECT i.STATUS,i.* FROM BUSINESS.INTFPRPBMAIN i WHERE i.STATUS = '1' 
+
+--【續保批改】
+UPDATE BUSINESS.PRPCMAIN SET OTHFLAG ='000000YY000000N00000' WHERE RISKCODE = 'F01' AND POLICYNO = '180021R0H00176';
+--【防洗錢】
+-->>--衝破洗錢
+SELECT WORKSTATUS FROM BUSINESS.PRPTMAIN WHERE PROPOSALNO in ('9EL202000000057');
+update BUSINESS.PRPTMAIN set WORKSTATUS='04' WHERE PROPOSALNO in ('9EL202000000057');
+
+
+
+======================================================
+JSP 快查]
+#批改作業 => 普通批改 => 保單內容批改 >> 要保人/被保險人資料 
+要保人資料輸入區域：   
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\policy\risk\F02\UIPoEnApplyGroupEdit.jsp
+
+被保險人資料輸入區域：
+D:\workspace\workSpaceBranch\14prpins\webapp\prpins\policy\risk\F02\UIPoEnInsuredGroupEdit.jsp
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+#B2B
+	#查帳號
+	use TLGAGNBS;
+	select * from AGNBS_SYSUSR where SYSUSR01='J80065TLG' and sysusr82='Y';
+	#查保單
+	use TLGTRIPBST;
+	select * from TRIPBS_TTRNS  where PLCYNO='188822TAJ00003';
+
+
+
+

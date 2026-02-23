@@ -1,0 +1,249 @@
+[SoapUI] 原:NonCar 原車 改新:Risk 改為全險種都可收
+log追:registRiskByWsResponse
+SQL追:SELECT * FROM WEBSERVICELOG w WHERE FUNCTIONNAME LIKE '%registRisk%' ORDER BY STARTTIME DESC
+http://192.168.190.43:8880/CWP/webService/claim/api/registRisk
+[CWP][Restful] POST Media Type:text/xml 記得UTF-8設定
+//隨意火險測試
+https://www.base64encode.org/
+下面json丟到上面encode
+{
+  "multiRecepNo": "test-F01-00024",
+  "channelSource": "001",
+  "policyNo": "187025R0H00825",
+  "riskCode":"F01",
+  "reportDate": "2025-05-13",
+  "reportHour": 15,
+  "reportMinute": 5,
+  "reportType": "01",
+  "reportorName": "料北崽13",
+  "reportorPhoneNumber": "0910123456",
+  "reportorMobile": "0910123456",
+  "insuredCode" : "580202600672",
+  "insuredName" : "向前看13",
+  "identifyNumber" : "S221497967",
+  "linkerName": "李小華13",
+  "phoneNumber": "0910123456",
+  "linkerAddress":"LINKERADDRESS_TEST",
+  "damageCode": "01",
+  "handlerCode": "DP0713",
+  "handleUnit": "01",
+  "manageType": "1",
+  "damageAddress": "台北市建狗高架橋13",
+  "damageStartDate": "2025-10-25",
+  "damageStartHour": 17,
+  "damageStartMinute": 30,
+  "remark": "烏煙瘴氣燒到沒剩13",
+  "memo": "測試DP0713 CF044 MEMO 收信",
+  "riskF":{
+	"countryFlag" : "1",
+	"estimateLoss" : 1413,
+	"lossName" :  "歸組休料料13"
+  }
+}
+變成
+ewogICJtdWx0aVJlY2VwTm8iOiAidGVzdC1GMDEtMDAwMjIiLAogICJjaGFubmVsU291cmNlIjogIjAwMSIsCiAgInBvbGljeU5vIjogIjE4NzAyNVIwSDAwODI1IiwKICAicmVwb3J0RGF0ZSI6ICIyMDI1LTA1LTEzIiwKICAicmVwb3J0SG91ciI6IDE1LAogICJyZXBvcnRNaW51dGUiOiA1LAogICJyZXBvcnRUeXBlIjogIjAxIiwKICAicmVwb3J0b3JOYW1lIjogIuaWmeWMl-W0vTEzIiwKICAicmVwb3J0b3JQaG9uZU51bWJlciI6ICIwOTEwMTIzNDU2IiwKICAicmVwb3J0b3JNb2JpbGUiOiAiMDkxMDEyMzQ1NiIsCiAgImluc3VyZWRDb2RlIiA6ICI1ODAyMDI2MDA2NzIiLAogICJpbnN1cmVkTmFtZSIgOiAi5ZCR5YmN55yLMTMiLAogICJpZGVudGlmeU51bWJlciIgOiAiUzIyMTQ5Nzk2NyIsCiAgImxpbmtlck5hbWUiOiAi5p2O5bCP6I-vMTMiLAogICJwaG9uZU51bWJlciI6ICIwOTEwMTIzNDU2IiwKICAibGlua2VyQWRkcmVzcyI6IkxJTktFUkFERFJFU1NfVEVTVCIsCiAgImRhbWFnZUNvZGUiOiAiMDEiLAogICJoYW5kbGVyQ29kZSI6ICJEUDA3MTMiLAogICJoYW5kbGVVbml0IjogIjAxIiwKICAibWFuYWdlVHlwZSI6ICIxIiwKICAiZGFtYWdlQWRkcmVzcyI6ICLlj7DljJfluILlu7rni5fpq5jmnrbmqYsxMyIsCiAgImRhbWFnZVN0YXJ0RGF0ZSI6ICIyMDI1LTEwLTI1IiwKICAiZGFtYWdlU3RhcnRIb3VyIjogMTcsCiAgImRhbWFnZVN0YXJ0TWludXRlIjogMzAsCiAgInJlbWFyayI6ICLng4_nhZnnmLTmsKPnh5LliLDmspLliakxMyIsCiAgInJpc2tGIjp7CgkiY291bnRyeUZsYWciIDogIjEiLAoJImVzdGltYXRlTG9zcyIgOiAxNDEzLAoJImxvc3NOYW1lIiA6ICAi5q2457WE5LyR5paZ5paZMTMiCiAgfQp9
+
+https://www.base64decode.org/
+變回上面的json
+
+
+
+測試單
+--------車
+{
+  "multiRecepNo": "test-B01-00001",
+  "channelSource": "001",
+  "mainPolicyNo": "180025C1000040",
+  "policyNo": "180025000385",
+  "reportDate": "2025-05-13",
+  "riskCode": "B01",
+  "reportHour": 15,
+  "reportMinute": 5,
+  "reportType": "01",
+  "reportorName": "李小華",
+  "reportorPhoneNumber": "0910123456",
+  "reportorMobile": "0910123456",
+  "linkerName": "李小華",
+  "phoneNumber": "0910123456",
+  "driverMobile": "0910123456",
+  "relationType": "1",
+  "damageCode": "01",
+  "handlerCode": "DP0713",
+  "damageAddress": "台北市建國高架橋",
+  "damageStartDate": "2025-05-13",
+  "damageStartHour": 17,
+  "damageStartMinute": 30,
+  "remark": "拖吊險賠付祥碩拖吊11306",
+  "relationship": "1",
+  "riskA": {
+    "manageType": "1",
+    "handleUnit": "01",
+    "thirdPartyList": [
+      {
+        "carKindCode": "03",
+        "licenseNo": "ABC-1234",
+        "insureComCode": "18",
+        "carryingUnit": "P",
+        "carringNumber": 5,
+        "isInsurance": "1",
+        "insuranceNo": "123456789",
+        "insuredIdentity": "1"
+      },
+      {
+        "carKindCode": "03",
+        "licenseNo": "ABC-5678",
+        "insureComCode": "18",
+        "carryingUnit": "P",
+        "carringNumber": 5,
+        "isInsurance": "1",
+        "insuranceNo": "987654321",
+        "insuredIdentity": "1"
+      }
+    ],
+    "personTraceList": [
+      {
+        "personName": "李小華",
+        "personSex": "1",
+        "identifyNumber": "A123456789",
+        "idNumberType": "ID_NUMBER",
+        "rideSituation": "1",
+        "licenseNo": "ABC-123",
+        "applicantBirthday": "1976-01-01"
+      },
+      {
+        "personName": "李小英",
+        "personSex": "1",
+        "identifyNumber": "A987654321",
+        "idNumberType": "ID_NUMBER",
+        "rideSituation": "1",
+        "licenseNo": "ABC-123",
+        "applicantBirthday": "1977-01-01"
+      }
+    ],
+    "driverList": [
+      {
+        "driverName": "李小華",
+        "driverSex": "1",
+        "driverIsMarried": "1",
+        "driverBirthday": "2000-05-21",
+        "driverIdentityNumber": "A123456789",
+        "driverPhone": "0913333111",
+        "driverMobilePhone": "0913333111",
+        "driverIdentity": "1",
+        "driverDistrict": "1"
+      }
+    ]
+  }
+}
+
+
+------------火
+{
+  "multiRecepNo": "test-F01-00027",
+  "channelSource": "001",
+  "policyNo": "187025R0H00825",
+  "riskCode":"F01",
+  "reportDate": "2025-05-13",
+  "reportHour": 15,
+  "reportMinute": 5,
+  "reportType": "01",
+  "reportorName": "料北崽13",
+  "reportorPhoneNumber": "0910123456",
+  "reportorMobile": "0910123456",
+  "identifyNumber" : "S221497967",
+  "linkerName": "李小華13",
+  "phoneNumber": "0910123456",
+  "linkerAddress":"LINKERADDRESS_TEST",
+  "damageCode": "01",
+  "handlerCode": "DP0713",
+  "handleUnit": "01",
+  "manageType": "1",
+  "damageAddress": "台北市建狗高架橋13",
+  "damageStartDate": "2025-10-25",
+  "damageStartHour": 17,
+  "damageStartMinute": 30,
+  "remark": "烏煙瘴氣燒到沒剩13",
+  "memo": "測試F01 DP0713 CF044 MEMO 收信",
+  "conText":"conText TEST 印出來看看X1,TEST 印出來看看X2,TEST 印出來看看X3,TEST 印出來看看X4",
+  "riskF":{
+	"countryFlag" : "1",
+	"estimateLoss" : 1413,
+	"lossName" :  "歸組休料料13"
+  }
+}
+
+
+
+
+
+------------riskC1 責任
+{
+  "multiRecepNo": "test-TA-00002",
+  "channelSource": "001",
+  "policyNo": "SI0025TAS185062",
+  "riskCode":"TA",
+  "reportDate": "2025-05-13",
+  "reportHour": 15,
+  "reportMinute": 5,
+  "reportType": "01",
+  "reportorName": "很厲害1234",
+  "reportorPhoneNumber": "0910123456",
+  "reportorMobile": "0912333444",
+  "identifyNumber" : "D139214889",
+  "linkerName": "李小華2234",
+  "phoneNumber": "0910123456",
+  "linkerAddress":"LINKERADDRESS_TEST",
+  "damageCode": "01",
+  "handlerCode": "DP0713",
+  "handleUnit": "01",
+  "manageType": "1",
+  "damageAddress": "全球地區",
+  "damageStartDate": "2025-10-25",
+  "damageStartHour": 17,
+  "damageStartMinute": 30,
+  "remark": "亂七八糟風向亂吹",
+  "memo": "測試TA DP0713 CF044 MEMO 收信",
+  "conText":"conText TEST_TA 印出來看看X1,TEST 印出來看看X2,TEST 印出來看看X3,TEST 印出來看看X4",
+  "riskC1":{
+	"damageTypeCode":"999",
+	"clauseType":"1",
+	"countryFlag" : "1",
+	"estimateLoss" : 1598889,
+	"lossName" :  "損失一台小飛機"
+  }
+  
+  
+--------------riskE 工程
+{
+  "multiRecepNo": "test-CE-00010",
+  "channelSource": "001",
+  "policyNo": "186523CE0000004",
+  "riskCode":"CE",
+  "reportDate": "2025-05-13",
+  "reportHour": 15,
+  "reportMinute": 5,
+  "reportType": "01",
+  "reportorName": "大工程99",
+  "reportorPhoneNumber": "0910123456",
+  "reportorMobile": "0910123456",
+  "identifyNumber" : "S221497967",
+  "linkerName": "做工人99",
+  "phoneNumber": "0910123456",
+  "linkerAddress":"LINKERADDRESS_TEST",
+  "damageCode": "01",
+  "handlerCode": "DP0713",
+  "handleUnit": "01",
+  "manageType": "1",
+  "damageAddress": "台北市建狗高架橋13",
+  "damageStartDate": "2025-11-26",
+  "damageStartHour": 17,
+  "damageStartMinute": 30,
+  "remark": "工程快一點",
+  "memo": "測試CE DP0713 CF044 MEMO 收信",
+  "conText":"conText TEST_CE 印出來看看X1,TEST 印出來看看X2,TEST 印出來看看X3,TEST 印出來看看X4",
+  "riskF":{
+	"countryFlag" : "1",
+	"estimateLoss" : 9099,
+	"lossName" :  "毀一半99"
+  }
+}

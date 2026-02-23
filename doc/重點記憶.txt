@@ -1,0 +1,28 @@
+重點記憶
+
+
+1.CAR0470 提交核保
+報價單輸入後送出後 到 提交核保 
+會到
+\14prpins\component\com\sinosoft\prpins\policy\web\PolicyAction.java 
+public String savePolicy() throws Exception {
+
+導向
+\undwrt\src\java\com\sinosoft\undwrt\undwrtInterface\servlet\UndwrtTaskSubmitServlet.java
+UndwrtTaskSubmitServlet.java
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+JS最後會呼叫
+\14prpins\component\com\sinosoft\intf\undwrt\web\UndwrtAction.java
+public String submitUndwrtQuotation() throws Exception {
+
+大約756行
+strReturnMessage= this.submitUndwrt(prpQmain.getProposalNo());//获取核保返回信息
+String strReturnMessageCI = strReturnMessage;
+呼叫核保後返回
+
+保費計算常常這個點起步
+D:\workspace\workSpaceBranch\14prpins\component\com\sinosoft\prpins\common\service\spring\PremiumCalServiceSpringImpl.java
+public PremiumCalculateVO calPremium_CB(PremiumCalculateVO premiumCalculateVO,PremAffectInfo premAffectInfo,PolicyVo policyVo) throws Exception {
+						

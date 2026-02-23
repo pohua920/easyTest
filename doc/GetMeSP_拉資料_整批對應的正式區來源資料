@@ -1,0 +1,172 @@
+
+--Clause
+以下都用"請~"這串自來觸發請求，並將以下全部內容變成一個預存程序，傳入三個參數 FLOWINTIME起訖以及UNIFORMNO
+請~幫我把下面這個SQL 組合出全部回傳的COMPENSATENO
+
+--找出這批 COMPENSATENO
+select payobj_.COMPENSATENO,payobj_.* from BUSINESS.PRPLPAYOBJECTINFO payobj_ RIGHT JOIN (--看數據
+	select wflog_step1.* from BUSINESS.WFLOG wflog0_ RIGHT JOIN (
+		SELECT *  FROM  (  
+				SELECT   DISTINCT WFLOG.*   
+				FROM   BUSINESS.WFLOG   WHERE  
+				(  (  WFLOG.NODENO <= 5   AND (  1 = 1   AND (  WFLOG.CLASSCODE IN ('A', 'B') OR WFLOG.RISKCODE IN ('A01')  )  )  )  )   
+				AND WFLOG.LOGNO <> 1   AND WFLOG.NODENO <> 1   AND (    WFLOG.BUSINESSTYPE = 'C' OR WFLOG.BUSINESSTYPE = 'Y'  )   
+				AND RISKCATEGORY = 'D'  AND RISKCODE IN('A01')   AND NODESTATUS IN('0','1','2','3')  
+				AND FLOWINTIME >= '2025-09-11 00:00:00'   --起日
+				AND FLOWINTIME <= '2025-09-18 23:59:59'   --訖日
+			)   
+		WHERE (OPERATORCODE IS NULL OR OPERATORCODE = 'BL011' --登入的人
+				)  ORDER BY FLOWINTIME DESC 
+	) wflog_step1 ON wflog0_.FLOWID = wflog_step1.FLOWID AND wflog0_.LOGNO=wflog_step1.LOGNO
+) wflogStep2 ON payobj_.COMPENSATENO = wflogStep2.businessNo 
+			AND payobj_.UNIFORMNO='16784078' --統編
+			AND payobj_.PAYCODETYPE='1' --類別
+WHERE payobj_.COMPENSATENO IS NOT NULL
+
+請~將上述找到的
+--檢查確認是否存在COMPENSATENO 套用到下面的全部SQL，先SELECT 然後DEL
+SELECT * FROM BUSINESS.PRPLCOMPENSATE p WHERE p.COMPENSATENO = 'C186024AL0099301';
+--如果存在
+
+--查出保單號資料
+SELECT p.COMPENSATENO,p.CLAIMNO,p.POLICYNO FROM BUSINESS.PRPLCOMPENSATE@PROD p WHERE p.COMPENSATENO = '' OR p.CLAIMNO = '' OR p.POLICYNO=''
+--用保單號查出
+SELECT * from PRPLCLAIMSTATUS where POLICYNO='186024008077';
+--放入查詢備案號資料
+SELECT p.REGISTNO,p.* FROM PRPLREGIST p WHERE p.POLICYNO = '186024008077'
+--查出
+SELECT * FROM PRPLCLAIMLOSS o WHERE o.REGISTNO = '6AL000600000240000988' 
+--放入查詢立案號資料
+SELECT p.* FROM PRPLCLAIM p WHERE p.REGISTNO = '6AL000600000240000988' 
+SELECT p.* FROM PRPLCLAIM p WHERE p.POLICYNO = '186024008077'
+--查wflog 用保單號
+SELECT * FROM WFLOG w WHERE w.BUSINESSNO = '186024008077'
+--查wflog 用備案號
+SELECT * FROM WFLOG w WHERE w.BUSINESSNO = '6AL000600000240000988'
+--查wflog 用計算書號(3)
+SELECT w.FLOWID,w.* FROM WFLOG w WHERE w.BUSINESSNO = 'C186024AL0099301'
+SELECT * FROM WFPATHLOG w WHERE w.FLOWID = '0025091115131543430'
+
+--查swflog 用保單號
+SELECT s.FLOWID,s.* FROM SWFLOG s WHERE s.BUSINESSNO = '186024008077'
+--查swflog 用備案號 (2)
+SELECT s.FLOWID,s.* FROM SWFLOG s WHERE s.BUSINESSNO = '6AL000600000240000988'
+--查swflog 用計算書號(1)
+SELECT s.FLOWID,s.* FROM SWFLOG s WHERE s.BUSINESSNO = 'C186024AL0099301'
+--查出相關swflog關系資料
+SELECT * FROM SWFPATHLOG s WHERE s.FLOWID = 'LA010000000025004799'
+SELECT * FROM SWFNOTION s WHERE s.FLOWID = 'LA010000000025004799'
+SELECT * FROM SWFFLOWMAIN s WHERE s.FLOWID = 'LA010000000025004799'
+
+SELECT w.FLOWID,w.* FROM WFLOG w WHERE w.RELATEFLOWID = 'LA010000000025004799'--用swflog.flowId查出 RELATEFLOWID
+
+--查taskparaminfo 用保單號
+SELECT * from BUSINESS.taskparaminfo WHERE BUSINESSID = '186024008077'
+--查taskparaminfo 用備案號 
+SELECT * from BUSINESS.taskparaminfo WHERE BUSINESSID = '6AL000600000240000988'
+--查swflog 用計算書號
+SELECT * from BUSINESS.taskparaminfo WHERE BUSINESSID = 'C186024AL0099301'
+
+SELECT * from taskparaminfo WHERE BUSINESSID = ''
+
+SELECT t.TASKID,t.* from taskparaminfo t where businessid='C186024AL0099301';
+SELECT t.* from task t WHERE t.id = '14594'
+
+=================================================================================================='
+注意 以下inser into 的TABLE 都是 查詢BUSINESS.TABLENAME@PROD 寫入BUSINESS.TABLENAME 
+
+STEP1
+將第一段的 TABLE 都加上@PROD 如下(參考資料，依照你原來的去增加)
+INSERT INTO temp_compensate_list (compensateno)
+	SELECT DISTINCT payobj_.COMPENSATENO
+	FROM BUSINESS.PRPLPAYOBJECTINFO@PROD payobj_ 
+	RIGHT JOIN (
+		SELECT wflog_step1.* 
+		FROM BUSINESS.WFLOG@PROD wflog0_ 
+		RIGHT JOIN (
+			SELECT * FROM (  
+				SELECT DISTINCT WFLOG.*   
+				FROM BUSINESS.WFLOG@PROD   
+				WHERE (
+					(WFLOG.NODENO <= 5 AND (1 = 1 AND (WFLOG.CLASSCODE IN ('A', 'B') OR WFLOG.RISKCODE IN ('A01'))))
+				)   
+				AND WFLOG.LOGNO <> 1   
+				AND WFLOG.NODENO <> 1   
+				AND (WFLOG.BUSINESSTYPE = 'C' OR WFLOG.BUSINESSTYPE = 'Y')   
+				AND RISKCATEGORY = 'D'  
+				AND RISKCODE IN('A01')   
+				AND NODESTATUS IN('0','1','2','3')  
+				AND FLOWINTIME >= p_FLOWINTIME_START
+				AND FLOWINTIME <= p_FLOWINTIME_END
+			)   
+			WHERE (OPERATORCODE IS NULL OR OPERATORCODE = 'BL011')  
+			ORDER BY FLOWINTIME DESC 
+		) wflog_step1 ON wflog0_.FLOWID = wflog_step1.FLOWID AND wflog0_.LOGNO = wflog_step1.LOGNO
+	) wflogStep2 ON payobj_.COMPENSATENO = wflogStep2.businessNo 
+	AND payobj_.UNIFORMNO = p_UNIFORMNO
+	AND payobj_.PAYCODETYPE = '1'
+WHERE payobj_.COMPENSATENO IS NOT NULL;
+		
+
+step2
+再加上一個參數在最後是保單號列表 如同p_COMPENSATE_LIST 名稱取 p_POLICYNO_LIST 格式:186024008077
+
+STEP3
+第一段的if 增加第三種　最優先，如果知道是保單列表有值的話　其他參數可以忽略
+
+三種狀況都是先按照下面追查出保單號、備案號、立案號
+如果是由計算書號列表動作的也是由下列去追蹤把重要參數先追出來
+--用保單號確認保單是否存在 
+SELECT * FROM BUSINESS.PRPCMAIN@PROD p WHERE p.POLICYNO = '186024008077'
+--用保單號去查備案號
+SELECT * FROM BUSINESS.PRPLREGIST@PROD p WHERE p.POLICYNO = '186024008077'
+--再由備案號查出立案號
+SELECT * FROM BUSINESS.PRPLCLAIM@PROD p WHERE p.REGISTNO = '6AL000600000240000988'
+--再由備案號或保單號或立案號查出所有的計算書號
+SELECT * FROM BUSINESS.PRPLCOMPENSATE@PROD p WHERE p.REGISTNO = '6AL000600000240000988' OR p.POLICYNO = '186024008077' OR p.CLAIMNO = '186024AL00993'
+
+
+再把wflog的flowid與swflog的flowid
+
+--查wflog 用保單號
+SELECT * FROM BUSINESS.WFLOG@PROD w WHERE w.BUSINESSNO = '186024008077'
+--查wflog 用備案號
+SELECT * FROM BUSINESS.WFLOG@PROD w WHERE w.BUSINESSNO = '6AL000600000240000988'
+--查wflog 用計算書號(3)
+SELECT w.FLOWID,w.* FROM BUSINESS.WFLOG@PROD w WHERE w.BUSINESSNO = 'C186024AL0099301'
+--再由上面查出的wflog 的flowId 查出所有的相關wfpathlog
+SELECT * FROM BUSINESS.WFPATHLOG@PROD w WHERE w.FLOWID = '0025091115131543430'
+
+
+--查swflog 用保單號
+SELECT s.FLOWID,s.* FROM BUSINESS.SWFLOG@PROD s WHERE s.BUSINESSNO = '186024008077'
+--查swflog 用備案號 (2)
+SELECT s.FLOWID,s.* FROM BUSINESS.SWFLOG@PROD s WHERE s.BUSINESSNO = '6AL000600000240000988'
+--查swflog 用計算書號(1)
+SELECT s.FLOWID,s.* FROM BUSINESS.SWFLOG@PROD s WHERE s.BUSINESSNO = 'C186024AL0099301'
+
+--再用查出的swflog的flowid 查出下列swflog關聯資料
+SELECT * FROM BUSINESS.SWFPATHLOG@PROD s WHERE s.FLOWID = 'LA010000000025004799'
+SELECT * FROM BUSINESS.SWFNOTION@PROD s WHERE s.FLOWID = 'LA010000000025004799'
+SELECT * FROM BUSINESS.SWFFLOWMAIN@PROD s WHERE s.FLOWID = 'LA010000000025004799'
+
+==================================================================================================
+再幫我思考一下
+這整個邏輯環繞在 會先有保單號policyno 再有備案號registno 再來是立案號claimno 最後才是計算書號compemsateno
+所以迴圈應該依上述狀況走迴圈才對 不應該是compemsate迴圈去做事
+==================================================================================================
+名稱改 SP_DP0713_getDateFromProdByClaudeAi
+
+錯誤報告 -
+ORA-00972: ID 太長
+00972. 00000 -  "identifier is too long"
+*Cause:    An identifier with more than 30 characters was specified.
+*Action:   Specify at most 30 characters.
+==================================================================================================
+==================================================================================================
+==================================================================================================
+==================================================================================================
+==================================================================================================
+==================================================================================================
+==================================================================================================
+==================================================================================================
