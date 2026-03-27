@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+
+	<!-- 菜单管理 
+	<bean id="menuAction" class="com.sinosoft.sys.platform.menu.web.MenuAction" scope="prototype" />
+	 -->
+	<!-- 菜单配置 
+	-->
+	<!-- 菜单配置 
+	<bean id="saaMenuAction" class="com.sinosoft.sys.platform.menu.web.SaaMenuAction" scope="prototype" />
+	-->
+	<!-- 员工管理 -->
+	<bean id="userAction" class="com.sinosoft.sys.platform.user.web.UserAction" scope="prototype" />
+	<!-- 机构管理 -->
+	<bean id="companyAction" class="com.sinosoft.sys.platform.company.web.CompanyAction" scope="prototype" />
+	 
+	 
+	<!-- 代码管理 -->
+	 <bean id="PerfTypeAction" class="com.sinosoft.app.common.web.PerfTypeAction" 
+	    scope="prototype"/>
+	 <bean id="PerfCodeAction" class="com.sinosoft.app.common.web.PerfCodeAction" 
+	    scope="prototype"/>
+	 <bean id="PerfCodeTransferAction" class="com.sinosoft.app.common.web.PerfCodeTransferAction" 
+	    scope="prototype"/>
+	  
+	 <!-- 公共方法 -->
+	 <bean id="pubToolsAction" class="com.sinosoft.app.common.web.PubToolsAction"
+		scope="prototype" />
+	
+	<bean id="processCodeInputAction"
+	    class="com.sinosoft.claim.common.web.ProcessCodeInputAction"
+	    scope="prototype"/>
+	
+	<bean id="loginAction"
+	    class="com.sinosoft.claim.common.web.LoginAction"
+	    scope="prototype"/>
+	
+	<bean id="processUtiMenuAction"
+	    class="com.sinosoft.claim.common.web.ProcessUtiMenuAction"
+	    scope="prototype"/>
+	<!-- 
+	<bean id="registQueryAction" 
+	    class="com.sinosoft.claim.regist.web.RegistQueryAction"
+	    scope="prototype"/>
+	     -->
+	 <!-- 立案 -->
+	 <bean id="claimQueryAction" 
+	    class="com.sinosoft.claim.claim.web.ClaimQueryAction"
+	    scope="prototype"/>
+	 <!-- 
+	 <bean id="claimTimeoutQueryAction" 
+	    class="com.sinosoft.claim.claim.web.ClaimTimeoutQueryAction"
+	    scope="prototype"/>
+	     -->
+	<bean id="autoHospitalAction" class="com.sinosoft.claim.common.web.AutoHospitalAction" scope="prototype" />
+	<bean id="autoBankAction" class="com.sinosoft.claim.common.web.AutoBankAction" scope="prototype" />
+	<!--add by ln 2013-4-25 打印  -->   
+    <bean id="claimPrintAction" class="com.sinosoft.claim.common.web.ClaimPrintAction" scope="prototype"/>
+    <!-- mantis：CLM0125，處理人員：DP0713，需求單編號：新功能理賠人員資料維護 -->
+    <bean id="claimEmployeeAction" class="com.sinosoft.claim.common.web.ClaimEmployeeAction" scope="prototype"/>
+</beans>

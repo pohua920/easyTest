@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+
+    <!-- hibernate dialect 
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+	-->
+    <!-- JDBC connection properties (begin) 
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/arch4platform</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">postgres</property>-->
+    <!-- JDBC connection properties (end) -->
+
+    <!-- DataSource properties (begin) ===
+    <property name="hibernate.connection.datasource">java:comp/env/jdbc/JbpmDataSource</property>
+    ==== DataSource properties (end) -->
+
+    <!-- JTA transaction properties (begin) ===
+    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>
+    <property name="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+    ==== JTA transaction properties (end) -->
+
+    <!-- CMT transaction properties (begin) ===
+    <property name="hibernate.transaction.factory_class">org.hibernate.transaction.CMTTransactionFactory</property>
+    <property name="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+    ==== CMT transaction properties (end) -->
+
+    <!-- ################################### -->
+    <!-- # common settings                 # -->
+    <!-- ################################### -->
+
+    <!-- Automatic schema creation (begin) -->
+    <property name="hibernate.hbm2ddl.auto">create</property>
+    <!-- Automatic schema creation (end) -->
+
+    <!-- Simple memory-only cache -->
+    <property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+
+    <!-- SQL rendering properties -->
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.use_sql_comments">false</property>
+
+    <!-- ############################################ -->
+    <!-- # mapping files with external dependencies # -->
+    <!-- ############################################ -->
+
+    <!-- Additional mappings defined per module go here 不要其他组件
+    <mapping resource="hibernate.extra.hbm.xml" />
+    <mapping resource="hibernate.identity.hbm.xml" />
+ -->
+    <!-- ###################### -->
+    <!-- # jbpm mapping files # -->
+    <!-- ###################### -->
+
+    <!-- hql queries -->
+
+    <!-- hql queries used in simulation for querying historical data.
+         uncomment if you want to use the GetSimulationInputCommand
+         or you want to use the queries directly.
+         beware: the queries need the stddev function to be enabled in your dialect.
+         for more information, visit: 
+         http://www.camunda.com/business_process_simulation_news/mysql_and_stddev.html -->
+    <!--
+    <mapping resource="org/jbpm/sim/bam/hibernate.queries.hbm.xml" />
+    -->
+
+    <!-- ########################################### -->
+    <!-- # mapping file with external dependencies # -->
+    <!-- ########################################### -->
+    <!-- the following mapping file has a dependency on 'bsh-{version}.jar'.
+         uncomment this if bsh is not in your classpath.
+         the script element will not be available in process definition files.
+         note: this mapping must appear below org/jbpm/graph/def/Action.hbm.xml -->
+  </session-factory>
+</hibernate-configuration>

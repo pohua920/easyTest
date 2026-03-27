@@ -1,0 +1,27 @@
+<style type="Text/Css">
+	body{
+		background-color:#D7E1F6;
+		}
+	body,td,a{
+		font-size:11pt;
+		font-family:Tahoma;font-size:11px;
+		}
+	.tabstrip{
+		behavior:url(/claim/pages/platform/behaviors/tabstrip.htc);
+		leftImage:url(/claim/pages/platform/behaviors/tabLeft.gif);
+		centerImage:url(/claim/pages/platform/behaviors/tabCenter.gif);
+		rightImage:url(/claim/pages/platform/behaviors/tabRight.gif);
+		leftImageOver:url(/claim/pages/platform/behaviors/tabLeftOver.gif);
+		centerImageOver:url(/claim/pages/platform/behaviors/tabCenterOver.gif);
+		rightImageOver:url(/claim/pages/platform/behaviors/tabRightOver.gif);
+		leftImageDown:url(/claim/pages/platform/behaviors/tabLeftDown.gif);
+		centerImageDown:url(/claim/pages/platform/behaviors/tabCenterDown.gif);
+		rightImageDown:url(/claim/pages/platform/behaviors/tabRightDown.gif);
+		lightShadow:#e3e0d0;
+		midShadow:#d0cebf;
+		pageBorder:#919b9c;
+		lightColor:#fcfcfe;
+		darkColor:#f4f3ee;
+		}
+	table{display:inline;}
+</style>

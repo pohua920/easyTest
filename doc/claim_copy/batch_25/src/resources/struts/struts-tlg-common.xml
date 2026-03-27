@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="tlg_common" extends="default" namespace="/tlg/common">
+		<!-- mantis： CLM0040，處理人員：BK007 蘇哲，需求單編號：CLM0040 外來人口統一證號格式修正 -->
+		<action name="verifyIdentifyNumber"	class="com.tlg.commons.action.VerifyAction"	method="verifyIdentifyNumber"></action>
+	</package>
+</struts>

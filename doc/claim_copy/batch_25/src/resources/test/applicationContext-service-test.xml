@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName">
+
+	<bean id="prpLcompensateService" class="com.sinosoft.claim.schema.service.spring.PrpLcompensateServiceSpringImpl"/>
+	<bean id="compensateService" class="com.sinosoft.claim.compensate.service.spring.CompensateServiceSpringImpl" />
+	<bean id="prpLpersonLossService" class="com.sinosoft.claim.schema.service.spring.PrpLpersonLossServiceSpringImpl"/>
+    <bean id="prpLacciCheckService" class="com.sinosoft.claim.schema.service.spring.PrpLacciCheckServiceSpringImpl"/>
+	<bean id="prpLclaimService" class="com.sinosoft.claim.schema.service.spring.PrpLclaimServiceSpringImpl"/>
+	<bean id="daaClaimViewHelper" class="com.sinosoft.claim.claim.util.DAAClaimViewHelper"></bean>	
+	<bean id="codeService" class="com.sinosoft.claim.common.service.spring.CodeServiceSpringImpl"/>
+	<bean id="prpDcompanyService" class="com.sinosoft.claim.common.service.spring.PrpDcompanyServiceSpringImpl"></bean>
+	
+	<bean id="prpDuserService" class="com.sinosoft.claim.common.service.spring.PrpDuserServiceSpringImpl"></bean>
+	<bean id="prpDcodeService" class="com.sinosoft.claim.schema.service.spring.PrpDcodeServiceSpringImpl"/>
+	<bean id="prpCitemKindService" class="com.sinosoft.claim.schema.service.spring.PrpCitemKindServiceSpringImpl"/>
+	<bean id="prpCinsuredService" class="com.sinosoft.claim.schema.service.spring.PrpCinsuredServiceSpringImpl"/>
+	<bean id="prpLexternalAgencyService" class="com.sinosoft.claim.schema.service.spring.PrpLexternalAgencyServiceSpringImpl"/>
+	<bean id="prpLInsuranceSurveyorService" class="com.sinosoft.claim.schema.service.spring.PrpLInsuranceSurveyorServiceSpringImpl"/>
+	<bean id="prpClimitService" class="com.sinosoft.claim.schema.service.spring.PrpClimitServiceSpringImpl"/>
+	<bean id="prpDclauseKindService" class="com.sinosoft.claim.common.service.spring.PrpDclauseKindServiceSpringImpl" />
+	<bean id="prpLpayObjectService" class="com.sinosoft.claim.schema.service.spring.PrpLpayObjectServiceSpringImpl"/>
+	<bean id="prpDcarModelService" class="com.sinosoft.claim.common.service.spring.PrpDcarModelServiceSpringImpl" scope="prototype"></bean>
+	<bean id="policyService" class="com.sinosoft.claim.common.service.spring.PolicyServiceSpringImpl" scope="prototype"/>
+
+	<!-- viewHelper -->
+	<bean id="workFlowViewHelper" class="com.sinosoft.claim.workflow.util.WorkFlowViewHelper"/>
+	
+	<!-- service -->
+	<bean id="workFlowService" class="com.sinosoft.claim.workflow.service.spring.WorkFlowServiceSpringImpl"/>
+	<bean id="swfConditionService" class="com.sinosoft.claim.schema.service.spring.SwfConditionServiceSpringImpl"/>
+	<bean id="swfFlowMainService" class="com.sinosoft.claim.schema.service.spring.SwfFlowMainServiceSpringImpl"/>
+	<bean id="swfLogService" class="com.sinosoft.claim.schema.service.spring.SwfLogServiceSpringImpl"/>
+	<bean id="swfLogStoreService" class="com.sinosoft.claim.schema.service.spring.SwfLogStoreServiceSpringImpl"/>
+	<bean id="swfModelMainService" class="com.sinosoft.claim.schema.service.spring.SwfModelMainServiceSpringImpl"/>
+	<bean id="swfModelUseService" class="com.sinosoft.claim.schema.service.spring.SwfModelUseServiceSpringImpl"/>
+	<bean id="swfNodeService" class="com.sinosoft.claim.schema.service.spring.SwfNodeServiceSpringImpl"/>
+	<bean id="swfNotionService" class="com.sinosoft.claim.schema.service.spring.SwfNotionServiceSpringImpl"/>
+	<bean id="swfPackageService" class="com.sinosoft.claim.schema.service.spring.SwfPackageServiceSpringImpl"/>
+	<bean id="swfPathGraphService" class="com.sinosoft.claim.schema.service.spring.SwfPathGraphServiceSpringImpl"/> 
+	<bean id="swfPathLogService" class="com.sinosoft.claim.schema.service.spring.SwfPathLogServiceSpringImpl"/> 
+	<bean id="swfPathLogStoreService" class="com.sinosoft.claim.schema.service.spring.SwfPathLogStoreServiceSpringImpl"/> 
+	<bean id="swfPathService" class="com.sinosoft.claim.schema.service.spring.SwfPathServiceSpringImpl"/> 
+	<bean id="apHeadService" class="com.sinosoft.claim.common.service.spring.ApHeadServiceSpringImpl" />
+	<bean id="prpJPayRefRecHisService" class="com.sinosoft.claim.schema.service.spring.PrpJPayRefRecHisServiceSpringImpl"></bean>
+	<bean id="prpLdisabilityLimitService" class="com.sinosoft.claim.schema.service.spring.PrpLdisabilityLimitServiceSpringImpl"></bean>
+	<bean id="endorseViewHelper" class="com.sinosoft.claim.common.util.EndorseViewHelper" scope="prototype"></bean>
+	<bean id="prpLhospitalService" class="com.sinosoft.claim.schema.service.spring.PrpLhospitalServiceSpringImpl"></bean>
+	<!-- 单号生成规则 -->
+	<bean id="billService" class="com.sinosoft.claim.common.service.spring.BillServiceSpringImpl" scope="prototype"/> 
+	<bean id="prpMaxNoService" class="com.sinosoft.claim.schema.service.spring.PrpMaxNoServiceSpringImpl" scope="prototype"/>
+	<bean id="utiKeyService" class="com.sinosoft.claim.schema.service.spring.UtiKeyServiceSpringImpl" scope="prototype"/>
+	<bean id="prpGroupService" class="com.sinosoft.claim.schema.service.spring.PrpGroupServiceSpringImpl" scope="prototype"/>
+	<bean id="prpMaxUseService" class="com.sinosoft.claim.schema.service.spring.PrpMaxUseServiceSpringImpl" scope="prototype"/>
+</beans>

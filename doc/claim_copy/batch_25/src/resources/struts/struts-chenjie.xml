@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="certainLoss" extends="default" namespace="/certainLoss">
+		<action name="queryCertainLoss" class="com.sinosoft.claim.certainLoss.web.CertainLossQueryAction" method="certainLossQuery" />
+		<action name="certainLossQuery" class="com.sinosoft.claim.certainLoss.web.CertainLossQueryAction" method="certainLossQuery">
+		  <result name="certifyUpload">/pages/common/certainLoss/CertainLossCertifyQueryList.jsp</result>
+		</action>
+		<action name="certainLossSave" class="com.sinosoft.claim.certainLoss.web.CertainLossEditPostAction" method="certainLossEditPost"/>
+	    <action name="certainLossBeforeEdit" class="com.sinosoft.claim.certainLoss.web.CertainLossBeforeEditAction" method="certainLossBeforeEdit">
+	      <result name="EDITDAA">/pages/DAA/certainLoss/DAACertainLossEdit.jsp</result>
+	      <!-- 定损查询点击 - 进入 -->
+	      <result name="EDIT1DAA">/pages/DAA/certainLoss/DAARepairComponentEdit.jsp</result>
+	      <!-- 未处理定损任务点击 - 进入 -->
+	      <result name="ADD1DAA">/pages/DAA/certainLoss/DAARepairComponentEdit.jsp</result>
+	      <!-- 人伤定损 -->
+	      <result name="ADD0DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <!-- 车辆定型查询 -->
+	      <result name="findCarModel">/pages/DAA/certainLoss/DAACertainLossCarModel.jsp</result>
+	      
+	      <result name="EDIT2DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <result name="EDIT0DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <result name="EDIT3DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT-1DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT4DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="EDIT-2DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD2DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      
+	      <result name="ADD3DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD-1DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD4DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD-2DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADDProp">/pages/commonProp/certainLoss/PropCertainLossEdit.jsp</result>
+	      <result name="EDITProp">/pages/commonProp/certainLoss/PropCertainLossEdit.jsp</result>
+	      <result name="ADDCAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="ADDYAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="EDITCAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="EDITYAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="ADDZAA">/pages/commonLiab/certainLoss/LiabCertainLossEdit.jsp</result>
+	      <result name="EDITZAA">/pages/commonLiab/certainLoss/LiabCertainLossEdit.jsp</result>
+	      <result name="ADDEAA">/pages/commonAcci/certainLoss/AcciCertainLossEdit.jsp</result>
+	      <result name="EDITEAA">/pages/commonAcci/certainLoss/AcciCertainLossEdit.jsp</result>
+	      <result name="SelectLossType">/pages/common/certainLoss/CertainLossTypeSelect.jsp</result>
+	      
+	    </action>
+	    <!-- 人伤定损任务 -->
+	    <action name="certainLossFinishQueryList" class="com.sinosoft.claim.certainLoss.web.CertainLossBeforeEditAction" method="certainLossBeforeEdit">
+	      <!-- 人伤定损正处理任务 -->
+	      <result name="EDIT0DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      
+	      <result name="EDITDAA">/pages/DAA/certainLoss/DAACertainLossEdit.jsp</result>
+	      <result name="EDIT1DAA">/pages/DAA/certainLoss/DAARepairComponentEdit.jsp</result>
+	      <result name="EDIT2DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <result name="EDIT3DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT-1DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT4DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="EDIT-2DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD1DAA">/pages/DAA/certainLoss/DAARepairComponentEdit.jsp</result>
+	      <result name="ADD2DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <result name="ADD0DAA">/pages/DAA/certainLoss/DAAPersonEdit.jsp</result>
+	      <result name="ADD3DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD-1DAA">/pages/DAA/certainLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD4DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD-2DAA">/pages/DAA/certainLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADDProp">/pages/commonProp/certainLoss/PropCertainLossEdit.jsp</result>
+	      <result name="EDITProp">/pages/commonProp/certainLoss/PropCertainLossEdit.jsp</result>
+	      <result name="ADDCAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="ADDYAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="EDITCAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="EDITYAA">/pages/commonShip/certainLoss/ShipCertainLossEdit.jsp</result>
+	      <result name="ADDZAA">/pages/commonLiab/certainLoss/LiabCertainLossEdit.jsp</result>
+	      <result name="EDITZAA">/pages/commonLiab/certainLoss/LiabCertainLossEdit.jsp</result>
+	      <result name="ADDEAA">/pages/commonAcci/certainLoss/AcciCertainLossEdit.jsp</result>
+	      <result name="EDITEAA">/pages/commonAcci/certainLoss/AcciCertainLossEdit.jsp</result>
+	      <result name="SelectLossType">/pages/common/certainLoss/CertainLossTypeSelect.jsp</result>
+	    </action>
+	</package>
+	<package name="verifyLoss" extends="default" namespace="/verifyLoss">
+	   <action name="queryVerifyLoss" class="com.sinosoft.claim.verifyLoss.web.VerifyLossQueryAction" method="verifyLossQuery" />
+	   <action name="verifyLossSave" class="com.sinosoft.claim.verifyLoss.web.VerifyLossEditPostAction" method="verifyLossEditPost"/>
+	   <action name="verifyLossFinishQueryList" class="com.sinosoft.claim.verifyLoss.web.VerifyLossBeforeEditAction" method="verifyLossBeforeEdit">
+		  <!-- 核损信息查看、 -->
+		  <result name="EDIT1DAA">/pages/DAA/verifyLoss/DAARepairComponentEdit.jsp</result>	  
+		  <result name="ADDDAA">/pages/DAA/verifyLoss/DAAVerifyLossEdit.jsp</result>
+	      <result name="EDITDAA">/pages/DAA/verifyLoss/DAAVerifyLossEdit.jsp</result>
+	      <result name="EDIT2DAA">/pages/DAA/verifyLoss/DAAPersonEdit.jsp</result>
+	      <result name="EDIT0DAA">/pages/DAA/verifyLoss/DAAPersonEdit.jsp</result>
+	      <result name="EDIT3DAA">/pages/DAA/verifyLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT-1DAA">/pages/DAA/verifyLoss/DAAPropEdit.jsp</result>
+	      <result name="EDIT4DAA">/pages/DAA/verifyLoss/DAAAllLossEdit.jsp</result>
+	      <result name="EDIT-2DAA">/pages/DAA/verifyLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD1DAA">/pages/DAA/verifyLoss/DAARepairComponentEdit.jsp</result>
+	      <result name="ADD2DAA">/pages/DAA/verifyLoss/DAAPersonEdit.jsp</result>
+	      <result name="ADD0DAA">/pages/DAA/verifyLoss/DAAPersonEdit.jsp</result>
+	      <result name="ADD3DAA">/pages/DAA/verifyLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD-1DAA">/pages/DAA/verifyLoss/DAAPropEdit.jsp</result>
+	      <result name="ADD4DAA">/pages/DAA/verifyLoss/DAAAllLossEdit.jsp</result>
+	      <result name="ADD-2DAA">/pages/DAA/verifyLoss/DAAAllLossEdit.jsp</result>
+	      <result name="EDITProp">/pages/commonProp/verifyLoss/PropVerifyLossEdit.jsp</result>
+	      <result name="BackCDAA">/pages/DAA/verifyLoss/DAABackComponentEdit.jsp</result>
+	   </action>
+	</package>
+	<!-- 理算 处理 -->
+	<package name="compensate" extends="default" namespace="/compensate">
+		<action name="compensateQuery" class="com.sinosoft.claim.compensate.web.CompensateQueryAction" method="compensateQuery">
+			<result name="PRINT">/pages/DAA/endcase/DAARelatePrint.jsp</result>
+		</action>
+		<action name="compensateBeforeEdit" class="com.sinosoft.claim.compensate.web.CompensateBeforeEditAction" method="compensateBeforeEdit">
+			<!-- 车险理算 未处理入口 -->
+			<result name="ADDDAA" >/pages/DAA/compensate/DAACompensateEdit.jsp</result>
+			<result name="ADDBZ">/pages/DAA/compensate/compel/DAACompelCompensateEdit.jsp</result>
+			<result name="ADDProp" >/pages/commonProp/compensate/PropCompensateEdit.jsp</result>
+			<result name="ADDCAA" >/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+			<result name="ADDYAA">/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+			<result name="ADDZAA" >/pages/commonLiab/compensate/LiabCompensateEdit.jsp</result>
+			<result name="ADDEAA" >/pages/commonAcci/compensate/AcciCompensateEdit.jsp</result>
+			<result name="RECHOSE">/pages/DAA/compensate/DAACompensateDeductibleRate.jsp</result>
+			<result name="ADDGAA">/pages/GAA/compensate/GAACompensateEdit.jsp</result>
+		</action>
+		<!-- 理算保存 - 提交 -->
+		<action name="compensateSave" class="com.sinosoft.claim.compensate.web.CompensateEditPostAction" method="compensateEditPost">
+			<!-- <interceptor-ref name="token"/> -->
+		</action>
+		<!-- mantis：CLM0126，處理人員：DP0713，需求單編號：受款人ID檢核  -->
+		<action name="checkPayuserList" class="com.sinosoft.claim.compensate.web.CompensateEditPostAction" method="checkPayuserList"></action>
+		<!-- 理算任意險提交時對自付額發票號的唯一性校驗 -->
+		<action name="deductibleInvoiceCheck" class="com.sinosoft.claim.compensate.web.CompensateEditPostAction" method="deductibleInvoiceCheck"></action>
+		<!-- 理算查询 - 查看数据 -->
+		<action name="compensateFinishQueryList" class="com.sinosoft.claim.compensate.web.CompensateBeforeEditAction" method="compensateBeforeEdit">
+	      <result name="EDITBZ" >/pages/DAA/compensate/compel/DAACompelCompensateEdit.jsp</result>
+	      <result name="EDITDAA" >/pages/DAA/compensate/DAACompensateEdit.jsp</result>
+	      <result name="SHOWDAA" >/pages/DAA/compensate/DAACompensateShow.jsp</result>
+	      <result name="ApproveDAA" >/pages/DAA/compensate/DAACompensateApprove.jsp</result>
+	      <result name="EDITProp" >/pages/commonProp/compensate/PropCompensateEdit.jsp</result>
+	      <result name="EDITCAA" >/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+	      <result name="EDITYAA" >/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+	      <result name="EDITZAA" >/pages/commonLiab/compensate/LiabCompensateEdit.jsp</result>
+	      <result name="EDITEAA" >/pages/commonAcci/compensate/AcciCompensateEdit.jsp</result>
+	      <result name="SHOWProp" >/pages/commonProp/compensate/PropCompensateShow.jsp</result>
+	      <result name="SHOWCAA" >/pages/commonShip/compensate/ShipCompensateShow.jsp</result>
+	      <result name="SHOWYAA" >/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+	      <result name="SHOWZAA" >/pages/commonLiab/compensate/LiabCompensateShow.jsp</result>
+	      <result name="SHOWEAA" >/pages/commonAcci/compensate/AcciCompensateShow.jsp</result>
+	      <result name="ApproveProp" >/pages/commonProp/compensate/PropCompensateApprove.jsp</result>
+	      <result name="ApproveCAA" >/pages/commonShip/compensate/ShipCompensateApprove.jsp</result>
+	      <result name="ApproveYAA" >/pages/commonShip/compensate/CargoCompensateApprove.jsp</result>
+	      <result name="ApproveZAA" >/pages/commonLiab/compensate/LiabCompensateApprove.jsp</result>
+	      <result name="ApproveEAA" >/pages/commonAcci/compensate/AcciCompensateApprove.jsp</result>
+	      <result name="EDITGAA">/pages/GAA/compensate/GAACompensateEdit.jsp</result>
+	      <result name="SHOWGAA">/pages/GAA/compensate/GAACompensateEdit.jsp</result>
+		</action>
+		<!-- mantis：CLM0155，處理人員：DP0713，車體險自負額有責任時卡控自負額發票號碼必輸 -->
+		<action name="checkPrpLlossDeductibletype" class="com.sinosoft.claim.compensate.web.CompensateQueryAction" method="checkPrpLlossDeductibletype"></action>
+        <!-- mantis：CLM0216，處理人員：DP0714，新核心-新增車險醫詢費用提示檢核 -->
+		<action name="checkLicenceNoAndDamageStartDate" class="com.sinosoft.claim.compensate.web.CompensateQueryAction" method="checkLicenceNoAndDamageStartDate"></action>
+		<!-- 生成计算书 -->
+		<action name="compensateGenerate" class="com.sinosoft.claim.compensate.web.CompensateGeneratePostAction" method="compensateGeneratePost">
+		  <result name="generate" >/pages/DAA/compensate/DAACompensateGenerate.jsp</result>
+		</action>
+		<!-- 理算撤銷簡易賠案 -->
+		<action name="compensateCancelSimpleCase" class="com.sinosoft.claim.compensate.web.CompensateCancelSimpleCaseAction" method="compensateCancelSimpleCase"/>
+		
+		<action name="compensateBackCerti" class="com.sinosoft.claim.compensate.web.CompensateBackCertiAction" method="compensateBackCerti"/>
+		<action name="compensateApprove" class="com.sinosoft.claim.compensate.web.CompensateApprovePostAction" method="compensateApprovePost"/>
+		<!-- 理算赔退回定损前查询保单信息 -->
+		<action name="compensateBackBeforeQuery" class="com.sinosoft.claim.compensate.web.CompensateBackBeforeEditAction" method="compensateBackBeforeEdit">
+		   <result name="success" >/pages/DAA/compensate/DAACompensateBackEdit.jsp</result>
+		</action>
+		<action name="compensateBackSave" class="com.sinosoft.claim.compensate.web.CompensateBackEditPostAction" method="compensateBackEditPost"/>
+		<!-- 车物损理赔金计算 -->
+		<action name="calPrpLlossRealpay" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="calPrpLlossRealpay"/>
+		<!-- mantis：CLM0175，處理人員：DP0713，需求單編號：新核心-車險計算書新增理賠已出險次數 -->
+		<action name="checkDateBetweenHaventDuplicateCase" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="checkDateBetweenHaventDuplicateCase"/>
+		<!-- mantis：CLM0193 ，處理人員：DP0713，需求單編號：新核心-代步車日期計算及輸入檢核 -->
+		<action name="calDayPerAmount" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="calDayPerAmount"/>
+		<!-- mantis：CLM0175，處理人員：DP0713，需求單編號：新核心-車險計算書新增理賠已出險次數 -->
+		<action name="checkDateBeforeDamageDate" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="checkDateBeforeDamageDate"/>
+		<!-- 人伤理赔金计算 -->
+		<action name="calPrpLpersonLossRealpay" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="calPrpLpersonLossRealpay"/>
+		<!-- 强制险人伤获取固定理赔金计算 -->
+		<action name="getCrippledPay" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction" method="getCrippledPay"/>
+		<action name="compensatePersonHistory" class="com.sinosoft.claim.compensate.web.CompensatePersonHistoryAction" method="compensatePersonHistory">
+		   <result name="success">/pages/DAA/compensate/DAACompensatePersonHistory.jsp</result>
+		</action>
+		<action name="compensatePersonHisPaid" class="com.sinosoft.claim.compensate.web.CompensatePersonHistoryAction" method="compensatePersonHisPaid">
+		</action>
+		<action name="compensateLossHisPaid" class="com.sinosoft.claim.compensate.web.CompensatePersonHistoryAction" method="compensateLossHisPaid">
+		</action>
+		<!-- 理算互沖保存 -->
+		<action name="compeMutualImpulse" class="com.sinosoft.claim.compensate.web.CompensateEditPostAction" method="compeMutualImpulse"></action>
+		<!-- 理算互沖數據準備入口 -->
+		<action name="beforeCompeMutualImpulse" class="com.sinosoft.claim.compensate.web.CompensateBeforeEditAction" method="beforeCompeMutualImpulse">
+			<result name="ADDDAA" >/pages/DAA/compensate/DAACompensateEdit.jsp</result>
+			<result name="ADDBZ">/pages/DAA/compensate/compel/DAACompelCompensateEdit.jsp</result>
+			<result name="ADDProp" >/pages/commonProp/compensate/PropCompensateEdit.jsp</result>
+			<result name="ADDCAA" >/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+			<result name="ADDYAA">/pages/commonShip/compensate/ShipCompensateEdit.jsp</result>
+			<result name="ADDZAA" >/pages/commonLiab/compensate/LiabCompensateEdit.jsp</result>
+			<result name="ADDEAA" >/pages/commonAcci/compensate/AcciCompensateEdit.jsp</result>
+			<result name="RECHOSE">/pages/DAA/compensate/DAACompensateDeductibleRate.jsp</result>
+			<result name="ADDGAA">/pages/GAA/compensate/GAACompensateEdit.jsp</result>
+		</action>
+        <!-- 获取理算说明内容  -->
+        <action name="getCompeContext" class="com.sinosoft.claim.compensate.web.CompensateContextAction" method="getCompeContext"/>
+		<!-- 校驗險別賠付是否超過預估 -->
+		<action name="checkKindPay" method="checkKindPayLimit" class="com.sinosoft.claim.compensate.web.CompensateEditPostAction"/>
+		<!-- 取得本案前次車體險和責任險賠付情況 -->
+		<action name="getResponsAccidentType" method="getResponsAccidentType" class="com.sinosoft.claim.compensate.web.CompensateRealpayAction"/>
+		<!-- 取得受害人醫療費用收據資料 -->
+		<action name="beforeInsertMedicalDetail" method="beforeInsertMedicalDetail" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction">
+			<result name="success">/pages/DAA/compensate/compel/DAACompelCompensateMedicalDetail.jsp</result>
+		</action>
+		<!-- 存儲強制險醫療費用收據資料 -->
+		<action name="insertMedicalDetail" method="insertMedicalDetail" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction"/>
+		<!-- 列印強制險醫療費用收據資料 -->
+		<action name="printPrpLcompelMedical" method="printPrpLcompelMedical" class="com.sinosoft.claim.common.web.ClaimPrintAction"/>
+		<!-- mantis： CLM0046 ，處理人員：BK007 蘇哲，需求單編號：CLM0046強制險醫療明細提醒同一身分證號與日期重複時有提醒與之前重複的賠次  -->
+		<!-- 醫療給付費用收據提交的確認 -->
+		<action name="verifyMedicalDetail" method="verifyCompeMedicalDetail" class="com.sinosoft.claim.common.web.ClaimPrintAction"/>
+		<!-- 醫療給付費用收據補錄提交的校驗 -->
+		<action name="checkMedicalDetail" method="checkMedicalDetail" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction"/>
+		<!-- 強制險理算處理提交時醫療費用與收據彙總合計一致性的校驗 -->
+		<action name="checkCompeMedicalDetail" method="checkCompeMedicalDetail" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction"/>
+		<!-- 強制險醫療給付費用處理查詢 -->
+		<action name="medicalDetailQuery" method="medicalDetailQuery" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction">
+			<result name="success">/pages/DAA/compensate/compel/MedicalDetailQueryResultList.jsp</result>
+		</action>
+		<!-- 費用收據資料導出下載 -->
+		<action name="exportMedicalDetail" method="exportMedicalDetail" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction"/>
+		<!-- 異步加載下一頁  -->
+		<action name="getNextPageMedicalDetail" method="medicalDetailQuery" class="com.sinosoft.claim.compensate.web.CompensateMedicalDetailAction">
+			<result name="nextpage">/pages/DAA/compensate/compel/MedicalDetailQueryResultData.jsp</result>
+		</action>
+	</package>
+	<!-- 以下为页面上公用按钮点击请求的Action -->
+	<package name="claimpub" extends="default" >
+	   <!-- 放弃任务 -->
+	   <action name="giveupTask" method="giveupTask" class="com.sinosoft.claim.common.web.GiveupTaskAction"/>
+	   <!-- 页面点击查看已出险次数 的出险信息 -->
+	   <action name="perilInfoShow" class="com.sinosoft.claim.common.web.PerilInfoQueryAction">
+    	 <result name="target1">/pages/DAA/regist/DAAExistRegistInfoShow.jsp</result>
+    	 <result name="target2">/pages/common/pub/ExistRegistInfoShow.jsp</result>
+       </action>
+       <!--点击进入注销、拒赔页面 -->
+       <action name="claimBeforeCancel" class="claimBeforeEditAction" method="claimBeforeEdit">
+         <result name="CANCELDAA">/pages/DAA/claim/DAAClaimCancel.jsp</result>
+         <result name="nopass">/pages/common/pub/MessagePage.jsp</result>
+         <result name="NOTGRANDCLAIM">/pages/commonAcci/claim/AcciNotGrandClaim.jsp</result>
+       </action>
+       <!-- 注销、拒赔保存 -->
+       <action name="claimCancel" class="com.sinosoft.claim.common.web.ClaimCancelAction" method="claimCancel">
+         <result name="false">/index.jsp</result>
+       </action>
+       <!--意健险不予立案功能 -->
+       <action name="notGrandClaim" class="com.sinosoft.claim.claim.web.NotGrandClaimAction" />
+       <!--银行账户管理-->
+       <action name="AccountCode" class="com.sinosoft.claim.common.web.AccountCodeAction" method="accountCode">
+		  <result name="AccountAdd" >/pages/common/account/PamentAccountAdd.jsp</result>
+		  <!-- mantis：CLM0289，處理人員：DP0713，需求單編號：理賠DP自動化-開放總行代號及分行代號欄位 -->
+		  <result name="BankEdit" >/pages/common/account/BankEdit.jsp</result>
+		  <result name="queryUser" >/pages/common/account/AccountEdit.jsp</result>
+		  <result name="queryUserCom" >/pages/common/account/AccountEditCompensate.jsp</result>
+		  <result name="oldQueryUserCom" >/pages/common/account/OldAccountEditCompensate.jsp</result>
+		  <result name="AccountAddCompensate" >/pages/common/account/PamentAccountAddCompensate.jsp</result>
+		  <result name="SearchWithOwnerName" >/pages/common/account/PaymentAccountSearchWithOwnerName.jsp</result>
+		  <result name="SearchWithPayObjectName" >/pages/common/account/PaymentAccountSearchWithPayObjectName.jsp</result>
+       </action>
+       <!-- 分摊试算处理  - 理算危险单位处理-->
+       <action name="reinsTrialResult" class="com.sinosoft.claim.common.web.ReinsTrialAction" method="reinsTrial">
+		  <result name="success" >/pages/common/claim/reinsTrialResult.jsp</result>
+       </action>
+       <!--  -->
+	   <action name="AgentMobile" class="com.sinosoft.claim.common.web.AgentMobileAction" method="agentMobile">
+	       <result name="update">/pages/common/query/AgentEdit.jsp</result>
+	   </action>
+	   <!-- 备案介面获取险类  -->
+	   <action name="getClassCode" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="getClassCode"/>
+	   <!-- 备案处理登记介面获取险别 -->
+	   <action name="getRiskCode" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="getRiskCode"/>
+	   <!-- 备案校验出险日期 -->
+	   <action name="checkDamageDate" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="checkDamageDate"/>
+	   <!-- 刷新批改信息 -->
+	   <action name="refreshEndorseInfo" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="refreshEndorseInfo"/>
+	   <!-- 备案介面获取险类  -->
+	   <action name="getPrpDcode" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="getPrpDcode"/>
+   	   <!-- mantis： CLM0023 ，處理人員： David ，需求單編號： CLM0023  受理即時檢核人員,校验是否服務或營業人員  -->
+	   <action name="checkIsPolicyHandlers" class="com.sinosoft.claim.common.web.ClaimCodeAction" method="checkIsPolicyHandlers"/>
+	</package>
+	<!-- 審核流程 -->
+	<package name="audit" extends="default" namespace="/audit">
+	   <action name="submitSuperior" class="com.sinosoft.claim.audit.web.AuditProcessAction" method="submitSuperior">
+	       <result name="success">/pages/common/audit/SubmitSuperior.jsp</result>
+	   </action>
+	   <action name="submitJunior" class="com.sinosoft.claim.audit.web.AuditProcessAction" method="submitJunior">
+	       <result name="success">/pages/common/audit/SubmitJunior.jsp</result>
+	   </action>
+	   <action name="submitTask" class="com.sinosoft.claim.audit.web.AuditProcessAction" method="submitTask"/>
+	</package>
+</struts>

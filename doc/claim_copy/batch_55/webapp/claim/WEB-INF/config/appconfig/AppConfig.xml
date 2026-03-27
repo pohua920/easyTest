@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="GBK" standalone="yes" ?>
+
+<sysconst>
+	<!-- 应用数据库连接 -->
+	<DBJNDI description="理赔应用系统引用的数据源">ddccDataSource</DBJNDI>	
+	<REINS_JNDI description="再保系统引用的数据源">ddccDataSource</REINS_JNDI>
+	
+	<BRANCH_1>0.05</BRANCH_1>
+	<!-- 随机复勘概率 -->
+	
+	<!-- 简易赔案复查随机率 -->
+	<BRANCH_2>0.20</BRANCH_2>
+	
+	<ROWS_PERPAGE>20</ROWS_PERPAGE>
+	<!-- 每页显示的行数 -->
+	<CountPerPage>15</CountPerPage>
+	<QUERY_ROWS>50</QUERY_ROWS>
+
+	<FIELD_SEPARATOR>_FIELD_SEPARATOR_</FIELD_SEPARATOR>
+	<GROUP_SEPARATOR>_GROUP_SEPARATOR_</GROUP_SEPARATOR>
+
+	<MESSAGE_RESOURCES>resources.ReinsResources</MESSAGE_RESOURCES>
+
+	<!-- 预赔金额占估损金额的百分数 -->
+	<PrepayPercent>50</PrepayPercent>
+	<!-- 定损金额为某一值时，算核损通过-->
+	<UnderWritePreDef>5000</UnderWritePreDef>
+	<!-- 理赔立案时限 7日 -->
+	<ClaimLimitHour>168</ClaimLimitHour>
+	
+	<!-- 险种在保单号码中的位置－1-->
+	<RiskCodeLocate>9</RiskCodeLocate>
+
+	<ROOTCOMCODE>00</ROOTCOMCODE>
+	<ROOTCOMCNAME>财产保险有限公司</ROOTCOMCNAME>
+	<ROOTCOMENAME>SUNNY</ROOTCOMENAME>
+
+	<!-- 系统处理的险类，处理forward的时候用 -->
+	<RiskCodeForward>D,C,Z,E,Y,G</RiskCodeForward>
+
+	<!-- 公司代码 -->
+	<CompanyCode>SUNSHINE</CompanyCode>
+
+	<!-- 理赔状态所代表的颜色 -->
+	<ClaimStatus0>#FFBBBB</ClaimStatus0>
+	<ClaimStatus1>#65B1B1</ClaimStatus1>
+	<ClaimStatus2>#cfcf9e</ClaimStatus2>
+	<ClaimStatus3>#b0ffb0</ClaimStatus3>
+	<ClaimStatus4>#acc7ff</ClaimStatus4>
+	<ClaimStatus5>#e4caff</ClaimStatus5>
+	<ClaimStatus6>#ffdf9d</ClaimStatus6>
+	<ClaimStatus7>#dbb7b7</ClaimStatus7>
+	<ClaimStatus9>#FF5151</ClaimStatus9>
+	<!-- 以下权限中参数 -->
+	<SYSTEMNAME>CLAIM</SYSTEMNAME>
+	<CLAIM_DATE_LIMIT>7</CLAIM_DATE_LIMIT>
+
+	<!--加入权限所能的常量-->
+	<TASKCODE_TB>tb</TASKCODE_TB>
+	<TASKCODE_CB>cb</TASKCODE_CB>
+	<TASKCODE_PG>pg</TASKCODE_PG>
+	<TASKCODE_LP>lp</TASKCODE_LP>
+	<TASKCODE_SF>sf</TASKCODE_SF>
+	<TASKCODE_HB>hb</TASKCODE_HB>
+	<TASKCODE_HP>hp</TASKCODE_HP>
+
+	<TASKCODE_CW>cw</TASKCODE_CW>
+	<TASKCODE_TJ>tj</TASKCODE_TJ>
+	<TASKCODE_DM>dm</TASKCODE_DM>
+	<TASKCODE_FF>ff</TASKCODE_FF>
+	<TASKCODE_PRT>prt</TASKCODE_PRT>
+	<TASKCODE_QRY>qry</TASKCODE_QRY>
+	<TASKCODE_SYS>sys</TASKCODE_SYS>
+	<TASKCODE_DLR>dlr</TASKCODE_DLR>
+	<TASKCODE_KHGL>khgl</TASKCODE_KHGL>
+
+	<TASKCODE_LPBA>lpba</TASKCODE_LPBA>
+	<TASKCODE_LPLA>lpla</TASKCODE_LPLA>
+	<TASKCODE_LPCK>lpck</TASKCODE_LPCK>
+	<TASKCODE_LPPA>lppa</TASKCODE_LPPA>
+	<TASKCODE_LPDD>lpdd</TASKCODE_LPDD>
+	<TASKCODE_LPDS>lpds</TASKCODE_LPDS>
+	<TASKCODE_LPHJ>lphj</TASKCODE_LPHJ>
+
+	<GROUPCODE_QRY>01</GROUPCODE_QRY><!--90-->
+	<GROUPCODE_SYS>01</GROUPCODE_SYS><!--91-->
+	<GROUPCODE_DM>01</GROUPCODE_DM><!--01-->
+	<GROUPCODE_VISA>01</GROUPCODE_VISA><!--93-->
+	<GROUPCODE_UW>01</GROUPCODE_UW><!--94-->
+	<CHECKCODE_READ>r</CHECKCODE_READ>
+	<CHECKCODE_WRITE>w</CHECKCODE_WRITE>
+	<CHECKCODE_EXE>x</CHECKCODE_EXE>
+	<CHECKCODE_CHECK>k</CHECKCODE_CHECK>
+	<CHECKCODE_UNDWT>h</CHECKCODE_UNDWT>
+
+	<DBTYPE>ORACLE</DBTYPE>
+	<VSLIMIT_COUNT>5000</VSLIMIT_COUNT>
+
+	<!--加入POWER_CONFIG_FLAG用于使用权限方式-->
+	<POWER_CONFIG_FLAG>0</POWER_CONFIG_FLAG>
+
+	<!--能自动提交的地区代码-->
+	<!--不在设置自动提交调度控制-->
+	<SCHEDULE_AUTOCOMMIT> </SCHEDULE_AUTOCOMMIT>
+
+	<!--能自动查勘->定损提交的地区代码-->
+	<CHECK_AUTOCOMMIT>99999999999999</CHECK_AUTOCOMMIT>
+
+	<!-- 出险报案次数增加在N天内的出险次数 -->
+	<RegistViewLimitDay>5</RegistViewLimitDay>
+
+	<!--是否自动结案-->
+	<AutoEndCase>1</AutoEndCase>
+	
+	<!--核赔所需信息-->
+	<UNDWRT_SUBMITSINGER description="指定人员开关" modify="1">1</UNDWRT_SUBMITSINGER>
+    <UNDWRT_CONTINUETASK description="继续处理任务开关0/1" modify="2">1</UNDWRT_CONTINUETASK>
+    
+    
+        <!-- 核赔送收付同步(SYN)/异步(ASYN) 默认同步--> 
+    <CLAIMVERIFY_PAYMENT>SYN</CLAIMVERIFY_PAYMENT> 
+    <!-- 财务系统帐套类型 --> 
+    <ACCBOOKTYPE description="帐套类型" modify="1">01</ACCBOOKTYPE> 
+    <ACCBOOKCODE description="帐套代码">11</ACCBOOKCODE>
+    
+    <URL_PLATFORM>http://192.168.19.231:7051/platform</URL_PLATFORM>
+	<CHECK_PSW>N</CHECK_PSW>
+  
+  <!--单证上传-->
+  <NewCertify_IP>http://192.168.100.64:7005</NewCertify_IP>
+  <NewCertify_URL>http://192.168.100.64:7005/filemanager/fileupload/FileUpload</NewCertify_URL>
+  <!--单证查看-->
+  <NewCertify_IP_show>http://192.168.100.64:7005</NewCertify_IP_show>
+  <NewCertify_URL_show>http://192.168.100.64:7005/filemanager/fileupload/FileUpload</NewCertify_URL_show>
+  
+  <NewCertify_typeTreeXMLCharset>GBK</NewCertify_typeTreeXMLCharset>
+  <NewCertify_pathFormat>yyyy/MM/dd</NewCertify_pathFormat>
+  <NewCertify_pathPrefix>claim</NewCertify_pathPrefix>
+  <!--IReport 模板路径-->
+  <IReport_Path>../claim/printReport/</IReport_Path>
+  <!--险别配置-->
+  <Kind_BL>21</Kind_BL><!--强制险险别-->
+  <Kind_TL>11</Kind_TL><!--窃盗险险别-->
+  <DamageCode_TL>21,22,23</DamageCode_TL><!--窃盗险出险原因-->
+  <!-- 再保配置 -->
+  <REINS_RISKCODE_05>A01,B01,F01,F02</REINS_RISKCODE_05><!-- 台寿到险别分保的险种 -->
+  <!-- 再保配置 -->
+  <SALES_USER>sales</SALES_USER><!-- 配置销管系统用户名称  -->
+  <DMS_USER>ccicdms</DMS_USER><!-- 配置dms系统用户名称  -->
+  <!-- JBPM工作流開啟開關 ： 1 開啟 ； 0 關閉-->
+  <WORKFLOWSWITCH>0</WORKFLOWSWITCH>
+  <AMLURL>http://192.168.112.143:7001/LyodsAMLTLG/ws/FSKWS?wsdl</AMLURL>
+</sysconst>

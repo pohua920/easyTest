@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+	<!-- 定损业务处理 -->
+	<bean id="certainLossService"  class="com.sinosoft.claim.certainLoss.service.spring.CertainLossServiceSpringImpl"/>
+    <bean id="daaCertainLossViewHelper"  class="com.sinosoft.claim.certainLoss.util.DAACertainLossViewHelper" />
+    <!-- 核损业务处理 -->
+    <bean id="verifyLossService"  class="com.sinosoft.claim.verifyLoss.service.spring.VerifyLossServiceSpringImpl"/>
+    <bean id="daaVerifyLossViewHelper"  class="com.sinosoft.claim.verifyLoss.util.DAAVerifyLossViewHelper" />
+    <!-- 重开赔案处理 -->
+    <bean id="recaseService" class="com.sinosoft.claim.endcase.service.spring.RecaseServiceSpringImpl"/>
+    <!-- 人员伤情信息 -->
+	<bean id="prpLpersonWoundService"  class="com.sinosoft.claim.schema.service.spring.PrpLpersonWoundServiceSpringImpl"/>
+    <!-- 人员伤亡明细信息 -->
+	<bean id="prpLpersonService"  class="com.sinosoft.claim.schema.service.spring.PrpLpersonServiceSpringImpl"/>
+	<!-- 车辆定损信息 -->
+	<bean id="prpLcarLossService"  class="com.sinosoft.claim.schema.service.spring.PrpLcarLossServiceSpringImpl"/>
+	<!-- 修理费用信息 -->
+	<bean id="prpLrepairFeeService"  class="com.sinosoft.claim.schema.service.spring.PrpLrepairFeeServiceSpringImpl"/>
+	<!-- 换件项目清单信息 -->
+	<bean id="prpLcomponentService"  class="com.sinosoft.claim.schema.service.spring.PrpLcomponentServiceSpringImpl"/>
+	<!-- PRPLVERIFYLOSSITEM -->
+	<bean id="prpLverifyLossItemService"  class="com.sinosoft.claim.schema.service.spring.PrpLverifyLossItemServiceSpringImpl"/>
+	<!-- PRPLVERIFYLOSSEXT -->
+	<bean id="prpLverifyLossExtService"  class="com.sinosoft.claim.schema.service.spring.PrpLverifyLossExtServiceSpringImpl"/>
+	<!-- 财产核定损明细清单 -->
+	<bean id="prpLpropService"  class="com.sinosoft.claim.schema.service.spring.PrpLpropServiceSpringImpl"/>
+	<!-- 查勘事故估损金额 -->
+    <bean id="prpLcheckLossService"  class="com.sinosoft.claim.schema.service.spring.PrpLcheckLossServiceSpringImpl"/>
+	<!-- 定核损信息 -->
+	<bean id="prpLverifyLossService" class="com.sinosoft.claim.schema.service.spring.PrpLverifyLossServiceSpringImpl"/>
+	<!-- 定损基本信息 -->
+	<bean id="prpLcertainLossService" class="com.sinosoft.claim.schema.service.spring.PrpLcertainLossServiceSpringImpl"/>
+	<!-- 人伤信息初始化 -->
+	<bean id="personLossService" class="com.sinosoft.claim.common.service.spring.PersonLossServiceSpringImpl" />
+    <!-- 车险 预赔 -->
+    <bean id="prepayService" class="com.sinosoft.claim.compensate.service.spring.PrepayServiceSpringImpl" />
+    <!-- 理赔代理人手机号码维护 -->
+    <bean id="prpDagentService" class="com.sinosoft.claim.schema.service.spring.PrpDagentServiceSpringImpl" />
+    <!-- 理賠進度 -->
+    <bean id="claimProgressViewHelper" class="com.sinosoft.claim.claim.util.ClaimProgressViewHelper" />
+
+</beans>

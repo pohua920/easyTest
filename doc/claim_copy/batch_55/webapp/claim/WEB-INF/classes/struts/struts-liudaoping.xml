@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="certify" extends="default">
+		<action name="certifyBeforeEdit" class="certifyBeforeEditAction" method="certifyBeforeEdit">
+	      <result name="ADDDAA" >/pages/DAA/certify/DAACertifyEdit.jsp</result>
+	      <result name="ADDProp" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDGAA" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDZAA" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDCAA" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDYAA" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDEAA" >/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="ADDOtherCertifyDirect">/pages/common/certify/CertifyDirectEdit.jsp</result>
+	      <result name="ADDCertifyDirect">/pages/DAA/certify/DAACertifyDirectEdit.jsp</result>
+	      <result name="SELECTCAR" >/pages/common/certify/CertifyCarSelect.jsp</result>
+	      <result name="SELECTFLAG" >/pages/common/certify/CertifyBeforeSelectFlag.jsp</result>
+	      <result name="backOne" >/pages/common/pub/BackOneStep.jsp</result>
+	      <result name="backTwo" >/pages/common/pub/BackTwoStep.jsp</result>
+	      <result name="CertifyDirectPrint" >/pages/DAA/certify/DAACertifyRequiredList.jsp</result>
+	      <result name="CertifyDirectPrintAdd" >/pages/DAA/certify/DAACertifyAddRequiredList.jsp</result>
+	      <!-- add by zhaolu 20060807 start -->
+	      <!--  非车险增加单证索赔清单打印功能  -->
+	      <result name="OtherCertifyDirectPrint" >/pages/common/certify/CertifyRequiredList.jsp</result>
+	      <result name="OtherCertifyDirectPrintAdd" >/pages/common/certify/CertifyAddRequiredList.jsp</result>
+	    </action>
+	    <action name="certifyFinishQueryList" class="certifyBeforeEditAction" method="certifyBeforeEdit">
+	      <result name="EDITDAA">/pages/DAA/certify/DAACertifyEdit.jsp</result>
+	      <result name="EDITProp">/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="EDITGAA">/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="EDITZAA">/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="EDITCAA">/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="EDITYAA">/pages/common/certify/CertifyEdit.jsp</result>
+	      <result name="EDITEAA">/pages/common/certify/CertifyEdit.jsp</result>
+	    </action>
+	    <action name="certifyEditPost" class="certifyEditPostAction" method="certifyEditPost">
+	      <result name="step1">/pages/DAA/certify/DAACertifyEditSave.jsp"</result>
+	      <result name="step2">/pages/DAA/certify/DAACaseNoSave.jsp"</result>
+	    </action>
+	    <action name="certifySavePost" class="certifyEditPostAction" method="certifySavePost">
+	      <result name="step1">/pages/DAA/certify/DAACertifyEditSave.jsp"</result>
+	      <result name="step2">/pages/DAA/certify/DAACaseNoSave.jsp"</result>
+	    </action>
+	    <action name="certifyViewFile" class="certifyViewFileAction" method="certifyViewFile">
+	    	<result name="certifyViewFile">/pages/DAA/certify/DAACertifyViewFile.jsp</result>
+	    	<result name="certify">/pages/common/certify/CertifyViewFile.jsp</result>
+	    </action>
+   	    <action class="certifyQueryAction" name="certifyQuery" method="certifyQuery">
+		    <result name="result">/pages/common/certify/CertifyQueryList.jsp</result>
+		    <result name="result1" >/pages/common/pub/Blank.html</result>
+		    <result name="condition">/pages/common/policy/CertifyQueryList.jsp</result>
+		    <result name="success" >/pages/common/certify/CertifyQueryList.jsp</result>
+		    <result name="WaitToDo" >/pages/common/certify/CertifyToDoList.jsp</result>
+	    </action>
+	</package>
+	<package name="regist" extends="default">
+		<action name="registBeforeQuery" class="registBeforeEditAction" method="registBeforeQuery">
+			<result name="target1">/pages/common/regist/RegistBeforeQueryList.jsp</result>
+			<result name="ADDProp">/pages/DAA/print/DAARelatePrint.jsp</result>
+			<result name="PRINT">/pages/DAA/print/DAARelatePrint.jsp</result>
+		</action>
+		<action name="registBeforeEdit" class="registBeforeEditAction" method="registBeforeEdit">
+			<result name="ADDDAA">/pages/DAA/regist/DAARegistEdit.jsp</result>
+			<result name="ADDProp">/pages/commonProp/regist/PropRegistEdit.jsp</result>
+			<result name="ADDCAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="ADDYAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="ADDZAA">/pages/commonLiab/regist/LiabRegistEdit.jsp</result>
+			<result name="ADDEAA">/pages/commonAcci/regist/AcciRegistEdit.jsp</result>
+			<result name="ADDGAA">/pages/GAA/regist/GAARegistEdit.jsp</result>
+			<result name="EDITDAA">/pages/DAA/regist/DAARegistEdit.jsp</result>
+			<result name="EDITProp">/pages/commonProp/regist/PropRegistEdit.jsp</result>
+			<result name="EDITCAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="EDITYAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="EDITZAA">/pages/commonLiab/regist/LiabRegistEdit.jsp</result>
+			<result name="EDITEAA">/pages/commonAcci/regist/AcciRegistEdit.jsp</result>
+			<result name="EDITGAA">/pages/GAA/regist/GAARegistEdit.jsp</result>
+			<result name="PERFECTProp">/pages/commonProp/regist/PropRegistEdit.jsp</result>
+			<result name="PERFECTCAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="PERFECTYAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="PERFECTZAA">/pages/commonLiab/regist/LiabRegistEdit.jsp</result>
+			<result name="PERFECTEAA">/pages/commonAcci/regist/AcciRegistEdit.jsp</result>
+			<result name="PERFECTDAA">/pages/DAA/regist/DAARegistEdit.jsp</result>
+			<result name="PERFECTGAA">/pages/GAA/regist/GAARegistEdit.jsp</result>
+		</action>
+		<!-- 报案的正在处理 -->
+		<action name="registFinishQueryList" class="registBeforeEditAction" method="registBeforeEdit">
+			<result name="EDITDAA">/pages/DAA/regist/DAARegistEdit.jsp</result>
+			<result name="EDITProp">/pages/commonProp/regist/PropRegistEdit.jsp</result>
+			<result name="EDITCAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="EDITYAA">/pages/commonShip/regist/ShipRegistEdit.jsp</result>
+			<result name="EDITZAA">/pages/commonLiab/regist/LiabRegistEdit.jsp</result>
+			<result name="EDITEAA">/pages/commonAcci/regist/AcciRegistEdit.jsp</result>
+			<result name="EDITGAA">/pages//GAA/regist/GAARegistEdit.jsp</result>
+		</action>
+		<!-- 报案查询 -->
+		<action name="registQuery" class="registQueryAction" method="query">
+			<result name="registCancel">/pages/DAA/regist/DAARegistCancelInput.jsp</result>
+		</action>
+		<!-- 报案查询 -->
+		<action name="sameAddressPolicyNo" class="registQueryAction" method="sameAddress">
+			<result name="sameAddress">/pages/commonProp/regist/PropRegistSameAddressPolicyList.jsp</result>
+		</action>
+		<action name="registSave" class="registEditPostAction" method="registEditPost">
+      		<result name="false">/index.jsp</result>
+    	</action>
+    	<!-- 报案修改 -->
+    	<action name="callcenterPerfect" class="callCenterPerfectAction" method="callcenterPerfect"/>
+    	<!-- 报案注销 -->
+    	<action name="registCancel" class="registCancelPostAction" method="registCancel">
+    	    <result name="false">/index.jsp</result>
+        </action>
+	</package>
+	<package name="claim" extends="default">
+	  	<!-- 立案部分 -->
+	  	<!--立案除外功能 start-->
+	  	<action name="excludeClaim" class="excludeClaimAction" method="excludeClaim">
+	  	    <result name="insertPrepare">/pages/excludeClaim/insert/InsertPrepareQueryOverview.jsp</result>
+	  	    <result name="insertQuery">/pages/excludeClaim/insert/InsertQueryOverviewResult.jsp</result>
+	  	    <result name="prepareInsert">/pages/excludeClaim/insert/ExcludeClaimInsertEdit.jsp</result>
+	  	    <result name="historyPrepare">/pages/excludeClaim/history/HistoryPrepareQueryOverview.jsp</result>
+	  	    <result name="historyQuery">/pages/excludeClaim/history/HistoryQueryOverviewResult.jsp</result>
+	  	</action>
+	  	<!-- 调整估损金额  -->
+		<action name="modifySumClaim" class="modifySumClaimAction" method="modifySumClaim">
+		    <result name="modifyBeforeQuery">/pages/common/modifySumClaim/ModifyBeforeQueryEditList.jsp</result>
+		    <result name="modifyDetail">/pages/common/modifySumClaim/ModifySumClaimDetailEdit.jsp</result>
+		    <result name="back">/pages/common/modifySumClaim/ModifyBeforeQueryEdit.jsp?editType=modifyBeforeQuery</result>
+		</action>
+		<!-- 立案添加 -->
+		<action name="prepareAddClaim" class="claimBeforeEditAction" method="prepareAdd">
+			<result name="success">/pages/DAA/claim/DAAClaimEdit.jsp</result>
+		</action>
+		<action name="addClaim" class="claimBeforeEditAction" method="add">
+			<result name="success">/common/Success.jsp</result>
+			<result name="input">/common/error.jsp</result>
+		</action>
+		<action name="prepareClaimQuery" class="claimBeforeEditAction" method="prepareQuery">
+			<result name="success">/pages/common/claim/ClaimQueryEdit.jsp</result>
+		</action>
+		<action name="claimQuery" class="claimQueryAction" method="query"/>
+		<action name="viewClaim" class="claimBeforeEditAction" method="view">
+			<result name="success">/pages/DAA/claim/DAAClaimEdit.jsp</result>
+		</action>
+		<!-- 立案未处理 -->
+		<action name="claimBeforeEdit" class="claimBeforeEditAction" method="claimBeforeEdit">
+			<result name="ADDDAA">/pages/DAA/claim/DAAClaimEdit.jsp</result>
+	      <result name="ADDProp">/pages/commonProp/claim/PropClaimEdit.jsp</result>
+	      <result name="ADDGAA">/pages/GAA/claim/GAAClaimEdit.jsp</result>
+	      <result name="ADDDAAFALSE">/pages/common/pub/MessagePage.jsp</result>
+	      <result name="ADDCAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+	      <result name="ADDYAA">/pages/commonCargo/claim/CargoClaimEdit.jsp</result>
+	      <result name="ADDCAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+	      <result name="ADDYAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+	      <result name="ADDZAA">/pages/commonLiab/claim/LiabClaimEdit.jsp</result>
+	      <result name="ADDEAA">/pages/commonAcci/claim/AcciClaimEdit.jsp</result>
+		</action>
+		<action name="claimSave" class="claimEditPostAction" method="claimEditPost">
+      		<result name="false">/index.jsp</result>
+    	</action>
+    	<action name="claimFinishQueryList" class="claimBeforeEditAction" method="claimBeforeEdit">
+		      <result name="SHOWDAA">/pages/DAA/claim/DAAClaimShow.jsp</result>
+		      <result name="EDITDAA">/pages/DAA/claim/DAAClaimEdit.jsp</result>
+		      <result name="EDITProp">/pages/commonProp/claim/PropClaimEdit.jsp</result>
+		      <result name="EDITGAA">/pages/GAA/claim/GAAClaimEdit.jsp</result>
+		      <result name="EDITCAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+		      <result name="EDITYAA">/pages/commonCargo/claim/CargoClaimEdit.jsp</result>
+		      <result name="EDITCAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+		      <result name="EDITYAA">/pages/commonShip/claim/ShipClaimEdit.jsp</result>
+		      <result name="EDITZAA">/pages/commonLiab/claim/LiabClaimEdit.jsp</result>
+		      <result name="EDITEAA">/pages/commonAcci/claim/AcciClaimEdit.jsp</result>
+		      <result name="ADDLOSS">/pages/DAA/claim/DAAClaimAddLoss.jsp</result>
+		</action>
+		<!-- 获取汇率 -->
+    	<action name="getExchangeRate" class="com.sinosoft.claim.claim.web.ClaimLossAmountCalculateAction" method="getExchangeRate"></action>
+	    <!-- 立案获取估损金额 -->
+	    <action name="getSumClaim" class="com.sinosoft.claim.claim.web.ClaimLossAmountCalculateAction" method="getSumClaim"></action>
+	</package>
+	<package name="message" extends="default">
+		<action name="messageSave" class="messageAction" method="message" >
+	      <result name="result">/pages/common/message/MessageQueryList.jsp</result>
+	      <result name="false" >/pages/common/pub/UIErrorPage.jsp</result>
+	      <result name="success" >/pages/common/message/MessageSave.jsp</result>
+	    </action>
+	    <action name="messageQuery" class="messageAction" method="queryMessage" >
+	      <result name="result">/pages/common/message/MessageQueryList.jsp</result>
+	    </action>
+	    <action name="messageQueryInfo" class="messageAction" method="message" >
+	      <result name="success">/pages/common/message/MessageSave.jsp</result>
+	      <result name="false" >/index.jsp</result>
+	    </action>
+	     <action name="getDangerUnit" class="dangerUnitAction" method="dangerUnit">
+      		<result name="success">/pages/dangerUnit/DangerUnitView.jsp</result>
+   		 </action>
+   		 <action name="registGetCompCode" class="registGetCompCodeAction" method="registGetCompCode">
+   		 	<result name="registGetCompCode">/pages/DAA/regist/DAARegistGetCompCode.jsp</result>
+   		 </action>
+	</package>
+	<!-- 特殊赔案 -->
+	<package name="specailCase" extends="default">
+		<action name="specailCaseQuery" class="speicalCaseApplyBeforeEditAction" method="speicalCaseApplyBeforeEdit">
+		     <result name="success">/pages/common/specialCase/SpecialCaseApplyEdit.jsp</result>
+		     <result name="ApplySchedule">/pages/common/check/CheckApplyEdit.jsp</result>
+		  </action>
+		   <!--20.2 scpecailCase deal save-->
+	    <action name="specailCaseSave" class="speicalCaseEditPostAction" method="speicalCaseEditPost">
+		     <result name="false">/index.jsp</result>
+		  </action>
+		  <!--6.1 prepay deal query list -->
+	    <action name="prepayBeforeEdit" class="prepayBeforeEditAction" method="prepayBeforeEdit">
+	      <result name="ADDDAA">/pages/DAA/prepay/DAAPrepayEdit.jsp</result>
+	      <result name="ADDProp">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="ADDZAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="ADDEAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="ADDYAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="ADDCAA">/pages/commonShip/prepay/ShipPrepayEdit.jsp</result>
+	    </action>
+	
+	    <!--6.2 prepay deal save -->
+	    <action name="prepaySave" class="prepayEditPostAction" method="prepayEditPost">
+	      <result name="false">/index.jsp</result>
+	    </action>
+	
+	    <!--6.3 prepay deal common query-->
+	    <action class="prepayQueryAction"   name="prepayQuery" method="prepayQuery">
+		    <result name="result">/pages/common/prepay/PrepayQueryList.jsp</result>
+		    <result name="result1">/pages/common/pub/Blank.html</result>
+		    <result name="condition">/pages/common/policy/PrepayQueryList.jsp</result>
+		    <result name="success">/pages/common/prepay/PrepayQueryList.jsp</result>
+	    </action>
+	
+	    <!--6.4 prepay deal query list -->
+	     <!-- 没有找到这个类
+	    <action class="com.sinosoft.claim.ui.control.facade.UIPrepayQueryListFacade"   name="prepayQueryList">
+		    <result name="result">/pages/common/pub/Blank.html</result>
+	    </action>
+		-->
+	    <!--6.5 prepay deal FinishQuery Edit-->
+	     <!-- 没有找到这个类
+	    <action name="prepayFinishQueryEdit" class="com.sinosoft.claim.ui.control.facade.UIPrepayFinishQueryEditGetFacade"   >
+	      <result name="success">/pages/common/claimstatus/ClaimStatusQueryList.jsp</result>
+	    </action>
+	    -->
+		<!-- modify by wangliguang 20080623 begin -->
+	    <action name="prepayFinishQueryList" class="prepayBeforeEditAction"  method="prepayBeforeEdit" >
+	      <result name="EDITDAA">/pages/DAA/prepay/DAAPrepayEdit.jsp</result>
+	      <result name="EDITProp">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="EDITZAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="EDITCAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>        
+	      <result name="EDITEAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	      <result name="ApproveDAA">/pages/DAA/prepay/DAAPrepayApprove.jsp</result>
+	      <result name="ApproveProp">/pages/commonProp/prepay/PropPrepayApprove.jsp</result>
+	      <result name="EDITYAA">/pages/commonProp/prepay/PropPrepayEdit.jsp</result>
+	    </action>
+	
+	    <!--6.5 prepay deal DoingQuery Edit-->
+	    <!-- 没有找到这个类
+	    <action name="prepayDoingQueryEdit" class="com.sinosoft.claim.ui.control.facade.UIPrepayDoingQueryEditGetFacade"   >
+	      <result name="success">/pages/common/claimstatus/ClaimStatusQueryList.jsp</result>
+	    </action>
+	 	-->
+	    <action name="prepayDoingQueryList" class="prepayBeforeEditAction" method="prepayBeforeEdit"  >
+	      <result name="EDITDAA">/pages/DAA/prepay/DAAPrepayEdit.jsp</result>
+	    </action>
+	
+	    <action name="prepayApproveQuery" class="prepayApproveQueryAction"  method="prepayApproveQuery">
+		    <result name="success">/pages/common/prepay/PrepayApproveQueryList.jsp</result>
+	    </action>
+	
+	    <action name="prepayApprove" class="prepayApprovePostAction"  method="prepayApprovePost" >
+	      <result name="false">/index.jsp</result>
+	    </action>
+    <!--prepay end  -->
+	</package>
+	<!-- 追偿任务 -->
+	<package name="replevy" extends="default">
+		<action name="replevyBeforeQuery" class="replevyBeforeQueryAction" method="replevyBeforeQuery">
+		    <result name="success">/pages/common/replevy/ReplevyQueryList.jsp</result>
+		    <result name="editQuery">/pages/common/replevy/ReplevyEditQueryList.jsp</result>
+		    <result name="undwrtQuery">/pages/common/replevy/ReplevyEditQueryList.jsp</result>
+		    <result name="PRINT">/pages/common/replevy/ReplevyPrintResult.jsp</result>
+	    </action>
+	    <action name="replevyFinishQueryList" class="replevyBeforeEditAction" method="replevyBeforeEdit">
+		    <result name="ADD">/pages/common/replevy/ReplevyEdit.jsp</result>
+		    <result name="EDIT">/pages/common/replevy/ReplevyEdit.jsp</result>
+		    <result name="UNDWRT">/pages/common/replevy/ReplevyEdit.jsp</result>
+		    <result name="SHOW">/pages/common/replevy/ReplevyEdit.jsp</result>
+		    <result name="success">/pages/common/replevy/ReplevyQueryList.jsp</result>
+	    </action>
+	    <action name="replevySave" class="replevySaveAction" method="replevySave">
+	      <result name="false">/index.jsp</result>
+	      <result name="UNDWRT">/pages/common/pub/MessagePage.jsp</result>
+	      <result name="WITHDRAWAL">/pages/common/pub/MessagePage.jsp</result>
+	    </action>
+	     <action name="replevyResultQuery" class="replevyResultQueryAction" method="replevyResultQuery" >
+		    <result name="success">/pages/common/replevy/ReplevyResultQueryList.jsp</result>
+	    </action> 
+	    <action name="replevyQuery" class="com.sinosoft.claim.replevy.web.ReplevyQueryAction" method="replevyQuery"/>
+	</package>
+</struts>

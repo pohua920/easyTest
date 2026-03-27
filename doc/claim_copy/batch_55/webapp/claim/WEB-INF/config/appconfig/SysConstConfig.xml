@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="GB2312" standalone="yes" ?>
+
+<sysconst>
+  <!-- 每页默认显示的行数 -->
+  <ROWS_PERPAGE>10</ROWS_PERPAGE>
+  <MARKQUERY_ROWS_PERPAGE>20</MARKQUERY_ROWS_PERPAGE>
+  <FIELD_SEPARATOR>_FIELD_SEPARATOR_</FIELD_SEPARATOR>
+  <GROUP_SEPARATOR>_GROUP_SEPARATOR_</GROUP_SEPARATOR>
+  <SESSION_EXPIRED_SECONDS>20000</SESSION_EXPIRED_SECONDS>
+  <!-- 资源文件 -->
+  <MESSAGE_RESOURCES>resources.visaResources</MESSAGE_RESOURCES>
+  <QUERY_ROWS>50</QUERY_ROWS>
+  <QUERY_LIMIT_COUNT>500</QUERY_LIMIT_COUNT>
+  <!-- 数据转储每次查询的最大记录数 -->
+  <DATATRANS_QUERY_LIMIT_COUNT>1000</DATATRANS_QUERY_LIMIT_COUNT>
+  <MARKQUERY_LIMIT_COUNT>1000</MARKQUERY_LIMIT_COUNT>
+  <MARKDETAILQUERY_LIMIT_COUNT>10000</MARKDETAILQUERY_LIMIT_COUNT>
+  <!-- 流水号长度 -->
+  <VISALENGTH>10</VISALENGTH>
+  <DBJNDI description="理赔应用系统引用的数据源">ddccDataSource</DBJNDI>
+  <REINS_JNDI description="再保系统引用的数据源">ddccDataSource</REINS_JNDI>
+  <!-- 单证数据库连接 -->
+  <VISA_JNDI>visaDataSource</VISA_JNDI>
+  <!-- add begin by wanghn,2004-12-15,shenzhen,ZB200411-06,合同业务自动分保安排 -->
+  <!-- 自动分保安排增加数据库连接标识，由于Sysframework框架问题，暂时借用单证系统数据库连接 -->
+  <REINS_JNDI>visaDataSource</REINS_JNDI>
+  <!-- add end by wanghn,2004-12-15,shenzhen,ZB200411-06 -->
+  <!-- 总公司代码 -->
+  <ROOTCOMCODE>00</ROOTCOMCODE>
+  <ROOTCOMNAME>总公司</ROOTCOMNAME>
+  <!--核心正式地址-->
+  <PRPALLPATH>http://100.250.128.68:7001/prpall/</PRPALLPATH>
+  <!-- 权限组号 -->
+  <GROUPCODE>1</GROUPCODE>
+  <!-- 权限检验代码 -->
+  <CHECKCODE>
+      <WRITE>w</WRITE>
+      <READ>r</READ>
+      <EXECUTE>x</EXECUTE>
+      <APPROVE>k</APPROVE>
+  </CHECKCODE>
+  <!-- 任务代码 -->
+  <TASKCODE>
+      <DZRK>dzrk</DZRK>
+      <DZDS>dzds</DZDS>
+      <DZZH>dzzh</DZZH>
+      <DZDM>dzdm</DZDM>
+      <DZSYS>dzsys</DZSYS>
+      <DZSZ>dzsz</DZSZ>
+      <DZBB>dzbb</DZBB>
+      <DZJB>dzjb</DZJB>
+      <DZJG>dzjg</DZJG>
+      <DZYW>dzyw</DZYW>
+  </TASKCODE>
+  <!-- 可做单证注销的级别代码 -->
+  <DZZXLEVELNO>1</DZZXLEVELNO>
+  <!-- 对于非空字段的数据库保存处理 -->
+  <NONENULL>NONE</NONENULL>
+
+  <!-- VsLimit表开关(0:关 1:开) -->
+  <LIMITSWITCH>1</LIMITSWITCH>
+  
+  <!--申印开关(0:关 1:开)一个公司只能是一个状态：开或关-->
+  <PRINTSWITCH>0</PRINTSWITCH>
+  
+  <!-- 领用确认机构或人员代码 -->
+  <CONFIRMCODE>11000000</CONFIRMCODE>
+  <!-- 本地代码区分不同公司 阳光 SUNNY-->
+  <LOCAL_COMCODE description="本地化代码" modify="1">SUNNY</LOCAL_COMCODE>
+  <!--跨级发放、申领、回收-->
+  <INDIRECT>
+      <PROVIDE>true</PROVIDE>
+      <DRAW>none</DRAW>
+      <RECYCLE>none</RECYCLE>
+  </INDIRECT>
+  <!-- 编辑状态  -->
+  <EDITTYPE>
+      <SHOW>show</SHOW>
+      <MODIFY>modify</MODIFY>
+      <DELETE>delete</DELETE>
+      <NEW>new</NEW>
+      <NODRAW>nodraw</NODRAW>
+  </EDITTYPE>
+
+  <!-- 单证操作代码 -->
+  <OPERATETYPE>
+      <PROVIDE>03</PROVIDE>
+      <USEREADY>04</USEREADY>
+      <USEREADYOVER>05</USEREADYOVER>
+      <USED>06</USED>
+      <LOSE>07</LOSE>
+      <ANNUL>08</ANNUL>
+      <STOP>09</STOP>
+      <WRITEOFF>11</WRITEOFF>
+      <STATUSTRANS>03</STATUSTRANS>
+      <DESTROY>14</DESTROY>
+  </OPERATETYPE>
+
+  <!-- 单证生命周期状态代码 -->
+  <VISASTATUS>
+      <STORAGE>01</STORAGE>
+      <PROVIDED>02</PROVIDED>
+      <USEREADY>03</USEREADY>
+      <USED>04</USED>
+      <LOSE>05</LOSE>
+      <ANNUL>06</ANNUL>
+      <RECYCLEREGIST>07</RECYCLEREGIST>
+      <RECYCLECONFIRM>08</RECYCLECONFIRM>
+      <STOPREGIST>09</STOPREGIST>
+      <STOPCONFIRM>10</STOPCONFIRM>
+      <WRITEOFF>11</WRITEOFF>
+      <STOP>12</STOP>
+      <DESTROY>14</DESTROY>
+      <SENDING>22</SENDING>
+  </VISASTATUS>
+
+  <VISASTATUSNAME>
+      <STORAGE>库存</STORAGE>
+      <PROVIDED>已发放</PROVIDED>
+      <USEREADY>可使用</USEREADY>
+      <USED>已使用</USED>
+      <LOSE>已丢失</LOSE>
+      <ANNUL>作废</ANNUL>
+      <RECYCLEREGIST>正常回收提交</RECYCLEREGIST>
+      <RECYCLECONFIRM>正常已回收</RECYCLECONFIRM>
+      <STOPREGIST>停用回收提交</STOPREGIST>
+      <STOPCONFIRM>停用已回收</STOPCONFIRM>
+      <WRITEOFF>??</WRITEOFF>
+      <STOP>停用</STOP>
+      <SENDING>已发放未确认</SENDING>
+  </VISASTATUSNAME>
+  <!-- 单证类型  -->
+  <VISAKIND>
+      <MARK>0</MARK>
+      <NOMARK>1</NOMARK>
+      <NOPRESS>2</NOPRESS>
+  </VISAKIND>
+  <VISAKINDNAME>
+      <MARK>有号单证</MARK>
+      <NOMARK>无号单证</NOMARK>
+      <NOPRESS>非印刷单证</NOPRESS>
+  </VISAKINDNAME>
+
+  <!-- 操作状态(0:申领 1:已发放)  -->
+  <OPERATESTATUS>
+      <APPLIED>0</APPLIED>
+      <PROVIDED>1</PROVIDED>
+  </OPERATESTATUS>
+
+  <!-- 单证操作代码 -->
+  <VISAOPERATE>
+      <PROVIDE>provide</PROVIDE>
+      <USEREADY>UseReady</USEREADY>
+      <USEREADYOVER>UseReadyOver</USEREADYOVER>
+      <USED>Used</USED>
+      <WRITEOFF>WriteOff</WRITEOFF>
+      <ANNUL>Annul</ANNUL>
+      <LOSS>Loss</LOSS>
+      <RECYCLEREGIST>RecycleRegist</RECYCLEREGIST>
+  </VISAOPERATE>
+  <!-- 单证图像文件路径 -->
+  <PICTUREPATH>C:\\Documents and Settings\\user\\My Documents\\My Pictures</PICTUREPATH>
+  <!-- 单证结算权限限制 -->
+  <SETTLELEVEL>5</SETTLELEVEL>
+
+
+ <URL_PLATFORM>http://10.1.26.120:7001/platform</URL_PLATFORM>
+  <CHECK_PSW>N</CHECK_PSW>
+  <!--本位币别-->
+ <STANDARD_CURRENCY>NTD</STANDARD_CURRENCY>
+ <!-- 消息服务相关参数  Start--> 
+  <!-- 消息服务器地址 -->
+  <MSG_SERVER_DOMAIN>192.168.19.14</MSG_SERVER_DOMAIN>
+  <!-- WEB聊天服务应用地址 -->
+  <MSG_JWCHAT_SERVER_ADDRESS>http://192.168.19.14:8080/jwchat/jwchat.jsp</MSG_JWCHAT_SERVER_ADDRESS>
+  <!-- 用户信息发送状态标志  0：所有状态的用户  1：在线用户 -->
+  <MSG_SEND_FLAG>0</MSG_SEND_FLAG>
+  <!-- 即时通信服务运行标识 0:关闭 1:开启 -->
+  <MSG_RUN_FLAG>1</MSG_RUN_FLAG>
+  <MSG_WF_LASTNO>6</MSG_WF_LASTNO>
+  <MSG_WF_FIRSTNO>2</MSG_WF_FIRSTNO>
+  <MSG_WF_DOWN_NODE>1</MSG_WF_DOWN_NODE>
+  <MSG_IS_SYNC>1</MSG_IS_SYNC>
+  <MSG_SKIP_MODEL>24</MSG_SKIP_MODEL>  
+  <!-- 消息服务相关参数  End-->
+</sysconst>

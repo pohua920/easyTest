@@ -1,0 +1,55 @@
+package com.sinosoft.claim.schema.model;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class PrpCrescueId implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private String policyNo;
+	private Integer serialNo;
+
+	public PrpCrescueId() {
+	}
+
+	@Column(name = "policyNo", nullable = false)
+	public String getPolicyNo() {
+		return this.policyNo;
+	}
+
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
+	}
+
+	@Column(name = "serialno", nullable = false)
+	public Integer getSerialNo() {
+		return this.serialNo;
+	}
+
+	public void setSerialNo(Integer serialNo) {
+		this.serialNo = serialNo;
+	}
+
+	public boolean equals(Object other) {
+		if ((this == other))
+			return true;
+		if ((other == null))
+			return false;
+		if (!(other instanceof PrpCrescueId))
+			return false;
+		PrpCrescueId castOther = (PrpCrescueId) other;
+
+		return ((this.getPolicyNo() == castOther.getPolicyNo()) || (this.getPolicyNo() != null && castOther.getPolicyNo() != null && this.getPolicyNo().equals(castOther.getPolicyNo())))
+				&& ((this.getSerialNo() == castOther.getSerialNo()) || (this.getSerialNo() != null && castOther.getSerialNo() != null && this.getSerialNo().equals(castOther.getSerialNo())));
+	}
+
+	public int hashCode() {
+		int result = 17;
+
+		result = 37 * result + (getPolicyNo() == null ? 0 : this.getPolicyNo().hashCode());
+		result = 37 * result + (getSerialNo() == null ? 0 : this.getSerialNo().hashCode());
+		return result;
+	}
+
+}

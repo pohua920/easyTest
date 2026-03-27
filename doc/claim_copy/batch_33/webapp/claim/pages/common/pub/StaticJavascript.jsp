@@ -1,0 +1,1 @@
+<%System.err.println("StaticJavascript.jsp is disabled,replace by \"claim/common/meta_js.jsp\"");%>
