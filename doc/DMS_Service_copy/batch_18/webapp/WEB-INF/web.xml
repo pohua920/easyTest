@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!--
+		
+		此参数用于后面的Spring-Context loader
+	-->
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:spring/applicationContext*.xml;classpath*:spring/dataAccessContext*.xml
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>weblogic.httpd.inputCharset./*</param-name>
+		<param-value>GBK</param-value>
+	</context-param>
+	<!-- 交叉销售 WebService 服务注册  begin -->
+	    <!-- webservice servlet beging -->
+    <servlet>
+		<servlet-name>AxisServlet</servlet-name>		
+		<servlet-class>
+			org.apache.axis.transport.http.AxisServlet
+		</servlet-class>
+	</servlet>
+	<!-- webservice servlet end -->
+ 
+	<!-- webservice servlet-mapping beging -->
+	<servlet-mapping>
+	    <servlet-name>AxisServlet</servlet-name>
+	    <url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	     <servlet-name>AxisServlet</servlet-name>
+	     <url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	     <servlet-name>AxisServlet</servlet-name>
+	     <url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<!-- 交叉销售 WebService 服务注册  end -->
+
+
+
+	<!--
+		使用单点登录时，应该：
+		1.配置 认证服务登出拦截器和SCAS session销毁监听器
+		2.配置CASServer拦截器，拦截*.do和*.jsp
+		3.配置welcome-file-list为index.jsp
+		4.配置sessionFilter拦截*.do和*.jsp
+		不使用单点登录时，应该：
+		1.注释掉 中银认证服务登出拦截器和SCAS session销毁监听器
+		2.取消CASServer的拦截器配置
+		3.配置welcome-file-list为login.jsp
+		4.配置sessionFilter仅拦截*.do
+	-->
+ 	 
+	<!-- SinoSoft SCAS Out Filter 认证服务登出拦截器
+	<filter>
+		<filter-name>SinoSoft SSOut Filter</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SinoSoft SSOut Filter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SinoSoft SSOut Filter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>  -->
+	
+	<!-- SinoSoft SCAS session销毁监听器
+	<listener>
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener> -->
+	 
+	<!-- CAS中心认证服务器Filter 
+	<filter>
+		<filter-name>CAS Filter</filter-name>
+		<filter-class>cn.com.sinosoft.cas.filter.CustomCASFilter</filter-class>
+		<init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.wrapRequest</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping> -->
+
+	<!-- SAA的Session Filter用于初始化session -->
+	<filter>
+		<filter-name>SESSION FILTER</filter-name>
+		<filter-class>cn.com.sinosoft.filter.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SESSION FILTER</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!--	单点登录时放开，不用单点登陆时注释掉
+	
+	<filter-mapping>
+		<filter-name>SESSION FILTER</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping> -->
+	
+	<!-- openSessionInView 要配置在struts2的FilterDispatcher之前-->
+	<!--Hibernate Open Session in View Filter-->
+	<filter>
+		<filter-name>hibernateFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<!-- 著名 Character Encoding filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+
+
+	<!-- star OperateFilter-->
+	<!--
+	<filter>
+		<filter-name>operateFilter</filter-name>
+		<filter-class>cn.com.sinosoft.ims.log.web.OperateFilter</filter-class>
+	</filter>
+
+ 
+	<filter-mapping>
+		<filter-name>operateFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	-->
+	<!-- end OperateFilter-->
+
+		<!-- saaFilter 权限过滤器-->
+
+	<filter>
+		<filter-name>saaFilter</filter-name>
+		<filter-class>cn.com.sinosoft.saa.web.SaaFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>saaFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+<!-- 页面元素的GZIP压缩 Filter 	
+	<filter>
+		<filter-name>compressFilter</filter-name>
+		<filter-class>ins.framework.web.CompressFilter</filter-class>
+		<init-param>
+			<param-name>ignoreKey</param-name>
+			  <param-value>.js,.css,.gif,.jpg,.vbs</param-value>   
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>compressFilter</filter-name>
+		<url-pattern>/BPSService</url-pattern>
+	</filter-mapping>
+-->
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 让hibernate open session in view的荣光也照耀xfire -->
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>/service/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--Spring ApplicationContext 载入 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Spring 刷新Introspector防止内存泄露 -->
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<!-- DWR servlet,生产环境应该Debug为false -->
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>xfire</servlet-name>
+		<servlet-class>
+			<!--  org.codehaus.xfire.spring.XFireSpringServlet -->
+			org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>InitServlet</servlet-name>
+		<servlet-class>cn.com.sinosoft.cas.InitServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>initArch2ConfigServlet</servlet-name>
+		<servlet-class>cn.com.sinosoft.common.web.ExtendedStrutsActionServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>cn.com.sinosoft.servlet.Logout</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BPSService</servlet-name>
+		<servlet-class>cn.com.sinosoft.inf.BPSService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BPSService</servlet-name>
+		<url-pattern>/BPSService</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>xfire</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	<!--
+		<servlet-mapping> <servlet-name>InitServlet</servlet-name>
+		<url-pattern>/servlet/InitServlet</url-pattern> </servlet-mapping>
+	-->
+	<!-- session超时定义,单位为分钟 ,并覆盖weblogic.xml中的TimeoutSecs属性，
+		设置为－2，表示将使用在weblogic.xml中设置的TimeoutSecs这个属性值。
+		设置为－1，表示Session将永不过期，而忽略在weblogic.xml中设置的TimeoutSecs属性值。 -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	<!-- 默认首页定义 -->
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<!-- Error Page定义 -->
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/common/error.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>ins.framework.exception.DataVerifyException</exception-type>
+		<location>/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>ins.framework.exception.BusinessException</exception-type>
+		<location>/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>ins.framework.exception.PermissionException</exception-type>
+		<location>/common/error.jsp</location>
+	</error-page>
+	
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/msword</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/msexcel</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>unl</extension>
+		<mime-type>application/unl</mime-type>
+	</mime-mapping>
+	<resource-ref>
+		<description>Resource reference to a factory for java.sql.Connection</description>
+		<res-ref-name>jdbc/piccdmsDataSource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/tlds/ct.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/ct.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+</web-app>
+

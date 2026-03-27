@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+           <map>
+				<entry key="/user.ws">
+					<ref bean="user" />
+				</entry>
+				<entry key="/svr.ws">
+					<ref bean="svr" />
+				</entry>
+				
+			</map>
+           
+        </property>
+    </bean>
+   
+    <!-- webService 基本配置 --> 
+    <bean id="webService" 
+        class="org.codehaus.xfire.spring.remoting.XFireExporter" 
+        abstract="true"> 
+        <property name="serviceFactory"> 
+            <ref bean="xfire.serviceFactory" /> 
+        </property> 
+        <property name="xfire"> 
+            <ref bean="xfire" /> 
+        </property> 
+    </bean> 
+    <!-- UserService --> 
+    <bean id="user" parent="webService" 
+        class="org.codehaus.xfire.spring.remoting.XFireExporter"> 
+        <property name="serviceBean">
+            <ref bean="userBean" />
+        </property>
+        <property name="serviceClass">
+            <value>cn.com.sinosoft.ims.user.service.facade.UserService</value>
+        </property>
+    </bean>
+    <!-- SvrService -->
+    <bean id="svr" parent="webService" 
+        class="org.codehaus.xfire.spring.remoting.XFireExporter"> 
+        <property name="serviceBean">
+            <ref bean="svrBean" />
+        </property>
+        <property name="serviceClass">
+            <value>cn.com.sinosoft.ims.svr.service.facade.SvrService</value>
+        </property>
+    </bean>
+</beans>

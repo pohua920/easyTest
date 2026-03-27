@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition
+  xmlns=""  name="demo">
+   <swimlane name="inputSwimlane">
+      <assignment class="org.springmodules.workflow.jbpm31.JbpmHandlerProxy" config-type="bean">
+         <targetBean>inputHandler</targetBean>
+         <factoryKey>jbpmConfiguration</factoryKey>
+      </assignment>
+   </swimlane>
+   <swimlane name="underwriteSwimlane">
+      <assignment class="org.springmodules.workflow.jbpm31.JbpmHandlerProxy" config-type="bean">
+         <targetBean>underwriteHandler</targetBean>
+         <factoryKey>jbpmConfiguration</factoryKey>
+      </assignment>
+   </swimlane>
+   <start-state name="start">
+      <transition name="toinput" to="input"></transition>
+   </start-state>
+   <task-node name="input">
+      <task name="taskinput" swimlane="inputSwimlane">
+      	
+      </task>
+      <event type="task-create">
+         <action name="inputAction" class="org.springmodules.workflow.jbpm31.JbpmHandlerProxy" config-type="bean">
+            <factoryKey>jbpmConfiguration</factoryKey>
+            <targetBean>businessHandler</targetBean>
+         </action>
+      </event>
+      <transition name="tounderwrite" to="underwrite"></transition>
+   </task-node>
+   <task-node name="underwrite">
+      <task name="taskunderwrite" swimlane="underwriteSwimlane"></task>
+      <event type="task-create">
+         <action name="inputAction" class="org.springmodules.workflow.jbpm31.JbpmHandlerProxy" config-type="bean">
+            <factoryKey>jbpmConfiguration</factoryKey>
+            <targetBean>businessHandler</targetBean>
+         </action>
+      </event>
+      <transition name="toend" to="end"></transition>
+      <transition name="toback" to="input"></transition>
+   </task-node>
+   <end-state name="end"></end-state>
+</process-definition>

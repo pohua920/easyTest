@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom:bom-info xmlns:bom="http://www.ilog.com/products/xml/schemas/bominfo_1.0">
+  <bom:generation-date>2007-02-25T09:56:41Z</bom:generation-date>
+  <bom:bompathes>
+    <bom:bompath value="TUserRule/model.bom"/>
+  </bom:bompathes>
+</bom:bom-info>

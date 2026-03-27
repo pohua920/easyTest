@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+
+	<!-- ============Components Service Area================ -->
+	<!-- Image -->
+	<import
+		resource="classpath*:spring/components/applicationContext-image.xml" />
+
+	<!-- Mail -->
+	<import
+		resource="classpath:spring/components/applicationContext-mail.xml" />
+
+	<!-- Rule -->
+	<import
+		resource="classpath:spring/components/applicationContext-rule.xml" />
+	<import
+		resource="classpath:spring/components/applicationContext-bpm.xml" />
+	
+	<!--
+	<import
+		resource="classpath:spring/HDJmsConfig.xml" />
+	
+	<import
+		resource="classpath:spring/BCJmsConfig.xml" />
+	-->
+		
+		
+	<!-- Quartz 
+	<import
+		resource="classpath:spring/components/applicationContext-quartz.xml" />
+	-->
+	<!-- ============Application Service Area================ -->
+	
+	<bean id="menuService"
+		class="ins.platform.menu.service.spring.MenuServiceSpringImpl">
+	</bean>
+	<!-- 中银样式的菜单服务-->
+    <bean id="bocinsMenuService"
+		class="ins.platform.menu.service.spring.BocinsMenuServiceSpringImpl">
+	</bean> 
+	<bean id="codeService"
+		class="cn.com.sinosoft.saa.service.spring.CodeServiceSpringImpl">
+	</bean>
+	
+	<!-- 日志管理-->
+	<bean id="utiIExceptionLogService" 
+		class="cn.com.sinosoft.ims.log.service.spring.UtiIExceptionLogServiceSpringImpl">
+	</bean>
+	<bean id="utiILoginLogService" 
+		class="cn.com.sinosoft.ims.log.service.spring.UtiILoginLogServiceSpringImpl">
+	</bean>
+	<bean id="utiIOperateLogService" 
+		class="cn.com.sinosoft.ims.log.service.spring.UtiIOperateLogServiceSpringImpl">
+	</bean>
+	<bean id="utiISyncLogService" 
+		class="cn.com.sinosoft.ims.log.service.spring.UtiISyncLogServiceSpringImpl">
+	</bean>
+	
+	<!-- 数据字典服务 -->
+	<bean id="prpDexchService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDexchServiceSpringImpl">
+  </bean>
+	<bean id="prpDbankService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDbankServiceSpringImpl">
+  </bean>
+  
+  	<bean id="prpDagentService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDagentServiceSpringImpl">
+  </bean>
+  	<bean id="prpDdealerService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDdealerServiceSpringImpl">
+  </bean>
+  	<bean id="prpDdriverService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDdriverServiceSpringImpl">
+  </bean>
+  	<bean id="prpDplaneService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDplaneServiceSpringImpl">
+  </bean>
+  	<bean id="prpDportService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDportServiceSpringImpl">
+  </bean>
+  	<bean id="prpDshipService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDshipServiceSpringImpl">
+  </bean>
+    <bean id="prpDcodeService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcodeServiceSpringImpl">
+  </bean>
+    <bean id="prpDtypeService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDtypeServiceSpringImpl">
+  </bean>
+  
+  <bean id="prpDcompanyService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcompanyServiceSpringImpl">
+  </bean>
+  
+  <bean id="prpDcompanyGradeService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcompanyGradeServiceSpringImpl">
+  </bean>
+<!-- 添加 数据字典的校验-->
+   <bean id="checkSameKeyService"
+    class="cn.com.sinosoft.dms.service.spring.CheckSameKeyServiceSpringImpl">
+  </bean>
+<!-- 接口BPS -->
+   <bean id="dictionaryService"
+    class="cn.com.sinosoft.dms.webservice.spring.DictionaryServiceImpl">
+  </bean>
+  <!--mantis：CAR0027，處理人員：DP0706，需求單編號：mantis：CAR0027 : 
+  	因DMS 正式機上的程式與開發版本有所差異故將DNS查詢方法抽出並另外改寫 接口BPS_NEW -->
+   <bean id="dictionaryServiceNew"
+    class="cn.com.sinosoft.dms.webservice.spring.DictionaryServiceNewImpl">
+  </bean>
+  
+   <bean id="crossOrgService"
+    class="cn.com.sinosoft.inf.cross.webservice.CrossOrgServiceImpl">
+  </bean>
+  <!-- begin 自留额计划-->
+  <bean id="prpDTreatyRetenService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDTreatyRetenServiceSpringImpl">
+  </bean>
+  <bean id="prpDsettlementLkrService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDsettlementLkrServiceSpringImpl">
+  </bean>
+  <bean id="prpDsettlementByrService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDsettlementByrServiceSpringImpl">
+  </bean>
+  <bean id="prpDcoinsService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcoinsServiceSpringImpl">
+  </bean>
+  <bean id="prpDreinsurerService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDreinsurerServiceSpringImpl">
+  </bean>
+  <bean id="prpDcodeRiskService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcodeRiskServiceSpringImpl">
+  </bean>
+  <bean id="prpDcodeComService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcodeComServiceSpringImpl">
+  </bean>
+   <bean id="prpDcompanyTraceService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcompanyTraceServiceSpringImpl">
+  </bean>
+  <bean id="prpDresourceService"
+  	class="cn.com.sinosoft.dms.service.spring.PrpDresourceServiceSpringImpl">
+  </bean>
+  <bean id="prpVersionService"
+    class="cn.com.sinosoft.dms.service.spring.PrpVersionServiceSpringImpl">
+  </bean>
+  <bean id="prpDriskEngageService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDriskEngageServiceSpringImpl">
+  </bean>
+  <bean id="prpDprojectService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDprojectServiceSpringImpl">
+  </bean>
+  <bean id="prpDcrossOrgService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDcrossOrgServiceSpringImpl">
+  </bean>
+  <!--add by duanfa 2011-05-16   -->
+  <bean id="prpDregulationService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDregulationServiceSpringImpl">
+  </bean>
+  <!--add by duanfa 2011-06-28   -->
+  <bean id="prpDbpmMainService"
+    class="cn.com.sinosoft.dms.service.spring.PrpDbpmMainServiceSpringImpl">
+  </bean>
+  
+  <!-- end -->
+</beans>

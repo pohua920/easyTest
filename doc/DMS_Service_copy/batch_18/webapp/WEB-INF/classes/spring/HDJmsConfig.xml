@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+	<!--总公司消息队列配置-->
+<beans>
+	<!-- JNDI上下文模板 -->
+	<bean id="jndiTemplate_HD" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.factory.initial">
+					weblogic.jndi.WLInitialContextFactory
+				</prop>
+				<prop key="java.naming.provider.url">
+					t3://127.0.0.1:7001
+				</prop>
+				<!--				liyu start-->
+				<prop key="java.naming.security.principal">
+					weblogic
+			     </prop>
+				<prop key="java.naming.security.credentials">
+					weblogic
+			     </prop>
+				<!--				liyu end -->
+			</props>
+		</property>
+	</bean>
+	<!-- 连接工厂配置-->
+	<bean id="jmsConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate_HD" />
+		</property>
+		<property name="jndiName">
+			<value>ConnectionFactory</value>
+		</property>
+	</bean>
+
+	<!-- 发送 +++++++++ 总公司向省公司发送消息主题配置 -->
+	<bean id="bcdest" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>BC_Topic</value>
+		</property>
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate_HD" />
+		</property>
+	</bean>
+
+	<bean id="bctemp" class="org.springframework.jms.core.JmsTemplate">
+	
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+
+		<property name="defaultDestination" ref="bcdest" />
+		<property name="pubSubDomain">
+			<value>true</value>
+		</property>
+		<property name="receiveTimeout">
+			<value>30000</value>
+		</property>
+	</bean>
+
+	<!-- 发送 +++++++++ 省公司向总公司发送消息队列后，总公司收到信息的反馈信息 
+	<bean id="hddestf" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>HD_Topic_F</value>
+		</property>
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate" />
+		</property>
+	</bean>
+
+	<bean id="hdtempf" class="org.springframework.jms.core.JmsTemplate">
+	
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+
+		<property name="defaultDestination" ref="hddestf" />
+		<property name="pubSubDomain">
+			<value>true</value>
+		</property>
+		<property name="receiveTimeout">
+			<value>30000</value>
+		</property>
+	</bean>
+-->
+	<!--
+		监听++++++++++省公司向总公司发送消息的反馈队列配置,总公司需要监听这个Q以获取信息，来查看发出去的信息是否成功
+	-->
+	<bean id="bcdestf" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate_HD" />
+		</property>
+		<property name="jndiName">
+			<value>BC_Queue_F</value>
+		</property>
+	</bean>
+	<bean id="bctempf" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="defaultDestination" ref="bcdestf" />
+		<property name="pubSubDomain">
+			<value>false</value>
+		</property>
+		<property name="receiveTimeout">
+			<value>10000</value>
+		</property>
+	</bean>
+
+
+	<!--
+		监听++++++++++省公司向总公司发送消息,总公司需要监听这个HD_Queue以获取信息
+	
+	<bean id="hddest" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate">
+			<ref bean="jndiTemplate" />
+		</property>
+		<property name="jndiName">
+			<value>HD_Queue</value>
+		</property>
+	</bean>
+	<bean id="hdtemp" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="defaultDestination" ref="hddest" />
+		<property name="pubSubDomain">
+			<value>false</value>
+		</property>
+		<property name="receiveTimeout">
+			<value>10000</value>
+		</property>
+	</bean>-->
+
+	<!-- POJO which send Message uses  Spring JmsTemplate --><!--配置消息发送者-->
+	<bean id="messageProducer" class="cn.com.sinosoft.ims.sync.HDMessageProducer">
+		<property name="tempMap">
+			<map>
+				<entry key="BC_Temp">
+					<ref bean="bctemp" />
+				</entry>
+<!-- 			<entry key="HD_Temp_F">
+						<ref bean="hdtempf" />
+				</entry>
+ -->
+			</map>
+		</property>
+		<property name="destMap">
+			<map>
+				<entry key="BC_Topic">
+					<ref bean="bcdest" />
+				</entry>
+
+<!-- 			<entry key="HD_Topic_F">
+					<ref bean="hddestf" />
+				</entry>
+ -->	
+			</map>
+		</property>
+
+	</bean>
+
+	<!--  listener container，MDP无需实现接口
+
+	<bean id="messageReceive"
+		class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg>
+			<bean class="cn.com.sinosoft.common.web.HDMessageReceive" />
+		</constructor-arg>
+		<property name="defaultListenerMethod" value="reciveMessage" />
+		
+		<property name="defaultResponseDestination" ref="hddestf"></property>
+
+		<property name="messageConverter">
+			<null />
+		</property>
+	</bean> -->
+	
+    <bean id="MessageResponse"
+		class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg>
+			<bean class="cn.com.sinosoft.ims.sync.HDMessageResponse" />
+		</constructor-arg>
+		<property name="defaultListenerMethod" value="reciveMessage" />
+
+		<property name="messageConverter">
+			<null />
+		</property>
+	</bean>
+<!--  
+	<bean id="receiveListener"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="hddest" />
+		<property name="messageListener" ref="messageReceive" />
+		<property name="autoStartup" value="true" />
+		<property name="sessionTransacted" value="true" />
+	</bean>-->
+
+	<bean id="ResponseListener"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="bcdestf" />
+		<property name="messageListener" ref="MessageResponse" />
+
+		<property name="autoStartup" value="true" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+
+</beans>
+
+

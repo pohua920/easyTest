@@ -1,0 +1,9 @@
+<mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xfire.codehaus.org/schemas/1.0/mapping.xsd">
+	<mapping>
+    	<method name="getIpConfigs">
+        	<parameter index="0" mappedName="environmenTypeCode" />
+            <return-type componentType="cn.com.sinosoft.ipconfig.vo.IpService" />
+        </method>
+    </mapping>
+</mappings>

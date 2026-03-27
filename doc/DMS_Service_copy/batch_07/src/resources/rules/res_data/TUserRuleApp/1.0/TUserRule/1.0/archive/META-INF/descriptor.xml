@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<desc:ruleset-descriptor xmlns:desc="http://www.ilog.com/products/xml/schemas/ruleset_descriptor_1.0" xmlns:sig="http://www.ilog.com/products/xml/schemas/signature_2.0">
+  <desc:ruleset-name>ruleset</desc:ruleset-name>
+  <desc:isbusiness>true</desc:isbusiness>
+  <desc:businessxmlserviceenable>false</desc:businessxmlserviceenable>
+  <desc:generation-date>2007-02-25T09:56:41Z</desc:generation-date>
+  <desc:signature-declaration>
+<sig:parameter>
+      <sig:name>user</sig:name>
+      <sig:direction>inout</sig:direction>
+      <sig:type bom-type="ins.arch4demo.user.model.UtiUser" kind="native" xom-type="ins.arch4demo.user.model.UtiUser"/>
+    </sig:parameter>
+    
+  
+  </desc:signature-declaration>
+  <desc:error-for-unknown-artifact>true</desc:error-for-unknown-artifact>
+  <desc:encoding>UTF-8</desc:encoding>
+  <desc:jrules-version major="6" minor="5"/>
+  <desc:version major="0" minor="0"/>
+</desc:ruleset-descriptor>

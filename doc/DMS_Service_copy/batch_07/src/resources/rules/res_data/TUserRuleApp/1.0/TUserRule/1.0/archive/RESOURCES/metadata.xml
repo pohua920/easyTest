@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata:ruleset-metadata xmlns:metadata="http://www.ilog.com/products/xml/schemas/ruleset_metadata_1.0">
+  <metadata:generation-date>2007-02-25T09:56:41Z</metadata:generation-date>
+  
+  <metadata:property-typing-declaration>
+    <metadata:property>
+      <metadata:name>priority</metadata:name>
+      <metadata:type>java.lang.String</metadata:type>
+    </metadata:property>
+    <metadata:property>
+      <metadata:name>effectiveDate</metadata:name>
+      <metadata:type>java.util.Date</metadata:type>
+    </metadata:property>
+    <metadata:property>
+      <metadata:name>expirationDate</metadata:name>
+      <metadata:type>java.util.Date</metadata:type>
+    </metadata:property>
+    <metadata:property>
+      <metadata:name>status</metadata:name>
+      <metadata:type>java.lang.String</metadata:type>
+    </metadata:property>
+  </metadata:property-typing-declaration>
+  </metadata:ruleset-metadata>

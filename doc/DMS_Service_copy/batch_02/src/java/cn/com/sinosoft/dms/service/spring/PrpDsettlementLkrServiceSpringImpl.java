@@ -1,0 +1,158 @@
+package cn.com.sinosoft.dms.service.spring;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.sinosoft.bpsdriver.service.facade.SaaAPIService;
+import com.sinosoft.bpsdriver.service.spring.SaaAPIServiceImpl;
+
+import ins.framework.common.Page;
+import ins.framework.common.ServiceFactory;
+import ins.framework.dao.GenericDaoHibernate;
+import cn.com.sinosoft.common.model.InputBean;
+import cn.com.sinosoft.dms.model.PrpDsettlementLkr;
+import cn.com.sinosoft.dms.service.facade.CheckSameKeyService;
+import cn.com.sinosoft.dms.service.facade.PrpDsettlementLkrService;
+import cn.com.sinosoft.ims.log.model.UtiISyncLog;
+import cn.com.sinosoft.ims.log.service.facade.UtiISyncLogService;
+import cn.com.sinosoft.ims.sync.HDMessageProducer;
+import cn.com.sinosoft.ims.sync.SyncConstants;
+import cn.com.sinosoft.ims.util.IConstants;
+import cn.com.sinosoft.ims.util.ReadProperties;
+import cn.com.sinosoft.saa.util.HqlRulesUtil;
+
+public class PrpDsettlementLkrServiceSpringImpl extends 
+      GenericDaoHibernate<PrpDsettlementLkr,String> implements PrpDsettlementLkrService{
+
+	public Page PrpDsettlementLkrList(PrpDsettlementLkr prpDsettlementLkr, String userCode,int pageNo,
+			int pageSize)throws Exception{
+		StringBuffer hql = new StringBuffer();
+		String con = addPower(userCode);
+		hql.append(" from PrpDsettlementLkr prpDsettlementLkr where ");
+		hql.append(con);
+		HqlRulesUtil hqlRules = new HqlRulesUtil();
+		hqlRules.addLike("linkerCode", prpDsettlementLkr.getLinkerCode());
+		hqlRules.addLike("linkerName", prpDsettlementLkr.getLinkerName());
+		
+		if (hqlRules.getHql().trim() != null
+				&& !hqlRules.getHql().trim().equals("")) {
+			hql.append("and" + hqlRules.getHql());
+		}
+		logger.debug("HQL is :" + hql.toString());
+		Page page = findByHql(hql.toString(), pageNo, pageSize);
+		return page;
+		
+	}
+	public PrpDsettlementLkr findByPrimaryKey(String linkerCode){
+		PrpDsettlementLkr prpDsettlementLkr = super.get(linkerCode);
+		return prpDsettlementLkr;
+		
+	}
+
+	public void updatePrpDsettlementLkr(PrpDsettlementLkr prpDsettlementLkr,String userCode){
+		super.update(prpDsettlementLkr);
+		String syncflag = ReadProperties.getString("syncflag");
+		if(syncflag.equals(SyncConstants.SyncFlag)){
+			CheckSameKeyService checkSameKeyService = (CheckSameKeyService) ServiceFactory
+	        .getService("checkSameKeyService");// 获得Spring管理的bean
+			 String onlineCom = ReadProperties.getString("onlineCom");
+			 String[] strOnlineCom = onlineCom.split(",");
+			 Long id = checkSameKeyService.getMaxId("UtiISyncLog", "id");
+			 List<UtiISyncLog> utiISyncLogList = new ArrayList<UtiISyncLog>();
+			 UtiISyncLog utiISyncLog = null;
+			 for (String comCode : strOnlineCom) {	
+				 utiISyncLog = new UtiISyncLog();
+				 utiISyncLog.setId(id);
+				 utiISyncLog.setClassName(SyncConstants.RequestFlag_PrpDsettlementLkrMaintain);
+				 utiISyncLog.setDestComCode(comCode);
+				 utiISyncLog.setEditType(SyncConstants.RequestFlag_EditTypeModify);
+				 utiISyncLog.setOperUserCode(userCode);
+				 utiISyncLog.setReplayTimes(0);
+				 utiISyncLog.setSendDate(new Date());
+				 utiISyncLog.setLastSendDate(new Date());
+				 utiISyncLog.setStrKey("comCode = '" + prpDsettlementLkr.getComCode()
+						 +"'");
+				 utiISyncLogList.add(utiISyncLog);
+				 id++;
+			}
+			 if (utiISyncLogList.size() > 0) {
+				HDMessageProducer messageProducer = (HDMessageProducer) ServiceFactory
+				.getService("messageProducer");// 获得Spring管理的bean
+				InputBean inputBean = new InputBean();
+				inputBean.setRequestFlag(SyncConstants.RequestFlag_PrpDsettlementLkrMaintain);
+				UtiISyncLogService utiISyncLogService = (UtiISyncLogService) ServiceFactory
+				 .getService("utiISyncLogService");// 获得Spring管理的bean
+				 utiISyncLogService.insertAllUtiISyncLog(utiISyncLogList);
+				 inputBean.setUtiISyncLogList(utiISyncLogList);
+				 inputBean.setPrpDsettlementLkr(prpDsettlementLkr);
+				 inputBean.setDestComCode(SyncConstants.DestComCode_Pub);
+				 messageProducer.send(inputBean);
+			}
+		}
+		
+	}
+	public void insertPrpDsettlementLkr(PrpDsettlementLkr prpDsettlementLkr,String userCode){
+		super.save(prpDsettlementLkr);
+		// JMS 
+		String syncflag = ReadProperties.getString("syncflag");
+		if(syncflag.equals(SyncConstants.SyncFlag)){
+			CheckSameKeyService checkSameKeyService = (CheckSameKeyService) ServiceFactory
+	        .getService("checkSameKeyService");// 获得Spring管理的bean
+			 String onlineCom = ReadProperties.getString("onlineCom");
+			 String[] strOnlineCom = onlineCom.split(",");
+			 Long id = checkSameKeyService.getMaxId("UtiISyncLog", "id");
+			 List<UtiISyncLog> utiISyncLogList = new ArrayList<UtiISyncLog>();
+			 UtiISyncLog utiISyncLog = null;
+			 for (String comCode : strOnlineCom) {	
+				 utiISyncLog = new UtiISyncLog();
+				 utiISyncLog.setId(id);
+				 utiISyncLog.setClassName(SyncConstants.RequestFlag_PrpDsettlementLkrMaintain);
+				 utiISyncLog.setDestComCode(comCode);
+				 utiISyncLog.setEditType(SyncConstants.RequestFlag_EditTypeAdd);
+				 utiISyncLog.setOperUserCode(userCode);
+				 utiISyncLog.setReplayTimes(0);
+				 utiISyncLog.setSendDate(new Date());
+				 utiISyncLog.setLastSendDate(new Date());
+				 utiISyncLog.setStrKey("comCode = '" + prpDsettlementLkr.getComCode()
+						 +"'");
+				 utiISyncLogList.add(utiISyncLog);
+				 id++;
+			}
+			 if (utiISyncLogList.size() > 0) {
+				HDMessageProducer messageProducer = (HDMessageProducer) ServiceFactory
+				.getService("messageProducer");// 获得Spring管理的bean
+				InputBean inputBean = new InputBean();
+				inputBean.setRequestFlag(SyncConstants.RequestFlag_PrpDsettlementLkrMaintain);
+				UtiISyncLogService utiISyncLogService = (UtiISyncLogService) ServiceFactory
+				 .getService("utiISyncLogService");// 获得Spring管理的bean
+				 utiISyncLogService.insertAllUtiISyncLog(utiISyncLogList);
+				 inputBean.setUtiISyncLogList(utiISyncLogList);
+				 inputBean.setPrpDsettlementLkr(prpDsettlementLkr);
+				 inputBean.setDestComCode(SyncConstants.DestComCode_Pub);
+				 messageProducer.send(inputBean);
+			}
+		}
+		
+	}
+	public void prpdSettlementLkrMessageProcess(
+			PrpDsettlementLkr prpDsettlementLkr) throws Exception {
+		if (prpDsettlementLkr != null) {
+			try {
+				super.save(prpDsettlementLkr);				
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new Exception(e.getMessage());
+			}
+		}
+	}
+	//addPower用来限制查询结果（允许机构之内的数据）
+	public  String addPower(String userCode) throws Exception{
+		SaaAPIService saaAPIService = new SaaAPIServiceImpl();
+		String condition =  saaAPIService.addPower(IConstants.SVRCODE, userCode, IConstants.SEARCH_PRPDSETTLEMENTLKR_COMCODE, IConstants.PRPDSETTLEMENTLKR_BM, "", "");
+		if(!"".equals(condition))
+			return condition;
+		else
+			return " 1 != 1";
+	}
+}

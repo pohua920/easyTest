@@ -1,0 +1,649 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<%@ page import="cn.com.sinosoft.ims.util.IConstants"%>
+<html>
+<head>
+<%@include file="/common/meta_css.jsp"%>
+<%@include file="/common/i18njs.jsp"%>
+<%@include file="/common/meta_js.jsp"%>
+<%@ page import="cn.com.sinosoft.ims.util.*"%>
+
+<script language="javascript" src="${ctx}/common/dwr/engine.js"></script>
+<script language="javascript" src="${ctx}/common/dwr/util.js"></script>
+<script type="text/javascript" src="${ctx}/common/js/sinosoft.js"></script>
+<script type="text/javascript" src="${ctx}/common/js/MulLine.js"></script>
+<script type="text/javascript" src="${ctx}/common/js/Common.js"></script>
+<script language="javascript" src="${ctx}/common/js/CodeSelect.js"></script>
+</head>
+<body id="all_title">
+<div id="wrapper">
+<div id="container">
+
+<s:form name="fm" action=""	>
+<s:hidden name="editType" id="editType" value="${editType}"></s:hidden>
+<s:hidden name="userType" id="userType1" value="${userType}"></s:hidden>
+<s:hidden name="comCode" id="comCode" value="${comCode}"></s:hidden>
+	<table width="100%" class="fix_table">
+		<tr class="top">
+            <div id="crash_menu">
+            <h2 align="center">
+              <s:if test="${editType=='insert' }">用户增加</s:if>
+              <s:if test="${editType=='update' }">用户修改</s:if>
+              <s:if test="${editType=='view' }">用户查看</s:if>
+            </h2>
+            </div>	
+		</tr>				
+<!----------- 查看 -------------->		
+		<s:if test="${editType=='view' }">
+			<s:hidden name="utiIUser.userCode "/>
+			<tr>
+				<td class="bgc_tt short">用户代码</td>
+				<td class="long"><s:textfield name="utiIUser.userCode" value="${utiIUser.userCode}"
+					id="userCode" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+				<td class="bgc_tt short">用户名称</td>
+				<td class="long"><s:textfield name="utiIUser.userName" value="${utiIUser.userName}"
+					id="userName" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>				
+				
+			</tr>
+			<tr>
+				<td class="bgc_tt short">用户类型</td>
+				<td class="long">
+					    <div id="userTypeDiv1" class="selectui-indiv">
+					        <div class="selectConfig">
+					        <div class="codeType">StaticSelect</div>
+					        </div>
+					        <c:set var="checked" value="${utiIUser.userType}" />
+					        <ce:select name="utiIUser.userType"  cssClass="selectui-input" disabled="true" value="${checked}" 
+					        list="#@java.util.HashMap@{'01':'员工用户','02':'业务员用户','03':'虚拟用户','04':'合作伙伴用户','06':'企业用户','07':'个人用户','98':'临时用户','99':'其他用户'}" />
+					    </div>
+			    </td>			
+				<td class="bgc_tt short">归属机构</td>
+				<td class="long"><s:textfield name="utiIUser.comCode" value="${utiIUser.comCode}"
+					id="comcode" cssClass='input_w w_30' maxlength="20" disabled="true"/></td>	
+			</tr>
+            <tr>
+			<td class="bgc_tt short">登记机关</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationAgency" value="${utiIUserUnit.registrationAgency}"
+					id="utiIUserUnit.registrationAgency" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">登记注册号</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationNumber" value="${utiIUserUnit.registrationNumber}"
+					id="utiIUserUnit.registrationNumber" cssClass='input_w w_30' maxlength="20" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">组织机构代码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.organizationCode" value="${utiIUserUnit.organizationCode}"
+					id="utiIUserUnit.organizationCode" cssClass='input_w w_30' maxlength="10" readonly="true"/></td>
+			<td class="bgc_tt short">贷款卡编码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.loancardCode" 
+					id="utiIUserUnit.loancardCode" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.loancardCode}" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">税务登记证号码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.nationalTaxRegistNo" value="${utiIUserUnit.nationalTaxRegistNo}"
+					id="utiIUserUnit.nationalTaxRegistNo" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">基本账户行</td>
+			<td class="long"><s:textfield name="utiIUserUnit.openBank" value="${utiIUserUnit.openBank}"
+					id="utiIUserUnit.openBank" cssClass='input_w w_30' maxlength="20" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">从业人数</td>
+			<td class="long"><s:textfield name="utiIUserUnit.empNumber" value="${utiIUserUnit.empNumber}"
+					id="utiIUserUnit.empNumber" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">注册登记日期</td>
+			<td class="long"><s:textfield readonly="true" name="utiIUserUnit.registrationDate" 
+					id="utiIUserUnit.registrationDate" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.registrationDate}"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">注册资本</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registeredCapital" value="${utiIUserUnit.registeredCapital}"
+					id="utiIUserUnit.registeredCapital" cssClass='input_w w_30' maxlength="20"  readonly="true"/></td>
+			<td class="bgc_tt short">营业执照到期日期</td>
+			<td class="long"><s:textfield readonly="true" name="utiIUserUnit.licenseExpiringDate" 
+					id="utiIUserUnit.licenseExpiringDate" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.licenseExpiringDate}"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">实收资本</td>
+			<td class="long"><s:textfield name="utiIUserUnit.capital" value="${utiIUserUnit.capital}"
+					id="utiIUserUnit.capital" cssClass='input_w w_30' maxlength="20"  readonly="true"/></td>
+			<td class="bgc_tt short">登记注册类型</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationType" value="${utiIUserUnit.registrationType}"
+					id="utiIUserUnit.registrationType" cssClass='input_w w_30' maxlength="20" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">经营范围</td>
+			<td class="long"><s:textfield name="utiIUserUnit.businesssCope" value="${utiIUserUnit.businesssCope}"
+					id="utiIUserUnit.businesssCope" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">主营业务</td>
+			<td class="long"><s:textfield name="utiIUserUnit.mainOperation" value="${utiIUserUnit.mainOperation}"
+					id="utiIUserUnit.mainOperation" cssClass='input_w w_30' maxlength="20" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">所属行业代码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.industryCode" value="${utiIUserUnit.industryCode}"
+					id="utiIUserUnit.industryCode" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">所属行业名称</td>
+			<td class="long"><s:textfield name="utiIUserUnit.industryName" 
+					id="utiIUserUnit.industryName" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.industryName}" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">所属区域代码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.areaCode" 
+					id="utiIUserUnit.areaCode" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.areaCode }" readonly="true"/>
+			</td>
+			<td class="bgc_tt short">所属区域名称</td>
+			<td class="long"><s:textfield name="utiIUserUnit.areaName" value="${utiIUserUnit.areaName}"
+					id="utiIUserUnit.areaName" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">注册地址</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registeredAddress" value="${utiIUserUnit.registeredAddress}"
+					id="utiIUserUnit.registeredAddress" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">通讯地址</td>
+			<td class="long"><s:textfield name="utiIUserUnit.mailingAddress" 
+					id="utiIUserUnit.mailingAddress" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.mailingAddress }" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">邮政编码</td>
+			<td class="long"><s:textfield name="utiIUserUnit.postCode" value="${utiIUserUnit.postCode}"
+					id="utiIUserUnit.postCode" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">联系人</td>
+			<td class="long"><s:textfield name="utiIUserUnit.contactPerson" 
+					id="utiIUserUnit.contactPerson" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.contactPerson }" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">联系电话</td>
+			<td class="long"><s:textfield name="utiIUserUnit.contactTelephone" value="${utiIUserUnit.contactTelephone}"
+					id="utiIUserUnit.contactTelephone" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">传真电话</td>
+			<td class="long"><s:textfield name="utiIUserUnit.fax" 
+					id="utiIUserUnit.fax" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.fax }" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">Email</td>
+			<td class="long"><s:textfield name="utiIUserUnit.email" value="${utiIUserUnit.email}"
+					id="utiIUserUnit.email" cssClass='input_w w_30' maxlength="20" readonly="true"/></td>
+			<td class="bgc_tt short">网址</td>
+			<td class="long"><s:textfield name="utiIUserUnit.website" 
+					id="utiIUserUnit.website" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.website }" readonly="true" />
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">信息创建人</td>
+				<td class="long"><s:textfield name="utiIUserUnit.creatorCode" 
+					id="utiIUserUnit.creatorCode" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.creatorCode}" readonly="true"/>
+			</td>
+			<td class="bgc_tt short">信息创建日期</td>
+			<td class="long"><s:textfield name="utiIUserUnit.createDate" 
+					id="utiIUserUnit.createDate" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.createDate}" readonly="true">
+					<s:param name="value"><s:date name="utiIUserUnit.createDate" format="yyyy-MM-dd"/></s:param>
+					</s:textfield>
+			</td>
+		</tr>
+		<tr>
+			<td class="bgc_tt short">信息修改人</td>
+				<td class="long"><s:textfield name="utiIUserUnit.updaterCode" 
+					id="utiIUserUnit.updaterCode" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.updaterCode}" readonly="true"/>
+			</td>
+			<td class="bgc_tt short">信息修改日期</td>
+			<td class="long"><s:textfield name="utiIUserUnit.updateDate" 
+					id="utiIUserUnit.updateDate" cssClass='input_w w_30' maxlength="20" value="${utiIUserUnit.updateDate}" readonly="true">
+					<s:param name="value"><s:date name="utiIUserUnit.updateDate" format="yyyy-MM-dd"/></s:param>
+					</s:textfield>
+			</td>
+		</tr>
+        <tr>
+			<td class="bgc_tt short">最新用户代码</td>
+			<td class="long" colspan="3"><s:textfield name="utiIUserUnit.newUserCode" 
+					id="utiIUserUnit.newUserCode" cssClass='input_w w_30' maxlength="20" readonly="true" value="${utiIUserUnit.newUserCode }" />
+			</td>
+		</tr>    
+		</s:if>
+<!----------- 修改 -------------->
+		<s:elseif test="${editType=='update' }">
+			<s:hidden name="utiIUser.userCode "/>
+            <s:hidden name="utiIUser.userSort " value="${utiIUser.userSort}"/>
+            <s:hidden name="utiIUserUnit.userCode " value="${utiIUserUnit.userCode}"/>
+			<s:hidden name="utiIUser.auditStatus" value="${utiIUser.auditStatus}"></s:hidden>
+	        <s:hidden name="utiIUser.validStatus" value="${utiIUser.validStatus}"></s:hidden>
+            <s:hidden name="utiIUserUnit.comCode" value="${utiIUserUnit.comCode}"></s:hidden>
+			<tr>
+				<td class="bgc_tt short">用户代码</td>
+				<td class="long""><s:textfield name="utiIUser.userCode" value="${utiIUser.userCode}"
+					id="userCode" cssClass='input_w w_30' maxlength="40" readonly="true"/></td>
+				<td class="bgc_tt short">用户名称<font color="red">*</font></td>
+				<td class="long""><input name="utiIUser.userName" value="${utiIUser.userName}"
+					id="userName" class='input_w w_30' maxlength="30"/></td>				
+				
+			</tr>
+            
+			<tr>
+             <!-- <td class="bgc_tt short">漫游方式</td>
+                <td class="long" >
+					    <div id="roamingStatusDiv" class="selectui-indiv">
+					        <div class="selectConfig">
+					        <div class="codeType">StaticSelect</div>
+					        </div>
+					        <c:set var="checked" value="${utiIUser.roamingStatus}" />
+					        <ce:select name="utiIUser.roamingStatus" id="roamingStatus" cssClass="selectui-input"  value="${checked}" 
+					        list="#{'01':'自动','02':'手动'}" />
+					    </div>
+			    </td>	
+				 -->
+				
+				<td class="bgc_tt short">归属机构</td>
+				<td class="long"><s:textfield name="utiIUser.comCode" value="${utiIUser.comCode}"
+					id="comcode" cssClass='input_w w_30' maxlength="8" disabled="true"/></td>
+		   	
+			</tr>
+             <!-------- 企业客户信息 -->
+            
+            <tr>
+			<td class="bgc_tt short">登记机关</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationAgency" value="${utiIUserUnit.registrationAgency}"
+					id="utiIUserUnit.registrationAgency" cssClass='inpu t_w w_30' maxlength="80"/></td>
+			<td class="bgc_tt short">登记注册号</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationNumber" value="${utiIUserUnit.registrationNumber}"
+					id="utiIUserUnit.registrationNumber" cssClass='input_w w_30' maxlength="40"/>
+			</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">组织机构代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.organizationCode" value="${utiIUserUnit.organizationCode}"
+						id="utiIUserUnit.organizationCode" cssClass='input_w w_30' maxlength="10"/></td>
+				<td class="bgc_tt short">贷款卡编码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.loancardCode" 
+						id="utiIUserUnit.loancardCode" cssClass='input_w w_30' maxlength="16" value="${utiIUserUnit.loancardCode}" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">税务登记证号码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.nationalTaxRegistNo" value="${utiIUserUnit.nationalTaxRegistNo}"
+						id="utiIUserUnit.nationalTaxRegistNo" cssClass='input_w w_30' maxlength="30"/></td>
+				<td class="bgc_tt short">基本账户行</td>
+				<td class="long"><s:textfield name="utiIUserUnit.openBank" value="${utiIUserUnit.openBank}"
+						id="utiIUserUnit.openBank" cssClass='input_w w_30' maxlength="40"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">从业人数</td>
+				<td class="long"><s:textfield name="utiIUserUnit.empNumber" value="${utiIUserUnit.empNumber}"
+						id="utiIUserUnit.empNumber" cssClass='input_w w_30 dt-num' maxlength="100" /></td>
+				<td class="bgc_tt short">注册登记日期</td>
+				<td class="long"><input type="text" readonly name="utiIUserUnit.registrationDate" 
+						  class='Wdate' id="validenddate"  onFocus="WdatePicker()" maxlength="10" value="${utiIUserUnit.registrationDate}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">注册资本</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registeredCapital" value="${utiIUserUnit.registeredCapital}"
+						id="utiIUserUnit.registeredCapital" cssClass='input_w w_30 dt-num' maxlength="22"/></td>
+				<td class="bgc_tt short">营业执照到期日期</td>
+				<td class="long"><input type="text" readonly name="utiIUserUnit.licenseExpiringDate" 
+						class='Wdate' id="validenddate"  onFocus="WdatePicker()" maxlength="10" value="${utiIUserUnit.licenseExpiringDate}"/>
+
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">实收资本</td>
+				<td class="long"><s:textfield name="utiIUserUnit.capital" value="${utiIUserUnit.capital}"
+						id="utiIUserUnit.capital" cssClass='input_w w_30 dt-num' maxlength="22" /></td>
+				<td class="bgc_tt short">登记注册类型</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registrationType" value="${utiIUserUnit.registrationType}"
+						id="utiIUserUnit.registrationType" cssClass='input_w w_30' maxlength="6"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">经营范围</td>
+				<td class="long"><s:textfield name="utiIUserUnit.businesssCope" value="${utiIUserUnit.businesssCope}"
+						id="utiIUserUnit.businesssCope" cssClass='input_w w_30' maxlength="2000"/></td>
+				<td class="bgc_tt short">主营业务</td>
+				<td class="long"><s:textfield name="utiIUserUnit.mainOperation" value="${utiIUserUnit.mainOperation}"
+						id="utiIUserUnit.mainOperation" cssClass='input_w w_30' maxlength="2000"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">所属行业代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.industryCode" value="${utiIUserUnit.industryCode}"
+						id="utiIUserUnit.industryCode" cssClass='input_w w_30' maxlength="20"/></td>
+				<td class="bgc_tt short">所属行业名称</td>
+				<td class="long"><s:textfield name="utiIUserUnit.industryName" 
+						id="utiIUserUnit.industryName" cssClass='input_w w_30' maxlength="100" value="${utiIUserUnit.industryName}" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">所属区域代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.areaCode" 
+						id="utiIUserUnit.areaCode" cssClass='input_w w_30' maxlength="30" value="${utiIUserUnit.areaCode }" />
+				</td>
+				<td class="bgc_tt short">所属区域名称</td>
+				<td class="long"><s:textfield name="utiIUserUnit.areaName" value="${utiIUserUnit.areaName}"
+						id="utiIUserUnit.areaName" cssClass='input_w w_30' maxlength="100"/></td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">注册地址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registeredAddress" value="${utiIUserUnit.registeredAddress}"
+						id="utiIUserUnit.registeredAddress" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">通讯地址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.mailingAddress" 
+						id="utiIUserUnit.mailingAddress" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.mailingAddress }" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">邮政编码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.postCode" value="${utiIUserUnit.postCode}"
+						id="utiIUserUnit.postCode" cssClass='input_w w_30 dt-num'  maxlength="6"/></td>
+				<td class="bgc_tt short">联系人</td>
+				<td class="long"><s:textfield name="utiIUserUnit.contactPerson" 
+						id="utiIUserUnit.contactPerson" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.contactPerson }" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">联系电话</td>
+				<td class="long"><s:textfield name="utiIUserUnit.contactTelephone" value="${utiIUserUnit.contactTelephone}"
+						id="utiIUserUnit.contactTelephone" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">传真电话</td>
+				<td class="long"><s:textfield name="utiIUserUnit.fax" 
+						id="utiIUserUnit.fax" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.fax}" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">Email</td>
+				<td class="long"><s:textfield name="utiIUserUnit.email" value="${utiIUserUnit.email}"
+						id="utiIUserUnit.email" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">网址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.website" 
+						id="utiIUserUnit.website" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.website }" />
+				</td>
+			</tr>
+		<tr>
+			<td class="bgc_tt short">信息创建人</td>
+				<td class="long"><s:textfield name="utiIUserUnit.creatorCode" 
+					id="utiIUserUnit.creatorCode" cssClass='input_w w_30' maxlength="30" value="${utiIUserUnit.creatorCode}" readonly="true"/>
+			</td>
+			<td class="bgc_tt short">信息创建日期</td>
+			<td class="long"><s:textfield name="utiIUserUnit.createDate" 
+					id="utiIUserUnit.createDate" cssClass='input_w w_30' maxlength="50" value="${utiIUserUnit.createDate}" readonly="true">
+					<s:param name="value"><s:date name="utiIUserUnit.createDate" format="yyyy-MM-dd"/></s:param>
+					</s:textfield>
+			</td>
+		</tr>
+		</s:elseif>
+<!----------- 增加 -------------->
+		<s:else>
+			<s:hidden name="utiIUser.userSort" value="${userSort}"/>
+			<s:hidden name="utiIUser.userType" value="${userType}"/>
+            <tr>
+				<td class="bgc_tt short">用户代码</td>
+				<td class="long""><s:textfield name="utiIUser.userCode"  value="${userCode}"
+					id="userCode" cssClass='input_w w_30' maxlength="40" readonly="true"/></td>
+				<td class="bgc_tt short">用户名称<font color="red">*</font></td>
+				<td class="long"><input name="utiIUser.userName" value="${utiIUser.userName}"
+					id="userName" class='input_w w_30 dc-chk' maxlength="30" onblur="checkName();"/><nobr id="userMsg"></nobr></td>				
+				
+			</tr>
+			<tr>
+				<td class="bgc_tt short">用户类型</td>
+                <td class="long">
+					    <div id="userTypeDiv2" class="selectui-indiv">
+					        <div class="selectConfig">
+					        <div class="codeType">StaticSelect</div>
+					        </div>
+                            <c:set var="checked" value="${userType}" />
+					        <ce:select name="utiIUser.userType" id="userType" cssClass="selectui-input" disabled="true"  value="${checked}" 
+					        list="#@java.util.HashMap@{'01':'员工用户','02':'业务员用户','03':'虚拟用户','04':'合作伙伴用户','06':'企业用户','07':'个人用户','98':'临时用户','99':'其他用户'}" />
+					    </div>
+			    </td>
+						
+				<td class="bgc_tt short">归属机构</td>
+				<td class="long""><s:textfield name="utiIUser.comCode" value="${comCode}"
+					id="userName" cssClass='input_w w_30' maxlength="8" readonly="true"/></td>		
+			</tr>
+    <!-------- 企业客户信息 -->
+            <s:hidden name="utiIUserUnit.comCode" value="${comCode}"></s:hidden>
+            <tr>
+			<td class="bgc_tt short">登记机关</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationAgency" value="${utiIUserUnit.registrationAgency}"
+					id="utiIUserUnit.registrationAgency" cssClass='input_w w_30' maxlength="80"/></td>
+			<td class="bgc_tt short">登记注册号</td>
+			<td class="long"><s:textfield name="utiIUserUnit.registrationNumber" value="${utiIUserUnit.registrationNumber}"
+					id="utiIUserUnit.registrationNumber" cssClass='input_w w_30' maxlength="40"/>
+			</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">组织机构代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.organizationCode" value="${utiIUserUnit.organizationCode}"
+						id="utiIUserUnit.organizationCode" cssClass='input_w w_30' maxlength="10"/></td>
+				<td class="bgc_tt short">贷款卡编码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.loancardCode" 
+						id="utiIUserUnit.loancardCode" cssClass='input_w w_30' maxlength="16" value="${utiIUserUnit.loancardCode}" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">税务登记证号码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.nationalTaxRegistNo" value="${utiIUserUnit.nationalTaxRegistNo}"
+						id="utiIUserUnit.nationalTaxRegistNo" cssClass='input_w w_30' maxlength="30"/></td>
+				<td class="bgc_tt short">基本账户行</td>
+				<td class="long"><s:textfield name="utiIUserUnit.openBank" value="${utiIUserUnit.openBank}"
+						id="utiIUserUnit.openBank" cssClass='input_w w_30' maxlength="40"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">从业人数</td>
+				<td class="long"><s:textfield name="utiIUserUnit.empNumber" value="${utiIUserUnit.empNumber}"
+						id="utiIUserUnit.empNumber" cssClass='input_w w_30 dt-num' maxlength="100" /></td>
+				<td class="bgc_tt short">注册登记日期</td>
+				<td class="long"><input type="text" readonly="true" name="utiIUserUnit.registrationDate" 
+						class='Wdate' id="validenddate"  onFocus="WdatePicker()" maxlength="10" value="${utiIUserUnit.registrationDate}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">注册资本</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registeredCapital" value="${utiIUserUnit.registeredCapital}"
+						id="utiIUserUnit.registeredCapital" cssClass='input_w w_30 dt-num' maxlength="22" /></td>
+				<td class="bgc_tt short">营业执照到期日期</td>
+				<td class="long"><input type="text" readonly="true" name="utiIUserUnit.licenseExpiringDate" 
+						class='Wdate' id="validenddate"  onFocus="WdatePicker()" maxlength="10" value="${utiIUserUnit.licenseExpiringDate}"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">实收资本</td>
+				<td class="long"><s:textfield name="utiIUserUnit.capital" value="${utiIUserUnit.capital}"
+						id="utiIUserUnit.capital" cssClass='input_w w_30 dt-num' maxlength="22" /></td>
+				<td class="bgc_tt short">登记注册类型</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registrationType" value="${utiIUserUnit.registrationType}"
+						id="utiIUserUnit.registrationType" cssClass='input_w w_30' maxlength="6"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">经营范围</td>
+				<td class="long"><s:textfield name="utiIUserUnit.businesssCope" value="${utiIUserUnit.businesssCope}"
+						id="utiIUserUnit.businesssCope" cssClass='input_w w_30' maxlength="20"/></td>
+				<td class="bgc_tt short">主营业务</td>
+				<td class="long"><s:textfield name="utiIUserUnit.mainOperation" value="${utiIUserUnit.mainOperation}"
+						id="utiIUserUnit.mainOperation" cssClass='input_w w_30' maxlength="2000"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">所属行业代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.industryCode" value="${utiIUserUnit.industryCode}"
+						id="utiIUserUnit.industryCode" cssClass='input_w w_30' maxlength="20"/></td>
+				<td class="bgc_tt short">所属行业名称</td>
+				<td class="long"><s:textfield name="utiIUserUnit.industryName" 
+						id="utiIUserUnit.industryName" cssClass='input_w w_30' maxlength="100" value="${utiIUserUnit.industryName}" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">所属区域代码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.areaCode" 
+						id="utiIUserUnit.areaCode" cssClass='input_w w_30' maxlength="30" value="${utiIUserUnit.areaCode }" />
+				</td>
+				<td class="bgc_tt short">所属区域名称</td>
+				<td class="long"><s:textfield name="utiIUserUnit.areaName" value="${utiIUserUnit.areaName}"
+						id="utiIUserUnit.areaName" cssClass='input_w w_30' maxlength="100"/></td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">注册地址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.registeredAddress" value="${utiIUserUnit.registeredAddress}"
+						id="utiIUserUnit.registeredAddress" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">通讯地址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.mailingAddress" 
+						id="utiIUserUnit.mailingAddress" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.mailingAddress }" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">邮政编码</td>
+				<td class="long"><s:textfield name="utiIUserUnit.postCode" value="${utiIUserUnit.postCode}"
+						id="utiIUserUnit.postCode" cssClass='input_w w_30 dt-num' maxlength="6"/></td>
+				<td class="bgc_tt short">联系人</td>
+				<td class="long"><s:textfield name="utiIUserUnit.contactPerson" 
+						id="utiIUserUnit.contactPerson" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.contactPerson }" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">联系电话</td>
+				<td class="long"><s:textfield name="utiIUserUnit.contactTelephone" value="${utiIUserUnit.contactTelephone}"
+						id="utiIUserUnit.contactTelephone" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">传真电话</td>
+				<td class="long"><s:textfield name="utiIUserUnit.fax" 
+						id="utiIUserUnit.fax" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.fax }" />
+				</td>
+			</tr>
+			<tr>
+				<td class="bgc_tt short">Email</td>
+				<td class="long"><s:textfield name="utiIUserUnit.email" value="${utiIUserUnit.email}"
+						id="utiIUserUnit.email" cssClass='input_w w_30' maxlength="200"/></td>
+				<td class="bgc_tt short">网址</td>
+				<td class="long"><s:textfield name="utiIUserUnit.website" 
+						id="utiIUserUnit.website" cssClass='input_w w_30' maxlength="200" value="${utiIUserUnit.website }" />
+				</td>
+			</tr>
+		</s:else>
+        
+	</table>
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr align="center" class="top">
+			<c:if test="${editType=='insert' }">
+				<td><input type="button" value="保存" class="button_ty"
+				onclick="return addMethod()"></td>
+            </c:if>
+            <c:if test="${editType=='update' }">
+                <td><input type="button" value="保存" class="button_ty"
+				onclick="return updateMethod()"></td>
+            </c:if>
+			<c:if test="${editType=='view' }">	
+				<td><input type="button" value="确定" class="button_ty"
+				onclick="OKButton()"></td>
+			</c:if>
+		</tr>
+	</table>
+</s:form>
+</div>
+</div>
+</body>
+</html>
+<script language="javascript" src="${ctx}/common/dwr/engine.js"></script>
+<script language="javascript" src="${ctx}/common/dwr/util.js"></script>
+<script type='text/javascript' src='/ims/dwr/interface/Ims.js'></script>
+<script language="javascript">
+var tabView = new YAHOO.widget.TabView('tabdemo');
+var tabFlag = new Array();
+tabFlag.push("taskIframe1");
+var exName = "yes";
+var exOName = "yes";
+
+
+	function updateMethod(){
+	  if (YAHOO.quote.data.datacheck('fm')) {
+		  	if(checkLen()){
+			    fm.action="${ctx}/utiIUser/updateUtiIUser.do";
+			    target="pages";
+			    fm.submit();
+			    return true;
+		  	} 
+	  }else{
+		  alert("界面输入有误，请核实!");
+ 	  }
+	}
+	  	function addMethod(){
+	  	  if (YAHOO.quote.data.datacheck('fm')) {
+		  	 if(checkLen()){
+		  		  if(exName=="yes"){
+		  				fm.action="${ctx}/utiIUser/insertUser.do";
+		  				fm.submit();
+		  				return true;
+		  		  }else{
+		  			  alert("界面输入有误，请核实!");
+		  		  }
+		  	  }
+		    }else{
+		    	alert("界面输入有误，请核实!");
+			}
+	  	}
+
+	  	function OKButton(){
+			fm.action="${ctx}/utiIUser/prepareQueryUser.do";
+			fm.submit();
+		}
+ 
+/*  
+ function checkForm(){
+    var editType=document.getElementById("editType").value;
+  	
+  	var CNameReg=/^[0-9\u4e00-\u9fa5_]{1,20}$/;
+  	
+  	
+  		var CName=document.getElementById("userName").value;
+  		
+  		if(CNameReg.test(CName)){
+  			return true;
+  		}else{
+   			alert("请输入正确的用户名称");
+  			return false;
+  		}
+  }
+ */ 	
+  function checkName(){
+		this.userMsg = "";
+		var userName = document.getElementById("utiIUser.userName").value;
+		Ims.nameIsExist(userName,callBackName);
+	  }
+  function callBackName(data){
+		if(!data){
+			DWRUtil.setValue("userMsg", "用户名称已经存在");
+			exName = "no";
+		}else{
+			DWRUtil.setValue("userMsg", null);
+			exName = "yes";
+		}
+	  }
+/*  function checkNum(msg){
+		var empNum  = document.getElementById("utiIUserUnit.empNumber").value;
+		var capital = document.getElementById("utiIUserUnit.capital").value;
+		var registeredCapital = document.getElementById("utiIUserUnit.registeredCapital").value;
+		if(!empNum.match(/^[0-9]+$/)&&(msg.id)=="utiIUserUnit.empNumber") {
+			alert("请输入从业人数");
+			document.getElementById("utiIUserUnit.empNumber").value ="";
+		}
+		if(!capital.match(/^[0-9]+$/)&&(msg.id)=="utiIUserUnit.capital") {
+			alert("请输入注册资本(数字)");
+			document.getElementById("utiIUserUnit.capital").value ="";
+		}
+		if(!registeredCapital.match(/^[0-9]+$/)&&(msg.id)=="utiIUserUnit.registeredCapital") {
+			alert("请输入实收资本(数字)");
+			document.getElementById("utiIUserUnit.registeredCapital").value ="";
+		}
+	}
+*/
+</script>

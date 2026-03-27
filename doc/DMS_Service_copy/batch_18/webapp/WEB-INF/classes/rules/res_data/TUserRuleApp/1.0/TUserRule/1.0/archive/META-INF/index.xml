@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index:ruleset-index xmlns:index="http://www.ilog.com/products/xml/schemas/ruleset_index_1.0">
+  <index:generation-date>2007-02-25T09:56:41Z</index:generation-date>
+  <index:toc>
+    <index:bomToc>
+      <index:entry name="TUserRule/model.bom"/>
+    </index:bomToc>
+    <index:bom2xomToc>
+      <index:entry name="TUserRule/model.b2x"/>
+    </index:bom2xomToc>
+    <index:xomToc/>
+    <index:xsdToc/>
+    <index:wsdlToc/>
+    <index:userDataToc/>
+    <index:irlToc>
+      <index:package name="">
+        <index:irls/>
+        <index:rules>
+          <index:entry name="IRL/TUserTree-dtr.irl"/>
+        </index:rules>
+        <index:functions/>
+        <index:tasks/>
+        <index:variables>
+        </index:variables>
+      </index:package>
+    </index:irlToc>
+    <index:miscElementsToc/>
+  </index:toc>
+</index:ruleset-index>

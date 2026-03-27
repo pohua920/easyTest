@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition 
+  xmlns=""
+  name="userAudit">
+    <start-state name="startProcess">
+		<transition name="startApply" to="fork1">
+		</transition>	
+    </start-state>
+
+	<fork name="fork1">
+		<transition to="firstAudit" name="entryFirstAudit"></transition>
+		<transition to="applicantCancel" name="applicantCancel"></transition>
+	</fork>
+
+	<task-node name="firstAudit">
+		<task name="assignToAdmin1">
+			<controller>
+				<variable name="taskId" access="read,write,required"></variable>
+			</controller>
+			<assignment class="cn.com.sinosoft.ims.audit.jbpm.FirstAuditorAssignmentHandler"></assignment>
+		</task>
+		<transition to="join1" name="firstAuditorDisapprove">
+		</transition>
+		<transition to="secondAudit" name="firstAuditorApprove">
+		</transition>
+		<transition to="applicantModify" name="firstAuditorReject">
+		</transition> 
+	</task-node>
+
+	<task-node name="secondAudit">
+		<task name="assignToAdmin2">
+			<controller>
+				<variable name="taskId" access="read,write,required"></variable>
+			</controller>
+			<assignment class="cn.com.sinosoft.ims.audit.jbpm.SecondAuditorAssignmentHandler"></assignment>
+		</task>
+		<transition to="firstAudit" name="secondAuditorReject">
+		</transition>
+		<transition to="join1" name="secondAuditorDisapprove">
+		</transition>
+		<transition to="thirdAudit" name="secondAuditorApprove">
+		</transition>
+	</task-node>
+
+	<task-node name="thirdAudit">
+		<task name="assignToAdmin3">
+			<controller>
+				<variable name="taskId" access="read,write,required"></variable>
+			</controller>
+			<assignment class="cn.com.sinosoft.ims.audit.jbpm.ThirdAuditorAssignmentHandler"></assignment>
+		</task>
+		<transition to="secondAudit" name="thirdAuditorReject">
+		</transition>
+		<transition to="join1" name="thirdAuditorDisapprove">
+		</transition>
+		<transition to="join1" name="thirdAuditorApprove">
+		</transition>
+	</task-node>
+
+	<task-node name="applicantCancel">
+  		<task name="assignToApplicant1">
+  			<controller>
+				<variable name="taskId" access="read,write,required"></variable>
+			</controller>
+			<assignment class="cn.com.sinosoft.ims.audit.jbpm.ApplicantAssignmentHandler"></assignment>
+  		</task>
+		<transition to="join1">
+		</transition>
+	</task-node>
+
+	<join name="join1">
+		<event type="node-enter">
+			<!-- 放置一个ACTION来设置JOIN的discriminator属性为TRUE --> 
+			<action name="JoinActionHandler" class="org.springmodules.workflow.jbpm31.JbpmHandlerProxy">
+				<factoryKey>jbpmConfiguration</factoryKey>
+				<targetBean>joinActionHandler</targetBean>
+			</action>
+		</event>
+		<transition to="node1" name="toDecision1"></transition>
+	</join>
+
+	<task-node name="applicantModify">
+		<task name="assignToApplicant2">
+			<assignment class="cn.com.sinosoft.ims.audit.jbpm.FirstAuditorRejectAssignmentHandler"></assignment>
+		</task>
+		<transition to="firstAudit">
+		</transition>
+	</task-node>
+
+	<node name="node1">
+		<transition to="end"></transition>
+	</node>
+	
+	<end-state name="end"></end-state>
+</process-definition>

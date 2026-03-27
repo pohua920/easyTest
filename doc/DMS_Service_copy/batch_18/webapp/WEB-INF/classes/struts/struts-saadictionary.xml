@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="dictionary" extends="struts-default" namespace="/dictionary">
+	  <!-- prepareQueryUser方法是校验权限的 -->	
+<!--	test  test 测试  		
+
+		<action name="queryPrpDexch" class="saaWuleiTestAction" method="queryPrpDexch"></action>
+-->
+<!--	根据prpDcompany表添加prpDcompanyGrade级别表	-->
+
+	<!--  查询机构 -->
+	<action name="preComCodeBySys" class="prpDcompanyAction" method="preComCodeBySys">
+		<result name="success">/pages/dictionary/prpDcompany/companyTree.jsp</result>
+	</action>
+		<action name="generatedPrpDcompanyGrade" class="prpDcompanyAction" method="generatedPrpDcompanyGrade">
+		</action>
+		<action name="loadSubOrgs" class="prpDcompanyAction" method="loadSubOrgs"></action>
+
+		<!--	**********PrpDexch功能**********	-->
+		<!--	检查prpDexch添加过程中是否有重复主键	-->
+		<action name="checkPrpDexchKey" class="prpDexchAction" method="checkPrpDexchKey">
+		</action>
+		
+		<action name="prepareQueryPrpDexch" class="prpDexchAction" method="prepareQueryPrpDexch">
+			<result name="success">
+				/pages/dictionary/prpDexch/prpDexchQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDexch" class="prpDexchAction" method="prepareInsertPrpDexch">
+			<result name="success">
+			  /pages/dictionary/prpDexch/prpDexchEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDexch" class="prpDexchAction" method="prepareUpdatePrpDexch">
+		  <result name="success">
+		    /pages/dictionary/prpDexch/prpDexchEdit.jsp
+		  </result>
+		</action>
+
+
+<!--	查询PrpDexch 使用Yui 无页面跳转	-->
+		<action name="queryPrpDexch" class="prpDexchAction" method="queryPrpDexch"></action>
+
+
+		
+<!--	修改PrpDexch 	-->
+		<action name="updatePrpDexch" class="prpDexchAction" method="updatePrpDexch">
+		  <result name="success">/pages/dictionary/prpDexch/editSuccess.jsp</result>
+		</action>
+
+<!--	删除PrpDexch 	-->
+		<action name="deletePrpDexch" class="prpDexchAction" method="deletePrpDexch">
+		  <result name="success">/pages/dictionary/prpDexch/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加PrpDexch	-->
+		<action name="insertPrpDexch" class="prpDexchAction" method="insertPrpDexch">
+		  <result name="success">/pages/dictionary/prpDexch/editSuccess.jsp</result>
+		  <result name="input">/common/error.jsp</result>
+		</action>
+<!--	************PrpDexch功能	*****************-->
+		
+<!--	**********PrpDbank功能**********	-->
+		<action name="prepareQueryPrpDbank" class="prpDbankAction" method="prepareQueryPrpDbank">
+			<result name="success">
+				/pages/dictionary/prpDbank/prpDbankQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDbank" class="prpDbankAction" method="prepareInsertPrpDbank">
+			<result name="success">
+			  /pages/dictionary/prpDbank/prpDbankEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDbank" class="prpDbankAction" method="prepareUpdatePrpDbank">
+		  <result name="success">
+		    /pages/dictionary/prpDbank/prpDbankEdit.jsp
+		  </result>
+		</action>
+
+
+<!--	查询PrpDbank 使用Yui 无页面跳转	-->
+		<action name="queryPrpDbank" class="prpDbankAction" method="queryPrpDbank"></action>
+
+
+		
+<!--	修改PrpDbank 	-->
+		<action name="updatePrpDbank" class="prpDbankAction" method="updatePrpDbank">
+		  <result name="success">/pages/dictionary/prpDbank/editSuccess.jsp</result>
+		</action>
+
+<!--	删除PrpDbank 	-->
+		<action name="deletePrpDbank" class="prpDbankAction" method="deletePrpDbank">
+		  <result name="success">/pages/dictionary/prpDbank/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加PrpDbank	-->
+		<action name="insertPrpDbank" class="prpDbankAction" method="insertPrpDbank">
+		  <result name="success">/pages/dictionary/prpDbank/editSuccess.jsp</result>
+		  <result name="input">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDbankValidStatus" class="prpDbankAction" method="changeValidStatus">
+		</action>
+<!--	************PrpDbank功能	*****************-->
+
+
+<!--***********prpDagent功能************-->
+<action name="prepareQueryPrpDagent" class="prpDagentAction" method="prepareQueryPrpDagent">
+			<result name="success">
+				/pages/dictionary/prpDagent/prpDagentQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDagent" class="prpDagentAction" method="prepareInsertPrpDagent">
+			<result name="success">
+			  /pages/dictionary/prpDagent/prpDagentEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDagent" class="prpDagentAction" method="prepareUpdatePrpDagent">
+		  <result name="success">
+		    /pages/dictionary/prpDagent/prpDagentEdit.jsp
+		  </result>
+		</action>
+		
+		<action name="prepareUpdatePrpDagentAll" class="prpDagentAction" method="prepareUpdatePrpDagentAll">
+		  <result name="success">
+		    /pages/dictionary/prpDagent/prpDagentAllEdit.jsp
+		  </result>
+		</action>
+		
+<!--	查询prpDagent 使用Yui 无页面跳转	-->
+		<action name="queryPrpDagent" class="prpDagentAction" method="queryPrpDagent"></action>
+
+<!--	修改prpDagent 	-->
+		<action name="updatePrpDagent" class="prpDagentAction" method="updatePrpDagent">
+		  <result name="success">/pages/dictionary/prpDagent/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDagent 	-->
+		<action name="deletePrpDagent" class="prpDagentAction" method="deletePrpDagent">
+		  <result name="success">/pages/dictionary/prpDagent/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDagent	-->
+		<action name="insertPrpDagent" class="prpDagentAction" method="insertPrpDagent">
+		  <result name="success">/pages/dictionary/prpDagent/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+	<!--注销prpDagent 	-->
+		<action name="changePrpDagentValidStatus" class="prpDagentAction" method="changeValidStatus">
+		</action>
+<!--***********prpDagent功能************-->
+
+
+<!--&&&&&&&&&&&prpDdealer功能&&&&&&&&&&&&&&&&&-->
+<action name="prepareQueryPrpDdealer" class="prpDdealerAction" method="prepareQueryPrpDdealer">
+			<result name="success">
+				/pages/dictionary/prpDdealer/prpDdealerQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDdealer" class="prpDdealerAction" method="prepareInsertPrpDdealer">
+			<result name="success">
+			  /pages/dictionary/prpDdealer/prpDdealerEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDdealer" class="prpDdealerAction" method="prepareUpdatePrpDdealer">
+		  <result name="success">
+		    /pages/dictionary/prpDdealer/prpDdealerEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDdealer 使用Yui 无页面跳转	-->
+		<action name="queryPrpDdealer" class="prpDdealerAction" method="queryPrpDdealer"></action>
+
+<!--	修改prpDdealer 	-->
+		<action name="updatePrpDdealer" class="prpDdealerAction" method="updatePrpDdealer">
+		  <result name="success">/pages/dictionary/prpDdealer/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDdealer 	-->
+		<action name="deletePrpDdealer" class="prpDdealerAction" method="deletePrpDdealer">
+		  <result name="success">/pages/dictionary/prpDdealer/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDdealer	-->
+		<action name="insertPrpDdealer" class="prpDdealerAction" method="insertPrpDdealer">
+		  <result name="success">/pages/dictionary/prpDdealer/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDdealerValidStatus" class="prpDdealerAction" method="changeValidStatus">
+		</action>
+<!--&&&&&&&&&&&prpDdealer功能&&&&&&&&&&&&&&&&&-->
+
+
+
+<!--&&&&&&&&&&&prpDdriver功能&&&&&&&&&&&&&&&&&-->
+<action name="prepareQueryPrpDdriver" class="prpDdriverAction" method="prepareQueryPrpDdriver">
+			<result name="success">
+				/pages/dictionary/prpDdriver/prpDdriverQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDdriver" class="prpDdriverAction" method="prepareInsertPrpDdriver">
+			<result name="success">
+			  /pages/dictionary/prpDdriver/prpDdriverEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDdriver" class="prpDdriverAction" method="prepareUpdatePrpDdriver">
+		  <result name="success">
+		    /pages/dictionary/prpDdriver/prpDdriverEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDdriver 使用Yui 无页面跳转	-->
+		<action name="queryPrpDdriver" class="prpDdriverAction" method="queryPrpDdriver"></action>
+
+<!--	修改prpDdriver 	-->
+		<action name="updatePrpDdriver" class="prpDdriverAction" method="updatePrpDdriver">
+		  <result name="success">/pages/dictionary/prpDdriver/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDdriver 	-->
+		<action name="deletePrpDdriver" class="prpDdriverAction" method="deletePrpDdriver">
+		  <result name="success">/pages/dictionary/prpDdriver/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDdriver	-->
+		<action name="insertPrpDdriver" class="prpDdriverAction" method="insertPrpDdriver">
+		  <result name="success">/pages/dictionary/prpDdriver/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--&&&&&&&&&&&prpDdriver功能&&&&&&&&&&&&&&&&&-->
+
+
+<!--&&&&&&&&&&&prpDplane功能&&&&&&&&&&&&&&&&&-->
+<action name="prepareQueryPrpDplane" class="prpDplaneAction" method="prepareQueryPrpDplane">
+			<result name="success">
+				/pages/dictionary/prpDplane/prpDplaneQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDplane" class="prpDplaneAction" method="prepareInsertPrpDplane">
+			<result name="success">
+			  /pages/dictionary/prpDplane/prpDplaneEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDplane" class="prpDplaneAction" method="prepareUpdatePrpDplane">
+		  <result name="success">
+		    /pages/dictionary/prpDplane/prpDplaneEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDplane 使用Yui 无页面跳转	-->
+		<action name="queryPrpDplane" class="prpDplaneAction" method="queryPrpDplane"></action>
+
+<!--	修改prpDplane 	-->
+		<action name="updatePrpDplane" class="prpDplaneAction" method="updatePrpDplane">
+		  <result name="success">/pages/dictionary/prpDplane/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDplane 	-->
+		<action name="deletePrpDplane" class="prpDplaneAction" method="deletePrpDplane">
+		  <result name="success">/pages/dictionary/prpDplane/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDplane	-->
+		<action name="insertPrpDplane" class="prpDplaneAction" method="insertPrpDplane">
+		  <result name="success">/pages/dictionary/prpDplane/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDplaneValidStatus" class="prpDplaneAction" method="changeValidStatus">
+		</action>
+<!--&&&&&&&&&&&prpDplane功能&&&&&&&&&&&&&&&&&-->
+
+
+<!--&&&&&&&&&&&prpDport功能&&&&&&&&&&&&&&&&&-->
+<action name="prepareQueryPrpDport" class="prpDportAction" method="prepareQueryPrpDport">
+			<result name="success">
+				/pages/dictionary/prpDport/prpDportQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDport" class="prpDportAction" method="prepareInsertPrpDport">
+			<result name="success">
+			  /pages/dictionary/prpDport/prpDportEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDport" class="prpDportAction" method="prepareUpdatePrpDport">
+		  <result name="success">
+		    /pages/dictionary/prpDport/prpDportEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDport 使用Yui 无页面跳转	-->
+		<action name="queryPrpDport" class="prpDportAction" method="queryPrpDport"></action>
+
+<!--	修改prpDport 	-->
+		<action name="updatePrpDport" class="prpDportAction" method="updatePrpDport">
+		  <result name="success">/pages/dictionary/prpDport/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDport 	-->
+		<action name="deletePrpDport" class="prpDportAction" method="deletePrpDport">
+		  <result name="success">/pages/dictionary/prpDport/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDport	-->
+		<action name="insertPrpDport" class="prpDportAction" method="insertPrpDport">
+		  <result name="success">/pages/dictionary/prpDport/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDportValidStatus" class="prpDportAction" method="changeValidStatus">
+		</action>
+<!--&&&&&&&&&&&prpDport功能&&&&&&&&&&&&&&&&&-->
+
+<!--&&&&&&&&&&&prpDship功能&&&&&&&&&&&&&&&&&-->
+<action name="prepareQueryPrpDship" class="prpDshipAction" method="prepareQueryPrpDship">
+			<result name="success">
+				/pages/dictionary/prpDship/prpDshipQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDship" class="prpDshipAction" method="prepareInsertPrpDship">
+			<result name="success">
+			  /pages/dictionary/prpDship/prpDshipEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDship" class="prpDshipAction" method="prepareUpdatePrpDship">
+		  <result name="success">
+		    /pages/dictionary/prpDship/prpDshipEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDship 使用Yui 无页面跳转	-->
+		<action name="queryPrpDship" class="prpDshipAction" method="queryPrpDship"></action>
+
+<!--	修改prpDship 	-->
+		<action name="updatePrpDship" class="prpDshipAction" method="updatePrpDship">
+		  <result name="success">/pages/dictionary/prpDship/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDship 	-->
+		<action name="deletePrpDship" class="prpDshipAction" method="deletePrpDship">
+		  <result name="success">/pages/dictionary/prpDship/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDship	-->
+		<action name="insertPrpDship" class="prpDshipAction" method="insertPrpDship">
+		  <result name="success">/pages/dictionary/prpDship/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDshipValidStatus" class="prpDshipAction" method="changeValidStatus">
+		</action>
+<!--&&&&&&&&&&&prpDship功能&&&&&&&&&&&&&&&&&-->
+
+
+<!--&&&&&&&&&&&prpDcode功能&&&&&&&&&&&&&&&&&-->
+<!--add by duanfa 2011-06-23 批量导入-->
+
+
+		<action name="importCodeExcel" class="prpDcodeAction" method="importCodeExcel">
+			<result name="success">/pages/dictionary/prpDcode/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="prepareQueryPrpDcode" class="prpDcodeAction" method="prepareQueryPrpDcode">
+			<result name="success">
+				/pages/dictionary/prpDcode/prpDcodeQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDcode" class="prpDcodeAction" method="prepareInsertPrpDcode">
+			<result name="success">
+			  /pages/dictionary/prpDcode/prpDcodeEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDcode" class="prpDcodeAction" method="prepareUpdatePrpDcode">
+		  <result name="success">
+		    /pages/dictionary/prpDcode/prpDcodeEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDcode 使用Yui 无页面跳转	-->
+		<action name="queryPrpDcode" class="prpDcodeAction" method="queryPrpDcode"></action>
+
+<!--	修改prpDcode 	-->
+		<action name="updatePrpDcode" class="prpDcodeAction" method="updatePrpDcode">
+		  <result name="success">/pages/dictionary/prpDcode/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDcode 	-->
+		<action name="deletePrpDcode" class="prpDcodeAction" method="deletePrpDcode">
+		  <result name="success">/pages/dictionary/prpDcode/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDcode	-->
+		<action name="insertPrpDcode" class="prpDcodeAction" method="insertPrpDcode">
+		  <result name="success">/pages/dictionary/prpDcode/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDbank 	-->
+		<action name="changePrpDcodeValidStatus" class="prpDcodeAction" method="changeValidStatus">
+		</action>
+<!--&&&&&&&&&&&prpDcode功能&&&&&&&&&&&&&&&&&-->
+
+<!--&&&&&&&&&&&prpDtype功能&&&&&&&&&&&&&&&&&-->
+
+		<action name="initframe" class="prpDtypeAction" method="initframe">
+			<result name="success">
+				/pages/dictionary/prpDtype/prpDTypeFrame.jsp
+			</result>
+		</action>
+
+		<action name="prepareQueryPrpDtype" class="prpDtypeAction" method="prepareQueryPrpDtype">
+			<result name="success">
+				/pages/dictionary/prpDtype/prpDtypeQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDtype" class="prpDtypeAction" method="prepareInsertPrpDtype">
+			<result name="success">
+			  /pages/dictionary/prpDtype/prpDtypeEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDtype" class="prpDtypeAction" method="prepareUpdatePrpDtype">
+		  <result name="success">
+		    /pages/dictionary/prpDtype/prpDtypeEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDtype 使用Yui 无页面跳转	-->
+		<action name="queryPrpDtype" class="prpDtypeAction" method="queryPrpDtype"></action>
+
+<!--	修改prpDtype 	-->
+		<action name="updatePrpDtype" class="prpDtypeAction" method="updatePrpDtype">
+		  <result name="success">/pages/dictionary/prpDtype/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDtype 	-->
+		<action name="deletePrpDtype" class="prpDtypeAction" method="deletePrpDtype">
+		  <result name="success">/pages/dictionary/prpDtype/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDtype	-->
+		<action name="insertPrpDtype" class="prpDtypeAction" method="insertPrpDtype">
+		  <result name="success">/pages/dictionary/prpDtype/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--&&&&&&&&&&&prpDtype功能&&&&&&&&&&&&&&&&&-->
+
+
+<!--&&&&&&&&&&&prpDcompany功能&&&&&&&&&&&&&&&&&-->
+		<action name="initCompanyframe" class="prpDcompanyAction" method="initframe">
+			<result name="success">
+				/pages/dictionary/prpDcompany/prpDcompanyFrame.jsp
+			</result>
+		</action>
+		
+		<action name="initTree" class="prpDcompanyAction" method="initTree">
+			<result name="success">
+				/pages/dictionary/prpDcompany/companyTree.jsp
+			</result>
+		</action>
+		<action name="prepareQueryprpDcompany" class="prpDcompanyAction" method="prepareQueryPrpDcompany">
+			<result name="success">
+				/pages/dictionary/prpDcompany/prpDcompanyQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDcompany" class="prpDcompanyAction" method="prepareInsertPrpDcompany">
+			<result name="success">
+			  /pages/dictionary/prpDcompany/prpDcompanyEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDcompany" class="prpDcompanyAction" method="prepareUpdatePrpDcompany">
+		  <result name="success">
+		    /pages/dictionary/prpDcompany/prpDcompanyEdit.jsp
+		  </result>
+		</action>
+
+<!--	查询prpDcompany 使用Yui 无页面跳转	-->
+		<action name="queryPrpDcompany" class="prpDcompanyAction" method="queryPrpDcompany"></action>
+
+<!--	修改prpDcompany 	-->
+		<action name="updatePrpDcompany" class="prpDcompanyAction" method="updatePrpDcompany">
+		  <result name="success">/pages/dictionary/prpDcompany/editSuccess.jsp</result>
+		</action>
+
+<!--	删除prpDcompany 	-->
+		<action name="deletePrpDcompany" class="prpDcompanyAction" method="deletePrpDcompany">
+		  <result name="success">/pages/dictionary/prpDcompany/editSuccess.jsp</result>
+		</action>
+		
+		<!--注销prpDcompany 	-->
+		<action name="changeValidStatus" class="prpDcompanyAction" method="changeValidStatus">
+		  <result name="success">/pages/dictionary/prpDcompany/editSuccess.jsp</result>
+		</action>
+		
+<!--	增加prpDcompany	-->
+		<action name="insertPrpDcompany" class="prpDcompanyAction" method="insertPrpDcompany">
+		  <result name="success">/pages/dictionary/prpDcompany/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!-- *************************增加代码 start by wanghaibo****************************** -->
+<!-- 增加PrpDcompanyTrace数据 by wanghaibo 2010-05-21 -->
+  		<action name="insertPrpDcompanyTrace" class="prpDcompanyAction" method="insertPrpDcompanyTrace">
+  		  <result name="success">/pages/dictionary/prpDcompanyTrace/editSuccess.jsp</result>
+  		</action>
+<!-- 修改PrpDcompanyTrace表内容，跳转到修改页面 -->
+  		<action name="prepareUpdatePrpDcompanyTrace" class="prpDcompanyAction" method="prepareUpdatePrpDcompanyTrace">
+		<result name="success">
+			/pages/dictionary/prpDcompanyTrace/prpDcompanyTraceEdit.jsp
+		</result>
+	 	</action>
+<!-- 具体修改操作PrpDcompanyTrace by wanghaibo 2010-05-24 -->
+		<action name="updatePrpDcompanyTrace" class="prpDcompanyAction" method="updatePrpDcompanyTrace">
+			<result name="success">/pages/dictionary/prpDcompanyTrace/editSuccess.jsp</result>
+			<result name="error">/common/error.jsp</result>		
+		</action>
+<!-- 查询prpDcompanyTrace 使用Yui 无页面跳转 2010-05-24-->
+		<action name="queryPrpDcompanyTrace" class="prpDcompanyAction" method="queryPrpDcompanyTrace"></action> 
+		<action name="prepareQueryPrpDcompanyTrace" class="prpDcompanyAction" method="prepareQueryPrpDcompanyTrace">
+		<result name="success">
+				/pages/dictionary/prpDcompanyTrace/prpDcompanyTraceQuery.jsp
+			</result>
+		</action>
+<!-- 查询prpDcompanyTrace表中未审核的数据 -->
+		<action name="queryPrpDcompanyTraceNotAudit" class="prpDcompanyAction" method="queryPrpDcompanyTraceNotAudit"></action>
+		<action name="prepareQueryPrpDcompanyAudit" class="prpDcompanyAction" method="prepareQueryPrpDcompanyAudit">
+		<result name="success">
+				/pages/dictionary/prpDcompanyTrace/prpDcompanyTraceQueryNotAudit.jsp
+		</result>
+		</action>
+<!-- 点击页面审核，跳转到审核页面 -->
+		<action name="prepareAudit" class="prpDcompanyAction" method="prepareAudit">
+		<result name="success">
+			/pages/dictionary/prpDcompanyTrace/prpDcompanyTraceEditNotAudit.jsp
+		</result>
+		</action>
+<!-- 审核处于未审核状态的申请 2010-05-24-->
+		<action name="auditApply" class="prpDcompanyAction" method="auditApply">
+		 	<result name="success">
+		 	/pages/dictionary/prpDcompanyTrace/auditSuccess.jsp</result>		 	
+		</action>		
+<!-- *************************增加代码 end by wanghaibo******************************* -->	
+<!--&&&&&&&&&&&prpDcompany功能&&&&&&&&&&&&&&&&&-->
+<!--	检查	主键重复	-->
+		<action name="isSameKey" class="checkSameKeyAction" method="isSameKey"></action>
+		<action name="isSameKeys" class="checkSameKeyAction" method="isSameKeys"></action>
+		
+<!--begin 自留额计划（prepareUpdatePrpDTreatyReten）-->
+	<!--查询-->
+	<action name="queryPrpDTreatyReten" class="PrpDTreatyRetenAction" method="queryPrpDTreatyReten"></action>
+	<action name="prepareQueryPrpDTreatyReten" class="PrpDTreatyRetenAction" method="prepareQueryPrpDTreatyReten">
+		<result name="success">
+			/pages/dictionary/prpDTreatyReten/prpDTreatyRetenQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDTreatyReten" class="PrpDTreatyRetenAction" method="prepareInsertPrpDTreatyReten">
+		<result name="success">
+		  /pages/dictionary/prpDTreatyReten/prpDTreatyRetenEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpDTreatyReten" class="PrpDTreatyRetenAction" method="insertPrpDTreatyReten">
+	  <result name="success">/pages/dictionary/prpDTreatyReten/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDTreatyReten" class="PrpDTreatyRetenAction" method="prepareUpdatePrpDTreatyReten">
+		<result name="success">
+			/pages/dictionary/prpDTreatyReten/prpDTreatyRetenEdit.jsp
+		</result>
+	</action>
+	<!-- 修改  -->
+	<action name="updatePrpDTreatyReten" class="PrpDTreatyRetenAction" method="updatePrpDTreatyReten">
+	  <result name="success">/pages/dictionary/prpDTreatyReten/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDTreatyRetenValidStatus" class="PrpDTreatyRetenAction" method="changeValidStatus">
+	</action>
+<!-- end 自留额计划-->
+<!-- begin 国管局项目PICC联系人 -->
+	<!--查询-->
+	<action name="queryPrpDsettlementLkr" class="prpDsettlementLkrAction" method="queryPrpDsettlementLkr"></action>
+	<action name="prepareQueryPrpDsettlementLkr" class="prpDsettlementLkrAction" method="prepareQueryPrpDsettlementLkr">
+		<result name="success">
+			/pages/dictionary/prpDsettlementLkr/prpDsettlementLkrQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDsettlementLkr" class="prpDsettlementLkrAction" method="prepareInsertPrpDsettlementLkr">
+		<result name="success">
+		   /pages/dictionary/prpDsettlementLkr/prpDsettlementLkrEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpdsettlementLkr" class="prpDsettlementLkrAction" method="insertPrpdsettlementLkr">
+	  <result name="success">/pages/dictionary/prpDsettlementLkr/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDsettlementLkr" class="prpDsettlementLkrAction" method="prepareUpdatePrpDsettlementLkr">
+		<result name="success">
+			/pages/dictionary/prpDsettlementLkr/prpDsettlementLkrEdit.jsp
+		</result>
+	</action>
+	<!-- 修改  -->
+	<action name="updatePrpDsettlementLkr" class="prpDsettlementLkrAction" method="updatePrpDsettlementLkr">
+	  <result name="success">/pages/dictionary/prpDsettlementLkr/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDsettlementLkrValidStatus" class="prpDsettlementLkrAction" method="changeValidStatus">
+	</action>
+<!-- end -->
+<!-- begin 国管局项目一级预算单位-->
+	<!--查询-->
+	<action name="queryPrpDsettlementByr" class="prpDsettlementByrAction" method="queryPrpDsettlementByr"></action>
+	<action name="prepareQueryPrpDsettlementByr" class="prpDsettlementByrAction" method="prepareQueryPrpDsettlementByr">
+		<result name="success">
+			/pages/dictionary/prpDsettlementByr/prpDsettlementByrQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDsettlementByr" class="prpDsettlementByrAction" method="prepareInsertPrpDsettlementByr">
+		<result name="success">
+		   /pages/dictionary/prpDsettlementByr/prpDsettlementByrEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpdsettlementByr" class="prpDsettlementByrAction" method="insertPrpDsettlementByr">
+	  <result name="success">/pages/dictionary/prpDsettlementByr/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDsettlementByr" class="prpDsettlementByrAction" method="prepareUpdatePrpDsettlementByr">
+		<result name="success">
+			/pages/dictionary/prpDsettlementByr/prpDsettlementByrEdit.jsp
+		</result>
+	</action>
+	<!-- 修改  -->
+	<action name="updatePrpDsettlementByr" class="prpDsettlementByrAction" method="updatePrpDsettlementByr">
+	  <result name="success">/pages/dictionary/prpDsettlementByr/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDsettlementByrValidStatus" class="prpDsettlementByrAction" method="changeValidStatus">
+	</action>
+<!-- end -->	
+<!-- 分保接待人代码 -->	
+  <!--查询-->
+	<action name="queryPrpDreinsurer" class="prpDreinsurerAction" method="queryPrpDreinsurer"></action>
+	<action name="prepareQueryPrpDreinsurer" class="prpDreinsurerAction" method="prepareQueryPrpDreinsurer">
+		<result name="success">
+			/pages/dictionary/prpDreinsurer/prpDreinsurerQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDreinsurer" class="prpDreinsurerAction" method="prepareInsertPrpDreinsurer">
+		<result name="success">
+		   /pages/dictionary/prpDreinsurer/prpDreinsurerEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpDreinsurer" class="prpDreinsurerAction" method="insertPrpDreinsurer">
+	  <result name="success">/pages/dictionary/prpDreinsurer/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDreinsurer" class="prpDreinsurerAction" method="prepareUpdatePrpDreinsurer">
+		<result name="success">
+			/pages/dictionary/prpDreinsurer/prpDreinsurerEdit.jsp
+		</result>
+	</action>
+	<!-- 更新  -->
+	<action name="updatePrpDreinsurer" class="prpDreinsurerAction" method="updatePrpDreinsurer">
+	  <result name="success">/pages/dictionary/prpDreinsurer/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDreinsurerValidStatus" class="prpDreinsurerAction" method="changeValidStatus">
+	</action>
+<!-- end -->
+<!-- 共保体代码 -->	
+   <!--查询-->
+	<action name="queryPrpDcoins" class="prpDcoinsAction" method="queryPrpDcoins"></action>
+	<action name="prepareQueryPrpDcoins" class="prpDcoinsAction" method="prepareQueryPrpDcoins">
+		<result name="success">
+			/pages/dictionary/prpDcoins/prpDcoinsQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDcoins" class="prpDcoinsAction" method="prepareInsertPrpDcoins">
+		<result name="success">
+		   /pages/dictionary/prpDcoins/prpDcoinsEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpDcoins" class="prpDcoinsAction" method="insertPrpDcoins">
+	  <result name="success">/pages/dictionary/prpDcoins/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	  <result name="input">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDcoins" class="prpDcoinsAction" method="prepareUpdatePrpDcoins">
+		<result name="success">
+			/pages/dictionary/prpDcoins/prpDcoinsEdit.jsp
+		</result>
+	</action>
+	<!-- 修改  -->
+	<action name="updatePrpDcoins" class="prpDcoinsAction" method="updatePrpDcoins">
+	  <result name="success">/pages/dictionary/prpDcoins/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDcoinsValidStatus" class="prpDcoinsAction" method="changeValidStatus">
+	</action>
+<!-- end -->
+<!-- 险种代码 -->	
+   <!--查询-->
+	<action name="queryPrpDcodeRisk" class="prpDcodeRiskAction" method="queryPrpDcodeRisk"></action>
+	<action name="prepareQueryPrpDcodeRisk" class="prpDcodeRiskAction" method="prepareQueryPrpDcodeRisk">
+		<result name="success">
+			/pages/dictionary/prpDcodeRisk/prpDcodeRiskQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDcodeRisk" class="prpDcodeRiskAction" method="prepareInsertPrpDcodeRisk">
+		<result name="success">
+		   /pages/dictionary/prpDcodeRisk/prpDcodeRiskEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpDcodeRisk" class="prpDcodeRiskAction" method="insertPrpDcodeRisk">
+	  <result name="success">/pages/dictionary/prpDcodeRisk/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDcodeRisk" class="prpDcodeRiskAction" method="prepareUpdatePrpDcodeRisk">
+		<result name="success">
+			/pages/dictionary/prpDcodeRisk/prpDcodeRiskEdit.jsp
+		</result>
+	</action>
+	<!-- 修改  -->
+	<action name="updatePrpDcodeRisk" class="prpDcodeRiskAction" method="updatePrpDcodeRisk">
+	  <result name="success">/pages/dictionary/prpDcodeRisk/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDcodeRiskValidStatus" class="prpDcodeRiskAction" method="changeValidStatus">
+	</action>
+<!-- end -->
+<!-- 机构代码 -->	
+   <!--查询-->
+	<action name="queryPrpDcodeCom" class="prpDcodeComAction" method="queryPrpDcodeCom"></action>
+	<action name="prepareQueryPrpDcodeCom" class="prpDcodeComAction" method="prepareQueryPrpDcodeCom">
+		<result name="success">
+			/pages/dictionary/prpDcodeCom/prpDcodeComQuery.jsp
+		</result>
+	</action>
+	<!--增加	-->
+	<action name="prepareInsertPrpDcodeCom" class="prpDcodeComAction" method="prepareInsertPrpDcodeCom">
+		<result name="success">
+		   /pages/dictionary/prpDcodeCom/prpDcodeComEdit.jsp
+		</result>
+	</action>
+	<action name="insertPrpDcodeCom" class="prpDcodeComAction" method="insertPrpDcodeCom">
+	  <result name="success">/pages/dictionary/prpDcodeCom/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 查看 -->
+	<action name="prepareUpdatePrpDcodeCom" class="prpDcodeComAction" method="prepareUpdatePrpDcodeCom">
+		<result name="success">
+			/pages/dictionary/prpDcodeCom/prpDcodeComEdit.jsp
+		</result>
+	</action>
+	<!-- 更新  -->
+	<action name="updatePrpDcodeCom" class="prpDcodeComAction" method="updatePrpDcodeCom">
+	  <result name="success">/pages/dictionary/prpDcodeCom/editSuccess.jsp</result>
+	  <result name="error">/common/error.jsp</result>
+	</action>
+	<!-- 注销 -->
+	<action name="changePrpDcodeComValidStatus" class="prpDcodeComAction" method="changeValidStatus">
+	</action>
+<!-- end -->
+<!-- 专管专营代码 -->
+	<action name="prepareQueryPrpDresource" class="prpDresourceAction" method="prepareQueryPrpDresource">
+			<result name="success">
+				/pages/dictionary/prpDresource/prpDresourceQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDresource" class="prpDresourceAction" method="prepareInsertPrpDresource">
+			<result name="success">
+			  /pages/dictionary/prpDresource/prpDresourceEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDresource" class="prpDresourceAction" method="prepareUpdatePrpDresource">
+		  <result name="success">
+		    /pages/dictionary/prpDresource/prpDresourceEdit.jsp
+		  </result>
+		</action>
+				
+<!--	查询prpDresource 使用Yui 无页面跳转	-->
+		<action name="queryPrpDresource" class="prpDresourceAction" method="queryPrpDresource"></action>
+
+<!--	修改prpDresource 	-->
+		<action name="updatePrpDresource" class="prpDresourceAction" method="updatePrpDresource">
+		  <result name="success">/pages/dictionary/prpDresource/editSuccess.jsp</result>
+		</action>	
+<!--	增加prpDresource	-->
+		<action name="insertPrpDresource" class="prpDresourceAction" method="insertPrpDresource">
+		  <result name="success">/pages/dictionary/prpDresource/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDresource 	-->
+		<action name="changePrpDresourceValidStatus" class="prpDresourceAction" method="changeValidStatus">
+		</action>
+<!-- end -->
+<!-- 版本号代码 -->
+	<action name="prepareQueryPrpVersion" class="prpVersionAction" method="prepareQueryPrpVersion">
+		<result name="success">
+			/pages/dictionary/prpVersion/prpVersionQuery.jsp
+		</result>
+	</action>
+	<action name="prepareUpdatePrpVersion" class="prpVersionAction" method="prepareUpdatePrpVersion">
+		  <result name="success">
+		    /pages/dictionary/prpVersion/prpVersionEdit.jsp
+		  </result>
+	</action>
+	<!--	查询prpVersion 使用Yui 无页面跳转	-->
+	<action name="queryPrpVersion" class="prpVersionAction" method="queryPrpVersion"></action>
+<!-- end -->
+<!-- 特别约定代码 -->
+	<action name="prepareQueryPrpDriskEngage" class="prpDriskEngageAction" method="prepareQueryPrpDriskEngage">
+			<result name="success">
+				/pages/dictionary/prpDriskEngage/prpDriskEngageQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDriskEngage" class="prpDriskEngageAction" method="prepareInsertPrpDriskEngage">
+			<result name="success">
+			  /pages/dictionary/prpDriskEngage/prpDriskEngageEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDriskEngage" class="prpDriskEngageAction" method="prepareUpdatePrpDriskEngage">
+		  <result name="success">
+		    /pages/dictionary/prpDriskEngage/prpDriskEngageEdit.jsp
+		  </result>
+		</action>
+				
+<!--	查询prpDriskEngage 使用Yui 无页面跳转	-->
+		<action name="queryPrpDriskEngage" class="prpDriskEngageAction" method="queryPrpDriskEngage"></action>
+
+<!--	修改prpDriskEngage 	-->
+		<action name="updatePrpDriskEngage" class="prpDriskEngageAction" method="updatePrpDriskEngage">
+		  <result name="success">/pages/dictionary/prpDriskEngage/editSuccess.jsp</result>
+		</action>	
+<!--	增加prpDriskEngage	-->
+		<action name="insertPrpDriskEngage" class="prpDriskEngageAction" method="insertPrpDriskEngage">
+		  <result name="success">/pages/dictionary/prpDriskEngage/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDriskEngage 	-->
+		<action name="changePrpDriskEngageValidStatus" class="prpDriskEngageAction" method="changeValidStatus">
+		</action>
+<!-- end -->
+<!-- 项目代码 -->
+	<action name="prepareQueryPrpDproject" class="prpDprojectAction" method="prepareQueryPrpDproject">
+			<result name="success">
+				/pages/dictionary/prpDproject/prpDprojectQuery.jsp
+			</result>
+		</action>
+		
+		<action name="prepareInsertPrpDproject" class="prpDprojectAction" method="prepareInsertPrpDproject">
+			<result name="success">
+			  /pages/dictionary/prpDproject/prpDprojectEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdatePrpDproject" class="prpDprojectAction" method="prepareUpdatePrpDproject">
+		  <result name="success">
+		    /pages/dictionary/prpDproject/prpDprojectEdit.jsp
+		  </result>
+		</action>
+				
+<!--	查询prpDproject 使用Yui 无页面跳转	-->
+		<action name="queryPrpDproject" class="prpDprojectAction" method="queryPrpDproject"></action>
+
+<!--	修改prpDproject 	-->
+		<action name="updatePrpDproject" class="prpDprojectAction" method="updatePrpDproject">
+		  <result name="success">/pages/dictionary/prpDproject/editSuccess.jsp</result>
+		</action>	
+<!--	增加prpDproject	-->
+		<action name="insertPrpDproject" class="prpDprojectAction" method="insertPrpDproject">
+		  <result name="success">/pages/dictionary/prpDproject/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!--   	注销prpDproject 	-->
+		<action name="changePrpDprojectValidStatus" class="prpDprojectAction" method="changeValidStatus">
+		</action>
+<!-- add by duanfa 2011-05-17 政策条例维护  -->
+<!--	页面跳转到查询prpDregulation 页面	-->
+		<action name="prepareQueryPrpDregulation" class="prpDregulationAction" method="prepareQueryPrpDregulation">
+			<result name="success">/pages/dictionary/prpDregulation/prpDregulationQuery.jsp</result>
+		</action>
+<!--	页面跳转到审核页面	-->
+		<action name="prepareCheckPrpDregulation" class="prpDregulationAction" method="prepareCheckPrpDregulation">
+			<result name="success">/pages/dictionary/prpDregulation/prpDregulationCheck.jsp</result>
+		</action>
+<!--	审核通过	-->
+		<action name="checkPassRegulation" class="prpDregulationAction" method="checkPassRegulation">
+			<result name="success">/pages/dictionary/prpDregulation/prpDregulationCheck.jsp</result>
+		</action>
+<!--	审核打回	-->
+		<action name="checkRejectRegulation" class="prpDregulationAction" method="checkRejectRegulation">
+			<result name="success">/pages/dictionary/prpDregulation/prpDregulationCheck.jsp</result>
+		</action>
+<!--	查询prpDregulation 使用Yui 无页面跳转	-->
+		<action name="queryPrpDregulation" class="prpDregulationAction" method="queryPrpDregulation"></action>
+<!--	查询待审核Dregulation 使用Yui 无页面跳转	-->
+		<action name="queryCheckPrpDregulation" class="prpDregulationAction" method="queryCheckPrpDregulation"></action>
+
+<!--	页面跳转到增加prpDregulation 页面	-->
+		<action name="prepareInsertPrpDregulation" class="prpDregulationAction" method="prepareInsertPrpDregulation">
+		  <result name="I">/pages/dictionary/prpDregulation/prpDInjuryRegulationEdit.jsp</result>
+		  <result name="B">/pages/dictionary/prpDregulation/prpDBasicMedicalRegulationEdit.jsp</result>
+		</action>	
+<!--	页面跳转到修改prpDregulation 页面	-->
+		<action name="prepareUpdatePrpDregulation" class="prpDregulationAction" method="prepareUpdatePrpDregulation">
+		  <result name="I">/pages/dictionary/prpDregulation/prpDInjuryRegulationEdit.jsp</result>
+		  <result name="B">/pages/dictionary/prpDregulation/prpDBasicMedicalRegulationEdit.jsp</result>
+		</action>	
+<!--	页面跳转到修改prpDregulation审核 页面	-->
+		<action name="checkPrpDregulation" class="prpDregulationAction" method="checkPrpDregulation">
+		  <result name="I">/pages/dictionary/prpDregulation/prpDInjuryRegulationCheck.jsp</result>
+		  <result name="B">/pages/dictionary/prpDregulation/prpDBasicMedicalRegulationCheck.jsp</result>
+		</action>	
+<!--	修改prpDregulation 	-->
+		<action name="updatePrpDregulation" class="prpDregulationAction" method="updatePrpDregulation">
+		  <result name="success">/pages/dictionary/prpDproject/editSuccess.jsp</result>
+		</action>	
+<!--	增加prpDregulation	-->
+		<action name="insertPrpDregulation" class="prpDregulationAction" method="insertPrpDregulation">
+		  <result name="success">/pages/dictionary/prpDproject/editSuccess.jsp</result>
+		  <result name="error">/common/error.jsp</result>
+		</action>
+<!-- 获取下级地区代码	-->		
+		<action name="getAreaCode" class="prpDregulationAction" method="getAreaCode">
+		</action>
+		<action name="changeRegulationStatus" class="prpDregulationAction" method="changeRegulationStatus">
+		</action>
+
+<!-- end -->
+	</package>
+</struts>

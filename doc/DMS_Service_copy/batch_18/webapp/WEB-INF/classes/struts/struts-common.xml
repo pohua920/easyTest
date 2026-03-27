@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="menu" extends="struts-default" namespace="/menu">
+		<action name="showMenu" class="ins.platform.menu.web.MenuAction" method="showMenu">
+			<result name="success">/pages/main.jsp</result>
+		</action> 
+	</package> 
+	
+	<package name="pages" extends="struts-default" namespace="/pages">
+		<action name="*" class="ins.framework.web.Struts2Action"
+			method="execute">
+			<result name="success">/pages/{1}.jsp</result>
+		</action>
+	</package>
+	
+	<package name="generate" extends="struts-default" namespace="/generate">
+		<action name="generateRiskCodes" class="cn.com.sinosoft.saa.web.SaaUserPowerAction"
+			method="generateRiskCodes">
+			<result name="success">/pages/common/RiskCodeGenerate.jsp</result>
+		</action>
+	</package>
+	
+	<package name="common" extends="struts-default"
+		namespace="/common">
+		<action name="PrepareCodeInput" class="ins.framework.web.Struts2Action"
+			method="execute">
+			<result name="success">
+				/common/PrepareCodeInput.jsp
+			</result>
+		</action>
+		<action name="processCodeInput" class="codeInputAction"
+			method="query">
+			<result name="success">
+				/common/QueryCodeInputOverviewResult.jsp
+			</result>
+		</action>
+		<action name="processCodeInputContinue" class="codeInputAction"
+			method="queryContinue">
+			<result name="success">
+				/common/QueryCodeInputOverviewResult.jsp
+			</result>
+		</action>
+
+		<action name="changeCodeInput" class="codeInputAction"
+			method="query">
+			<result name="success">
+				/common/ChangeCodeInput.jsp
+			</result>
+		</action>
+		<action name="getCodeTree" class="codeInputAction"
+			method="getCodeTree">
+		</action>
+		<action name="getRiskTree" class="codeInputAction"
+			method="getRiskTree">
+			<result name="success">
+				/pages/common/RiskTreePanel.jsp
+			</result>
+		</action>
+		</package>
+		<!-- add by duanfa 2011-05-27 链接影像系统前处理action -->
+	<package name="image" extends="struts-default" namespace="/image">
+		<action name="getRequestXml" class="imageMangeAction" method="getRequestXml">
+		</action> 
+	</package> 
+</struts>

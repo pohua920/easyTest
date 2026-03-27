@@ -1,0 +1,1 @@
+document.write(y+"Äê"+m+"ÔÂ"+d+"ÈÕ");

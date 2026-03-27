@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<datasource-defines>
+	<datasource-define>
+	    <name>platformDataSource</name>
+	    <jndiname>platformDataSource</jndiname>
+	    <db-to-server-encode-charset>GBK</db-to-server-encode-charset>
+	    <db-to-server-decode-charset>GBK</db-to-server-decode-charset>
+	    <need-convert-from-db-to-server>true</need-convert-from-db-to-server>
+
+	    <server-to-db-encode-charset>GBK</server-to-db-encode-charset>
+	    <server-to-db-decode-charset>GBK</server-to-db-decode-charset>
+	    <need-convert-from-server-to-db>true</need-convert-from-server-to-db>
+		<description></description>
+	</datasource-define>
+</datasource-defines>
+

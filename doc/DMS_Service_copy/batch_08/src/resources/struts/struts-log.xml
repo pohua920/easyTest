@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="utiILog" extends="struts-default" namespace="/utiILog">
+<!--	ExceptionLog-->
+		<action name="insertExceptionLog" class="utiIExceptionLogAction" method="insertExceptionLog"/>
+		<action name="deleteExceptionLog" class="utiIExceptionLogAction" method="deleteExceptionLog"/>
+		<action name="prepareViewExceptionLog" class="utiIExceptionLogAction" method="prepareViewExceptionLog">
+			<result name="success">/pages/ims/log/ExceptionLogQuery.jsp</result>
+		</action>
+		<action name="viewExceptionLog" class="utiIExceptionLogAction" method="viewExceptionLog"/>
+<!--	OperateLog-->
+		<action name="insertOperateLog" class="utiIOperateLogAction" method="insertOperateLog"/>
+		<action name="deleteOperateLog" class="utiIOperateLogAction" method="deleteOperateLog"/>
+		<action name="prepareViewOperateLog" class="utiIOperateLogAction" method="prepareViewOperateLog">
+			<result name="success">/pages/ims/log/OperateLogQuery.jsp</result>
+		</action>
+		<action name="viewOperateLog" class="utiIOperateLogAction" method="viewOperateLog"/>
+<!--	LoginLog-->
+		<action name="insertLoginLog" class="utiILoginLogAction" method="insertLoginLog"/>
+		<action name="deleteLoginLog" class="utiILoginLogAction" method="deleteLoginLog"/>
+		<action name="prepareViewLoginLog" class="utiILoginLogAction" method="prepareViewLoginLog">
+			<result name="success">/pages/ims/log/LoginLogQuery.jsp</result>
+		</action>
+		<action name="viewLoginLog" class="utiILoginLogAction" method="viewLoginLog"/>
+<!--	SyncLog-->
+		<action name="insertSyncLog" class="utiISyncLogAction" method="insertSyncLog"/>
+		<action name="deleteSyncLog" class="utiISyncLogAction" method="deleteSyncLog"/>
+		<action name="prepareViewSyncLog" class="utiISyncLogAction" method="prepareViewSyncLog">
+			<result name="success">/pages/ims/log/SyncLogQuery.jsp</result>
+		</action>
+		<action name="viewSyncLog" class="utiISyncLogAction" method="viewSyncLog"/>
+	</package>
+</struts>
