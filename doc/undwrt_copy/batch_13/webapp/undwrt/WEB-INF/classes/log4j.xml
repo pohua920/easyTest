@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern" value="[%d{dd HH:mm:ss,SSS\} %-5p] [%t] %c{2\} - %m%n" />  
+        </layout>  
+    </appender> 
+   
+    <logger name="ins">
+    	<level value="DEBUG"/> 
+    	<appender-ref ref="STDOUT" />
+    </logger>
+    
+
+	<appender name="GUCIPLATFORM" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/ciplatform.log" />
+		<param name="MaxFileSize" value="30MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n" />
+		</layout> 
+	</appender>
+	
+	<appender name="UNCATEGORIZED" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/uncategorized.log" />
+		<param name="MaxFileSize" value="30MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-UNCATEGORIZED" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="UNCATEGORIZED" />
+	</appender>
+	
+	<appender name="USEROPERATE" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/useroperate.log" />
+		<param name="MaxFileSize" value="30MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n" />
+		</layout> 
+	</appender>
+	<appender name="TRANSACTION" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/transaction.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %c{1}: %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-TRANSACTION" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="TRANSACTION" />
+	</appender>
+
+	<appender name="ASYNC-USEROPERATE" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="USEROPERATE" />
+	</appender>
+	
+	<appender name="HIBERNATE" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/hibernate.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %c{1}: %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-HIBERNATE" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="HIBERNATE" />
+	</appender>
+
+	<appender name="SPRING" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/spring.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %c{1}: %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-SPRING" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="SPRING" />
+	</appender>
+
+	<appender name="application" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/application.log" />
+		<param name="MaxFileSize" value="50MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %p [%c] - %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-application" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="application" />
+	</appender>
+	
+	<appender name="RUNTIME" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/runtime.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %t %m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-RUNTIME" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="RUNTIME" />
+	</appender>
+
+	<appender name="P6SPY" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${java.io.tmpdir}/log/p6spy.log" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout> 
+	</appender>
+
+	<appender name="ASYNC-P6SPY" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="8192" />
+		<appender-ref ref="P6SPY" />
+	</appender>
+
+	<category name="com.chinainsurance.application.prpall.service.spring.GuCIplatformEncoderDecoderTPServiceSpringImpl">
+			<param name="additivity" value="false" />
+			<priority value="INFO" />
+			<appender-ref ref="GUCIPLATFORM" />
+	</category>
+		
+	<category name="p6spy">
+		<param name="additivity" value="false" />
+		<priority value="DEBUG" />
+		<appender-ref ref="ASYNC-P6SPY" />
+	</category>
+
+	<category name="com.chinainsurance.application.common.RunTimeLogAdvice">
+		<param name="additivity" value="false" />
+		<priority value="DEBUG" />
+		<appender-ref ref="ASYNC-RUNTIME" />
+	</category>
+	
+	<category name="com.chinainsurance.application">
+		<param name="additivity" value="false" />
+		<priority value="ERROR" />
+		<appender-ref ref="ASYNC-application" />
+	</category>
+
+	<category name="org.springframework">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-SPRING" />
+	</category>
+	
+	<category name="org.hibernate">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-HIBERNATE" />
+	</category>
+	
+	
+	<category name="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-TRANSACTION" />
+	</category>
+	
+	<category name="com.chinainsurance.application.common.BaseProcessAction">
+		<param name="additivity" value="false" />
+		<priority value="INFO" />
+		<appender-ref ref="ASYNC-USEROPERATE" />
+	</category>
+
+	<category name="org.jasig.cas.client">
+		<param name="additivity" value="false" />
+		<priority value="ERROR" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+	
+	<category name="org.apache.commons.digester.Digester">
+		<param name="additivity" value="false" />
+		<priority value="FATAL" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+	<category name="org.directwebremoting">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+	
+	<category name="org.codehaus.xfire">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>	
+	<category name="org.quartz">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+	
+	<category name="org.acegisecurity">
+		<param name="additivity" value="false" />
+		<priority value="ERROR" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+
+	<category name="org.apache.struts">
+		<param name="additivity" value="false" />
+		<priority value="WARN" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+
+	<category name="com.chinainsurance.sysframework">
+		<param name="additivity" value="false" />
+		<priority value="ERROR" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</category>
+
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="ASYNC-UNCATEGORIZED" />
+	</root>
+</log4j:configuration>

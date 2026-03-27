@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName">
+            <value>ddccDataSource</value>
+        </property>
+    </bean>
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:com/sinosoft/dimension/dataservice/ibatis/gererated/sqlmap/SqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- DAO -->
+	<bean id="factorValueBaseDAO" 
+		class="com.sinosoft.dimension.dataservice.ibatis.gererated.dao.FactorValueBaseDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	
+	<bean id="dimensionValueBaseDAO" 
+		class="com.sinosoft.dimension.dataservice.ibatis.gererated.dao.DimensionValueBaseDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	
+	<bean id="sequenceGenerator" class="com.sinosoft.dimension.dataservice.ibatis.utils.SequenceGeneratorImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+
+	<bean id="gradeFactorDao" 
+		class="com.sinosoft.dimension.dataservice.ibatis.dao.GradeFactorDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	
+	<bean id="factorDimensionMappingBaseDAO" 
+		class="com.sinosoft.dimension.dataservice.ibatis.gererated.dao.FactorDimensionMappingBaseDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	
+	<bean id="policyDao" 
+		class="com.sinosoft.dimension.dataservice.ibatis.dao.PolicyDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	
+	<bean id="businessGradeDao" 
+		class="com.sinosoft.dimension.dataservice.ibatis.dao.BusinessGradeDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>	
+	<!-- Repository -->
+	<bean id="factorRepo" 
+		class="com.sinosoft.dimension.dataservice.ibatis.FactorRepoImpl">
+		<property name="factorValueBaseDAO" ref="factorValueBaseDAO" />
+		<property name="gradeFactorDao" ref="gradeFactorDao" />
+		<property name="factorDimensionMappingBaseDAO" ref="factorDimensionMappingBaseDAO" />
+		<property name="businessGradeDao" ref="businessGradeDao" />
+	</bean>
+	
+	<bean id="policyRepo" 
+		class="com.sinosoft.dimension.dataservice.ibatis.PolicyRepoImpl">
+		<property name="policyDao" ref="policyDao" />
+	</bean>
+
+	<!-- GradeCalculator -->
+	<bean id="gradeCalculator" class="com.sinosoft.dimension.DefaultGradeCalculator">
+		<property name="factorRepo" ref="factorRepo" />
+	</bean>	
+	
+	<bean id="wrappedGradeCalculator" class="com.sinosoft.dimension.WrappedGradeCalculator">
+		<property name="factorRepo" ref="factorRepo" />
+		<property name="gradeCalculator" ref="gradeCalculator" />
+	</bean>	
+	
+	<!-- PolicyHandler -->
+	<bean id="businessSourcePolicyHandler" class="com.sinosoft.dimension.policyhandler.BusinessSourcePolicyHandler">
+		<property name="factorRepo" ref="factorRepo" />
+	</bean>
+	<bean id="kindCodePolicyHandler" class="com.sinosoft.dimension.policyhandler.KindCodePolicyHandler">
+		<property name="factorRepo" ref="factorRepo" />
+	</bean>
+	<bean id="isGroupPolicyHandler" class="com.sinosoft.dimension.policyhandler.IsGroupPolicyHandler">
+	</bean>	
+</beans>

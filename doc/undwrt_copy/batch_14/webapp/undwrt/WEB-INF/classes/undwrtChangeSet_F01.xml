@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<change-set xmlns='http://drools.org/drools-5.0/change-set'
+	xmlns:xs='http://www.w3.org/2001/XMLSchema-instance'
+	xs:schemaLocation='http://drools.org/drools-5.0/change-set.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-api/src/main/resources/change-set-1.0.0.xsd'>
+	<add>
+        <resource source='classpath:undwrtRules/RulesF01/F01UndwrtRule-02.xls' type="DTABLE">
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+		<resource source='classpath:undwrtRules/RulesF01/F01UndwrtRule-03.xls' type="DTABLE">
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+		<resource source='classpath:undwrtRules/RulesF01/F01UndwrtRule-04.xls' type="DTABLE">
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+		<resource source='classpath:undwrtRules/RulesF01/F01UndwrtRule-05.xls' type="DTABLE">
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+		<resource source='classpath:undwrtRules/RulesF01/F01UndwrtRule-06.xls' type="DTABLE">
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+
+		<resource source="classpath:undwrtRules/undwrtRuleFlowCar.rf" type="DRF"/>
+	</add>
+</change-set>

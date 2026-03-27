@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mantis： CAR0233，處理人員：Sam，需求單編號：CAR0233，變更31,36,50,51,52,53,54險種核保檢核保額卡控問題 -->
+<change-set xmlns='http://drools.org/drools-5.0/change-set'
+	xmlns:xs='http://www.w3.org/2001/XMLSchema-instance'
+	xs:schemaLocation='http://drools.org/drools-5.0/change-set.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-api/src/main/resources/change-set-1.0.0.xsd'>
+	<add>
+		<resource source='classpath:undwrtRules/carUndwrtRule-05.xls' type="DTABLE"  >
+			<decisiontable-conf input-type="XLS" worksheet-name="Tables"  />
+		</resource>
+		<resource source="classpath:undwrtRules/undwrtRuleFlowCar.rf" type="DRF"/>
+	</add>
+</change-set>

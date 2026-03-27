@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<!-- ============Application Service Area================ -->
+
+	<bean id="processCodeInputService"
+		class="com.sinosoft.undwrt.common.service.spring.ProcessCodeInputServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDcompanyService2"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDcompanyServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDuserService2"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDuserServiceSpringImpl">
+	</bean>
+	
+	<bean id="undwrtMenuService"
+		class="com.sinosoft.undwrt.common.service.spring.MenuServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDcodeService"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDcodeServiceSpringImpl">
+	</bean>
+	
+	<bean id="messageService"
+		class="com.sinosoft.undwrt.message.service.spring.MessageServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDclassService"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDclassServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDriskService"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDriskServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDExpenseControlService"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDExpenseControlServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpDExpenseBalanceService"
+		class="com.sinosoft.undwrt.common.service.spring.PrpDExpenseBalanceServiceSpringImpl">
+	</bean>
+	
+	<bean id="swfNodeService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.SwfNodeServiceSpringImpl">
+	</bean>
+	
+	<bean id="wfLogService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfLogServiceSpringImpl">
+	</bean>
+	
+	<bean id="uwNotionService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.UwNotionServiceSpringImpl">
+	</bean>
+
+	<bean id="uwMaterialService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.UwMaterialServiceSpringImpl">
+	</bean>
+	
+	<bean id="swfPathService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.SwfPathServiceSpringImpl">
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+	</bean>
+	
+	<bean id="wfOtherFeesService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfOtherFeesServiceSpringImpl">
+	</bean>
+	
+	<bean id="swfConditionService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.SwfConditionServiceSpringImpl">
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+	</bean>
+	
+	<bean id="wfGradeService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfGradeServiceSpringImpl">
+	</bean>
+	
+	<bean id="wfFlowMainService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfFlowMainServiceSpringImpl">
+	</bean>
+	
+	<bean id="wfPackageService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfPackageServiceSpringImpl">
+	</bean>
+	
+	<bean id="wfLogExtService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.WfLogExtServiceSpringImpl">
+	</bean>
+	
+	<bean id="swfModelUseService2"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.SwfModelUseServiceSpringImpl">
+	</bean>
+	
+	<bean id="taskDealService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.TaskDealServiceSpringImpl">
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+		<property name="prpDuserService" ref="prpDuserService2"></property>
+	</bean>
+	
+	<bean id="wfCheckAdvanceService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.WfCheckAdvanceServiceSpringImpl">
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+	</bean>
+	
+	<bean id="wfLogHelperService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.WfLogHelperServiceSpringImpl">
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+	</bean>
+	
+	<bean id="commonDealTaskService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.CommonDealTaskServiceSpringImpl">
+	</bean>
+	
+	<bean id="commonDealSubmitService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.CommonDealSubmitServiceSpringImpl">
+		<property name="prpDuserService" ref="prpDuserService2"></property>
+		<property name="prpDcompanyService" ref="prpDcompanyService2"></property>
+	</bean>
+	
+	<bean id="wfMessageService"
+		class="com.sinosoft.undwrt.common.service.spring.WfMessageSpringImpl">
+	</bean>
+	
+	<bean id="reinsService2"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.ReinsServiceSpringImpl">
+	</bean>
+	
+	<bean id="expenseControlDealService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.ExpenseControlDealServiceSpringImpl">
+		<property name="undwrtService" ref="undwrtService2"></property>
+	</bean>
+	
+	<bean id="prpFeedBackService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.PrpFeedBackServiceSpringImpl">
+		<property name="prpDuserService" ref="prpDuserService2"></property>
+	</bean>
+	
+	<bean id="workFlowService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.WorkFlowServiceSpringImpl">
+	</bean>
+	
+	<bean id="commonCheckTaskService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.CommonCheckTaskServiceSpringImpl">
+	</bean>
+	
+	<bean id="getItemKindInfoService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.GetItemKindInfoServiceSpringImpl">
+	</bean>
+	
+	<bean id="prpallService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.PrpallServiceSpringImpl">
+	</bean>
+	
+	<bean id="commonDangerInfoService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.CommonDangerInfoServiceSpringImpl">
+		<property name="reinsService" ref="reinsService2"></property>
+	</bean>
+	
+	<bean id="undwrtService2"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.UndwrtServiceSpringImpl">
+		<property name="swfModelUseService" ref="swfModelUseService2"></property>
+	</bean>
+	
+	<bean id="taskService"
+		class="com.sinosoft.undwrt.undwrtInterface.service.spring.TaskServiceSpringImpl">
+		<property name="undwrtService" ref="undwrtService2"></property>
+	</bean>
+	
+	<bean id="dangerUnitService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.DangerUnitServiceSpringImpl">
+	</bean>
+	
+	<bean id="getPlanCurrencyTypeService"
+		class="com.sinosoft.undwrt.undwrtDeal.service.spring.GetPlanCurrencyTypeServiceSpringImpl">
+	</bean>
+	
+	<bean id="configAction" 
+		class="com.sinosoft.undwrt.common.util.ConfigAction">
+	</bean>
+	
+	<bean id="standardAction" 
+		class="com.sinosoft.undwrt.common.util.StandardAction">
+	</bean>
+	
+	<bean id="standardCheckAction" 
+		class="com.sinosoft.undwrt.common.util.StandardCheckAction">
+	</bean>
+	
+	<bean id="msgAction" 
+		class="com.sinosoft.undwrt.common.util.MsgAction">
+	</bean>
+	
+	<bean id="taskDealViewHelper" 
+		class="com.sinosoft.undwrt.common.util.TaskDealViewHelper">
+	</bean>
+	
+	<bean id="undwrtRuleService" 
+		class="com.sinosoft.undwrt.undwrtRule.service.spring.UndwrtRuleServiceSpringImpl">
+	</bean>
+	
+	<bean id="droolsRuleService" 
+		class="com.sinosoft.one.rule.service.spring.DroolsRuleServiceSpringImpl">
+	</bean>
+	
+	<bean id="getBusinessDataService"
+		class="com.sinosoft.undwrt.undwrtRule.service.spring.GetBusinessDataServiceSpringImpl">
+	</bean>
+	
+	<bean id="uwBlackListService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.UwBlackListServiceSpringImpl">
+	</bean>
+	
+	<bean id="utiUwLevelService"
+		class="com.sinosoft.undwrt.undwrtBase.service.spring.UtiUwLevelServiceSpringImpl">
+	</bean>
+	<!--add by xuhuiling  mantis 4906 重覆點擊提交核保(添加緩存的配置文件)begin-->
+	<!-- mantis： OTH0038，處理人員：Sam，需求單編號：OTH0038-繳費虛擬碼調整 Start -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:cache/ehcache.xml"/>
+	</bean>
+	
+	<bean id="policyCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" lazy-init="true" autowire="byName" >
+		<property name="cacheManager" ref="cacheManager"/>
+		<property name="cacheName" value="policyCache"/>
+	</bean>
+	<!-- mantis： OTH0038，處理人員：Sam，需求單編號：OTH0038-繳費虛擬碼調整 End -->
+	
+	<!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 START -->
+	<bean id="commonService" class="com.sinosoft.undwrt.undwrtDeal.service.spring.CommonServiceSpringImpl" >
+	</bean>
+
+	<bean id="dwrUtilService" class="com.sinosoft.undwrt.common.service.spring.DwrUtilServiceSpringImpl">
+	</bean>
+	
+	<bean id="platConfigRuleServiceNew" class="com.sinosoft.undwrt.common.service.spring.PlatConfigRuleServiceSpringImpl"></bean>
+	<!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 END -->
+	
+	<!-- mantis： OTH0126，處理人員：DP0706，需求單編號：OTH0126 核心系統增加登入紀錄 -->
+  	<bean id="coreService" class="com.sinosoft.undwrt.common.service.spring.CoreServiceSpringImpl" />
+	
+</beans>

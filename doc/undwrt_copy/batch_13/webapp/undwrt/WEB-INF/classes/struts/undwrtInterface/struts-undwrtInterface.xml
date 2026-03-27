@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--提交核保-->
+    <package name="undwrtSubmit" extends="default" namespace="/undwrtSubmit">
+		<action name="underwriteSubmit" class="underwriteSubmitAction" method="underwriteSubmit">
+			<result name="success">/common/Message.jsp</result>
+        </action>
+        <action name="commonInput" class="underwriteSubmitAction" method="commonInput">
+        	<result name="retract">/pages/undwrtInterface/SubmitTaskToUndwrtForTest.jsp</result>
+        </action>
+    </package>
+</struts>

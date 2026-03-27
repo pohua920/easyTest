@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true"> 
+
+	<!--Hibernate TransactionManager-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="globalRollbackOnParticipationFailure" value="false" /> <!--解决事务控制rollback-only20130625的问题  -->
+	</bean>
+	
+	<bean id="commonModel" class="ins.framework.dao.SameDirClassFactoryBean">
+		<constructor-arg>
+		    <list>
+		        <value>com.sinosoft.undwrt.common.model.PrpDuser</value>
+		        <value>com.sinosoft.undwrt.common.model.PrpDcompany</value>
+		        <value>com.sinosoft.undwrt.common.model.PrpDclass</value>
+		        <value>com.sinosoft.undwrt.common.model.PrpDcode</value>
+		        <value>com.sinosoft.undwrt.common.model.PrpDcodeId</value>
+		        <value>com.sinosoft.undwrt.common.model.PrpDrisk</value>
+				<value>com.sinosoft.undwrt.common.model.PrpDExpenseBalance</value>
+				<!-- mantis： CAR0051 ，處理人員： David ，需求單編號： CAR0051   start 原因  業務人員失效減核問題-核保系統檢核 -->
+				<value>com.sinosoft.undwrt.common.model.Prpdagent</value>
+		         
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfCondition</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfConditionId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfModelMain</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfModelUse</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfModelUseId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfNode</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfNodeId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfNotion</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfNotionId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfPath</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.SwfPathId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.WfLog</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.WfLogId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.UwNotion</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.UwNotionId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.PrpTnote</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.PrpTnoteId</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.PrpCPnote</value>
+		        <value>com.sinosoft.undwrt.undwrtBase.model.PrpCPnoteId</value>
+		        
+		        <value>com.sinosoft.reins.common.model.PrpTDangerUnit</value>
+                <value>com.sinosoft.reins.common.model.PrpTDangerUnitId</value>
+                <value>com.sinosoft.reins.base.model.FhReten</value>
+                <value>com.sinosoft.reins.base.model.FhRetenId</value>
+                <value>com.sinosoft.reins.common.model.PrpTDangerRisk</value>
+                <value>com.sinosoft.reins.common.model.PrpTDangerRiskId</value>
+                <value>com.sinosoft.common.schema.model.UtiKey</value>
+                <value>com.sinosoft.common.schema.model.UtiKeyId</value>
+                <value>com.sinosoft.reins.common.model.UtiKey</value>
+                <value>com.sinosoft.reins.out.facultative.enquiry.model.FeoEnquiry</value>
+                <value>com.sinosoft.reins.in.facultative.verify.model.PrpReinsVerify</value>
+                <!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 START -->
+                <value>com.sinosoft.common.schema.model.PrpTairline</value>
+                <value>com.sinosoft.common.schema.model.PrpTairlineId</value>
+                <value>com.sinosoft.common.schema.model.PrpTCargoItem</value>
+                <value>com.sinosoft.common.schema.model.PrpTCargoItemId</value>
+                <value>com.sinosoft.common.schema.model.PrpTexceptItem</value>
+                <value>com.sinosoft.common.schema.model.PrpTmain</value>
+                <value>com.sinosoft.common.schema.model.PrpTpe</value>
+                <value>com.sinosoft.common.schema.model.PrpTpeId</value>
+                <value>com.sinosoft.common.schema.model.PrpTplane</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneDevice</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneDeviceId</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneDriver</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneDriverId</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneId</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneSafe</value>
+                <value>com.sinosoft.common.schema.model.PrpTplaneSafeId</value>
+                <value>com.sinosoft.common.schema.model.PrpTreinfo</value>
+                <value>com.sinosoft.common.schema.model.PrpTreinfoId</value>
+                <value>com.sinosoft.common.schema.model.PrpTriskasst</value>
+				<value>com.sinosoft.common.schema.model.PrpTriskasstId</value>
+				<value>com.sinosoft.common.schema.model.PrpTscheme</value>
+				<value>com.sinosoft.common.schema.model.PrpTschemeId</value>
+				<value>com.sinosoft.common.schema.model.PrpTticket</value>
+				<value>com.sinosoft.common.schema.model.PrpQairline</value>
+				<value>com.sinosoft.common.schema.model.PrpQairlineId</value>
+				<value>com.sinosoft.common.schema.model.PrpQCargoItem</value>
+				<value>com.sinosoft.common.schema.model.PrpQCargoItemId</value>
+				<value>com.sinosoft.common.schema.model.PrpQmain</value>
+				<value>com.sinosoft.common.schema.model.PrpQpe</value>
+				<value>com.sinosoft.common.schema.model.PrpQpeId</value>
+				<value>com.sinosoft.common.schema.model.PrpQplane</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneDevice</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneDeviceId</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneDriver</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneDriverId</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneId</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneSafe</value>
+				<value>com.sinosoft.common.schema.model.PrpQplaneSafeId</value>
+				<value>com.sinosoft.common.schema.model.PrpQreinfo</value>
+				<value>com.sinosoft.common.schema.model.PrpQreinfoId</value>
+				<value>com.sinosoft.common.schema.model.PrpQriskasst</value>
+				<value>com.sinosoft.common.schema.model.PrpQriskasstId</value>
+				<value>com.sinosoft.common.schema.model.PrpQscheme</value>
+				<value>com.sinosoft.common.schema.model.PrpQschemeId</value>
+				<value>com.sinosoft.common.schema.model.PrpQshipSafe</value>
+				<value>com.sinosoft.common.schema.model.PrpQshipSafeId</value>
+				<value>com.sinosoft.common.schema.model.PrpQticket</value>
+				<!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 END -->		   	</list>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 大对象处理器 -->
+	<bean id="lobHandler" lazy-init="true"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+	<!--Hibernate SessionFatory-->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 大对象处理器 -->
+		<property name="lobHandler" ref="lobHandler" /> 
+
+		<!--  可以同时支持annotatedClasses和hbm
+		<property name="packagesToScan">                        
+			<list>                                
+				<value>com.sinosoft.undwrt.*.model</value>
+			</list>                
+		</property>
+		-->
+		<!--  可以同时支持annotatedClasses和hbm-->
+		<property name="annotatedClasses" ref="commonModel"/>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.OracleDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>
+			</props>
+		</property>  
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+  		<property name="dataSource"><ref bean="dataSource" /></property>
+	</bean>
+</beans>

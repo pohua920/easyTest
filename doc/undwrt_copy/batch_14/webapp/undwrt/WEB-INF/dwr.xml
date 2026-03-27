@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr/dwr20.dtd">
+
+<dwr>
+	<allow>
+		<create creator="spring"  javascript="dwrInvokeDataAction">
+			<param name="beanName" value="dwrInvokeDataAction"/>
+    	</create>
+		<create creator="new" javascript="JDate">
+			<param name="class" value="java.util.Date" />
+		</create>
+		<convert converter="bean" match="ins.common.vo.*" />
+		<!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 START -->
+    	<create creator="spring" javascript="DwrUtilService">
+    		<param name="beanName" value="dwrUtilService" />
+		</create>
+    	<!-- mantis： CAR0369，處理人員：BI086，需求單編號：CAR0369:核心車險地址正規化作業 END -->  
+	</allow>
+</dwr>
