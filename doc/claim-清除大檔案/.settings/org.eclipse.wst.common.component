@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="claim_prod">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/resources"/>
+        <wb-resource deploy-path="/" source-path="/webapp/claim"/>
+        <property name="context-root" value="claim_prod"/>
+        <property name="java-output-path" value="/claim_prod/webapp/claim/WEB-INF/classes"/>
+    </wb-module>
+</project-modules>

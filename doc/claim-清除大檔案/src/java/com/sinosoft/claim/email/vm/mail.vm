@@ -1,0 +1,35 @@
+<html>
+	<body>
+			<table id="" width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td valign="top"
+						style="font-size: 14px; padding: 0; height: auto; min-height: auto; font-family: 'lucida Grande', Verdana;"
+						class="body">
+								<tr>
+									<td align='center' valign='top' bgcolor='#FFFFFF'>
+										<table width='92%' border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td align='left' valign='top'>
+													茲通知再保單位下列「$!{reinsMode}」：
+													<br />
+													賠款立案相關資訊如下：
+													<br />
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一、賠案號碼：$!{claimNo}
+													<br />
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二、保單號碼：$!{policyNo}
+													<br />
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;三、損失金額：$!{sumLossPaid}
+													<br />
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;四、出險日期：$!{damageStartDate}  $!{damageStartHour}
+													<br />
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;五、損失原因：$!{damageName}
+												</td>
+											</tr>
+									</td>
+								</tr>
+							</table>
+					</td>
+				</tr>
+			</table>
+	</body>
+</html>

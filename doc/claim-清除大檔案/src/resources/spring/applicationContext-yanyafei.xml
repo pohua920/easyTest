@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<!--工作流相关 action 
+	<bean id="UIWorkFlowLogAction" class="com.sinosoft.claim.common.web.UIWorkFlowLogAction" scope="prototype"/>
+	-->
+	<bean id="processWorkflowAction" class="com.sinosoft.claim.workflow.web.ProcessWorkflowAction" scope="prototype"/>
+	<!--查勘相关 action -->
+	<bean id="checkBeforeEditAction" class="com.sinosoft.claim.check.web.CheckBeforeEditAction" scope="prototype"/>
+	<bean id="checkEditPostAction" class="com.sinosoft.claim.check.web.CheckEditPostAction" scope="prototype"/>
+	<bean id="checkQueryAction" class="com.sinosoft.claim.check.web.CheckQueryAction" scope="prototype"/>
+	<!--双击域相关 action -->
+	<bean id="codeInputAction" class="com.sinosoft.claim.common.web.CodeInputAction" scope="prototype"/>	
+	<!--相关 service -->
+	<bean id="claimService" class="com.sinosoft.claim.claim.service.spring.ClaimServiceSpringImpl"/>
+	<bean id="registService" class="com.sinosoft.claim.regist.service.spring.RegistServiceSpringImpl"/>
+	<bean id="checkService" class="com.sinosoft.claim.check.service.spring.CheckServiceSpringImpl"/>
+	<bean id="uwNotionService" class="com.sinosoft.claim.schema.service.spring.UwNotionServiceSpringImpl"/>
+	<bean id="acciCheckService" class="com.sinosoft.claim.check.service.spring.AcciCheckServiceSpringImpl"/>
+	<bean id="daaCheckViewHelper" class="com.sinosoft.claim.check.util.DAACheckViewHelper"/>
+	<bean id="prpLacciCheckViewHelper" class="com.sinosoft.claim.check.util.PrpLacciCheckViewHelper"/>
+	
+</beans>

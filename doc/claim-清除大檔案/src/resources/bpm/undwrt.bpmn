@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_isUndwrtItem" structureRef="String" />
+  <itemDefinition id="_handleTextItem" structureRef="String" />
+
+  <itemDefinition id="_2-isUndwrtItem" structureRef="String" />
+  <itemDefinition id="_2-handleTextItem" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="undwrt" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="isUndwrt" itemSubjectRef="_isUndwrtItem"/>
+    <property id="handleText" itemSubjectRef="_handleTextItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <userTask id="_2" name="核赔一级" >
+      <ioSpecification>
+        <dataInput id="_2_TaskNameInput" name="TaskName" />
+        <dataOutput id="_2_handleText_tempOutput" name="handleText_temp" />
+        <dataOutput id="_2_isUndwrt_tempOutput" name="isUndwrt_temp" />
+        <inputSet>
+          <dataInputRefs>_2_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_2_handleText_tempOutput</dataOutputRefs>
+          <dataOutputRefs>_2_isUndwrt_tempOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_2_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">核赔一级</from>
+          <to xsi:type="tFormalExpression">_2_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_2_handleText_tempOutput</sourceRef>
+        <targetRef>handleText</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_2_isUndwrt_tempOutput</sourceRef>
+        <targetRef>isUndwrt</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>task1</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <endEvent id="_11" name="下发修改" >
+        <terminateEventDefinition />
+    </endEvent>
+    <complexGateway id="_12" name="Gateway" gatewayDirection="Diverging" />
+    <complexGateway id="_13" name="Gateway" gatewayDirection="Converging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_13-_2" sourceRef="_13" targetRef="_2" />
+    <sequenceFlow id="_12-_11" sourceRef="_12" targetRef="_11" />
+    <sequenceFlow id="_2-_12" sourceRef="_2" targetRef="_12" />
+    <sequenceFlow id="_1-_13" sourceRef="_1" targetRef="_13" />
+    <sequenceFlow id="_12-_13" sourceRef="_12" targetRef="_13" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="undwrt" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="32" y="61" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="324" y="24" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="538" y="137" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="352" y="138" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="187" y="63" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_13-_2" >
+        <di:waypoint x="211" y="87" />
+        <di:waypoint x="374" y="48" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_11" >
+        <di:waypoint x="376" y="162" />
+        <di:waypoint x="562" y="161" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_12" >
+        <di:waypoint x="374" y="48" />
+        <di:waypoint x="376" y="162" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_13" >
+        <di:waypoint x="56" y="85" />
+        <di:waypoint x="211" y="87" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_13" >
+        <di:waypoint x="376" y="162" />
+        <di:waypoint x="211" y="87" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_3-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_3-nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_5-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_5-nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_6-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_6-nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_7-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_7-nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_17-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_17-nodeListItem" structureRef="java.util.List" />
+
+  <itemDefinition id="_16-nodeTypeItem" structureRef="String" />
+  <itemDefinition id="_16-nodeListItem" structureRef="java.util.List" />
+
+  <process processType="Private" isExecutable="true" id="claim_reCase_05" name="claim_reCase_05" tns:packageName="defaultPackage" >
+
+    <!-- process variables -->
+    <property id="nodeType" itemSubjectRef="_nodeTypeItem"/>
+    <property id="nodeList" itemSubjectRef="_nodeListItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <endEvent id="_2" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <userTask id="_3" name="重开赔案申请" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>recase</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_5" name="理算" >
+      <ioSpecification>
+        <dataOutput id="_5_nodeTypeOutput" name="nodeType" />
+        <inputSet>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_5_nodeTypeOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>_5_nodeTypeOutput</sourceRef>
+        <targetRef>nodeType</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>compe</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_6" name="核赔" >
+      <ioSpecification>
+        <dataOutput id="_6_nodeTypeOutput" name="nodeType" />
+        <inputSet>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_6_nodeTypeOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>_6_nodeTypeOutput</sourceRef>
+        <targetRef>nodeType</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>veric</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_7" name="结案" >
+      <ioSpecification>
+        <dataOutput id="_7_nodeTypeOutput" name="nodeType" />
+        <inputSet>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_7_nodeTypeOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>_7_nodeTypeOutput</sourceRef>
+        <targetRef>nodeType</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>endca</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Converging" />
+    <exclusiveGateway id="_14" name="Gateway" gatewayDirection="Converging" />
+    <userTask id="_17" name="注销拒赔" >
+      <ioSpecification>
+        <dataOutput id="_17_nodeTypeOutput" name="nodeType" />
+        <inputSet>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_17_nodeTypeOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>_17_nodeTypeOutput</sourceRef>
+        <targetRef>nodeType</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>cance</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_16" name="申请注销拒赔" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>request_cancel</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <exclusiveGateway id="_19" name="Gateway" gatewayDirection="Diverging" />
+    <exclusiveGateway id="_18" name="Gateway" gatewayDirection="Converging" />
+    <inclusiveGateway id="_21" name="Gateway" gatewayDirection="Diverging" />
+    <parallelGateway id="_20" name="Gateway" gatewayDirection="Diverging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_14-_2" sourceRef="_14" targetRef="_2" />
+    <sequenceFlow id="_1-_3" sourceRef="_1" targetRef="_3" />
+    <sequenceFlow id="_8-_5" sourceRef="_8" targetRef="_5" />
+    <sequenceFlow id="_5-_6" sourceRef="_5" targetRef="_6" />
+    <sequenceFlow id="_21-_7" sourceRef="_21" targetRef="_7" name="手工结案" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return "endca".equals(nodeType);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_20-_8" sourceRef="_20" targetRef="_8" />
+    <sequenceFlow id="_21-_8" sourceRef="_21" targetRef="_8" name="核赔通过" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return "compe".equals(nodeType)||"endca".equals(nodeType);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_19-_14" sourceRef="_19" targetRef="_14" name="注销拒赔审批通过" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return "end".equals(nodeType);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21-_14" sourceRef="_21" targetRef="_14" name="自动结案" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return "end".equals(nodeType);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_7-_14" sourceRef="_7" targetRef="_14" />
+    <sequenceFlow id="_16-_17" sourceRef="_16" targetRef="_17" />
+    <sequenceFlow id="_18-_16" sourceRef="_18" targetRef="_16" />
+    <sequenceFlow id="_17-_19" sourceRef="_17" targetRef="_19" />
+    <sequenceFlow id="_19-_18" sourceRef="_19" targetRef="_18" name="注销拒赔退回" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return !"end".equals(nodeType);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_20-_18" sourceRef="_20" targetRef="_18" />
+    <sequenceFlow id="_6-_21" sourceRef="_6" targetRef="_21" />
+    <sequenceFlow id="_3-_20" sourceRef="_3" targetRef="_20" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="claim_reCase_05" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="45" y="45" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="238" y="499" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="204" y="45" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="766" y="58" width="108" height="52" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="766" y="232" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="574" y="263" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="599" y="55" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="339" y="451" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_17" >
+        <dc:Bounds x="71" y="362" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="69" y="196" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_19" >
+        <dc:Bounds x="287" y="345" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_18" >
+        <dc:Bounds x="285" y="196" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_21" >
+        <dc:Bounds x="597" y="144" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_20" >
+        <dc:Bounds x="470" y="59" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_14-_2" >
+        <di:waypoint x="363" y="475" />
+        <di:waypoint x="262" y="523" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_3" >
+        <di:waypoint x="69" y="69" />
+        <di:waypoint x="254" y="69" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_5" >
+        <di:waypoint x="623" y="79" />
+        <di:waypoint x="820" y="84" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_6" >
+        <di:waypoint x="820" y="84" />
+        <di:waypoint x="816" y="256" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_7" >
+        <di:waypoint x="621" y="168" />
+        <di:waypoint x="624" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20-_8" >
+        <di:waypoint x="494" y="83" />
+        <di:waypoint x="623" y="79" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_8" >
+        <di:waypoint x="621" y="168" />
+        <di:waypoint x="623" y="79" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_14" >
+        <di:waypoint x="311" y="369" />
+        <di:waypoint x="363" y="475" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_14" >
+        <di:waypoint x="621" y="168" />
+        <di:waypoint x="363" y="475" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_14" >
+        <di:waypoint x="624" y="287" />
+        <di:waypoint x="363" y="475" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16-_17" >
+        <di:waypoint x="119" y="220" />
+        <di:waypoint x="121" y="386" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18-_16" >
+        <di:waypoint x="309" y="220" />
+        <di:waypoint x="119" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17-_19" >
+        <di:waypoint x="121" y="386" />
+        <di:waypoint x="311" y="369" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_18" >
+        <di:waypoint x="311" y="369" />
+        <di:waypoint x="309" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20-_18" >
+        <di:waypoint x="494" y="83" />
+        <di:waypoint x="309" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_21" >
+        <di:waypoint x="816" y="256" />
+        <di:waypoint x="621" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_20" >
+        <di:waypoint x="254" y="69" />
+        <di:waypoint x="494" y="83" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

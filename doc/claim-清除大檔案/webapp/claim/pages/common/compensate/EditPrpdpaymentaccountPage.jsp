@@ -1,0 +1,362 @@
+<%@	page contentType="text/html; charset=GBK" language="java"%>
+<%@include file="/common/taglibs.jsp"%>
+<script src="${ctx}/pages/common/account/js/paymentAccount.js"></script>
+<table class="common" style="width: 100%" id="PrpLpayObjectInfo_Data" style="display:none">
+	<tbody>
+		<tr name="PrpLpayObjectInfo">
+			<td class="subformtitle" style="width: 96%">
+				<table class="common" style="width: 100%">
+					<tr>
+						<td class="input" colspan="6">
+							<b>賠付對象&nbsp;<span name="payObjectIndex"> </span></b>
+							<input type="hidden" name="prpLpayObjectInfoSerialNo" value="">
+							<div name="payObject" style="display: none">
+								<font color="red">請注意: 若賠付對象為法人者, 請在“統一編號” 欄位輸入該公司之八碼統一編號, 若賠付對象為個人者, 請在“統一編號” 欄位輸入該人員之十碼個人身份證字號</font>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="title" style="width: 15%">賠款支付方式：</td>
+						<!-- 标的损失赔款支付方式 -->
+						<td class="input" style="width: 18%">
+							<select name="prpLpayObjectInfoOwnerShip" style="width: 50%" onchange="payObjectOwnerShipChange(this);">
+								<option value="B" selected="selected">
+									<s:text name="compensate.remittance" />
+								</option>
+								<!-- 汇款 -->
+								<option value="C">
+									<s:text name="compensate.agentInfo.cash" />
+								</option>
+								<!-- 现金 -->
+								<option value="Q">
+									<s:text name="compensate.agentInfo.cheque" />
+								</option>
+								<!-- 支票 -->
+							</select>
+						</td>
+						<td class="title" style="width: 15%">理賠金額：</td>
+						<%--理賠金額 --%>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoPayAmount" class="readonly" readonly onfocus="cacheData(this);" value="0" onchange="validateMoney(this);" title="理賠金額" style="width: 80px;" />
+							<img src="${ctx}/images/bgMarkMustInput.jpg">
+						</td>
+						<td class="input" style="width: 10%">洗錢狀態回覆：</td>
+						<td class="input" style="width: 20%">
+							<input name="prpLpayObjectInfoAMLFlag" readOnly="readonly" class="readonly" value="" >
+						</td>
+					</tr>
+					<tr>
+						<td class="title" style="width: 15%">賠付對象：</td>
+						<td class="input" style="width: 18%">
+							<!-- mantis： CLM0017，處理人員：Sam，需求單編號：CLM0017，原住名姓名調整作業_車 -->
+							<input name="prpLpayObjectInfoOwnerName" class="input" maxlength="100" value="${requestScope.prpLpayObjectInfo.ownerName}">
+							<img src="${ctx}/images/bgMarkMustInput.jpg">
+						</td>
+						<td class="title" style="width: 15%">費用類型：</td>
+						<td class="input" style="width: 18%">
+							<select name="prpLpayObjectInfoPaymentKind" style="width: 50%" onchange="changePaymentKind(this);">
+								<%--<option value="1">修車廠</option>
+									<option value="2">材料商</option> --%>
+								<option value="3">公司行號</option>
+								<option value="4" selected="selected">個人</option>
+								<option value="5">公證公司</option>
+								<option value="6">健保局</option>
+								<option value="7">同業</option>
+							</select> <img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+						</td>
+						<td class="title" style="width: 15%">證件類型：</td>
+						<td class="input" style="width: 18%">
+							<s:select name="prpLpayObjectInfoCertificateCode" listKey="key" listValue="value" list="#request.prpdpaymentaccountCertificateTypeList" />
+						</td>
+					</tr>
+					<tr>
+						<td class="title" style="width: 15%">
+							<span name="InfoUniformNo1">統一編號/身份證號：</span> <span name="InfoUniformNo2" style="display: none">個人身份證號：</span>
+						</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoUniformNo" class="input" value="" />
+							<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+						</td>
+						<td class="title" style="width: 15%">
+							<span name="BeneficiaryPhone1">受款人電話：</span><span name="BeneficiaryPhone2" style="display: none">市內電話：</span>
+						</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoBeneficiaryPhone" class="input" value="" />
+							<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" name="BeneficiaryPhoneIMG" />
+						</td>
+						<td class="title" style="width: 15%">
+							<span name="spanCutBack" style="display: none;">禁背：</span>
+						</td>
+						<td class="input" style="width: 18%">
+							<span name="spanCutBack" style="display: none;">
+								<select name="prpLpayObjectInfoCutBack" >
+									<option value="0">否</option>
+									<option value="1" selected>是</option>
+								</select>
+							</span>
+						</td>
+					</tr>
+					<tr name="bankInfo">
+						<td class="title" style="width: 15%">總行代號：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoBankCode" value="" readOnly="readonly" class="readonly" />
+						</td>
+						<td class="title" style="width: 15%">總行名稱：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoBankName" value="" readOnly="readonly" class="readonly">
+						</td>
+						<td class="title" style="width: 15%">匯款帳號：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoAccountCode" value="" readOnly="readonly" class="readonly">
+						</td>
+					</tr>
+					<tr name="bankInfo">
+						<td class="title" style="width: 15%">分行代號：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoCustomBankCode" value="" readOnly="readonly" class="readonly">
+						</td>
+						<td class="title" style="width: 15%">分行名稱：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoCustomBankName" value="" readOnly="readonly" class="readonly">
+						</td>
+						<td class="title" style="width: 33%" colspan="2" align="center">
+							<!-- 录入赔款支付帳户信息 -->
+							<input class='bigbutton' type='button' name='buttonAccCompensate' style="width: 180px;" value='<s:text name="button.inputPaymentInformation.value" />' onclick="queryUserCompensate(this);">
+						</td>
+					</tr>
+					<tr name="AreaInfo">
+					<!-- mantis：CLM0145，處理人員：DP0713，需求單編號：CLM0145，.新核心-理算任務處理賠付對象郵遞區號長度檢核 -->
+					<!-- \webapp\claim\pages\common\compensate\EditPrpdpaymentaccountPage.jsp -->
+						<td class="title" style="width: 15%">郵遞區號：</td>
+						<td class="input" style="width: 18%">
+							<!-- mantis：CLM0145，處理人員：DP0713，需求單編號：CLM0145，.新核心-理算任務處理賠付對象郵遞區號長度檢核 -->
+							<input name="prpLpayObjectInfoAreaCode" class="input" maxlength="3">
+							<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+						</td>
+						<td class="title" style="width: 15%">郵遞地址：</td>
+						<td class="input" style="width: 50%" colspan="3">
+							<input name="prpLpayObjectInfoCourierAddress" class="input">
+							<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+						</td>
+					</tr>
+					<tr name="PayDate" style="display: none">
+						<td class="title" style="width: 15%">付款日期：</td>
+						<td class="input" style="width: 18%">
+							<rc:rcDate name="prpLpayObjectInfoPayDate" class="input" />
+						</td>
+						<td class="title" style="width: 15%">行動電話：</td>
+						<td class="input" style="width: 18%">
+							<input name="prpLpayObjectInfoMobilePhoneNo" class="input">
+						</td>
+						<td class="title" style="width: 15%"></td>
+						<td class="input" style="width: 18%"></td>
+					</tr>
+				</table>
+			</td>
+			<td class="input" style="width: 4%;">
+				<div>
+					<input type=button name="buttonPayAccountInfoDelete" class="smallbutton" onclick="deletePrpLpayObjectInfo(this);" value="-" style="cursor: hand">
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table class="common" align="center" style="width: 100%">
+	<tr>
+		<td class="common">
+			<img style="cursor: hand;" src="${ctx}/images/butCollapseBlue.gif" <%--賠款給付對象資訊--%> name="ChargeImg" onclick="showPage(this,spanPayAccountInfo);"> <b>賠款給付對象訊息</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<s:set var="prpLpayObjectInfoPaycodeType" value="" scope="page" />
+			<s:if test="#attr.prpLpayObjectInfo.prpLpayObjectInfoList!=null&&#attr.prpLpayObjectInfo.prpLpayObjectInfoList.size()>0">
+				<s:set var="prpLpayObjectInfoPaycodeType" value="#attr.prpLpayObjectInfo.prpLpayObjectInfoList.get(0).paycodeType" scope="page" />
+			</s:if>
+			賠付代號（賠案）： <select name="prpLpayObjectInfoPaycodeType" style="width: 100px" onchange="setPrpLpayObjectInfoPaycodeType(this);">
+				<option value="1" <s:if test="#attr.prpLpayObjectInfoPaycodeType==1">selected="selected"</s:if>>一般賠案</option>
+				<option value="2" <s:if test="#attr.prpLpayObjectInfoPaycodeType==2">selected="selected"</s:if>>同業</option>
+				<option value="3" <s:if test="#attr.prpLpayObjectInfoPaycodeType==3">selected="selected"</s:if>>健保局</option>
+			</select> <span id="spanPayAccountInfo" style="display: none">
+				<table class="common" align="center" cellspacing="1" cellpadding="0">
+					<thead>
+						<tr>
+							<td class="centertitle" colspan=2>賠付對象訊息</td>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td class="title" style="width: 96%">(按"+"號鍵增加賠付對象訊息，按"-"號鍵刪除賠付對象訊息)</td>
+							<td class="title" align="right" style="width: 4%">
+								<div align="center">
+									<input type="button" value="+" class=smallbutton onclick="insertPrpLpayObjectInfo();" name="buttonPayAccountInfoInsert" style="cursor: hand">
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+					<tbody id="PayAccountInfo">
+						<c:forEach var="prpLpayObjectInfo" items="${requestScope.prpLpayObjectInfo.prpLpayObjectInfoList}" varStatus="stat">
+							<tr name="PrpLpayObjectInfo">
+								<td class="subformtitle" style="width: 96%">
+									<table class="common" style="width: 100%">
+										<tr>
+											<td class="input" colspan="6">
+												<b>賠付對象&nbsp;<span name="payObjectIndex"><c:out value="${prpLpayObjectInfo.id.serialNo}" /></span></b>
+												<input type="hidden" name="prpLpayObjectInfoSerialNo" value="<c:out value="${prpLpayObjectInfo.id.serialNo}"/>">
+												<c:if test="${stat.index==0}">
+													<div name="payObject">
+														<font color="red">請注意: 若賠付對象為法人者, 請在“統一編號” 欄位輸入該公司之八碼統一編號, 若賠付對象為個人者, 請在“統一編號” 欄位輸入該人員之十碼個人身份證字號</font>
+													</div>
+												</c:if>
+											</td>
+										</tr>
+										<tr>
+											<td class="title" style="width: 15%">賠款支付方式：</td>
+											<td class="input" style="width: 18%">
+												<select name="prpLpayObjectInfoOwnerShip" style="width: 50%" onchange="payObjectOwnerShipChange(this);">
+													<option value="B" <c:if test="${prpLpayObjectInfo.ownerShip=='B'}"><c:out value="selected"/></c:if>>
+														<s:text name="compensate.remittance" />
+													</option>
+													<!-- 汇款 -->
+													<option value="C" <c:if test="${prpLpayObjectInfo.ownerShip=='C'}"><c:out value="selected"/></c:if>>
+														<s:text name="compensate.agentInfo.cash" />
+													</option>
+													<!-- 现金 -->
+													<option value="Q" <c:if test="${prpLpayObjectInfo.ownerShip=='Q'}"><c:out value="selected"/></c:if>>
+														<s:text name="compensate.agentInfo.cheque" />
+													</option>
+													<!-- 支票 -->
+												</select>
+											</td>
+											<td class="title" style="width: 15%">理賠金額：</td>
+											<%--理賠金額 --%>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoPayAmount" class="readonly" readonly value="<fmt:formatNumber value="${prpLpayObjectInfo.payAmount}" pattern="#"/>" onfocus="cacheData(this);"
+													onchange="validateMoney(this);" title="理賠金額" style="width: 80px;" />
+												<img src="${ctx}/images/bgMarkMustInput.jpg">
+											</td>
+											<td class="input" style="width: 15%">洗錢狀態回覆：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoAMLFlag" readonly type="text" class="readonly" maxlength="8" style="width: 80px" value="<c:out value="${prpLpayObjectInfo.amlFlag}"/>">
+											</td>
+										</tr>
+										<tr>
+											<td class="title" style="width: 15%">賠付對象：</td>
+											<td class="input" style="width: 18%">
+												<!-- mantis： CLM0017，處理人員：Sam，需求單編號：CLM0017，原住名姓名調整作業_車 -->
+												<input name="prpLpayObjectInfoOwnerName" class="input" maxlength="100" value="${prpLpayObjectInfo.ownerName}">
+												<img src="${ctx}/images/bgMarkMustInput.jpg">
+											</td>
+											<td class="title" style="width: 15%">費用類型：</td>
+											<td class="input" style="width: 18%">
+												<select name="prpLpayObjectInfoPaymentKind" style="width: 50%" onchange="changePaymentKind(this);">
+													<option value="1" <c:if test="${prpLpayObjectInfo.paymentKind=='1'}"> <c:out value="selected"/></c:if>>修車廠</option>
+													<option value="2" <c:if test="${prpLpayObjectInfo.paymentKind=='2'}"> selected</c:if>>材料商</option>
+													<option value="3" <c:if test="${prpLpayObjectInfo.paymentKind=='3'}"> selected</c:if>>公司行號</option>
+													<option value="4" <c:if test="${prpLpayObjectInfo.paymentKind=='4'}"> selected</c:if>>個人</option>
+													<option value="5" <c:if test="${prpLpayObjectInfo.paymentKind=='5'}"> selected</c:if>>公證公司</option>
+													<option value="6" <c:if test="${prpLpayObjectInfo.paymentKind=='6'}"> selected</c:if>>健保局</option>
+													<option value="7" <c:if test="${prpLpayObjectInfo.paymentKind=='7'}"> selected</c:if>>同業</option>
+												</select> <img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+											</td>
+											<td class="input" style="width: 15%">證件類型：</td>
+											<td class="input" style="width: 18%">
+												<c:set var="tempCertificateCode" value='${prpLpayObjectInfo.certificateCode}' />
+												<s:select name="prpLpayObjectInfoCertificateCode" value="#attr.tempCertificateCode" listKey="key" listValue="value" list="#request.prpdpaymentaccountCertificateTypeList" />
+											</td>
+										</tr>
+										<tr>
+											<td class="title" style="width: 15%">
+												<span name="InfoUniformNo1" <c:if test="${prpLpayObjectInfo.ownerShip=='C' && prpLpayObjectInfo.paymentKind=='4'}">style="display:none;"</c:if>>統一編號/身份證號：</span> <span
+													name="InfoUniformNo2" <c:if test="${!(prpLpayObjectInfo.ownerShip=='C' && prpLpayObjectInfo.paymentKind=='4')}">style="display:none;"</c:if>>個人身份證號：</span>
+											</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoUniformNo" class="input" value="${prpLpayObjectInfo.uniformNo}" />
+												<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+											</td>
+											<td class="title" style="width: 15%">
+												<span name="BeneficiaryPhone1" <c:if test="${prpLpayObjectInfo.ownerShip=='C'}">style="display:none;"</c:if>>受款人電話：</span> <span name="BeneficiaryPhone2"
+													<c:if test="${prpLpayObjectInfo.ownerShip!='C'}">style="display:none;"</c:if>>市內電話：</span>
+											</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoBeneficiaryPhone" class="input" value="${prpLpayObjectInfo.beneficiaryPhone}" />
+												<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" name="BeneficiaryPhoneIMG" />
+											</td>
+											<td class="title" style="width: 15%">
+												<span name="spanCutBack" <c:if test="${prpLpayObjectInfo.ownerShip!='Q'}">style="display:none;"</c:if>>禁背：</span>
+											</td>
+											<td class="input" style="width: 18%">
+												<span name="spanCutBack" <c:if test="${prpLpayObjectInfo.ownerShip!='Q'}">style="display:none;"</c:if>>
+													<select name="prpLpayObjectInfoCutBack" >
+														<option value="1" <c:if test="${prpLpayObjectInfo.cutBack=='1'}"> selected</c:if>>是</option>
+														<option value="0" <c:if test="${prpLpayObjectInfo.cutBack=='0'}"> selected</c:if>>否</option>
+													</select>
+												</span>
+											</td>
+										</tr>
+										<tr name="bankInfo" <c:if test="${prpLpayObjectInfo.ownerShip!='B'}">style="display:none;"</c:if>>
+											<td class="title" style="width: 15%">總行代號：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoBankCode" readOnly="readonly" class="readonly" value="${prpLpayObjectInfo.bankCode}" />
+											</td>
+											<td class="title" style="width: 15%">總行名稱：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoBankName" readOnly="readonly" class="readonly" value="${prpLpayObjectInfo.bankName}">
+											</td>
+											<td class="title" style="width: 15%">匯款帳號：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoAccountCode" readOnly="readonly" class="readonly" value="${prpLpayObjectInfo.accountCode}">
+											</td>
+										</tr>
+										<tr name="bankInfo" <c:if test="${prpLpayObjectInfo.ownerShip!='B'}">style="display:none;"</c:if>>
+											<td class="title" style="width: 15%">分行代號：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoCustomBankCode" readOnly="readonly" class="readonly" value="${prpLpayObjectInfo.customBankCode}">
+											</td>
+											<td class="title" style="width: 15%">分行名稱：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoCustomBankName" readOnly="readonly" class="readonly" value="${prpLpayObjectInfo.customBankName}">
+											</td>
+											<td class="title" style="width: 33%" colspan="2" align="center">
+												<!-- 录入赔款支付帳户信息 -->
+												<input class='bigbutton' type='button' name='buttonAccCompensate' style="width: 180px;" value='<s:text name="button.inputPaymentInformation.value" />' onclick="queryUserCompensate(this);">
+											</td>
+										</tr>
+										<tr name="AreaInfo" <c:if test="${prpLpayObjectInfo.ownerShip=='C'}">style="display:none"</c:if>>
+											<!-- mantis：CLM0145，處理人員：DP0713，需求單編號：CLM0145，.新核心-理算任務處理賠付對象郵遞區號長度檢核 -->
+											<!--  \webapp\claim\pages\common\compensate\EditPrpdpaymentaccountPage.jsp 2-->
+											<td class="title" style="width: 15%">郵遞區號：</td>
+											<td class="input" style="width: 18%">
+												<!-- mantis：CLM0145，處理人員：DP0713，需求單編號：CLM0145，.新核心-理算任務處理賠付對象郵遞區號長度檢核 -->
+												<input name="prpLpayObjectInfoAreaCode" class="input" maxlength="3" value="${prpLpayObjectInfo.areaCode}" />
+												<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+											</td>
+											<td class="title" style="width: 15%">郵遞地址：</td>
+											<td class="input" style="width: 50%" colspan="3">
+												<input name="prpLpayObjectInfoCourierAddress" class="input" value="${prpLpayObjectInfo.courierAddress}">
+												<img src="${ctx}/images/bgMarkMustInput.jpg" complete="complete" />
+											</td>
+										</tr>
+										<tr name="PayDate" <c:if test="${prpLpayObjectInfo.ownerShip!='C'}">style="display:none"</c:if>>
+											<td class="title" style="width: 15%">付款日期：</td>
+											<td class="input" style="width: 18%">
+												<rc:rcDate name="prpLpayObjectInfoPayDate" class="input" value="${prpLpayObjectInfo.payDate}" />
+											</td>
+											<td class="title" style="width: 15%">行動電話：</td>
+											<td class="input" style="width: 18%">
+												<input name="prpLpayObjectInfoMobilePhoneNo" class="input" value="${prpLpayObjectInfo.mobilePhoneNo}">
+											</td>
+											<td class="title" style="width: 15%"></td>
+											<td class="input" style="width: 18%"></td>
+										</tr>
+									</table>
+								</td>
+								<td class="input" style="width: 4%;">
+									<div>
+										<input type=button name="buttonPayAccountInfoDelete" class="smallbutton" onclick="deletePrpLpayObjectInfo(this);" value="-" style="cursor: hand">
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</span>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<!--Hibernate TransactionManager -->
+	<bean id="jdbcTransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="globalRollbackOnParticipationFailure" value="false" /> <!--指定此参数为false-->
+	</bean>
+	<!-- 
+	<bean id="bpmTransactionManager" class="org.springframework.transaction.jta.WebLogicJtaTransactionManager">
+		<property name="transactionManagerName" value="javax.transaction.TransactionManager" />
+		<property name="globalRollbackOnParticipationFailure" value="false" /> 
+	</bean>   
+	 -->
+	<!-- 大对象处理器 -->
+	<bean id="lobHandler" lazy-init="true"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+	<!--Hibernate SessionFatory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="jdbcDataSource" />
+		<!-- 大对象处理器 -->
+		<property name="lobHandler" ref="lobHandler" />
+
+		<!-- 可以同时支持annotatedClasses和hbm -->
+		<property name="packagesToScan">
+			<list>
+				<value>ins.platform.**.model</value>
+				<value>com.sinosoft.sys.**.model</value>
+				<value>com.sinosoft.app.**.model</value>
+				<value>com.sinosoft.claim.**.model</value>
+				<value>com.sinosoft.reins.**.model</value>
+				<value>com.sinosoft.payment.**.model</value>
+			</list>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sinosoft.common.schema.model.PrpPhead</value>
+				<value>com.sinosoft.common.schema.model.PrpCmain</value>
+				<!-- mantis： CLM0040，處理人員：BK007 蘇哲，需求單編號：CLM0040 外來人口統一證號格式修正   start -->
+				<value>com.sinosoft.common.schema.model.UtiSystem</value>
+				<value>com.sinosoft.common.schema.model.UtiMenu</value>
+				<value>com.sinosoft.common.schema.model.UtiSysparam</value>
+				<value>com.sinosoft.common.schema.model.UtiPlatConfig</value>
+				<value>com.sinosoft.common.schema.model.UtiPlatConfigRule</value>
+				<!-- mantis： CLM0040，處理人員：BK007 蘇哲，需求單編號：CLM0040 外來人口統一證號格式修正   end -->
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					${hibernate.dialect}
+				</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop> 
+			</props>
+		</property>  
+	</bean>
+	<!--多数据源-->
+	
+	<bean id="operateHistoryListener" class="ins.platform.history.listener.OperateHistoryListener">
+		<property name="operateTimeField" value="operateTimeForHis" />
+	</bean>
+</beans>

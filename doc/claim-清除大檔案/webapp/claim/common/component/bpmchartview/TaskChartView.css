@@ -1,0 +1,41 @@
+.historyNode{
+	border:3px solid #009900;
+}
+.history_node{
+	border:3px solid #009900;	
+	background-color : #00CC00;
+	filter:alpha(opacity=75);
+}
+.hostory_node_phrase{
+	border:5px solid #66FF66;
+	background-color : #66FF00;
+}
+.dataTableInfo{
+	background-color:white;
+}
+.dataTabelInfo_detailTable{
+	width:100%;
+}
+.dataTabelInfo_detailTable thead td{
+	background-color:#0066FF;
+	color:#FFFFFF;
+}
+.dataTabelInfo_detailTable tr td{
+	border:1px solid #C0C0C0;	
+}
+.dataTabelInfo_detailTable{
+	border:1px solid #000000;
+}
+.currentNode{
+	position:absolute;
+	border:3px solid #FFFF00;
+}
+.current_node{
+	border:3px solid #FFFF00;	
+	background-color : #FFFF66;
+	filter:alpha(opacity=75);
+}
+.current_node_phrase{
+	border:5px solid #FFFF00;
+	background-color :  #FFFF66;
+}

@@ -1,0 +1,149 @@
+package com.sinosoft.claim.common.util;
+
+import com.sinosoft.claim.common.ConstantCodes;
+
+/**
+ * 车险险种险别代码
+ * @Description 与ConfigCode.js对应
+ * @author 中科软
+ */
+public final class ConfigCode {
+
+	public static final String CLASSCODE_D = ConstantCodes.CLASSCODE_D05;
+
+	public static final String RISKCODE_DAA = "0501";
+	public static final String RISKCODE_DAE = "0502";
+	public static final String RISKCODE_DAJ = "0503";
+	public static final String RISKCODE_DTC = "0504";
+	public static final String RISKCODE_DAS = "0505";
+	public static final String RISKCODE_DAZ = "0507";
+	public static final String RISKCODE_DJT = "0508";
+	public static final String RISKCODE_DAF = "0509";
+	public static final String RISKCODE_DGB = "0510";
+	public static final String RISKCODE_DAH = "0511";
+	public static final String RISKCODE_DJF = "0512";
+	public static final String RISKCODE_DJY = "0513";
+	public static final String RISKCODE_DJJ = "0516";
+	public static final String RISKCODE_DGJ = "0517";
+	public static final String RISKCODE_DQZ = "0518";
+	public static final String RISKCODE_DAB = "0520";
+	public static final String RISKCODE_DAC = "0530";
+	public static final String RISKCODE_DAW = "0541";
+	public static final String RISKCODE_DJB = "0599";
+
+	public static final String KINDCODE_D_DAA_A = "A";// 机动车损失保险
+	public static final String KINDCODE_D_DAA_A4 = "A4";// 指定专修厂特约
+	public static final String KINDCODE_D_DAA_B = "B";// 第三者责任保险
+	public static final String KINDCODE_D_DAA_C = "C";// 代步机动车服务特约
+	public static final String KINDCODE_D_DAA_C6 = "C5";// 异地出险住宿费特约
+	public static final String KINDCODE_D_DAA_C5 = "C6";// 法律费用特约
+	public static final String KINDCODE_D_DAA_D11 = "D11";// 车上人员责任险(驾驶人)
+	public static final String KINDCODE_D_DAA_D12 = "D12";// 车上人员责任险(乘客)
+	public static final String KINDCODE_D_DAA_D2 = "D2";// 车上货物责任险
+	public static final String KINDCODE_D_DAA_E = "E";// 火灾、爆炸、自燃损失险
+	public static final String KINDCODE_D_DAA_F = "F";// 玻璃单独破碎险
+	public static final String KINDCODE_D_DAA_FZ = "FZ";// 车内附属装置单独被盗损失特约
+	public static final String KINDCODE_D_DAA_G = "G";// 盗抢险
+	public static final String KINDCODE_D_DAA_J = "J";// 紧急救助特约
+	public static final String KINDCODE_D_DAA_K1 = "K1";// 起重、装卸、挖掘车辆损失扩展条款
+	public static final String KINDCODE_D_DAA_K2 = "K2";// 特种车辆固定设备、仪器损坏扩展条款
+	public static final String KINDCODE_D_DAA_L = "L";// 车身划痕损失险
+	public static final String KINDCODE_D_DAA_LP = "LP";// 换件特约
+	public static final String KINDCODE_D_DAA_LT = "LT";// 更换轮胎服务特约
+	public static final String KINDCODE_D_DAA_M = "M";// 不计免赔率特约
+	public static final String KINDCODE_D_DAA_M1 = "M1";// 可选免赔额特约
+	public static final String KINDCODE_D_DAA_M2 = "M2";// 多次出险增加免赔率特约
+	public static final String KINDCODE_D_DAA_NX = "NX";// 新车特约条款A
+	public static final String KINDCODE_D_DAA_NY = "NY";// 新车特约条款B
+	public static final String KINDCODE_D_DAA_NZ = "NZ";// 随车行李物品损失险
+	public static final String KINDCODE_D_DAA_R = "R";// 交通事故精神损害赔偿责任险
+	public static final String KINDCODE_D_DAA_S = "S";// 机动车出境险
+	public static final String KINDCODE_D_DAA_SC = "SC";// 送油、充电服务特约
+	public static final String KINDCODE_D_DAA_SZ = "SZ";// 租车人人车失踪险
+	public static final String KINDCODE_D_DAA_T1 = "T1";// 机动车停驶损失险
+	public static final String KINDCODE_D_DAA_TF = "TF";// 拖车服务特约
+	public static final String KINDCODE_D_DAA_TX = "TX";// 约定区域通行费用特约
+	public static final String KINDCODE_D_DAA_V1 = "V1";// 油污污染责任险
+	public static final String KINDCODE_D_DAA_X = "X";// 新增加设备损失险
+	public static final String KINDCODE_D_DAA_X1 = "X1";// 发动机特别损失险
+	public static final String KINDCODE_D_DAA_Y = "Y";// 教练车特约
+	public static final String KINDCODE_D_DAA_Z = "Z";// 自燃损失险
+	public static final String KINDCODE_D_DAE_A = "A";// 机动车损失保险
+	public static final String KINDCODE_D_DAE_A4 = "A4";// 机动车保险选择汽车专修厂特约
+	public static final String KINDCODE_D_DAE_B = "B";// 第三者责任保险
+	public static final String KINDCODE_D_DAE_C5 = "C5";// 异地出险住宿费特约
+	public static final String KINDCODE_D_DAE_C6 = "C6";// 法律费用特约条款
+	public static final String KINDCODE_D_DAE_D11 = "D11";// 车上人员责任险(驾驶人)
+	public static final String KINDCODE_D_DAE_D12 = "D12";// 车上人员责任险(乘客)
+	public static final String KINDCODE_D_DAE_D2 = "D2";// 车上货物责任险
+	public static final String KINDCODE_D_DAE_F = "F";// 玻璃单独破碎险
+	public static final String KINDCODE_D_DAE_FZ = "FZ";// 车内附属装置单独被盗损失特约
+	public static final String KINDCODE_D_DAE_G = "G";// 盗抢险
+	public static final String KINDCODE_D_DAE_K1 = "K1";// 起重、装卸、挖掘车辆损失扩展条款
+	public static final String KINDCODE_D_DAE_K2 = "K2";// 特种车固定设备、仪器损坏扩展条款
+	public static final String KINDCODE_D_DAE_L = "L";// 车身划痕损失险
+	public static final String KINDCODE_D_DAE_LP = "LP";// 换件特约
+	public static final String KINDCODE_D_DAE_M = "M";// 不计免赔率特约
+	public static final String KINDCODE_D_DAE_M1 = "M1";// 可选免赔额特约
+	public static final String KINDCODE_D_DAE_R = "R";// 交通事故精神损害赔偿责任保险
+	public static final String KINDCODE_D_DAE_S = "S";// 机动车出境保险
+	public static final String KINDCODE_D_DAE_SZ = "SZ";// 租车人人车失踪险
+	public static final String KINDCODE_D_DAE_T = "T";// 机动车停驶损失险
+	public static final String KINDCODE_D_DAE_TX = "TX";// 约定区域通行费用特约
+	public static final String KINDCODE_D_DAE_V1 = "V1";// 油污污染责任保险
+	public static final String KINDCODE_D_DAE_X = "X";// 新增加设备损失保险
+	public static final String KINDCODE_D_DAJ_A = "A";// 机动车损失保险
+	public static final String KINDCODE_D_DAJ_B = "B";// 第三者责任保险
+	public static final String KINDCODE_D_DAJ_D11 = "D11";// 车上人员责任险(驾驶人)
+	public static final String KINDCODE_D_DAJ_D12 = "D12";// 车上人员责任险(乘客)
+	public static final String KINDCODE_D_DAJ_G = "G";// 盗抢险
+	public static final String KINDCODE_D_DAJ_M = "M";// 不计免赔率特约
+	public static final String KINDCODE_D_DTC_AB = "AB";// 机动车损失保险和第三者责任保险
+	public static final String KINDCODE_D_DAS_AB = "AB";// 机动车损失保险和第三者责任保险
+	public static final String KINDCODE_D_DAS_D1 = "D1";// 车上人员责任险
+	public static final String KINDCODE_D_DAS_M = "M";// 不计免赔率特约
+	public static final String KINDCODE_D_DAZ_BZ = "21";// 机动车交通事故责任强制险
+	public static final String KINDCODE_D_DGB_A = "A";// 机动车损失保险
+	public static final String KINDCODE_D_DGB_B = "B";// 第三者责任保险
+	public static final String KINDCODE_D_DGB_C5 = "C5";// 异地出险住宿费特约
+	public static final String KINDCODE_D_DGB_C6 = "C6";// 法律费用特约条款
+	public static final String KINDCODE_D_DGB_C7 = "C7";// 节假日行驶区域扩展特约
+	public static final String KINDCODE_D_DGB_D11 = "D11";// 车上人员责任险(驾驶人)
+	public static final String KINDCODE_D_DGB_D12 = "D12";// 车上人员责任险(乘客)
+	public static final String KINDCODE_D_DGB_D2 = "D2";// 车上货物责任险
+	public static final String KINDCODE_D_DGB_E = "E";// 火灾、爆炸、自燃损失险
+	public static final String KINDCODE_D_DGB_F = "F";// 玻璃单独破碎险
+	public static final String KINDCODE_D_DGB_G = "G";// 盗抢险
+	public static final String KINDCODE_D_DGB_K1 = "K1";// 起重、装卸、挖掘车辆损失扩展条款
+	public static final String KINDCODE_D_DGB_K2 = "K2";// 特种车固定设备、仪器损坏扩展条款
+	public static final String KINDCODE_D_DGB_L = "L";// 车身划痕损失险
+	public static final String KINDCODE_D_DGB_M = "M";// 不计免赔率特约
+	public static final String KINDCODE_D_DGB_M1 = "M1";// 可选免赔额特约
+	public static final String KINDCODE_D_DGB_M2 = "M2";// 多次出险增加免赔率特约条款
+	public static final String KINDCODE_D_DGB_NY = "NY";// 新车特约条款B
+	public static final String KINDCODE_D_DGB_NZ = "NZ";// 随车行李物品损失保险条款
+	public static final String KINDCODE_D_DGB_R = "R";// 交通事故精神损害赔偿责任保险
+	public static final String KINDCODE_D_DGB_T = "T";// 机动车停驶损失险
+	public static final String KINDCODE_D_DGB_U = "U";// 换件特约
+	public static final String KINDCODE_D_DGB_X = "X";// 新增加设备损失保险
+	public static final String KINDCODE_D_DGB_X1 = "X1";// 发动机特别损失险
+	public static final String KINDCODE_D_DGB_Y = "Y";// 教练车特约
+	public static final String KINDCODE_D_DGB_Z = "Z";// 自燃损失险
+	public static final String KINDCODE_D_DJB_A = "A";// 车辆损失险
+	public static final String KINDCODE_D_DJB_B = "B";// 第三者责任保险
+	public static final String KINDCODE_D_DJB_B1 = "B1";// 第三者人身伤亡保险
+	public static final String KINDCODE_D_DJB_C = "C";// 代步车费用险
+	public static final String KINDCODE_D_DJB_D2 = "D2";// 车上货物责任险
+	public static final String KINDCODE_D_DJB_D3 = "D3";// 驾驶员责任险
+	public static final String KINDCODE_D_DJB_D4 = "D4";// 乘客责任险
+	public static final String KINDCODE_D_DJB_F = "F";// 玻璃单独破碎险
+	public static final String KINDCODE_D_DJB_G = "G";// 全车盗抢险
+	public static final String KINDCODE_D_DJB_G0 = "G0";// 全车盗抢附加高尔夫球具盗窃险
+	public static final String KINDCODE_D_DJB_H = "H";// 车载货物掉落责任险
+	public static final String KINDCODE_D_DJB_L = "L";// 车身划痕损失险
+	public static final String KINDCODE_D_DJB_R = "R";// 交通事故精神损害赔偿责任险
+	public static final String KINDCODE_D_DJB_T = "T";// 车辆停驶损失险
+	public static final String KINDCODE_D_DJB_W = "W";// 无过失责任险
+	public static final String KINDCODE_D_DJB_X = "X";// 新增设备损失险
+	public static final String KINDCODE_D_DJB_Z = "Z";// 自燃损失险
+}

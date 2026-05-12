@@ -1,0 +1,1528 @@
+create or replace PROCEDURE "PROC_ECPOLICY_INTERINFO"(
+ policyno VARCHAR2,
+ endorseno VARCHAR2,
+ endorsetimes VARCHAR2,
+ validDate DATE,
+ validHour NUMBER,
+ endorType VARCHAR2
+ )AS
+ --WAA:TEXT要保人資料檔
+ --WAB:TEXT被保險人資料檔
+ --WAC:TEXT被保險人險種資料檔
+ --WAD:TEXT照會資料檔
+ --WAE:TEXT分期資料檔
+ queryp_sql VARCHAR2(5000):='';
+ error_info varchar2(50);
+ error_message varchar2(200);
+ validDateNum number := (to_number(to_char(validDate,'yyyyMMdd'))-19110000);
+ endorsetimesNum number := endorsetimes;
+ endorseNoOld varchar2(20);
+    endorseNotmp varchar2(20);
+BEGIN
+ -----------------------------保單信息保存------------------------------
+ IF endorseno IS NULL THEN
+ --DELETE TABLES
+-- error_info:='POLICY INFO DELETE FAILURE';
+-- EXECUTE IMMEDIATE 'delete from WAA where WAA02='''||policyno||''' and WAA01=''1''';
+-- EXECUTE IMMEDIATE 'delete from WAB where WAB02='''||policyno||''' and WAD01=''1''';
+-- EXECUTE IMMEDIATE 'delete from WAC where WAC02='''||policyno||''' and WAC01=''1''';
+-- EXECUTE IMMEDIATE 'delete from WAD where WAD01=(select proposalno from prpcmain where policyno='''||policyno||''')';
+ --EXECUTE IMMEDIATE 'delete from WAE where WAE02='''||policyno||''' and WAE01=''1''';
+
+ error_info:='POLICY INFO INSERT ECWAA FAILURE';
+--INSERT ECWAA
+--LIA0211 新增AS400介接傳送保單的時數 WAA107,WAA108
+EXECUTE IMMEDIATE 'insert into ECWAA(WAA00,WAA01,WAA02,WAA03,WAA04,WAA05,WAA06,WAA07,WAA08,WAA09,WAA10,WAA11,WAA12,WAA13,WAA14,
+WAA15,WAA16,WAA17,WAA18,WAA19,WAA20,WAA21,WAA22,WAA23,WAA24,WAA25,WAA26,WAA27,WAA28,WAA29,WAA30,WAA31,WAA32,WAA33,WAA34,WAA35,
+WAA36,WAA37,WAA38,WAA39,WAA40,WAA41,WAA42,WAA43,WAA44,WAA45,WAA46,WAA47,WAA48,WAA49,WAA50,WAA51,WAA52,WAA53,WAA54,WAA55,WAA56,
+WAA57,WAA58,WAA59,WAA60,WAA61,WAA62,WAA63,WAA64,WAA65,WAA66,WAA67,WAA68,WAA69,WAA70,WAA71,WAA72,WAA73,WAA74,WAA75,WAA76,WAA77,
+WAA78,WAA79,WAA80,WAA81,WAA82,WAA83,WAA84,WAA85,WAA86,WAA87,WAA88,WAA89,WAA90,WAA91,WAA92,WAA93,WAA94,WAA95,WAA96,WAA97,WAA98,WAA99,endorsetimes,
+WAA100,WAA101,WAA102,WAA103,WAA104,WAA105,WAA106,WAA107,WAA108) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAA00  轉入日期（保留）
+     '''1'','||--WAA01  轉檔型態（1(保單) 2(批改)）
+     't1.policyno,'||--WAA02  保單號碼
+     'NULL,'||--WAA03  批單號碼
+     'case when t1.RISKCODE in (''TD'',''TC'',''BN'',''SP'') then substr(t1.insuredName||'' 要保人姓名:''||t1.APPLINAME,1,29) else (select TO_CHAR(REPLACE(wmsys.wm_concat (insuredname),'','',''/'')) as result from  prpcinsured a where  a.insuredflag=1 and a.policyno= t1.policyno) end,'||--WAA04  被保險人;mantis：EGN0007，處理人員：Bruce，需求單編號：EGN0007.工程險的被保險人有多筆時，中介檔ECWAA只有傳第一筆被保人
+     'substr(t2.postCode,1,3),'||--WAA05  郵遞區號－住宅
+     'substr(t1.insuredaddress,1,29),'||--WAA06  被保險人住所
+     'substr(t2.phoneNumber,1,14),'||--WAA07  被保險人電話
+     'substr(t2.postCode,1,3),'||--WAA08  郵遞區號－收
+     'substr(t2.postAddress,1,29),'||--WAA09  收費處
+     'substr(t2.phoneNumber,1,14),'||--WAA10  收費處電話
+     'NULL,'||--WAA11  行動電話
+     'substr(t2.identifyNumber,1,10),'||--WAA12  統一編號/ID
+     'extract(year from t1.operateDate)-1911||to_char(t1.operateDate,''mmdd''),'||--WAA13  簽單日期
+     'extract(year from t1.startDate)-1911||to_char(t1.startDate,''mmdd''),'||--WAA14  保險期間－起
+     'extract(year from t1.endDate)-1911||to_char(t1.endDate,''mmdd''),'||--WAA15  保險期間－迄
+     'extract(year from t1.mailDate)-1911||to_char(t1.mailDate,''mmdd''),'||--WAA16  合約日期／收件日
+     'NULL,'||--WAA17  生效總天數   ---非必輸
+     'NULL,'||--WAA18  保期月數   ---非必輸
+     'NULL,'||--WAA19  保期天數   ---非必輸
+     't1.sumamount,'||--WAA20  總保險金額
+     'NULL,'||--WAA21  總純保費  ---待確認  暫時無法取到純保費比率
+     't1.sumpremium,'||--WAA22  總保險費
+     't3.costrate,'||--WAA23  佣金率％
+     't3.costFee,'||--WAA24  佣金
+     '(Select Nvl2(Usercode, Usercode, decode(t1.businessNature,''B99901'',''179'',''189'')  || Comcode || ''0'')  From Prpdagent Where Agentcode = Nvl(t1.Agentcode, t1.Handlercode)),'||--WAA25  業務員編號
+     'NULL,'||--WAA26  業務員單位 ---待確認
+     't1.comCode,'||--WAA27  業務員歸屬單位 (select comCode from prpDagent where agentCode = t1.handlerCode)
+     'null,'||--WAA28  代理人
+     'substr(t1.businessNature,1,6),'||--WAA29  業務來源
+     'NULL,'||--WAA30  收費區代號   ---非必輸
+     'substr(t1.handler1Code,1,6),'||--WAA31  服務人員
+     't1.classCode,'||--WAA32  大險種   (??)
+     'decode(t1.classCode,''C'',(select businessAddressCode from prpCmainliab where policyNo = t1.policyNo),''E'',(select constructAddress from prpCmainConstruct where policyNo = t1.policyNo)),'||--WAA33  保險地區代號    prpCmainConstruct.constructAddress:工程?地?代?
+     '(select constructType from prpCmainConstruct where policyNo = t1.policyNo),'||--WAA34  保險標的物代號  ---責任險PR產品代號待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=1),'||--WAA35  附加或特約條款1  ---待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=2),'||--WAA36  附加或特約條款2  ---待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=3),'||--WAA37  附加或特約條款3  ---待確認
+     'decode(t1.publicFlag,''2'',''G'',''3'',''G'',NULL),'||--WAA38  公家招標件
+     '(select comCode from prpDuser where userCode = t1.handler1Code),'||--WAA39  服務人員單位
+     'NULL,'||--WAA40  服務人員代理人   ---非必輸
+     't1.extraComCode,'||--WAA41  營業單位  (select comCode from prpdagent where identifyNumber = (select handlerIdentifyNumber from prpCmain where policyNO = t1.policyno and substr((select userCode from prpDagent where identifynumber = t1.handlerIdentifyNumber and validstatus = ''1''),3,1) = ''9'') and validstatus = ''1'')
+     --'(select handlerIdentifyNumber from prpCmain where policyNO = t1.policyno and channeltype in (''21'',''22'',''23'',''31'',''32'',''33'')),'||--WAA42  營業人員   ---待確認
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA42  營業人員 
+     'substr(t1.projectCode,1,8),'||--WAA43  專案號碼
+     'NULL,'||--WAA44  自留保費  ---非必輸
+     '(select rate from prpCitemKind where policyNo = t1.policyNo and itemKindNo = ''1''),'||--WAA45  工程費率   ---費率第一條
+     '(select  sum(scourgeSumPremium)  from  prpCitemKind  where   policyno = '''||policyno||'''  and  kindcode = ''CA001''),'||--WAA46  本體天災保費   ---待確認  天災保費累計
+     'NULL,'||--WAA47  商品代碼   ---非必輸
+     'NULL,'||--WAA48  被保人性質代號 C,P')   ---非必輸
+     'NULL,'||--WAA49  危險期間－起  ---非必輸
+     'NULL,'||--WAA50  危險期間－迄  ---非必輸
+     'decode(t1.coinsFlag,''1'',''Y'',''2'',''N'',''N''),'||--WAA51  是否為主出單公司   ---待拆分
+     '(select coinsRate from prpCcoins where coinsCode = ''18'' and policyno = t1.policyNo),'||--WAA52  共保比例％
+     '(select coinsPremium from prpCcoinsdetail where coinsCode = ''18''  and policyno = t1.policyNo),'||--WAA53  共保(保險費)
+     '(select dangerType from prpCmainLiab where policyno = t1.policyNo ),'||--WAA54  危險單位類別   ---待確認
+     '(select (case when riskcode=''ER'' then STAFFCOUNT else dangerousQuantity end) from prpCmainLiab where policyno = t1.policyNo ),'||--WAA55  危險單位數量    ---待確認
+     'decode((select liabBusinessNature from prpCmainLiab where policyno = t1.policyNo ),''1'',''N'',''2'',''Y'',''Y''),'||--WAA56  (工程類雇主責任) Y/N   ---非必輸
+     'case when t1.RISKCODE in (''MN'') then null else (select dangerousSortCode from prpCmainLiab where policyno = t1.policyNo ) end,'||--WAA57  危險分類總項代號  ---待確認
+     '(select dangerousCode from prpCmainLiab where policyno = t1.policyNo ),'||--WAA58  危險分類細項代號  ---待確認
+     '(select introducerID from prpCmain where policyNO = t1.policyno  and introducerID != t1.handlerIdentifyNumber),'||--WAA59  營業介紹人
+     't1.specialFlag,'||--WAA60  特殊件　 N/Y
+     'round((t1.discountRate/100),2),'||--WAA61  特殊件折算率 1/3
+     'decode(t1.fycflag,''1'',''Y'',''N''),'||--WAA62  ??件
+     't1.channelType,'||--WAA63  保發通路別
+     't1.reinsMark,'||--WAA64  再保註記
+     'decode(t1.payTimes,1,''01'',2,''02'',4,''04'',12,''12'',t1.payTimes),'||--WAA65  分期註記 (01;02;04;12)t1.descriptions
+     't1.commonBusiness,'||--WAA66  共同業務
+     '(select decode(comlevel,''2'',comcode,''3'',uppercomcode,''1'',comcode) from prpdcompany where comcode = t1.comcode),'||--WAA67  區碼   ---非必輸
+     'NULL,'||--WAA68  銷帳編號   ---非必輸
+     'NULL,'||--WAA69  損失險總保額(工程險用)   ---非必輸
+     'NULL,'||--WAA70  意外險總保額(工程險用)   ---非必輸
+     'NULL,'||--WAA71  損失險總保費(工程險用)   ---非必輸
+     'NULL,'||--WAA72  意外險總保費(工程險用)   ---非必輸
+     'NULL,'||--WAA73  批改事由
+     'NULL,'||--WAA74  批單有效期?起期
+     'NULL,'||--WAA75  批單有效期?迄期
+     'NULL,'||--WAA76  批單生效時間
+     'NULL,'||--WAA77  加減總保費
+     'NULL,'||--WAA78  加減總純保費
+     'NULL,'||--WAA79  加減總佣金
+     'NULL,'||--WAA80  批改后佣金率
+     'NULL,'||--WAA81  加減總保額
+     'NULL,'||--WAA82  退保方式
+     'NULL,'||--WAA83  退保總行
+     'NULL,'||--WAA84  退保分行
+     'NULL,'||--WAA85  退保帳號
+     'NULL,'||--WAA86  退保郵遞區號
+     'NULL,'||--WAA87  退保通訊地址
+     'NULL,'||--WAA88  取消禁背
+     'NULL,'||--WAA89  契撤申請人ID
+     'NULL,'||--WAA90  互抵 批號
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA91  登錄證號
+     'NULL, '||--WAA92  全註銷/批退抵繳註記 P/Y
+     'NULL, '||--WAA93  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA94  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA95  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA96  AS400專用(核心未傳該值)
+	 't3.UNDERWRITIDCOEFFICODE, '||--WAA97 核保加減費係數-增減代號
+	 't3.UNDERWRITIDCOEFFIRATE, '||--WAA98 核保加減費係數-增減率
+--20210727 許馨燕增加取人工輸入AS400保單號欄位
+     '(case when (select OLDPOLICYNO  from prpCrenewal where POLICYNO = t1.policyNo) is null then t1.aspolicyno else  (select OLDPOLICYNO  from prpCrenewal where POLICYNO = t1.policyNo) end),'||--WAA99  續保單號碼 ;mantis：LIA0066，處理人員：DP0706，需求單編號：LIA0066 責任險及工程險保單內容中的續保單號碼需介接至AS400(WAA99)
+     'NULL, '||--endorsetimes
+     '(case when autoTransRenewFlag=''Y'' then substr((select replace(creditCardNo,'' '','''') from prpCmainHealth where policyno=t1.policyno),1,16) end), '||--WAA100  信用卡號
+     '(case when autoTransRenewFlag=''Y'' then (select TO_CHAR(CREDITCARDEXPIRYDATE,''mm'')||TO_CHAR(CREDITCARDEXPIRYDATE,''yy'') from prpCmainHealth where policyno=t1.policyno) end), '||--WAA101  信用卡到期年月
+     '(case when autoTransRenewFlag=''Y'' then substr((select payerName from prpCmainHealth where policyno=t1.policyno),1,12) end), '||--WAA102  信用卡持卡人
+     '(case when autoTransRenewFlag=''Y'' then substr((select payerCode from prpCmainHealth where policyno=t1.policyno),1,10) end), '||--WAA103  持卡人ID
+     '(case when autoTransRenewFlag=''Y'' then substr((select otherCompanyFlag from prpCmainHealth where policyno=t1.policyno),1,1) end), '||--WAA104  持卡人身份
+     '(case when autoTransRenewFlag=''Y'' then substr((select payerProposerRelation from prpCmainHealth where policyno=t1.policyno),2,1) end), '||--WAA105  持卡人與要被保險人關係
+     --LIA0211 增加傳送保期起迄小時至AS400 start
+     '(case when autoTransRenewFlag=''Y'' then t1.sumpremium end), '||
+     't1.STARTHOUR , '||--WAA107  保期時間 起(時數)
+     't1.ENDHOUR '||--WAA108  保期時間 止(時數)
+     --LIA0211 增加傳送保期起迄小時至AS400 END
+     'from   prpcmain t1,
+             (select t.* from (select a.*,rank()over(order by serialno) rank from prpcinsured a where  a.insuredflag=1 and a.policyno='''||policyno||''') t where t.rank=1)  t2,
+       prpCcommission t3
+      where  t2.insuredflag=1
+      and    t1.policyno=t2.policyno
+      and    t1.policyno='''||policyno||'''
+      and    t1.policyno=t3.policyno';
+
+
+
+
+
+error_info:='POLICY INFO INSERT ECWAB FAILURE';
+--INSERT ECWAB
+EXECUTE IMMEDIATE 'insert into ECWAB(WAB00,WAB01,WAB02,WAB03,WAB04,WAB05,WAB06,WAB07,WAB08,WAB09,WAB10,WAB11,WAB12,WAB13,WAB14,
+WAB15,WAB16,WAB17,WAB18,WAB19,WAB20,WAB21,WAB22,WAB23,WAB24,WAB25,WAB26,WAB27,WAB28,WAB29,WAB30,WAB31,WAB32,WAB33,WAB34,WAB35,WAB36) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAB00  轉入日期(民國年)
+     '''1'','||--WAB01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAB02  保單號碼
+     'NULL,'||--WAB03  批單號碼
+     '(select businessCode from prpCmainLiab where policyNo = t1.policyNo),'||--WAB04  行業 / 職業別代號
+     'extract(year from (select bkWardStartDate from prpCmainLiab where policyNo = t1.policyNo))-1911||to_char((select bkWardStartDate from prpCmainLiab where policyNo = t1.policyNo),''mmdd''),'||--WAB05  追溯日期
+     '(select substr(hirer,1,29) from prpCmainLiab where policyNo = t1.policyNo and riskCode = ''AB''),'||--WAB06  執行業務種類
+--20210727 許馨燕增加prpCmainLiab.staffCount
+     '(case when t1.riskcode=''PB'' then (select staffCount from prpCmainLiab where policyNo = t1.policyNo)else NULL end),'||--WAB07  標的物所在處所   ---待確認  是否為標的物處所中的標的物地址  並且標的物地址可以有多個  prpCaddress.addressName
+     '(select substr(hirer,1,29) from prpCmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB08  定作人 ---待確認 是否會有多個   ---与執行業務種類?同一?字段 待确?
+     '(select substr(returnFlight,1,29) from prpCmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB09  定作人住所     ---工程?CA
+     '(select othPolicyNo from prpCmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB10  定作人統一編號
+     'NULL,'||--WAB11  承攬人
+     'NULL,'||--WAB12  承攬人住所
+     'substr(t1.appliName,1,29),'||--WAB13  要保人
+     'substr(t1.appliAddress,1,29),'||--WAB14  要保人住所
+     '(select substr(constructName,1,44) from prpCmainConstruct where policyNo = t1.policyNo),'||--WAB15  承保工程述要    prpCmainConstruct.constructName
+     '(select substr(t2.addressName,1,29) from (select t.*,rank()over(order by addressNo) rank from prpCaddress t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB16  施工處所   ---CP 有多個  prpCaddress.addressName
+     'NULL,'||--WAB17  延長報案或貸款期限   ---非必輸
+     'NULL,'||--WAB18  施工期間－起   ---非必輸
+     'NULL,'||--WAB19  施工期間－迄   ---非必輸
+     '(select substr(deductibleInstruction,1,9) from prpCitemKind where policyNo = t1.policyNo and kindCode = t1.riskCode||''009''),'||--WAB20  保期內最高責任說明
+     '(select periodMaxAmount from prpCitemKind where policyNo = t1.policyNo and kindCode = t1.riskCode||''009''),'||--WAB21  保期內最高責任保額
+     'NULL,'||--WAB22  受益人   ---受益人CA有多條
+     'NULL,'||--WAB23  共同被保人   ---非必輸
+     'NULL,'||--WAB24  使用人   ---CP 待?理
+     'NULL,'||--WAB25  使用人住所   ---CP 待?理
+     'NULL,'||--WAB26  使用人  統一編號   ---CP 待?理
+     '(select substr(t2.thickness,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB27  廠牌   ---CP  prpcitemkind.thickness  有多?
+     '(select substr(t2.model,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB28  型式   ---CP  prpcitemkind.model  有多?
+     '(select substr(t2.productCode,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB29  引擎號碼   ---CP  prpcitemkind.productCode  有多?
+     '(select t2.buyDate from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB30  製造年份   ---EE,MB  prpcitemkind.buyDate
+     'NULL,'||--WAB31  存放處所   ---CP  prpCaddress.addressName
+     '(select substr(t2.itemCode,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB32  鍋爐編號   ---BP
+     '(select t2.buyDate from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB33  製造年份
+     '(select substr(t2.storeAddress,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB34  存放地點
+     '(select constructType from prpCmainConstruct where policyNo = t1.policyNo),'||--WAB35  保險標的物代號    ---取的是保??的物代?  BP
+     '(select substr(constructName,1,44) from prpCmainConstruct where policyNo = t1.policyNo) '||--WAB36  保險標的物說明   ---取的是保??的物 BP
+     'from  prpcmain t1
+      where t1.policyNo='''||policyno||'''';
+
+
+error_info:='POLICY INFO INSERT ECWAC FAILURE';
+--INSERT ECWAC
+EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+     WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+     WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''1'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAC02  保單號碼
+     'NULL,'||--WAC03  批單號碼
+     't2.kindcode,'||--WAC04  險種代號
+     't2.itemKindNo,'||--WAC05  序號
+     't2.amount,'||--WAC06  保險金額
+     'NULL,'||--WAC07  保額說明代號   ---待确?
+     'NULL,'||--WAC08  保額說明   ---待确?
+     'NULL,'||--WAC09  自負額
+     'substr(t2.deductibleType,1,24),'||--WAC10  自負額說明代號   ---t2.deductibleType  自???型
+     'substr(t2.deductibleInstruction,1,24),'||--WAC11  自負額說明   ---t2.deductibleInstruction
+     't2.premium,'||--WAC12  保險費
+     't2.rate,'||--WAC13  保險費率／每千元
+     'substr(t2.itemNature,1,7),'||--WAC14  承保範圍
+     'NULL,'||--WAC15  自負額單位類別 t2.itemDetailName
+     'substr(t2.itemcode,1,2),'||--WAC17
+     'substr(t2.itemdetailname,1,1),'||--WAC18
+     't2.perhumaninjury,'||--WAC19
+     't2.perhumandeath,'||--WAC20
+     't2.peraccidentdeaths,'||--WAC21
+     't2.peraccidentdamage,'||--WAC22
+     't2.periodmaxamount,'||--WAC23
+     'NULL, '||--WAC16  批改性質
+	 't3.DEDUCTIBLEAMOUNT1,'||--WAC24  自負額數量1
+	 't3.DEDUCTIBLEAMOUNT2,'||--WAC25  自負額數量2
+	 't3.DEDUCTIBLEAMOUNT3,'||--WAC26  自負額數量3
+	 't3.UNDERWRITCOEFFIIDCODE,'||--WAC27  核保考量係數-增減代號
+	 't3.UNDERWRITCOEFFIIDRATE,'||--WAC28  核保考量係數-增減率
+	 't3.RISKCLASSCOEFFI,'||--WAC29  風險分類係數
+	 't3.AMOUNTCOEFFI,'||--WAC30  保額係數
+	 't3.YEARCOEFFIIDCODE,'||--WAC31  承保年期係數-增減代號
+	 't3.YEARCOEFFIIDRATE,'||--WAC32  承保年期係數-增減率
+	 't3.DANGERSEASONCODE,'||--WAC33  危險季節費率加費-增減代號
+	 't3.DANGERSEASONRATE,'||--WAC34  危險季節費率加費-增減率
+	 't3.DEDUCTIBLECOEFFIIDCODE,'||--WAC35  自負額係數-增減代號
+	 't3.DEDUCTIBLECOEFFIIDRATE,'||--WAC36  自負額係數-增減率
+	 't3.ENGINEERRISKCOEFFI,'||--WAC37  工程風險類別係數
+	 't3.HIGHAMOUNTCOEFFI,'||--WAC38  高保額係數
+	 't3.ENGINEERSCALECOEFFICODE,'||--WAC39  承保工程規模係數-增減代號
+	 't3.ENGINEERSCALECOEFFIRATE,'||--WAC40  承保工程規模係數-增減率
+	 't3.UNDERWRITCONSIDERIDCOEFFICODE,'||--WAC41  核保考量之加減費係數-增減代號
+	 't3.UNDERWRITCONSIDERIDCOEFFIRATE,'||--WAC42  核保考量之加減費係數-增減率
+	 't3.SCOREADJCOEFFICODE,'||--WAC43  承保範圍調整係數-增減代號
+	 't3.SCOREADJCOEFFIRATE,'||--WAC44  承保範圍調整係數-增減率
+	 't3.SHORTENTIMECOEFFICODE,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't3.SHORTENTIMECOEFFIRATE, '||--WAC46  縮短補償時間減費係數-增減率	
+--20210727 許馨燕修改PB
+	 '(case when t1.riskcode=''PB'' then (select max(dangerUnitAmount) from prpCmainLiab where POLICYNO=t1.policyno) else t3.HUGEDANGERCODE end), '||--WAC47  巨大危險數量代號
+	 't3.PREMIUMIDCODE, '||--WAC48  保費增減率-增減代號	 
+	 't3.PREMIUMIDRATE, '||--WAC49  保費增減率
+	 't3.SUBPREMIDCODE, '||--WAC50  附加保費-增減代號
+	 't3.SUBPREMIDRATE, '||--WAC51  附加保費-增減率
+	 't3.LOSSRATEADJAMOUNTCODE, '||--WAC52  損失率調整數額-增減代號
+	 't3.LOSSRATEADJAMOUNTRATE, '||--WAC53  損失率調整數額-增減率	 
+ 	 't3.AGGADJIDAMOUNTCODE, '||--WAC54  AGG調整加減數額-增減代號
+	 't3.AGGADJIDAMOUNTRATE ' ||--WAC55  AGG調整加減數額-增減率
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t4.DANGERUNITITEMITEM ' ||--WAC56  危險單位類別代號	 
+	 ',t4.DANGERUNITAMOUNT ' ||--WAC57  危險單位數量
+	 ',t4.DANGERCLASSIFICATIONTOTALITEM ' ||--WAC58  危險分總項代號
+	 ',t4.DANGERCLASSIFICATIONITEM ' ||--WAC59  危險分類細項代號
+	 ',t3.OTHERS1COEFFICODE ' ||--WAC60  其他係數1-增減代號
+	 ',t3.OTHERS1COEFFIRATE ' ||--WAC61  其他係數1-增減率
+	 ',t3.OTHERS2COEFFICODE ' ||--WAC62  其他係數2-增減代號 
+	 ',t3.OTHERS2COEFFIRATE ' ||--WAC63  其他係數2-增減率
+	 ',t3.OTHERS3COEFFICODE ' ||--WAC64  其他係數3-增減代號 
+	 ',t3.OTHERS3COEFFIRATE ' ||--WAC65  其他係數3-增減率
+	 ',t3.SPECIALCONDITION ' ||--WAC66  特殊條件 	
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+
+     'from prpcmain t1,
+           prpCitemKind t2
+		   left join prpCitemKindFactor t3 
+		   on t2.policyno = t3.policyno 
+		   and	t2.ITEMKINDNO = t3.ITEMKINDNO
+		   left join PRPCMAINLIAB t4
+		   on t2.policyno=t4.policyno
+      where t1.policyno='''||policyno||'''
+      and   t1.policyno=t2.policyno';
+
+
+error_info:='POLICY INFO INSERT ECWAE FAILURE';
+--INSERT ECWAE
+EXECUTE IMMEDIATE 'insert into ECWAE(WAE00,WAE01,WAE02,WAE03,WAE04,WAE05,WAE06,WAE07,WAE08,WAE09,WAE10) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+     '''1'','||--WAE01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAE02  保單號碼
+     'NULL,'||--WAE03  批單號碼
+     '(select subriskcode from prpdration  where   riskcode  = (select riskcode from prpcmain  where   policyNo = '''||policyno||''')),'||--WAE04  險種代號
+     't1.payNo,'||--WAE05  分期數----------->只取保?批改前后的??次?，??次?含批???次?！
+     'extract(year from t1.planStartDate)-1911||to_char(t1.planStartDate,''mmdd''),'||--WAE06  生效起日(民國年)--------->批?只有起效日期，止期存NULL？
+     'extract(year from t1.planDate)-1911||to_char(t1.planDate,''mmdd''),'||--WAE07  生效迄日(民國年)
+     't1.planFee,'||--WAE08  分期保費----------------->保?分期不是平分，而是第一次占多?，取第一保?？
+     'NULL,'||--WAE09  分期純保費(預留)
+     'NULL '||--WAE10  分期佣金(預留)   (select costFee from prpCcommission where policyNo = t1.policyNo )
+     'from prpcplan t1,
+           prpcmain t2
+      where t2.descriptions != ''1''
+      and t1.policyno=t2.policyno
+      and t1.policyno='''||policyno||'''';
+
+
+
+error_info:='POLICY INFO INSERT ECWAG FAILURE';
+--INSERT ECWAG
+EXECUTE IMMEDIATE 'insert into ECWAG(WAG00,WAG01,WAG02,WAG03,WAG04,WAG05) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+     '''1'','||--WAG01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAG02  保單號碼
+     'NULL,'||--WAG03  批單號碼
+     'rank() over(order by t1.itemkindno) rowno,'||--WAG04  序號
+     't1.kindcode '||--WAG05  特約條款
+     'from prpcitemkind t1,
+           prpcmain t2
+     where t1.policyno='''||policyno||'''
+     and substr(t1.flag, 2, 1)=''2''
+     and t2.classcode = ''C''
+     and t1.policyno=t2.policyno ';
+
+
+EXECUTE IMMEDIATE 'insert into ECWAG(WAG00,WAG01,WAG02,WAG03,WAG04,WAG05) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+     '''1'','||--WAG01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAG02  保單號碼
+     'NULL,'||--WAG03  批單號碼
+     't1.serialNo ,'||--WAG04  序號
+     't1.clauseCode '||--WAG05  特約條款
+     'from prpcengage t1,
+           prpcmain t2
+     where t1.policyno='''||policyno||'''
+     and t1.policyno=t2.policyno
+     and t2.classcode = ''E''
+     and t1.policyno=t2.policyno ';
+
+
+
+
+ END IF;
+
+ -----------------------------批?信息保存------------------------------
+ IF endorseno IS NOT NULL THEN
+ error_info:='ENDORSE INFO DELETE FAILURE';
+ --DELETE TABLES
+ --EXECUTE IMMEDIATE 'delete from WAA where WAA03='''||endorseno||''' and WAA01=''2''';
+ --EXECUTE IMMEDIATE 'delete from WAB where WAB03='''||endorseno||''' and WAA01=''2''';
+ --EXECUTE IMMEDIATE 'delete from WAC where WAC03='''||endorseno||''' and WAA01=''2''';
+ --EXECUTE IMMEDIATE 'delete from WAD where WAD03='''||endorseno||''' and WAA01=''2''';
+ --EXECUTE IMMEDIATE 'delete from WAE where WAE03='''||endorseno||''' and WAA01=''2''';
+
+
+error_info:='ENDORSE INFO INSERT ECWAA FAILURE';
+--INSERT ECWAA
+IF endorType != '130' THEN
+--LIA0211 新增AS400介接傳送保單的時數 WAA107,WAA108
+EXECUTE IMMEDIATE 'insert into ECWAA(WAA00,WAA01,WAA02,WAA03,WAA04,WAA05,WAA06,WAA07,WAA08,WAA09,WAA10,WAA11,WAA12,WAA13,WAA14,
+WAA15,WAA16,WAA17,WAA18,WAA19,WAA20,WAA21,WAA22,WAA23,WAA24,WAA25,WAA26,WAA27,WAA28,WAA29,WAA30,WAA31,WAA32,WAA33,WAA34,WAA35,
+WAA36,WAA37,WAA38,WAA39,WAA40,WAA41,WAA42,WAA43,WAA44,WAA45,WAA46,WAA47,WAA48,WAA49,WAA50,WAA51,WAA52,WAA53,WAA54,WAA55,WAA56,
+WAA57,WAA58,WAA59,WAA60,WAA61,WAA62,WAA63,WAA64,WAA65,WAA66,WAA67,WAA68,WAA69,WAA70,WAA71,WAA72,WAA73,WAA74,WAA75,WAA76,WAA77,
+WAA78,WAA79,WAA80,WAA81,WAA82,WAA83,WAA84,WAA85,WAA86,WAA87,WAA88,WAA89,WAA90,WAA91,WAA92,WAA93,WAA94,WAA95,WAA96,WAA97,WAA98,WAA99,,WAA107,WAA108,endorsetimes) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAA00  轉入日期（?留）
+     '''2'','||--WAA01  轉檔型態（1(保單) 2(批改)）
+     't1.policyno,'||--WAA02  保單號碼
+     ''''||endorseno||''','||--WAA03  批單號碼
+     'case when t1.RISKCODE in (''TD'',''TC'',''BN'',''SP'') then substr(t1.insuredName||'' 要保人姓名:''||t1.APPLINAME,1,29) else (select TO_CHAR(REPLACE(wmsys.wm_concat (insuredname),'','',''/'')) as result from  prpcpinsured a where  a.insuredflag=1 and a.policyno= t1.policyno) end,'||--WAA04  被保險人;mantis：EGN0007，處理人員：Bruce，需求單編號：EGN0007.工程險的被保險人有多筆時，中介檔ECWAA只有傳第一筆被保人
+     'substr(t2.postCode,1,3),'||--WAA05  郵遞區號－住宅
+     'substr(t1.insuredaddress,1,29),'||--WAA06  被保險人住所
+     'substr(t2.phoneNumber,1,14),'||--WAA07  被保險人電話
+     'substr(t2.postCode,1,3),'||--WAA08  郵遞區號－收
+     'substr(t2.postAddress,1,29),'||--WAA09  收費處
+     'substr(t2.phoneNumber,1,14),'||--WAA10  收費處電話
+     'NULL,'||--WAA11  行動電話
+     'substr(t2.identifyNumber,1,10),'||--WAA12  統一編號/ID
+     'extract(year from t1.operateDate)-1911||to_char(t1.operateDate,''mmdd''),'||--WAA13  簽單日期
+     'extract(year from t1.startDate)-1911||to_char(t1.startDate,''mmdd''),'||--WAA14  保險期間－起
+     'extract(year from t1.endDate)-1911||to_char(t1.endDate,''mmdd''),'||--WAA15  保險期間－迄
+     'extract(year from t1.mailDate)-1911||to_char(t1.mailDate,''mmdd''),'||--WAA16  合約日期／收件日
+     'NULL,'||--WAA17  生效總天數   ---非必輸
+     'NULL,'||--WAA18  保期月數   ---非必輸
+     'NULL,'||--WAA19  保期天數   ---非必輸
+     't1.sumamount,'||--WAA20  總保險金額
+     'NULL,'||--WAA21  總純保費  ---待確認  暫時無法取到純保費比率
+     't1.sumpremium,'||--WAA22  總保險費
+     't3.costrate,'||--WAA23  佣金率％
+     't3.costFee,'||--WAA24  佣金
+     '(Select Nvl2(Usercode, Usercode, decode(t1.businessNature,''B99901'',''179'',''189'')  || Comcode || ''0'')  From Prpdagent Where Agentcode = Nvl(t1.Agentcode, t1.Handlercode)),'||--WAA25  業務員編號
+     'NULL,'||--WAA26  業務員單位 ---待確認
+     't1.comCode,'||--WAA27  業務員歸屬單位 (select comCode from prpDagent where agentCode = t1.handlerCode)
+     'NULL,'||--WAA28  代理人
+     'substr(t1.businessNature,1,6),'||--WAA29  業務來源
+     'NULL,'||--WAA30  收費區代號   ---非必輸
+     'substr(t1.handler1Code,1,6),'||--WAA31  服務人員
+     't1.classCode,'||--WAA32  大險種   (??)
+     'decode(t1.classCode,''C'',(select businessAddressCode from prpCmainliab where policyNo = t1.policyNo),''E'',(select constructAddress from prpCmainConstruct where policyNo = t1.policyNo)),'||--WAA33  保險地區代號    prpCmainConstruct.constructAddress:工程?地?代?
+     '(select constructType from prpCpmainConstruct where policyNo = t1.policyNo),'||--WAA34  保險標的物代號  ---責任險PR產品代號待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=1),'||--WAA35  附加或特約條款1  ---待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=2),'||--WAA36  附加或特約條款2  ---待確認
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=3),'||--WAA37  附加或特約條款3  ---待確認
+     'decode(t1.publicFlag,''2'',''G'',''3'',''G'',NULL),'||--WAA38  公家招標件
+     '(select comCode from prpDuser where userCode = t1.handler1Code),'||--WAA39  服務人員單位
+     'NULL,'||--WAA40  服務人員代理人   ---非必輸
+     't1.extraComCode,'||--WAA41  營業單位
+     --'(select handlerIdentifyNumber from prpCPmain where policyNO = t1.policyno and channeltype in (''21'',''22'',''23'',''31'',''32'',''33'')),'||--WAA42  營業人員   ---待確認
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA42  營業人員 
+     'substr(t1.projectCode,1,8),'||--WAA43  專案號碼
+     'NULL,'||--WAA44  自留保費  ---非必輸
+     '(select rate from prpCpitemKind where policyNo = t1.policyNo and itemKindNo = ''1''),'||--WAA45  工程費率   ---費率第一條
+     '(select  sum(scourgeSumPremium)  from  prpCPitemKind  where   policyno = '''||policyno||'''  and  kindcode = ''CA001''),'||--WAA46  本體天災保費   ---待確認  天災保費累計
+     'NULL,'||--WAA47  商品代碼   ---非必輸
+     'NULL,'||--WAA48  被保人性質代號 C,P')   ---非必輸
+     'NULL,'||--WAA49  危險期間－起  ---非必輸
+     'NULL,'||--WAA50  危險期間－迄  ---非必輸
+     'decode(t1.coinsFlag,''1'',''Y'',''2'',''N'',''N''),'||--WAA51  是否為主出單公司   ---待拆分
+     '(select coinsRate from prpCpcoins where coinsCode = ''18''  and policyno = t1.policyNo),'||--WAA52  共保比例％
+     '(select coinsPremium from prpCpcoinsdetail where coinsCode = ''18''  and policyno = t1.policyNo),'||--WAA53  共保(保險費)
+     '(select dangerType from prpCmainLiab where policyno = t1.policyNo ),'||--WAA54  危險單位類別   ---待確認
+     '(select dangerousQuantity from prpCmainLiab where policyno = t1.policyNo ),'||--WAA55  危險單位數量    ---待確認
+     'decode((select liabBusinessNature from prpCPmainLiab where policyno = t1.policyNo ),''1'',''N'',''2'',''Y'',''Y''),'||--WAA56  (工程類雇主責任) Y/N   ---非必輸
+     'case when t1.RISKCODE in (''MN'') then null else (select dangerousSortCode from prpCmainLiab where policyno = t1.policyNo ) end,'||--WAA57  危險分類總項代號  ---待確認
+     '(select dangerousCode from prpCmainLiab where policyno = t1.policyNo ),'||--WAA58  危險分類細項代號  ---待確認
+     '(select introducerID from prpCPmain where policyNO = t1.policyno  and introducerID != t1.handlerIdentifyNumber),'||--WAA59  營業介紹人
+     't1.specialFlag,'||--WAA60  特殊件　 N/Y
+     'round((t1.discountRate/100),2),'||--WAA61  特殊件折算率 1/3
+     'decode(t1.fycflag,''1'',''Y'',''N''),'||--WAA62  ??件
+     't1.channelType,'||--WAA63  保發通路別
+     't1.reinsMark,'||--WAA64  再保註記
+     'decode(t1.payTimes,1,''01'',2,''02'',4,''04'',12,''12'',t1.payTimes),'||--WAA65  分期註記 (01;02;04;12)  t1.descriptions
+     't1.commonBusiness,'||--WAA66  共同業務
+     '(select decode(comlevel,''2'',comcode,''3'',uppercomcode,''1'',comcode) from prpdcompany where comcode = t1.comcode),'||--WAA67  區碼   ---非必輸
+     'NULL,'||--WAA68  銷帳編號   ---非必輸
+     'NULL,'||--WAA69  損失險總保額(工程險用)   ---非必輸
+     'NULL,'||--WAA70  意外險總保額(工程險用)   ---非必輸
+     'NULL,'||--WAA71  損失險總保費(工程險用)   ---非必輸
+     'NULL,'||--WAA72  意外險總保費(工程險用)   ---非必輸
+     ''''||endorType||''','||--WAA73  批改事由 ---批改?型
+     ''''||validDateNum||''','||--WAA74  批單有效期?起期
+     'extract(year from t1.endDate)-1911||to_char(t1.endDate,''mmdd''),'||--WAA75  批單有效期?迄期
+     ''''||validHour||''','||--WAA76  批單生效時間
+     '(select chgpremium from prppmain where endorseno='''||endorseno||'''),'||--WAA77  加減總保費
+     '0,'||--WAA78  加減總純保費
+     '(select chgcostFee from prppcommission where endorseno='''||endorseno||'''),'||--WAA79  加減總佣金
+     't3.costrate,'||--WAA80  批改后佣金率
+     '(select chgamount from prppmain where endorseno='''||endorseno||'''),'||--WAA81  加減總保額
+     '(select decode(accountType,''B1'',''1'',''B2'',''2'') from prpPaccount where endorseno='''||endorseno||'''),'||--WAA82  退保方式
+     '(select substr(bankCode,1,3) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA83  退保總行
+     '(select substr(bankCodeDetail,1,4) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA84  退保分行
+     '(select substr(accountNO,1,14) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA85  退保帳號
+     '(select substr(postCode,1,3) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA86  退保郵遞區號
+     '(select substr(postAddress,1,29) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA87  退保通訊地址
+     '(select decode(banBackFlag,''1'',''N'',''2'',''Y'',banBackFlag) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA88  取消禁背
+     'NULL,'||--WAA89  契撤申請人ID
+     '(select offSetFlag from prpPaccount where endorseno='''||endorseno||'''),'||--WAA90  互抵 批號
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA91  登錄證號
+     'decode('''||endorType||''',''19'',''Y'',decode((select accountdate from intfprpjpayrefrec where certino = '''||policyno||''' and serialno=''1'' and certitype=''P''),null,''N'',decode((select accounttype from prppaccount where endorseno = '''||endorseno||'''),''B1'',''P'',''B2'',''P'',''N''))),'||--WAA92  全註銷/批退抵繳註記 P/Y
+     'NULL, '||--WAA93  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA94  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA95  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA96  AS400專用(核心未傳該值)
+	 't3.UNDERWRITIDCOEFFICODE, '||--WAA97 核保加減費係數-增減代號
+	 't3.UNDERWRITIDCOEFFIRATE, '||--WAA98 核保加減費係數-增減率
+     '(select  OLDPOLICYNO  from prpCrenewal where POLICYNO = t1.policyNo),'||--WAA99  續保單號碼 ;mantis：LIA0066，處理人員：DP0706，需求單編號：LIA0066 責任險及工程險保單內容中的續保單號碼需介接至AS400(WAA99).
+     --LIA0211 增加傳送保期起迄小時至AS400 start     
+     't1.STARTHOUR , '||--WAA107  保期時間 起(時數)
+     't1.ENDHOUR , '||--WAA108  保期時間 止(時數)
+     --LIA0211 增加傳送保期起迄小時至AS400 END
+     ''||endorsetimes||' '||--endorsetimes
+     'from   prpcpmain t1,
+             (select t.* from (select a.*,rank()over(order by serialno) rank from prpcpinsured a where  a.insuredflag=1 and a.policyno='''||policyno||''') t where t.rank=1)  t2,
+       prpCpcommission t3
+      where  t2.insuredflag=1
+      and    t1.policyno=t2.policyno
+      and    t1.policyno='''||policyno||'''
+      and    t1.policyno=t3.policyno';
+END IF;
+IF endorType = '130' THEN
+--LIA0211 新增AS400介接傳送保單的時數 WAA107,WAA108
+EXECUTE IMMEDIATE 'insert into ECWAA(WAA00,WAA01,WAA02,WAA03,WAA04,WAA05,WAA06,WAA07,WAA08,WAA09,WAA10,WAA11,WAA12,WAA13,WAA14,
+WAA15,WAA16,WAA17,WAA18,WAA19,WAA20,WAA21,WAA22,WAA23,WAA24,WAA25,WAA26,WAA27,WAA28,WAA29,WAA30,WAA31,WAA32,WAA33,WAA34,WAA35,
+WAA36,WAA37,WAA38,WAA39,WAA40,WAA41,WAA42,WAA43,WAA44,WAA45,WAA46,WAA47,WAA48,WAA49,WAA50,WAA51,WAA52,WAA53,WAA54,WAA55,WAA56,
+WAA57,WAA58,WAA59,WAA60,WAA61,WAA62,WAA63,WAA64,WAA65,WAA66,WAA67,WAA68,WAA69,WAA70,WAA71,WAA72,WAA73,WAA74,WAA75,WAA76,WAA77,
+WAA78,WAA79,WAA80,WAA81,WAA82,WAA83,WAA84,WAA85,WAA86,WAA87,WAA88,WAA89,WAA90,WAA91,WAA92,WAA93,WAA94,WAA95,WAA96,WAA97,WAA98,WAA99,WAA107,WAA108,endorsetimes) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAA00  ?D??????????????
+     '''2'','||--WAA01  ?D?n???B??1(????) 2(????)??
+     't1.policyno,'||--WAA02  ???????a
+     ''''||endorseno||''','||--WAA03  ???????a
+     'case when t1.RISKCODE in (''TD'',''TC'',''BN'',''SP'') then substr(t1.insuredName||'' 要保人姓名:''||t1.APPLINAME,1,29) else (select TO_CHAR(REPLACE(wmsys.wm_concat (insuredname),'','',''/'')) as result from  prpcpinsured a where  a.insuredflag=1 and a.policyno= t1.policyno) end,'||--WAA04  被保險人;mantis：EGN0007，處理人員：Bruce，需求單編號：EGN0007.工程險的被保險人有多筆時，中介檔ECWAA只有傳第一筆被保人
+     'substr(t2.postCode,1,3),'||--WAA05  郵遞區號－住宅
+     'substr(t1.insuredaddress,1,29),'||--WAA06  ?????U??????
+     'substr(t2.phoneNumber,1,14),'||--WAA07  ?????U??????
+     'substr(t2.postCode,1,3),'||--WAA08  郵遞區號－收
+     'substr(t2.postAddress,1,29),'||--WAA09  ???M??
+     'substr(t2.phoneNumber,1,14),'||--WAA10  ???M??????
+     'NULL,'||--WAA11  ????????
+     'substr(t2.identifyNumber,1,10),'||--WAA12  ?y??????/ID
+     'extract(year from t1.operateDate)-1911||to_char(t1.operateDate,''mmdd''),'||--WAA13  ????????
+     'extract(year from t1.startDate)-1911||to_char(t1.startDate,''mmdd''),'||--WAA14  ???U???g????
+     'extract(year from t1.endDate)-1911||to_char(t1.endDate,''mmdd''),'||--WAA15  ???U???g????
+     'extract(year from t1.mailDate)-1911||to_char(t1.mailDate,''mmdd''),'||--WAA16  ???s????????????
+     'NULL,'||--WAA17  ??????????   ---??????
+     'NULL,'||--WAA18  ????????   ---??????
+     'NULL,'||--WAA19  ????????   ---??????
+     't1.sumamount,'||--WAA20  ?????U???~
+     'NULL,'||--WAA21  ???????M  ---???_?J  ???r?o???????????M????
+     't1.sumpremium,'||--WAA22  ?????U?M
+     't3.costrate,'||--WAA23  ????????
+     't3.costFee,'||--WAA24  ????
+     '(Select Nvl2(Usercode, Usercode, decode(t1.businessNature,''B99901'',''179'',''189'')  || Comcode || ''0'')  From Prpdagent Where Agentcode = Nvl(t1.Agentcode, t1.Handlercode)),'||--WAA25  ?I???T????
+     'NULL,'||--WAA26  ?I???T???? ---???_?J
+     't1.comCode,'||--WAA27  ?I???T?w?????? (select comCode from prpDagent where agentCode = t1.handlerCode)
+     'NULL,'||--WAA28  ??????
+     'substr(t1.businessNature,1,6),'||--WAA29  業務來源
+     'NULL,'||--WAA30  ???M?^????   ---??????
+     'substr(t1.handler1Code,1,6),'||--WAA31  服務人員
+     't1.classCode,'||--WAA32  ???U?N   (????)
+     'decode(t1.classCode,''C'',(select businessAddressCode from prpCmainliab where policyNo = t1.policyNo),''E'',(select constructAddress from prpCmainConstruct where policyNo = t1.policyNo)),'||--WAA33  ???U???^????    prpCmainConstruct.constructAddress:??????????????
+     '(select constructType from prpCpmainConstruct where policyNo = t1.policyNo),'||--WAA34  ???U??????????  ---?????UPR?a?????????_?J
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=1),'||--WAA35  ?????????s?l??1  ---???_?J
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=2),'||--WAA36  ?????????s?l??2  ---???_?J
+     '(select t2.kindCode from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''' and t.kindcode !=  t.riskcode) t2 where t2.rank=3),'||--WAA37  ?????????s?l??3  ---???_?J
+     'decode(t1.publicFlag,''2'',''G'',''3'',''G'',NULL),'||--WAA38  ??????????
+     '(select comCode from prpDuser where userCode = t1.handler1Code),'||--WAA39  ???????T????
+     'NULL,'||--WAA40  ???????T??????   ---??????
+     't1.extraComCode,'||--WAA41  ?I?I????
+     --'(select handlerIdentifyNumber from prpCPmain where policyNO = t1.policyno and channeltype in (''21'',''22'',''23'',''31'',''32'',''33'')),'||--WAA42  ?I?I???T   ---???_?J
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA42  營業人員 
+     'substr(t1.projectCode,1,8),'||--WAA43  專案號碼
+     'NULL,'||--WAA44  ???????M  ---??????
+     '(select rate from prpCpitemKind where policyNo = t1.policyNo and itemKindNo = ''1''),'||--WAA45  ?????M??   ---?M???????l
+     '(select  sum(scourgeSumPremium)  from  prpCPitemKind  where   policyno = '''||policyno||'''  and  kindcode = ''CA001''),'||--WAA46  ???w???????M   ---???_?J  ???????M????
+     'NULL,'||--WAA47  ???????a   ---??????
+     'NULL,'||--WAA48  ?????????|???? C,P')   ---??????
+     'NULL,'||--WAA49  ???U???g????  ---??????
+     'NULL,'||--WAA50  ???U???g????  ---??????
+     'decode(t1.coinsFlag,''1'',''Y'',''2'',''N'',''N''),'||--WAA51  ????????????????   ---??????
+     '(select coinsRate from prpCpcoins where coinsCode = ''18''  and policyno = t1.policyNo),'||--WAA52  ??????????
+     '(select coinsPremium from prpCpcoinsdetail where coinsCode = ''18''  and policyno = t1.policyNo),'||--WAA53  ????(???U?M)
+     '(select dangerType from prpCmainLiab where policyno = t1.policyNo ),'||--WAA54  ???U???????e   ---???_?J
+     '(select dangerousQuantity from prpCmainLiab where policyno = t1.policyNo ),'||--WAA55  ???U????????    ---???_?J
+     'decode((select liabBusinessNature from prpCPmainLiab where policyno = t1.policyNo ),''1'',''N'',''2'',''Y'',''Y''),'||--WAA56  (??????????????) Y/N   ---??????
+     'case when t1.RISKCODE in (''MN'') then null else (select dangerousSortCode from prpCmainLiab where policyno = t1.policyNo ) end,'||--WAA57  ???U????????????  ---???_?J
+     '(select dangerousCode from prpCmainLiab where policyno = t1.policyNo ),'||--WAA58  ???U????????????  ---???_?J
+     '(select introducerID from prpCPmain where policyNO = t1.policyno  and introducerID != t1.handlerIdentifyNumber),'||--WAA59  ?I?I???B??
+     't1.specialFlag,'||--WAA60  ???????? N/Y
+     'round((t1.discountRate/100),2),'||--WAA61  ???????????? 1/3
+     'decode(t1.fycflag,''1'',''Y'',''N''),'||--WAA62  ??????
+     't1.channelType,'||--WAA63  ???l?????e
+     't1.reinsMark,'||--WAA64  ?????]??
+     'decode(t1.payTimes,1,''01'',2,''02'',4,''04'',12,''12'',t1.payTimes),'||--WAA65  ?????]?? (01;02;04;12)  t1.descriptions
+     't1.commonBusiness,'||--WAA66  ?????I??
+     '(select decode(comlevel,''2'',comcode,''3'',uppercomcode,''1'',comcode) from prpdcompany where comcode = t1.comcode),'||--WAA67  ?^?a   ---??????
+     'NULL,'||--WAA68  ?N??????   ---??????
+     'NULL,'||--WAA69  ?p???U?????~(?????U??)   ---??????
+     'NULL,'||--WAA70  ?????U?????~(?????U??)   ---??????
+     'NULL,'||--WAA71  ?p???U?????M(?????U??)   ---??????
+     'NULL,'||--WAA72  ?????U?????M(?????U??)   ---??????
+     ''''||endorType||''','||--WAA73  ???????? ---????????
+     ''''||validDateNum||''','||--WAA74  ????????????????
+     'extract(year from t1.endDate)-1911||to_char(t1.endDate,''mmdd''),'||--WAA75  ????????????????
+     ''''||validHour||''','||--WAA76  ?????????r?g
+     't1.sumpremium,'||--WAA77  ???p?????M
+     '0,'||--WAA78  ???p???????M
+     't3.costFee,'||--WAA79  ???p??????
+     't3.costrate,'||--WAA80  ????????????
+     't1.sumamount,'||--WAA81  ???p?????~
+     '(select decode(accountType,''B1'',''1'',''B2'',''2'') from prpPaccount where endorseno='''||endorseno||'''),'||--WAA82  ????????
+     '(select substr(bankCode,1,3) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA83  ????????
+     '(select substr(bankCodeDetail,1,4) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA84  ????????
+     '(select substr(accountNO,1,14) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA85  ????????
+     '(select substr(postCode,1,3) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA86  ?????]?f?^??
+     '(select substr(postAddress,1,29) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA87  ????????????
+     '(select decode(banBackFlag,''1'',''N'',''2'',''Y'',banBackFlag) from prpPaccount where endorseno='''||endorseno||'''),'||--WAA88  ????????
+     'NULL,'||--WAA89  ??????????ID
+     '(select offSetFlag from prpPaccount where endorseno='''||endorseno||'''),'||--WAA90  ???? ????
+     'substr(t1.handlerIdentifyNumber,1,10),'||--WAA91  ?????C??
+     'decode('''||endorType||''',''19'',''Y'',decode((select accountdate from intfprpjpayrefrec where certino = '''||policyno||''' and serialno=''1'' and certitype=''P''),null,''N'',decode((select accounttype from prppaccount where endorseno = '''||endorseno||'''),''B1'',''P'',''B2'',''P'',''N''))),'||--WAA92  ???]?N/???????U?]?? P/Y
+     'NULL, '||--WAA93  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA94  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA95  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA96  AS400專用(核心未傳該值)
+	 't3.UNDERWRITIDCOEFFICODE, '||--WAA97 核保加減費係數-增減代號
+	 't3.UNDERWRITIDCOEFFIRATE, '||--WAA98 核保加減費係數-增減率
+     '(select  OLDPOLICYNO  from prpCrenewal where POLICYNO = t1.policyNo),'||--WAA99  續保單號碼 ;mantis：LIA0066，處理人員：DP0706，需求單編號：LIA0066 責任險及工程險保單內容中的續保單號碼需介接至AS400(WAA99).
+     --LIA0211 增加傳送保期起迄小時至AS400 start     
+     't1.STARTHOUR , '||--WAA107  保期時間 起(時數)
+     't1.ENDHOUR , '||--WAA108  保期時間 止(時數)
+     --LIA0211 增加傳送保期起迄小時至AS400 END
+     ''||endorsetimes||' '||--endorsetimes
+     'from   prpcpmain t1,
+             (select t.* from (select a.*,rank()over(order by serialno) rank from prpcpinsured a where  a.insuredflag=1 and a.policyno='''||policyno||''') t where t.rank=1)  t2,
+       prpCpcommission t3
+      where  t2.insuredflag=1
+      and    t1.policyno=t2.policyno
+      and    t1.policyno='''||policyno||'''
+      and    t1.policyno=t3.policyno';
+END IF;
+error_info:='POLICY INFO INSERT ECWAB FAILURE';
+--INSERT ECWAB
+EXECUTE IMMEDIATE 'insert into ECWAB(WAB00,WAB01,WAB02,WAB03,WAB04,WAB05,WAB06,WAB07,WAB08,WAB09,WAB10,WAB11,WAB12,WAB13,WAB14,
+WAB15,WAB16,WAB17,WAB18,WAB19,WAB20,WAB21,WAB22,WAB23,WAB24,WAB25,WAB26,WAB27,WAB28,WAB29,WAB30,WAB31,WAB32,WAB33,WAB34,WAB35,WAB36) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAB00  轉入日期(民國年)
+     '''2'','||--WAB01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAB02  保單號碼
+     ''''||endorseno||''','||--WAB03  批單號碼
+     '(select businessCode from prpCpmainLiab where policyNo = t1.policyNo),'||--WAB04  行業 / 職業別代號
+     'extract(year from (select bkWardStartDate from prpCpmainLiab where policyNo = t1.policyNo))-1911||to_char((select bkWardStartDate from prpCpmainLiab where policyNo = t1.policyNo),''mmdd''),'||--WAB05  追溯日期
+     '(select substr(hirer,1,29) from prpCpmainLiab where policyNo = t1.policyNo and riskCode = ''AB''),'||--WAB06  執行業務種類
+     'NULL,'||--WAB07  標的物所在處所   ---待確認  是否為標的物處所中的標的物地址  並且標的物地址可以有多個  prpCaddress.addressName
+     '(select substr(hirer,1,29) from prpCpmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB08  定作人 ---待確認 是否會有多個   ---与執行業務種類?同一?字段 待确?
+     '(select substr(returnFlight,1,29) from prpCmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB09  定作人住所     ---工程?CA
+     '(select othPolicyNo from prpCpmainLiab where policyNo = t1.policyNo and riskCode in (''AE'',''CN'',''CA'',''EA'')),'||--WAB10  定作人統一編號  ---工程?CA
+     'NULL,'||--WAB11  承攬人
+     'NULL,'||--WAB12  承攬人住所
+     'substr(t1.appliName,1,29),'||--WAB13  要保人
+     'substr(t1.appliAddress,1,29),'||--WAB14  要保人住所
+     '(select substr(constructName,1,44) from prpCPmainConstruct where policyNo = t1.policyNo),'||--WAB15  承保工程述要  ---待確認
+     '(select substr(t2.addressName,1,29) from (select t.*,rank()over(order by addressNo) rank from prpCPaddress t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB16  施工處所   ---CP 有多個  prpCaddress.addressName
+     'NULL,'||--WAB17  延長報案或貸款期限   ---非必輸
+     'NULL,'||--WAB18  施工期間－起   ---非必輸
+     'NULL,'||--WAB19  施工期間－迄   ---非必輸
+     '(select substr(deductibleInstruction,1,9) from prpCpitemKind where policyNo = t1.policyNo and kindCode = t1.riskCode||''009''),'||--WAB20  保期內最高責任說明
+     '(select periodMaxAmount from prpCpitemKind where policyNo = t1.policyNo and kindCode = t1.riskCode||''009''),'||--WAB21  保期內最高責任保額
+     'NULL,'||--WAB22  受益人   ---受益人CA有多條
+     'NULL,'||--WAB23  共同被保人   ---非必輸
+     'NULL,'||--WAB24  使用人   ---CP 待?理
+     'NULL,'||--WAB25  使用人住所   ---CP 待?理
+     'NULL,'||--WAB26  使用人  統一編號   ---CP 待?理
+     '(select substr(t2.thickness,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB27  廠牌  ---CP  prpcitemkind.thickness  有多?
+     '(select substr(t2.model,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB28  型式   ---CP  prpcitemkind.model  有多?
+     '(select substr(t2.productCode,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB29  引擎號碼s   ---CP  prpcitemkind.productCode  有多?
+     '(select t2.buyDate from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB30  製造年份   ---EE,MB  prpcitemkind.buyDate
+     'NULL,'||--WAB31  存放處所   ---CP  prpCaddress.addressName
+     '(select substr(t2.itemCode,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB32  鍋爐編號   ---BP
+     '(select t2.buyDate from (select t.*,rank()over(order by itemKindNo) rank from prpCPitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB33  製造年份
+     '(select substr(t2.storeAddress,1,29) from (select t.*,rank()over(order by itemKindNo) rank from prpCitemkind t where t.policyno='''||policyno||''') t2 where t2.rank=1),'||--WAB34  存放地點
+     '(select constructType from prpCpmainConstruct where policyNo = t1.policyNo),'||--WAB35  保險標的物代號    ---取的是保??的物代?  BP
+     '(select substr(constructName,1,44) from prpCpmainConstruct where policyNo = t1.policyNo) '||--WAB36  保險標的物說明   ---取的是保??的物 BP
+     'from  prpcpmain t1
+      where t1.policyNo='''||policyno||'''';
+
+IF  endorType != '130' THEN
+
+error_info:='POLICY INFO INSERT ECWAC FAILURE';
+--INSERT ECWAC
+EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+     WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+     WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAC02  保單號碼
+     ''''||endorseno||''','||--WAC03  批單號碼
+     't2.kindcode,'||--WAC04  險種代號
+     't2.itemKindNo,'||--WAC05  序號
+     '(select t.chgamount from prppitemkind t where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno),'||--WAC06  保險金額
+     'NULL,'||--WAC07  保額說明代號   ---待确?
+     'NULL,'||--WAC08  保額說明   ---待确?
+     'NULL,'||--WAC09  自負額
+     'substr(t2.deductibleType,1,24),'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+     'substr(t2.deductibleInstruction,1,24),'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+     '(select t.chgpremium from prppitemkind t where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno),'||--WAC12  保險費
+     't2.rate,'||--WAC13  保險費率／每千元
+     'substr(t2.itemNature,1,7),'||--WAC14  承保範圍
+     'NULL,'||--WAC15  自負額單位類別 t2.itemDetailName
+     'substr(t2.itemcode,1,2),'||--WAC17
+     'substr(t2.itemdetailname,1,1),'||--WAC18
+     't2.perhumaninjury,'||--WAC19
+     't2.perhumandeath,'||--WAC20
+     't2.peraccidentdeaths,'||--WAC21
+     't2.peraccidentdamage,'||--WAC22
+     't2.periodmaxamount,'||--WAC23
+     'NULL, '||--WAC16  批改性質   ---?法?取
+	 't3.DEDUCTIBLEAMOUNT1,'||--WAC24  自負額數量1
+	 't3.DEDUCTIBLEAMOUNT2,'||--WAC25  自負額數量2
+	 't3.DEDUCTIBLEAMOUNT3,'||--WAC26  自負額數量3
+	 't3.UNDERWRITCOEFFIIDCODE,'||--WAC27  核保考量係數-增減代號
+	 't3.UNDERWRITCOEFFIIDRATE,'||--WAC28  核保考量係數-增減率
+	 't3.RISKCLASSCOEFFI,'||--WAC29  風險分類係數
+	 't3.AMOUNTCOEFFI,'||--WAC30  保額係數
+	 't3.YEARCOEFFIIDCODE,'||--WAC31  承保年期係數-增減代號
+	 't3.YEARCOEFFIIDRATE,'||--WAC32  承保年期係數-增減率
+	 't3.DANGERSEASONCODE,'||--WAC33  危險季節費率加費-增減代號
+	 't3.DANGERSEASONRATE,'||--WAC34  危險季節費率加費-增減率
+	 't3.DEDUCTIBLECOEFFIIDCODE,'||--WAC35  自負額係數-增減代號
+	 't3.DEDUCTIBLECOEFFIIDRATE,'||--WAC36  自負額係數-增減率
+	 't3.ENGINEERRISKCOEFFI,'||--WAC37  工程風險類別係數
+	 't3.HIGHAMOUNTCOEFFI,'||--WAC38  高保額係數
+	 't3.ENGINEERSCALECOEFFICODE,'||--WAC39  承保工程規模係數-增減代號
+	 't3.ENGINEERSCALECOEFFIRATE,'||--WAC40  承保工程規模係數-增減率
+	 't3.UNDERWRITCONSIDERIDCOEFFICODE,'||--WAC41  核保考量之加減費係數-增減代號
+	 't3.UNDERWRITCONSIDERIDCOEFFIRATE,'||--WAC42  核保考量之加減費係數-增減率
+	 't3.SCOREADJCOEFFICODE,'||--WAC43  承保範圍調整係數-增減代號
+	 't3.SCOREADJCOEFFIRATE,'||--WAC44  承保範圍調整係數-增減率
+	 't3.SHORTENTIMECOEFFICODE,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't3.SHORTENTIMECOEFFIRATE, '||--WAC46  縮短補償時間減費係數-增減率	
+	 't3.HUGEDANGERCODE, '||--WAC47  巨大危險數量代號
+	 't3.PREMIUMIDCODE, '||--WAC48  保費增減率-增減代號	 
+	 't3.PREMIUMIDRATE, '||--WAC49  保費增減率
+	 't3.SUBPREMIDCODE, '||--WAC50  附加保費-增減代號
+	 't3.SUBPREMIDRATE, '||--WAC51  附加保費-增減率
+	 't3.LOSSRATEADJAMOUNTCODE, '||--WAC52  損失率調整數額-增減代號
+	 't3.LOSSRATEADJAMOUNTRATE, '||--WAC53  損失率調整數額-增減率	 
+ 	 't3.AGGADJIDAMOUNTCODE, '||--WAC54  AGG調整加減數額-增減代號
+	 't3.AGGADJIDAMOUNTRATE ' ||--WAC55  AGG調整加減數額-增減率
+	   --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t4.DANGERUNITITEMITEM ' ||--WAC56  危險單位類別代號	 
+	 ',t4.DANGERUNITAMOUNT ' ||--WAC57  危險單位數量
+	 ',t4.DANGERCLASSIFICATIONTOTALITEM ' ||--WAC58  危險分總項代號
+	 ',t4.DANGERCLASSIFICATIONITEM ' ||--WAC59  危險分類細項代號
+	 ',t3.OTHERS1COEFFICODE ' ||--WAC60  其他係數1-增減代號
+	 ',t3.OTHERS1COEFFIRATE ' ||--WAC61  其他係數1-增減率
+	 ',t3.OTHERS2COEFFICODE ' ||--WAC62  其他係數2-增減代號 
+	 ',t3.OTHERS2COEFFIRATE ' ||--WAC63  其他係數2-增減率
+	 ',t3.OTHERS3COEFFICODE ' ||--WAC64  其他係數3-增減代號 
+	 ',t3.OTHERS3COEFFIRATE ' ||--WAC65  其他係數3-增減率
+	 ',t3.SPECIALCONDITION ' ||--WAC66  特殊條件 	
+	    --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+
+     'from prpcpmain t1,
+           prpCpitemKind t2
+		   left join prpCpitemKindFactor t3 
+           on t2.policyno = t3.policyno 
+           and t2.ITEMKINDNO = t3.ITEMKINDNO
+		   left join PRPCPMAINLIAB t4
+		   on t2.policyno=t4.policyno
+      where t1.policyno='''||policyno||'''
+      and   t1.policyno=t2.policyno';
+
+END IF;
+
+error_info:='POLICY INFO INSERT ECWAG FAILURE';
+--INSERT ECWAG
+EXECUTE IMMEDIATE 'insert into ECWAG(WAG00,WAG01,WAG02,WAG03,WAG04,WAG05) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+     '''2'','||--WAG01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAG02  保單號碼
+     ''''||endorseno||''','||--WAG03  批單號碼
+     'rank() over(order by t1.itemkindno) rowno,'||--WAG04  序號
+     't1.kindcode '||--WAG05  特約條款
+     'from prpCPitemkind t1,
+           prpCPmain t2
+     where t1.policyno='''||policyno||'''
+     and substr(t1.flag, 2, 1)=''2''
+     and t2.classcode = ''C''
+     and t1.policyno=t2.policyno ';
+
+EXECUTE IMMEDIATE 'insert into ECWAG(WAG00,WAG01,WAG02,WAG03,WAG04,WAG05) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+     '''2'','||--WAG01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAG02  保單號碼
+     ''''||endorseno||''','||--WAG03  批單號碼
+     't1.serialNo ,'||--WAG04  序號
+     't1.clauseCode '||--WAG05  特約條款
+     'from prpcpengage t1,
+           prpcpmain t2
+     where t1.policyno='''||policyno||'''
+     and t1.policyno=t2.policyno
+     and t2.classcode = ''E''
+     and t1.policyno=t2.policyno ';
+
+
+--error_info:='POLICY INFO INSERT ECWAE FAILURE';
+--INSERT ECWAE
+--EXECUTE IMMEDIATE 'insert into ECWAE(WAE00,WAE01,WAE02,WAE03,WAE04,WAE05,WAE06,WAE07,WAE08,WAE09,WAE10) select '||
+--     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAE00  轉入日期(民國年)
+--     '''2'','||--WAE01  轉檔型態(1(保單) 2(批改))
+--     't1.policyno,'||--WAE02  保單號碼
+--     ''''||endorseno||''','||--WAE03  批單號碼
+--     '(select subriskcode from prpdration  where   riskcode  = (select riskcode from prpcmain  where   policyNo = '''||policyno||''')),'||--WAE04  險種代號
+--     't1.payNo,'||--WAE05  分期數----------->只取保?批改前后的??次?，??次?含批???次?！
+--     'extract(year from t1.planStartDate)-1911||to_char(t1.planStartDate,''mmdd''),'||--WAE06  生效起日(民國年)--------->批?只有起效日期，止期存NULL？
+--     'extract(year from t1.planDate)-1911||to_char(t1.planDate,''mmdd''),'||--WAE07  生效迄日(民國年)
+--     't1.planFee,'||--WAE08  分期保費
+--     'NULL,'||--WAE09  分期純保費(預留)
+--     'round(t1.planFee *((select costRate from prpCpcommission where policyNo = t1.policyNo )/100)) '||--WAE10  分期佣金(預留)
+--     'from prpcplan t1,
+--          prpcpmain t2
+--      where   t2.descriptions != ''1''
+--      and   t1.policyno=t2.policyno
+--      and  t1.endorseNo='''||endorseno||'''';
+
+
+
+
+ IF endorsetimesNum = 1 AND endorType = '130' THEN
+  error_info:='OLDENDORSE INFO INSERT WAA-130 FAILURE';
+   endorseNotmp:=''||endorseno||''||'X';
+   --LIA0211 新增AS400介接傳送保單的時數 WAA107,WAA108
+     EXECUTE IMMEDIATE 'insert into ECWAA(WAA00,WAA01,WAA02,WAA03,WAA04,WAA05,WAA06,WAA07,WAA08,WAA09,WAA10,WAA11,WAA12,WAA13,WAA14,
+WAA15,WAA16,WAA17,WAA18,WAA19,WAA20,WAA21,WAA22,WAA23,WAA24,WAA25,WAA26,WAA27,WAA28,WAA29,WAA30,WAA31,WAA32,WAA33,WAA34,WAA35,
+WAA36,WAA37,WAA38,WAA39,WAA40,WAA41,WAA42,WAA43,WAA44,WAA45,WAA46,WAA47,WAA48,WAA49,WAA50,WAA51,WAA52,WAA53,WAA54,WAA55,WAA56,
+WAA57,WAA58,WAA59,WAA60,WAA61,WAA62,WAA63,WAA64,WAA65,WAA66,WAA67,WAA68,WAA69,WAA70,WAA71,WAA72,WAA73,WAA74,WAA75,WAA76,WAA77,
+WAA78,WAA79,WAA80,WAA81,WAA82,WAA83,WAA84,WAA85,WAA86,WAA87,WAA88,WAA89,WAA90,WAA91,WAA92,WAA93,WAA94,WAA95,WAA96,WAA97,WAA98,WAA99,WAA107,WAA108) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAA00  轉入日期（?留）
+     '''2'','||--WAA01  轉檔型態（1(保單) 2(批改)）
+     't1.waa02,'||--WAA02  保單號碼
+     ''''||endorseNotmp||''','||--WAA03  ???????a
+     't1.waa04,'||--WAA04  被保險人
+     'substr(t1.waa05,1,3),'||--WAA05  郵遞區號－住宅
+     't1.waa06,'||--WAA06  被保險人住所
+     't1.waa07,'||--WAA07  被保險人電話
+     'substr(t1.waa08,1,3),'||--WAA08  郵遞區號－收
+     't1.waa09,'||--WAA09  收費處
+     't1.waa10,'||--WAA10  收費處電話
+     't1.waa11,'||--WAA11  行動電話
+     't1.waa12,'||--WAA12  統一編號/ID
+     't1.waa13,'||--WAA13  簽單日期
+     't1.waa14,'||--WAA14  保險期間－起
+     't1.waa15,'||--WAA15  保險期間－迄
+     't1.waa16,'||--WAA16  合約日期／收件日
+     't1.waa17,'||--WAA17  生效總天數   ---非必輸
+     't1.waa18,'||--WAA18  保期月數   ---非必輸
+     't1.waa19,'||--WAA19  保期天數   ---非必輸
+     '(t1.waa20)*(-1),'||--WAA20  總保險金額
+     'NULL,'||--WAA21  總純保費  ---待確認  暫時無法取到純保費比率
+     '(t1.waa22)*(-1) ,'||--WAA22  總保費,EGN0032共保保單，執行佣金批改時，共保訊息會不見且介接檔的值有誤
+     '(select subEcwaa.waa23 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 IS NULL)*(-1),'||--WAA23  佣金率％ mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(select subEcwaa.waa24 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 IS NULL)*(-1),'||--WAA24  總佣金 mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     't1.waa25,'||--WAA25  業務員編號
+     't1.waa26,'||--WAA26  業務員單位 ---待確認
+     't1.waa27,'||--WAA27  業務員歸屬單位 (select comCode from prpDagent where agentCode = t1.handlerCode)
+     't1.waa28,'||--WAA28  代理人
+     't1.waa29,'||--WAA29  業務來源
+     't1.waa30,'||--WAA30  收費區代號   ---非必輸
+     't1.waa31,'||--WAA31  服務人員
+     't1.waa32,'||--WAA32  大險種   (??)
+     't1.waa33,'||--WAA33  保險地區代號    prpCmainConstruct.constructAddress:工程?地?代?
+     't1.waa34,'||--WAA34  保險標的物代號  ---責任險PR產品代號待確認
+     't1.waa35,'||--WAA35  附加或特約條款1  ---待確認
+     't1.waa36,'||--WAA36  附加或特約條款2  ---待確認
+     't1.waa37,'||--WAA37  附加或特約條款3  ---待確認
+     't1.waa38,'||--WAA38  公家招標件
+     't1.waa39,'||--WAA39  服務人員單位
+     't1.waa40,'||--WAA40  服務人員代理人   ---非必輸
+     't1.waa41,'||--WAA41  營業單位
+     't1.waa42,'||--WAA42  營業人員   ---待確認
+     't1.waa43,'||--WAA43  專案號碼
+     't1.waa44,'||--WAA44  自留保費  ---非必輸
+     't1.waa45,'||--WAA45  工程費率   ---費率第一條
+     '(t1.waa46)*(-1),'||--WAA46  本體天災保費   ---待確認  天災保費累計
+     't1.waa47,'||--WAA47  商品代碼   ---非必輸
+     't1.waa48,'||--WAA48  被保人性質代號 C,P')   ---非必輸
+     't1.waa49,'||--WAA49  危險期間－起  ---非必輸
+     't1.waa50,'||--WAA50  危險期間－迄  ---非必輸
+     't1.waa51,'||--WAA51  是否為主出單公司   ---待拆分
+     't1.waa52,'||--WAA52  共保比例％
+     't1.waa53,'||--WAA53  共保(保險費)
+     't1.waa54,'||--WAA54  危險單位類別   ---待確認
+     't1.waa55,'||--WAA55  危險單位數量    ---待確認
+     't1.waa56,'||--WAA56  (工程類雇主責任) Y/N   ---非必輸
+     't1.waa57,'||--WAA57  危險分類總項代號  ---待確認
+     't1.waa58,'||--WAA58  危險分類細項代號  ---待確認
+     't1.waa59,'||--WAA59  營業介紹人
+     't1.waa60,'||--WAA60  特殊件　 N/Y
+     't1.waa61,'||--WAA61  特殊件折算率 1/3
+     't1.waa62,'||--WAA62  ??件
+     't1.waa63,'||--WAA63  保發通路別
+     't1.waa64,'||--WAA64  再保註記
+     't1.waa65,'||--WAA65  分期註記 (01;02;04;12)  t1.descriptions
+     't1.waa66,'||--WAA66  共同業務
+     't1.waa67,'||--WAA67  區碼   ---非必輸
+     't1.waa68,'||--WAA68  銷帳編號   ---非必輸
+     't1.waa69,'||--WAA69  損失險總保額(工程險用)   ---非必輸
+     't1.waa70,'||--WAA70  意外險總保額(工程險用)   ---非必輸
+     't1.waa71,'||--WAA71  損失險總保費(工程險用)   ---非必輸
+     't1.waa72,'||--WAA72  意外險總保費(工程險用)   ---非必輸
+     ''''||endorType||''','||--WAA73  批改事由 ---批改?型
+     ''''||validDateNum||''','||--WAA74  批單有效期?起期
+     't1.waa75,'||--WAA75  批單有效期?迄期
+     ''''||validHour||''','||--WAA76  批單生效時間
+     '(select subEcwaa.waa77 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 ='''||endorseno||''')*(-1),'||--WAA77  加減總保費 mantis： EGN0037，處理人員：DP0706，需求單編號：EGN0037
+     'null ,'||--WAA78  加減總純保費
+     '(select subEcwaa.waa24 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 IS NULL)*(-1),'||--WAA79  加減總佣金 mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(select subEcwaa.waa23 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 IS NULL)*(-1),'||--WAA80  批改后佣金率  mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(select subEcwaa.waa81 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 ='''||endorseno||''')*(-1),'||--WAA81  加減總保額 mantis： EGN0037，處理人員：DP0706，需求單編號：EGN0037
+     'NULL,'||--WAA82  退保方式
+     'NULL,'||--WAA83  退保總行
+     'NULL,'||--WAA84  退保分行
+     'NULL,'||--WAA85  退保帳號
+     'NULL,'||--WAA86  退保郵遞區號
+     'NULL,'||--WAA87  退保通訊地址
+     'NULL,'||--WAA88  取消禁背
+     'NULL,'||--WAA89  契撤申請人ID
+     'NULL,'||--WAA90  互抵 批號
+     't1.waa91,'||--WAA91  登錄證號
+     'NULL, '||--WAA92  全註銷/批退抵繳註記 P/Y
+	 'NULL, '||--WAA93  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA94  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA95  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA96  AS400專用(核心未傳該值)	 
+	 't1.WAA97,'||--WAA97  核保加減費係數-增減代號
+	 't1.WAA98,'||--WAA98  核保加減費係數-增減率
+	 --LIA0211 增加傳送保期起迄小時至AS400 start
+     't1.WAA99 , '||--WAA99  續保單號碼 ;mantis：LIA0066，處理人員：DP0706，需求單編號：LIA0066 責任險及工程險保單內容中的續保單號碼需介接至AS400(WAA99).
+     't1.WAA107 , '||--WAA107  保期時間 起(時數)
+     't1.WAA108 '||--WAA108  保期時間 止(時數)
+     --LIA0211 增加傳送保期起迄小時至AS400 END
+    'from   ECWAA t1
+      where t1.waa02='''||policyno||'''
+      and   t1.waa03 is null';
+
+
+
+error_info:='POLICY INFO INSERT ECWAB FAILURE';
+
+EXECUTE IMMEDIATE 'insert into ECWAB(WAB00,WAB01,WAB02,WAB03,WAB04,WAB05,WAB06,WAB07,WAB08,WAB09,WAB10,WAB11,WAB12,WAB13,WAB14,
+WAB15,WAB16,WAB17,WAB18,WAB19,WAB20,WAB21,WAB22,WAB23,WAB24,WAB25,WAB26,WAB27,WAB28,WAB29,WAB30,WAB31,WAB32,WAB33,WAB34,WAB35,WAB36) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAB00  轉入日期(民國年)
+     '''2'','||--WAB01  轉檔型態(1(保單) 2(批改))
+     't1.wab02,'||--WAB02  保單號碼
+     ''''||endorseNotmp||''','||--WAB03  ???????a
+     't1.wab04,'||--WAB04  行業 / 職業別代號
+     't1.wab05,'||--WAB05  追溯日期
+     't1.wab06,'||--WAB06  執行業務種類
+     't1.wab07,'||--WAB07  標的物所在處所   ---待確認  是否為標的物處所中的標的物地址  並且標的物地址可以有多個  prpCaddress.addressName
+     't1.wab08,'||--WAB08  定作人 ---待確認 是否會有多個   ---与執行業務種類?同一?字段 待确?
+     't1.wab09,'||--WAB09  定作人住所     ---工程?CA
+     't1.wab10,'||--WAB10  定作人統一編號  ---工程?CA
+     't1.wab11,'||--WAB11  承攬人
+     't1.wab12,'||--WAB12  承攬人住所
+     't1.wab13,'||--WAB13  要保人
+     't1.wab14,'||--WAB14  要保人住所
+     't1.wab15,'||--WAB15  承保工程述要  ---待確認
+     't1.wab16,'||--WAB16  施工處所   ---CP 有多個  prpCaddress.addressName
+     't1.wab17,'||--WAB17  延長報案或貸款期限   ---非必輸
+     't1.wab18,'||--WAB18  施工期間－起   ---非必輸
+     't1.wab19,'||--WAB19  施工期間－迄   ---非必輸
+     't1.wab20,'||--WAB20  保期內最高責任說明
+     't1.wab21,'||--WAB21  保期內最高責任保額
+     't1.wab22,'||--WAB22  受益人   ---受益人CA有多條
+     't1.wab23,'||--WAB23  共同被保人   ---非必輸
+     't1.wab24,'||--WAB24  使用人   ---CP 待?理
+     't1.wab25,'||--WAB25  使用人住所   ---CP 待?理
+     't1.wab26,'||--WAB26  使用人  統一編號   ---CP 待?理
+     't1.wab27,'||--WAB27  廠牌   ---CP  prpcitemkind.thickness  有多?
+     't1.wab28,'||--WAB28  型式   ---CP  prpcitemkind.model  有多?
+     't1.wab29,'||--WAB29  引擎號碼   ---CP  prpcitemkind.productCode  有多?
+     't1.wab30,'||--WAB30  製造年份   ---EE,MB  prpcitemkind.buyDate
+     't1.wab31,'||--WAB31  存放處所   ---CP  prpCaddress.addressName
+     't1.wab32,'||--WAB32  鍋爐編號   ---BP
+     't1.wab33,'||--WAB33  製造年份
+     't1.wab34,'||--WAB34  存放地點
+     't1.wab35,'||--WAB35  保險標的物代號    ---取的是保??的物代?  BP
+     't1.wab36 '||--WAB36  保險標的物說明   ---取的是保??的物 BP
+     'from  ECWAB t1
+      where t1.wab02='''||policyno||'''
+      and   t1.wab03 is null';
+
+
+
+error_info:='OLDENDORSE INFO INSERT WAC-130 FAILURE';
+    EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+     WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.wac02,'||--WAC02  保單號碼
+     ''''||endorseNotmp||''','||--WAC03  ???????a
+     't1.wac04,'||--WAC04  險種代號
+     't1.wac05,'||--WAC05  序號
+     '(t1.wac06)*(-1),'||--WAC06  保險金額
+     't1.wac07,'||--WAC07  保額說明代號
+     't1.wac08,'||--WAC08  保額說明
+     't1.wac09,'||--WAC09  自負額
+     't1.wac10,'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+     't1.wac11,'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+     '(t1.wac12)*(-1),'||--WAC12  保險費
+     't1.wac13,'||--WAC13  保險費率／每千元
+     't1.wac14,'||--WAC14  承保範圍
+     't1.wac15,'||--WAC15  自負額單位類別 t2.itemDetailName
+     't1.wac17,'||--WAC17
+     't1.wac18,'||--WAC18
+     '(t1.wac19)*(-1),'||--WAC19
+     '(t1.wac20)*(-1),'||--WAC20
+     '(t1.wac21)*(-1),'||--WAC21
+     '(t1.wac22)*(-1),'||--WAC22
+     '(t1.wac23)*(-1),'||--WAC23
+     't1.wac16,'||--WAC16  批改性質   ---?法?取
+	 't1.WAC24,'||--WAC24  自負額數量1
+	 't1.WAC25,'||--WAC25  自負額數量2
+	 't1.WAC26,'||--WAC26  自負額數量3
+	 't1.WAC27,'||--WAC27  核保考量係數-增減代號
+	 't1.WAC28,'||--WAC28  核保考量係數-增減率
+	 't1.WAC29,'||--WAC29  風險分類係數
+	 't1.WAC30,'||--WAC30  保額係數
+	 't1.WAC31,'||--WAC31  承保年期係數-增減代號
+	 't1.WAC32,'||--WAC32  承保年期係數-增減率
+	 't1.WAC33,'||--WAC33  危險季節費率加費-增減代號
+	 't1.WAC34,'||--WAC34  危險季節費率加費-增減率
+	 't1.WAC35,'||--WAC35  自負額係數-增減代號
+	 't1.WAC36,'||--WAC36  自負額係數-增減率
+	 't1.WAC37,'||--WAC37  工程風險類別係數
+	 't1.WAC38,'||--WAC38  高保額係數
+	 't1.WAC39,'||--WAC39  承保工程規模係數-增減代號
+	 't1.WAC40,'||--WAC40  承保工程規模係數-增減率
+	 't1.WAC41,'||--WAC41  核保考量之加減費係數-增減代號
+	 't1.WAC42,'||--WAC42  核保考量之加減費係數-增減率
+	 't1.WAC43,'||--WAC43  承保範圍調整係數-增減代號
+	 't1.WAC44,'||--WAC44  承保範圍調整係數-增減率
+	 't1.WAC45,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't1.WAC46, '||--WAC46  縮短補償時間減費係數-增減率
+	 't1.WAC47, '||--WAC47  巨大危險數量代號
+	 't1.WAC48, '||--WAC48  保費增減率-增減代號	 
+	 't1.WAC49, '||--WAC49  保費增減率
+	 't1.WAC50, '||--WAC50  附加保費-增減代號
+	 't1.WAC51, '||--WAC51  附加保費-增減率
+	 't1.WAC52, '||--WAC52  損失率調整數額-增減代號
+	 't1.WAC53, '||--WAC53  損失率調整數額-增減率	 
+ 	 't1.WAC54, '||--WAC54  AGG調整加減數額-增減代號
+	 't1.WAC55 ' ||--WAC55  AGG調整加減數額-增減率
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t1.WAC56 ' ||--WAC56  危險單位類別代號	 
+	 ',t1.WAC57 ' ||--WAC57  危險單位數量
+	 ',t1.WAC58 ' ||--WAC58  危險分總項代號
+	 ',t1.WAC59 ' ||--WAC59  危險分類細項代號
+	 ',t1.WAC60 ' ||--WAC60  其他係數1-增減代號
+	 ',t1.WAC61 ' ||--WAC61  其他係數1-增減率
+	 ',t1.WAC62 ' ||--WAC62  其他係數2-增減代號 
+	 ',t1.WAC63 ' ||--WAC63  其他係數2-增減率
+	 ',t1.WAC64 ' ||--WAC64  其他係數3-增減代號 
+	 ',t1.WAC65 ' ||--WAC65  其他係數3-增減率
+	 ',t1.WAC66 ' ||--WAC66  特殊條件
+	    --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+
+     'from ECWAC t1
+      where t1.wac02='''||policyno||'''
+     and   t1.wac03 is null';
+
+     error_info:='POLICY INFO INSERT ECWAC FAILURE';
+--INSERT ECWAC
+EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+    WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAC02  保單號碼
+     ''''||endorseno||''','||--WAC03  批單號碼
+     't2.kindcode,'||--WAC04  險種代號
+     't2.itemKindNo,'||--WAC05  序號
+     't2.amount,'||--WAC06  保險金額
+     'NULL,'||--WAC07  保額說明代號   ---待确?
+     'NULL,'||--WAC08  保額說明   ---待确?
+     'NULL,'||--WAC09  自負額
+     'substr(t2.deductibleType,1,24),'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+     'substr(t2.deductibleInstruction,1,24),'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+     't2.premium,'||--WAC12  保險費
+     't2.rate,'||--WAC13  保險費率／每千元
+     'substr(t2.itemNature,1,7),'||--WAC14  承保範圍
+     'NULL,'||--WAC15  自負額單位類別 t2.itemDetailName
+     'substr(t2.itemcode,1,2),'||--WAC17
+     'substr(t2.itemdetailname,1,1),'||--WAC18
+     't2.perhumaninjury,'||--WAC19
+     't2.perhumandeath,'||--WAC20
+     't2.peraccidentdeaths,'||--WAC21
+     't2.peraccidentdamage,'||--WAC22
+     't2.periodmaxamount,'||--WAC23
+     'NULL, '||--WAC16  批改性質   ---?法?取
+	 't3.DEDUCTIBLEAMOUNT1,'||--WAC24  自負額數量1
+	 't3.DEDUCTIBLEAMOUNT2,'||--WAC25  自負額數量2
+	 't3.DEDUCTIBLEAMOUNT3,'||--WAC26  自負額數量3
+	 't3.UNDERWRITCOEFFIIDCODE,'||--WAC27  核保考量係數-增減代號
+	 't3.UNDERWRITCOEFFIIDRATE,'||--WAC28  核保考量係數-增減率
+	 't3.RISKCLASSCOEFFI,'||--WAC29  風險分類係數
+	 't3.AMOUNTCOEFFI,'||--WAC30  保額係數
+	 't3.YEARCOEFFIIDCODE,'||--WAC31  承保年期係數-增減代號
+	 't3.YEARCOEFFIIDRATE,'||--WAC32  承保年期係數-增減率
+	 't3.DANGERSEASONCODE,'||--WAC33  危險季節費率加費-增減代號
+	 't3.DANGERSEASONRATE,'||--WAC34  危險季節費率加費-增減率
+	 't3.DEDUCTIBLECOEFFIIDCODE,'||--WAC35  自負額係數-增減代號
+	 't3.DEDUCTIBLECOEFFIIDRATE,'||--WAC36  自負額係數-增減率
+	 't3.ENGINEERRISKCOEFFI,'||--WAC37  工程風險類別係數
+	 't3.HIGHAMOUNTCOEFFI,'||--WAC38  高保額係數
+	 't3.ENGINEERSCALECOEFFICODE,'||--WAC39  承保工程規模係數-增減代號
+	 't3.ENGINEERSCALECOEFFIRATE,'||--WAC40  承保工程規模係數-增減率
+	 't3.UNDERWRITCONSIDERIDCOEFFICODE,'||--WAC41  核保考量之加減費係數-增減代號
+	 't3.UNDERWRITCONSIDERIDCOEFFIRATE,'||--WAC42  核保考量之加減費係數-增減率
+	 't3.SCOREADJCOEFFICODE,'||--WAC43  承保範圍調整係數-增減代號
+	 't3.SCOREADJCOEFFIRATE,'||--WAC44  承保範圍調整係數-增減率
+	 't3.SHORTENTIMECOEFFICODE,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't3.SHORTENTIMECOEFFIRATE, '||--WAC46  縮短補償時間減費係數-增減率
+	 't3.HUGEDANGERCODE, '||--WAC47  巨大危險數量代號
+	 't3.PREMIUMIDCODE, '||--WAC48  保費增減率-增減代號	 
+	 't3.PREMIUMIDRATE, '||--WAC49  保費增減率
+	 't3.SUBPREMIDCODE, '||--WAC50  附加保費-增減代號
+	 't3.SUBPREMIDRATE, '||--WAC51  附加保費-增減率
+	 't3.LOSSRATEADJAMOUNTCODE, '||--WAC52  損失率調整數額-增減代號
+	 't3.LOSSRATEADJAMOUNTRATE, '||--WAC53  損失率調整數額-增減率	 
+ 	 't3.AGGADJIDAMOUNTCODE, '||--WAC54  AGG調整加減數額-增減代號
+	 't3.AGGADJIDAMOUNTRATE ' ||--WAC55  AGG調整加減數額-增減率
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t4.DANGERUNITITEMITEM ' ||--WAC56  危險單位類別代號	 
+	 ',t4.DANGERUNITAMOUNT ' ||--WAC57  危險單位數量
+	 ',t4.DANGERCLASSIFICATIONTOTALITEM ' ||--WAC58  危險分總項代號
+	 ',t4.DANGERCLASSIFICATIONITEM ' ||--WAC59  危險分類細項代號
+	 ',t3.OTHERS1COEFFICODE ' ||--WAC60  其他係數1-增減代號
+	 ',t3.OTHERS1COEFFIRATE ' ||--WAC61  其他係數1-增減率
+	 ',t3.OTHERS2COEFFICODE ' ||--WAC62  其他係數2-增減代號 
+	 ',t3.OTHERS2COEFFIRATE ' ||--WAC63  其他係數2-增減率
+	 ',t3.OTHERS3COEFFICODE ' ||--WAC64  其他係數3-增減代號 
+	 ',t3.OTHERS3COEFFIRATE ' ||--WAC65  其他係數3-增減率
+	 ',t3.SPECIALCONDITION ' ||--WAC66  特殊條件 	
+	     --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+
+     'from prpcpmain t1,
+           prpCpitemKind t2
+		   left join prpCpitemKindFactor t3 
+		   on t2.policyno=t3.policyno 
+		   and t2.ITEMKINDNO = t3.ITEMKINDNO
+		   left join PRPCPMAINLIAB t4
+		   on t2.policyno=t4.policyno
+      where t1.policyno='''||policyno||'''
+      and   t1.policyno=t2.policyno';
+
+ END IF;
+
+
+IF endorsetimesNum > 1 AND endorType = '130' THEN
+  error_info:='OLDENDORSE INFO INSERT GetEndorseNoOld-130 FAILURE';
+  endorsetimesNum:=endorsetimesNum-1;
+queryp_sql:='SELECT WAA03 FROM ECWAA WHERE WAA02 = '''||policyno||'''  AND ENDORSETIMES = '||endorsetimesNum||'';
+EXECUTE IMMEDIATE queryp_sql INTO endorseNoOld;
+endorseNotmp:=''||endorseno||''||'X';
+ Dbms_Output.put_line('error_info1:'|| endorseNotmp );
+  error_info:='OLDENDORSE INFO INSERT WAA-130 FAILURE';
+  --LIA0211 新增AS400介接傳送保單的時數 WAA107,WAA108
+     EXECUTE IMMEDIATE 'insert into ECWAA(WAA00,WAA01,WAA02,WAA03,WAA04,WAA05,WAA06,WAA07,WAA08,WAA09,WAA10,WAA11,WAA12,WAA13,WAA14,
+WAA15,WAA16,WAA17,WAA18,WAA19,WAA20,WAA21,WAA22,WAA23,WAA24,WAA25,WAA26,WAA27,WAA28,WAA29,WAA30,WAA31,WAA32,WAA33,WAA34,WAA35,
+WAA36,WAA37,WAA38,WAA39,WAA40,WAA41,WAA42,WAA43,WAA44,WAA45,WAA46,WAA47,WAA48,WAA49,WAA50,WAA51,WAA52,WAA53,WAA54,WAA55,WAA56,
+WAA57,WAA58,WAA59,WAA60,WAA61,WAA62,WAA63,WAA64,WAA65,WAA66,WAA67,WAA68,WAA69,WAA70,WAA71,WAA72,WAA73,WAA74,WAA75,WAA76,WAA77,
+WAA78,WAA79,WAA80,WAA81,WAA82,WAA83,WAA84,WAA85,WAA86,WAA87,WAA88,WAA89,WAA90,WAA91,WAA92,WAA93,WAA94,WAA95,WAA96,WAA97,WAA98,WAA99,WAA107,WAA108) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAA00  轉入日期（?留）
+     '''2'','||--WAA01  轉檔型態（1(保單) 2(批改)）
+     't1.waa02,'||--WAA02  保單號碼
+     ''''||endorseNotmp||''','||--WAA03  ???????a
+     't1.waa04,'||--WAA04  被保險人
+     'substr(t1.waa05,1,3),'||--WAA05  郵遞區號－住宅
+     't1.waa06,'||--WAA06  被保險人住所
+     't1.waa07,'||--WAA07  被保險人電話
+     'substr(t1.waa08,1,3),'||--WAA08  郵遞區號－收
+     't1.waa09,'||--WAA09  收費處
+     't1.waa10,'||--WAA10  收費處電話
+     't1.waa11,'||--WAA11  行動電話
+     't1.waa12,'||--WAA12  統一編號/ID
+     't1.waa13,'||--WAA13  簽單日期
+     't1.waa14,'||--WAA14  保險期間－起
+     't1.waa15,'||--WAA15  保險期間－迄
+     't1.waa16,'||--WAA16  合約日期／收件日
+     't1.waa17,'||--WAA17  生效總天數   ---非必輸
+     't1.waa18,'||--WAA18  保期月數   ---非必輸
+     't1.waa19,'||--WAA19  保期天數   ---非必輸
+     '(t1.waa20)*(-1),'||--WAA20  總保險金額
+     't1.waa21,'||--WAA21  總純保費  ---待確認  暫時無法取到純保費比率
+     '(t1.waa22)*(-1) ,'||--WAA22  總保費,EGN0032共保保單，執行佣金批改時，共保訊息會不見且介接檔的值有誤
+     '(t1.waa23)*(-1) ,'||--WAA23  佣金率％ mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(t1.waa24)*(-1) ,'||--WAA24  總佣金 mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     't1.waa25,'||--WAA25  業務員編號
+     't1.waa26,'||--WAA26  業務員單位 ---待確認
+     't1.waa27,'||--WAA27  業務員歸屬單位 (select comCode from prpDagent where agentCode = t1.handlerCode)
+     't1.waa28,'||--WAA28  代理人
+     't1.waa29,'||--WAA29  業務來源
+     't1.waa30,'||--WAA30  收費區代號   ---非必輸
+     't1.waa31,'||--WAA31  服務人員
+     't1.waa32,'||--WAA32  大險種   (??)
+     't1.waa33,'||--WAA33  保險地區代號    prpCmainConstruct.constructAddress:工程?地?代?
+     't1.waa34,'||--WAA34  保險標的物代號  ---責任險PR產品代號待確認
+     't1.waa35,'||--WAA35  附加或特約條款1  ---待確認
+     't1.waa36,'||--WAA36  附加或特約條款2  ---待確認
+     't1.waa37,'||--WAA37  附加或特約條款3  ---待確認
+     't1.waa38,'||--WAA38  公家招標件
+     't1.waa39,'||--WAA39  服務人員單位
+     't1.waa40,'||--WAA40  服務人員代理人   ---非必輸
+     't1.waa41,'||--WAA41  營業單位
+     't1.waa42,'||--WAA42  營業人員   ---待確認
+     't1.waa43,'||--WAA43  專案號碼
+     't1.waa44,'||--WAA44  自留保費  ---非必輸
+     't1.waa45,'||--WAA45  工程費率   ---費率第一條
+     '(t1.waa46)*(-1),'||--WAA46  本體天災保費   ---待確認  天災保費累計
+     't1.waa47,'||--WAA47  商品代碼   ---非必輸
+     't1.waa48,'||--WAA48  被保人性質代號 C,P')   ---非必輸
+     't1.waa49,'||--WAA49  危險期間－起  ---非必輸
+     't1.waa50,'||--WAA50  危險期間－迄  ---非必輸
+     't1.waa51,'||--WAA51  是否為主出單公司   ---待拆分
+     't1.waa52,'||--WAA52  共保比例％
+     't1.waa53,'||--WAA53  共保(保險費)
+     't1.waa54,'||--WAA54  危險單位類別   ---待確認
+     't1.waa55,'||--WAA55  危險單位數量    ---待確認
+     't1.waa56,'||--WAA56  (工程類雇主責任) Y/N   ---非必輸
+     't1.waa57,'||--WAA57  危險分類總項代號  ---待確認
+     't1.waa58,'||--WAA58  危險分類細項代號  ---待確認
+     't1.waa59,'||--WAA59  營業介紹人
+     't1.waa60,'||--WAA60  特殊件　 N/Y
+     't1.waa61,'||--WAA61  特殊件折算率 1/3
+     't1.waa62,'||--WAA62  ??件
+     't1.waa63,'||--WAA63  保發通路別
+     't1.waa64,'||--WAA64  再保註記
+     't1.waa65,'||--WAA65  分期註記 (01;02;04;12)  t1.descriptions
+     't1.waa66,'||--WAA66  共同業務
+     't1.waa67,'||--WAA67  區碼   ---非必輸
+     't1.waa68,'||--WAA68  銷帳編號   ---非必輸
+     't1.waa69,'||--WAA69  損失險總保額(工程險用)   ---非必輸
+     't1.waa70,'||--WAA70  意外險總保額(工程險用)   ---非必輸
+     't1.waa71,'||--WAA71  損失險總保費(工程險用)   ---非必輸
+     't1.waa72,'||--WAA72  意外險總保費(工程險用)   ---非必輸
+     ''''||endorType||''','||--WAA73  批改事由 ---批改?型
+     ''''||validDateNum||''','||--WAA74  批單有效期?起期
+     't1.waa75,'||--WAA75  批單有效期?迄期
+     ''''||validHour||''','||--WAA76  批單生效時間
+     '(select subEcwaa.waa77 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 ='''||endorseno||''')*(-1),'||--WAA77  加減總保費 mantis： EGN0037，處理人員：DP0706，需求單編號：EGN0037
+     'null ,'||--WAA78  加減總純保費
+     '(t1.waa24)*(-1) ,'||--WAA79  加減總佣金 mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(t1.waa23)*(-1) ,'||--WAA80  批改后佣金率 mantis： LIA0074，處理人員：DP0713，需求單編號：LIA0074 佣金批改的負向金額修正
+     '(select subEcwaa.waa81 from ECWAA subEcwaa where  subEcwaa.waa02='''||policyno||''' and  subEcwaa.waa03 ='''||endorseno||''')*(-1),'||--WAA81  加減總保額 mantis： EGN0037，處理人員：DP0706，需求單編號：EGN0037
+     't1.waa82,'||--WAA82  退保方式
+     't1.waa83,'||--WAA83  退保總行
+     't1.waa84,'||--WAA84  退保分行
+     't1.waa85,'||--WAA85  退保帳號
+     'substr(t1.waa86,1,3),'||--WAA86  退保郵遞區號
+     't1.waa87,'||--WAA87  退保通訊地址
+     't1.waa88,'||--WAA88  取消禁背
+     't1.waa89,'||--WAA89  契撤申請人ID
+     't1.waa90,'||--WAA90  互抵 批號
+     't1.waa91,'||--WAA91  登錄證號
+     't1.waa92, '||--WAA92  全註銷/批退抵繳註記 P/Y
+	 'NULL, '||--WAA93  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA94  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA95  AS400專用(核心未傳該值)
+	 'NULL, '||--WAA96  AS400專用(核心未傳該值)	 
+	 't1.WAA97,'||--WAA97  核保加減費係數-增減代號
+	 't1.WAA98,'||--WAA98  核保加減費係數-增減率
+	 --LIA0211 增加傳送保期起迄小時至AS400 start
+	 't1.WAA99, '||--WAA99  續保單號碼 ;mantis：LIA0066，處理人員：DP0706，需求單編號：LIA0066 責任險及工程險保單內容中的續保單號碼需介接至AS400(WAA99).
+     't1.WAA107 , '||--WAA107  保期時間 起(時數)
+     't1.WAA108 '||--WAA108  保期時間 止(時數)
+     --LIA0211 增加傳送保期起迄小時至AS400 END
+    'from   ECWAA t1
+      where t1.waa02='''||policyno||'''
+      and   t1.waa03 = '''||endorseNoOld||'''';
+
+
+
+error_info:='POLICY INFO INSERT ECWAB FAILURE';
+
+EXECUTE IMMEDIATE 'insert into ECWAB(WAB00,WAB01,WAB02,WAB03,WAB04,WAB05,WAB06,WAB07,WAB08,WAB09,WAB10,WAB11,WAB12,WAB13,WAB14,
+WAB15,WAB16,WAB17,WAB18,WAB19,WAB20,WAB21,WAB22,WAB23,WAB24,WAB25,WAB26,WAB27,WAB28,WAB29,WAB30,WAB31,WAB32,WAB33,WAB34,WAB35,WAB36) select '||
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAB00  轉入日期(民國年)
+     '''2'','||--WAB01  轉檔型態(1(保單) 2(批改))
+     't1.wab02,'||--WAB02  保單號碼
+     ''''||endorseNotmp||''','||--WAB03  ???????a
+     't1.wab04,'||--WAB04  行業 / 職業別代號
+     't1.wab05,'||--WAB05  追溯日期
+     't1.wab06,'||--WAB06  執行業務種類
+     't1.wab07,'||--WAB07  標的物所在處所   ---待確認  是否為標的物處所中的標的物地址  並且標的物地址可以有多個  prpCaddress.addressName
+     't1.wab08,'||--WAB08  定作人 ---待確認 是否會有多個   ---与執行業務種類?同一?字段 待确?
+     't1.wab09,'||--WAB09  定作人住所     ---工程?CA
+     't1.wab10,'||--WAB10  定作人統一編號  ---工程?CA
+     't1.wab11,'||--WAB11  承攬人
+     't1.wab12,'||--WAB12  承攬人住所
+     't1.wab13,'||--WAB13  要保人
+     't1.wab14,'||--WAB14  要保人住所
+     't1.wab15,'||--WAB15  承保工程述要  ---待確認
+     't1.wab16,'||--WAB16  施工處所   ---CP 有多個  prpCaddress.addressName
+     't1.wab17,'||--WAB17  延長報案或貸款期限   ---非必輸
+     't1.wab18,'||--WAB18  施工期間－起   ---非必輸
+     't1.wab19,'||--WAB19  施工期間－迄   ---非必輸
+     't1.wab20,'||--WAB20  保期內最高責任說明
+     't1.wab21,'||--WAB21  保期內最高責任保額
+     't1.wab22,'||--WAB22  受益人   ---受益人CA有多條
+     't1.wab23,'||--WAB23  共同被保人   ---非必輸
+     't1.wab24,'||--WAB24  使用人   ---CP 待?理
+     't1.wab25,'||--WAB25  使用人住所   ---CP 待?理
+     't1.wab26,'||--WAB26  使用人  統一編號   ---CP 待?理
+     't1.wab27,'||--WAB27  廠牌   ---CP  prpcitemkind.thickness  有多?
+     't1.wab28,'||--WAB28  型式   ---CP  prpcitemkind.model  有多?
+     't1.wab29,'||--WAB29  引擎號碼   ---CP  prpcitemkind.productCode  有多?
+     't1.wab30,'||--WAB30  製造年份   ---EE,MB  prpcitemkind.buyDate
+     't1.wab31,'||--WAB31  存放處所   ---CP  prpCaddress.addressName
+     't1.wab32,'||--WAB32  鍋爐編號   ---BP
+     't1.wab33,'||--WAB33  製造年份
+     't1.wab34,'||--WAB34  存放地點
+     't1.wab35,'||--WAB35  保險標的物代號    ---取的是保??的物代?  BP
+     't1.wab36 '||--WAB36  保險標的物說明   ---取的是保??的物 BP
+     'from  ECWAB t1
+      where t1.wab02='''||policyno||'''
+      and   t1.wab03 = '''||endorseNoOld||'''';
+
+
+
+error_info:='OLDENDORSE INFO INSERT WAC-130 FAILURE';
+--    EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+--WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16) select '||
+--     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+--     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+--     't1.wac02,'||--WAC02  保單號碼
+--     ''''||endorseNotmp||''','||--WAC03  ???????a
+--     't1.wac04,'||--WAC04  險種代號
+--     't1.wac05,'||--WAC05  序號
+--     '(t1.wac06)*(-1),'||--WAC06  保險金額
+--     't1.wac07,'||--WAC07  保額說明代號
+--     't1.wac08,'||--WAC08  保額說明
+--     't1.wac09,'||--WAC09  自負額
+--     't1.wac10,'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+--     't1.wac11,'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+--     '(t1.wac12)*(-1),'||--WAC12  保險費
+--     't1.wac13,'||--WAC13  保險費率／每千元
+--     't1.wac14,'||--WAC14  承保範圍
+--     't1.wac15,'||--WAC15  自負額單位類別 t2.itemDetailName
+--     't1.wac17,'||--WAC17
+--     't1.wac18,'||--WAC18
+--     '(t1.wac19)*(-1),'||--WAC19
+--     '(t1.wac20)*(-1),'||--WAC20
+--     '(t1.wac21)*(-1),'||--WAC21
+--     '(t1.wac22)*(-1),'||--WAC22
+--     '(t1.wac23)*(-1),'||--WAC23
+--     't1.wac16 '||--WAC16  批改性質   ---?法?取
+--     'from ECWAC t1
+--      where t1.wac02='''||policyno||'''
+--     and   t1.wac03 = '''||endorseNoOld||'''';
+EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+    WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAC02  保單號碼
+     ''''||endorseNotmp||''','||--WAC03  批單號碼
+     't2.kindcode,'||--WAC04  險種代號
+     't2.itemKindNo,'||--WAC05  序號
+     --'t2.amount*(-1),'||--WAC06  保險金額
+     'decode((select t.chgamount from prppitemkind t  where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno),NULL,t2.amount*(-1),(select (t2.amount-t.chgamount)*(-1) from prppitemkind t  where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno)),'||--WAC06  保險金額
+     'NULL,'||--WAC07  保額說明代號   ---待确?
+     'NULL,'||--WAC08  保額說明   ---待确?
+     'NULL,'||--WAC09  自負額
+     'substr(t2.deductibleType,1,24),'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+     'substr(t2.deductibleInstruction,1,24),'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+     --'t2.premium*(-1),'||--WAC12  保險費
+     'decode((select t.chgpremium from prppitemkind t where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno),NULL,t2.premium*(-1),(select (t2.premium-t.chgpremium)*(-1) from prppitemkind t where t.endorseno='''||endorseno||''' and t.itemkindno = t2.itemkindno)),'||--WAC12  保險費 
+     't2.rate,'||--WAC13  保險費率／每千元
+     'substr(t2.itemNature,1,7),'||--WAC14  承保範圍
+     'NULL,'||--WAC15  自負額單位類別 t2.itemDetailName
+     'substr(t2.itemcode,1,2),'||--WAC17
+     'substr(t2.itemdetailname,1,1),'||--WAC18
+     't2.perhumaninjury*(-1),'||--WAC19
+     't2.perhumandeath*(-1),'||--WAC20
+     't2.peraccidentdeaths*(-1),'||--WAC21
+     't2.peraccidentdamage*(-1),'||--WAC22
+     't2.periodmaxamount*(-1),'||--WAC23
+     'NULL, '||--WAC16  批改性質   ---?法?取
+	 't3.DEDUCTIBLEAMOUNT1,'||--WAC24  自負額數量1
+	 't3.DEDUCTIBLEAMOUNT2,'||--WAC25  自負額數量2
+	 't3.DEDUCTIBLEAMOUNT3,'||--WAC26  自負額數量3
+	 't3.UNDERWRITCOEFFIIDCODE,'||--WAC27  核保考量係數-增減代號
+	 't3.UNDERWRITCOEFFIIDRATE,'||--WAC28  核保考量係數-增減率
+	 't3.RISKCLASSCOEFFI,'||--WAC29  風險分類係數
+	 't3.AMOUNTCOEFFI,'||--WAC30  保額係數
+	 't3.YEARCOEFFIIDCODE,'||--WAC31  承保年期係數-增減代號
+	 't3.YEARCOEFFIIDRATE,'||--WAC32  承保年期係數-增減率
+	 't3.DANGERSEASONCODE,'||--WAC33  危險季節費率加費-增減代號
+	 't3.DANGERSEASONRATE,'||--WAC34  危險季節費率加費-增減率
+	 't3.DEDUCTIBLECOEFFIIDCODE,'||--WAC35  自負額係數-增減代號
+	 't3.DEDUCTIBLECOEFFIIDRATE,'||--WAC36  自負額係數-增減率
+	 't3.ENGINEERRISKCOEFFI,'||--WAC37  工程風險類別係數
+	 't3.HIGHAMOUNTCOEFFI,'||--WAC38  高保額係數
+	 't3.ENGINEERSCALECOEFFICODE,'||--WAC39  承保工程規模係數-增減代號
+	 't3.ENGINEERSCALECOEFFIRATE,'||--WAC40  承保工程規模係數-增減率
+	 't3.UNDERWRITCONSIDERIDCOEFFICODE,'||--WAC41  核保考量之加減費係數-增減代號
+	 't3.UNDERWRITCONSIDERIDCOEFFIRATE,'||--WAC42  核保考量之加減費係數-增減率
+	 't3.SCOREADJCOEFFICODE,'||--WAC43  承保範圍調整係數-增減代號
+	 't3.SCOREADJCOEFFIRATE,'||--WAC44  承保範圍調整係數-增減率
+	 't3.SHORTENTIMECOEFFICODE,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't3.SHORTENTIMECOEFFIRATE, '||--WAC46  縮短補償時間減費係數-增減率	
+     't3.HUGEDANGERCODE, '||--WAC47  巨大危險數量代號
+	 't3.PREMIUMIDCODE, '||--WAC48  保費增減率-增減代號	 
+	 't3.PREMIUMIDRATE, '||--WAC49  保費增減率
+	 't3.SUBPREMIDCODE, '||--WAC50  附加保費-增減代號
+	 't3.SUBPREMIDRATE, '||--WAC51  附加保費-增減率
+	 't3.LOSSRATEADJAMOUNTCODE, '||--WAC52  損失率調整數額-增減代號
+	 't3.LOSSRATEADJAMOUNTRATE, '||--WAC53  損失率調整數額-增減率	 
+ 	 't3.AGGADJIDAMOUNTCODE, '||--WAC54  AGG調整加減數額-增減代號
+	 't3.AGGADJIDAMOUNTRATE ' ||--WAC55  AGG調整加減數額-增減率
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t4.DANGERUNITITEMITEM ' ||--WAC56  危險單位類別代號	 
+	 ',t4.DANGERUNITAMOUNT ' ||--WAC57  危險單位數量
+	 ',t4.DANGERCLASSIFICATIONTOTALITEM ' ||--WAC58  危險分總項代號
+	 ',t4.DANGERCLASSIFICATIONITEM ' ||--WAC59  危險分類細項代號
+	 ',t3.OTHERS1COEFFICODE ' ||--WAC60  其他係數1-增減代號
+	 ',t3.OTHERS1COEFFIRATE ' ||--WAC61  其他係數1-增減率
+	 ',t3.OTHERS2COEFFICODE ' ||--WAC62  其他係數2-增減代號 
+	 ',t3.OTHERS2COEFFIRATE ' ||--WAC63  其他係數2-增減率
+	 ',t3.OTHERS3COEFFICODE ' ||--WAC64  其他係數3-增減代號 
+	 ',t3.OTHERS3COEFFIRATE ' ||--WAC65  其他係數3-增減率
+	 ',t3.SPECIALCONDITION ' ||--WAC66  特殊條件 	
+	  --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+	
+     'from prpcpmain t1,
+           prpCpitemKind t2
+		   left join prpCpitemKindFactor t3 
+		   on t2.policyno=t3.policyno 
+		   and t2.ITEMKINDNO = t3.ITEMKINDNO
+		   left join PRPCPMAINLIAB t4
+		   on t2.policyno=t4.policyno
+      where t1.policyno='''||policyno||'''
+      and   t1.policyno=t2.policyno';
+      
+     --INSERT ECWAC
+EXECUTE IMMEDIATE 'insert into ECWAC(WAC00,WAC01,WAC02,WAC03,WAC04,WAC05,WAC06,WAC07,WAC08,WAC09,WAC10,WAC11,WAC12,WAC13,WAC14,
+WAC15,WAC17,WAC18,WAC19,WAC20,WAC21,WAC22,WAC23,WAC16,WAC24,WAC25,WAC26,WAC27,WAC28,WAC29,WAC30,WAC31,WAC32,WAC33,WAC34,WAC35,
+WAC36,WAC37,WAC38,WAC39,WAC40,WAC41,WAC42,WAC43,WAC44,WAC45,WAC46,WAC47,WAC48,WAC49,WAC50,WAC51,WAC52,WAC53,WAC54,WAC55,
+WAC56,WAC57,WAC58,WAC59,WAC60,WAC61,WAC62,WAC63,WAC64,WAC65,WAC66) select '|| --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充
+     'extract(year from Sysdate)-1911||to_char(Sysdate,''mmdd''),'||--WAC00  轉入日期(民國年)
+     '''2'','||--WAC01  轉檔型態(1(保單) 2(批改))
+     't1.policyno,'||--WAC02  保單號碼
+     ''''||endorseno||''','||--WAC03  批單號碼
+     't2.kindcode,'||--WAC04  險種代號
+     't2.itemKindNo,'||--WAC05  序號
+     't2.amount,'||--WAC06  保險金額
+     'NULL,'||--WAC07  保額說明代號   ---待确?
+     'NULL,'||--WAC08  保額說明   ---待确?
+     'NULL,'||--WAC09  自負額
+     'substr(t2.deductibleType,1,24),'||--WAC10  自負額說明代號  ---t2.deductibleType  自???型
+     'substr(t2.deductibleInstruction,1,24),'||--WAC11  自負額說明  ---t2.deductibleInstruction  字段?度不?
+     't2.premium,'||--WAC12  保險費
+     't2.rate,'||--WAC13  保險費率／每千元
+     'substr(t2.itemNature,1,7),'||--WAC14  承保範圍
+     'NULL,'||--WAC15  自負額單位類別 t2.itemDetailName
+     'substr(t2.itemcode,1,2),'||--WAC17
+     'substr(t2.itemdetailname,1,1),'||--WAC18
+     't2.perhumaninjury,'||--WAC19
+     't2.perhumandeath,'||--WAC20
+     't2.peraccidentdeaths,'||--WAC21
+     't2.peraccidentdamage,'||--WAC22
+     't2.periodmaxamount,'||--WAC23
+     'NULL, '||--WAC16  批改性質   ---?法?取
+	 't3.DEDUCTIBLEAMOUNT1,'||--WAC24  自負額數量1
+	 't3.DEDUCTIBLEAMOUNT2,'||--WAC25  自負額數量2
+	 't3.DEDUCTIBLEAMOUNT3,'||--WAC26  自負額數量3
+	 't3.UNDERWRITCOEFFIIDCODE,'||--WAC27  核保考量係數-增減代號
+	 't3.UNDERWRITCOEFFIIDRATE,'||--WAC28  核保考量係數-增減率
+	 't3.RISKCLASSCOEFFI,'||--WAC29  風險分類係數
+	 't3.AMOUNTCOEFFI,'||--WAC30  保額係數
+	 't3.YEARCOEFFIIDCODE,'||--WAC31  承保年期係數-增減代號
+	 't3.YEARCOEFFIIDRATE,'||--WAC32  承保年期係數-增減率
+	 't3.DANGERSEASONCODE,'||--WAC33  危險季節費率加費-增減代號
+	 't3.DANGERSEASONRATE,'||--WAC34  危險季節費率加費-增減率
+	 't3.DEDUCTIBLECOEFFIIDCODE,'||--WAC35  自負額係數-增減代號
+	 't3.DEDUCTIBLECOEFFIIDRATE,'||--WAC36  自負額係數-增減率
+	 't3.ENGINEERRISKCOEFFI,'||--WAC37  工程風險類別係數
+	 't3.HIGHAMOUNTCOEFFI,'||--WAC38  高保額係數
+	 't3.ENGINEERSCALECOEFFICODE,'||--WAC39  承保工程規模係數-增減代號
+	 't3.ENGINEERSCALECOEFFIRATE,'||--WAC40  承保工程規模係數-增減率
+	 't3.UNDERWRITCONSIDERIDCOEFFICODE,'||--WAC41  核保考量之加減費係數-增減代號
+	 't3.UNDERWRITCONSIDERIDCOEFFIRATE,'||--WAC42  核保考量之加減費係數-增減率
+	 't3.SCOREADJCOEFFICODE,'||--WAC43  承保範圍調整係數-增減代號
+	 't3.SCOREADJCOEFFIRATE,'||--WAC44  承保範圍調整係數-增減率
+	 't3.SHORTENTIMECOEFFICODE,'||--WAC45  縮短補償時間減費係數-增減代號
+	 't3.SHORTENTIMECOEFFIRATE, '||--WAC46  縮短補償時間減費係數-增減率
+	 't3.HUGEDANGERCODE, '||--WAC47  巨大危險數量代號
+	 't3.PREMIUMIDCODE, '||--WAC48  保費增減率-增減代號	 
+	 't3.PREMIUMIDRATE, '||--WAC49  保費增減率
+	 't3.SUBPREMIDCODE, '||--WAC50  附加保費-增減代號
+	 't3.SUBPREMIDRATE, '||--WAC51  附加保費-增減率
+	 't3.LOSSRATEADJAMOUNTCODE, '||--WAC52  損失率調整數額-增減代號
+	 't3.LOSSRATEADJAMOUNTRATE, '||--WAC53  損失率調整數額-增減率	 
+ 	 't3.AGGADJIDAMOUNTCODE, '||--WAC54  AGG調整加減數額-增減代號
+	 't3.AGGADJIDAMOUNTRATE ' ||--WAC55  AGG調整加減數額-增減率
+	 --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 START
+	 ',t4.DANGERUNITITEMITEM ' ||--WAC56  危險單位類別代號	 
+	 ',t4.DANGERUNITAMOUNT ' ||--WAC57  危險單位數量
+	 ',t4.DANGERCLASSIFICATIONTOTALITEM ' ||--WAC58  危險分總項代號
+	 ',t4.DANGERCLASSIFICATIONITEM ' ||--WAC59  危險分類細項代號
+	 ',t3.OTHERS1COEFFICODE ' ||--WAC60  其他係數1-增減代號
+	 ',t3.OTHERS1COEFFIRATE ' ||--WAC61  其他係數1-增減率
+	 ',t3.OTHERS2COEFFICODE ' ||--WAC62  其他係數2-增減代號 
+	 ',t3.OTHERS2COEFFIRATE ' ||--WAC63  其他係數2-增減率
+	 ',t3.OTHERS3COEFFICODE ' ||--WAC64  其他係數3-增減代號 
+	 ',t3.OTHERS3COEFFIRATE ' ||--WAC65  其他係數3-增減率
+	 ',t3.SPECIALCONDITION ' ||--WAC66  特殊條件 	
+     --mantis： LIA0071，處理人員：DP0713，需求單編號：LIA0071 責任險_EM_CN_AE統計規程欄位擴充 END
+	
+     'from prpcpmain t1,
+           prpCpitemKind t2
+		   left join prpCpitemKindFactor t3 
+		   on t2.policyno=t3.policyno 
+		   and t2.ITEMKINDNO = t3.ITEMKINDNO
+		   left join PRPCPMAINLIAB t4
+		   on t2.policyno=t4.policyno
+      where t1.policyno='''||policyno||'''
+      and   t1.policyno=t2.policyno';
+
+
+ END IF;
+
+
+
+END IF;
+
+
+EXCEPTION
+    WHEN OTHERS THEN
+      BEGIN
+        --send_mail('PROC_CPOLICY_INTERINFO',policyno,endorseno,error_info,SQLCODE,SQLERRM);
+        Dbms_Output.put_line('error_info:'||error_info);
+        Dbms_Output.put_line(SQLCODE || SQLERRM);
+
+        error_message := SQLERRM;
+        INSERT INTO INTFPRPINSLOG(POLICYNO,ENDORSENO,INPUTDATE,MESSAGE,ERROR)
+        VALUES(policyno,endorseno,SYSDATE,error_info,error_message);
+
+      end;
+END;

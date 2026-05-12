@@ -1,0 +1,686 @@
+package com.sinosoft.claim.schema.model;
+
+// 采用工具 Hibernate Tools 3.2.4.GA (sinosoft version) 生成，请勿手工修改。
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Table;
+
+/**
+ * POJO类PrpPinsured
+ */
+@Table(name = "PrpPinsured")
+public class PrpPinsured implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
+	/** SerialNo */
+	private PrpPinsuredId id;
+
+	/** 属性保单号 */
+	private String policyNo;
+
+	/** 属性险种代码 */
+	private String riskCode;
+
+	/** 属性语种 */
+	private String language;
+
+	/** 属性关系人类型 */
+	private String insuredType;
+
+	/** 属性关系人代码 */
+	private String insuredCode;
+
+	/** 属性关系人名称 */
+	private String insuredName;
+
+	/** 属性关系人地址 */
+	private String insuredAddress;
+
+	/** 属性关系人性质 */
+	private String insuredNature;
+
+	/** 属性关系人标志 */
+	private String insuredFlag;
+
+	/** 属性是被保险人的 */
+	private String insuredidentity;
+
+	/** 属性关联人序号 */
+	private Integer relateserialno;
+
+	/** 属性证件类型 */
+	private String identifytype;
+
+	/** 属性身份证号/法人代码 */
+	private String identifyNumber;
+
+	/** 属性资信等级 */
+	private String creditLevel;
+
+	/** 属性占用性质代码 */
+	private String possessNature;
+
+	/** 属性行业代码 */
+	private String businessSource;
+
+	/** 属性所有制代码（单位性质代码） */
+	private String businessSort;
+
+	/** 属性个人职业代码 */
+	private String occupationCode;
+
+	/** 属性个人学历代码 */
+	private String educationCode;
+
+	/** 属性开户银行 */
+	private String bank;
+
+	/** 属性帐户名（投保-缴费/被保-领取） */
+	private String accountname;
+
+	/** 属性开户帳号 */
+	private String account;
+
+	/** 属性联系人名称 */
+	private String linkerName;
+
+	/** 属性通讯地址 */
+	private String postAddress;
+
+	/** 属性邮政编码 */
+	private String postCode;
+
+	/** 属性电话 */
+	private String phoneNumber;
+
+	/** 属性移动电话 */
+	private String mobile;
+
+	/** 属性电子邮件 */
+	private String email;
+
+	/** 属性受益份额 */
+	private Double benefitRate;
+
+	/** 属性受益人标志 */
+	private String benefitFlag;
+
+	/** 属性标志字段 */
+	private String flag;
+
+	/** 属性OCCUPATIONGRADE */
+	private String occupationGrade;
+
+	/** 属性INSUREDSORT */
+	private String insuredSort;
+
+	/** 属性BENEFITTYPE */
+	private String benefitType;
+
+	/**
+	 * 类PrpCinsured的默认构造方法
+	 */
+	public PrpPinsured() {
+		this.id = new PrpPinsuredId();
+	}
+
+	/**
+	 * SerialNo
+	 */
+	@EmbeddedId
+	@AttributeOverrides({ @AttributeOverride(name = "endorseNo", column = @Column(name = "endorseNo", nullable = false)), @AttributeOverride(name = "serialNo", column = @Column(name = "serialno", nullable = false)) })
+	public PrpPinsuredId getId() {
+		return this.id;
+	}
+
+	public void setId(PrpPinsuredId id) {
+		this.id = id;
+	}
+
+	/**
+	 * 属性保单号码的getter方法
+	 */
+
+	@Column(name = "POLICYNO")
+	public String getPolicyNo() {
+		return this.policyNo;
+	}
+
+	/**
+	 * 属性保单号码的setter方法
+	 */
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
+	}
+
+	/**
+	 * 属性险种代码的getter方法
+	 */
+
+	@Column(name = "RISKCODE")
+	public String getRiskCode() {
+		return this.riskCode;
+	}
+
+	/**
+	 * 属性险种代码的setter方法
+	 */
+	public void setRiskCode(String riskCode) {
+		this.riskCode = riskCode;
+	}
+
+	/**
+	 * 属性语种的getter方法
+	 */
+
+	@Column(name = "LANGUAGE")
+	public String getLanguage() {
+		return this.language;
+	}
+
+	/**
+	 * 属性语种的setter方法
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	/**
+	 * 属性关系人类型的getter方法
+	 */
+
+	@Column(name = "INSUREDTYPE")
+	public String getInsuredType() {
+		return this.insuredType;
+	}
+
+	/**
+	 * 属性关系人类型的setter方法
+	 */
+	public void setInsuredType(String insuredType) {
+		this.insuredType = insuredType;
+	}
+
+	/**
+	 * 属性关系人代码的getter方法
+	 */
+
+	@Column(name = "INSUREDCODE")
+	public String getInsuredCode() {
+		return this.insuredCode;
+	}
+
+	/**
+	 * 属性关系人代码的setter方法
+	 */
+	public void setInsuredCode(String insuredCode) {
+		this.insuredCode = insuredCode;
+	}
+
+	/**
+	 * 属性关系人名称的getter方法
+	 */
+
+	@Column(name = "INSUREDNAME")
+	public String getInsuredName() {
+		return this.insuredName;
+	}
+
+	/**
+	 * 属性关系人名称的setter方法
+	 */
+	public void setInsuredName(String insuredName) {
+		this.insuredName = insuredName;
+	}
+
+	/**
+	 * 属性关系人地址的getter方法
+	 */
+
+	@Column(name = "INSUREDADDRESS")
+	public String getInsuredAddress() {
+		return this.insuredAddress;
+	}
+
+	/**
+	 * 属性关系人地址的setter方法
+	 */
+	public void setInsuredAddress(String insuredAddress) {
+		this.insuredAddress = insuredAddress;
+	}
+
+	/**
+	 * 属性关系人性质的getter方法
+	 */
+
+	@Column(name = "INSUREDNATURE")
+	public String getInsuredNature() {
+		return this.insuredNature;
+	}
+
+	/**
+	 * 属性关系人性质的setter方法
+	 */
+	public void setInsuredNature(String insuredNature) {
+		this.insuredNature = insuredNature;
+	}
+
+	/**
+	 * 属性关系人标志的getter方法
+	 */
+
+	@Column(name = "INSUREDFLAG")
+	public String getInsuredFlag() {
+		return this.insuredFlag;
+	}
+
+	/**
+	 * 属性关系人标志的setter方法
+	 */
+	public void setInsuredFlag(String insuredFlag) {
+		this.insuredFlag = insuredFlag;
+	}
+
+	/**
+	 * 属性是被保险人的的getter方法
+	 */
+
+	@Column(name = "INSUREDIDENTITY")
+	public String getInsuredidentity() {
+		return this.insuredidentity;
+	}
+
+	/**
+	 * 属性是被保险人的的setter方法
+	 */
+	public void setInsuredidentity(String insuredidentity) {
+		this.insuredidentity = insuredidentity;
+	}
+
+	/**
+	 * 属性关联人序号的getter方法
+	 */
+
+	@Column(name = "RELATESERIALNO")
+	public Integer getRelateserialno() {
+		return this.relateserialno;
+	}
+
+	/**
+	 * 属性关联人序号的setter方法
+	 */
+	public void setRelateserialno(Integer relateserialno) {
+		this.relateserialno = relateserialno;
+	}
+
+	/**
+	 * 属性证件类型的getter方法
+	 */
+
+	@Column(name = "IDENTIFYTYPE")
+	public String getIdentifytype() {
+		return this.identifytype;
+	}
+
+	/**
+	 * 属性证件类型的setter方法
+	 */
+	public void setIdentifytype(String identifytype) {
+		this.identifytype = identifytype;
+	}
+
+	/**
+	 * 属性身份证号/法人代码的getter方法
+	 */
+
+	@Column(name = "IDENTIFYNUMBER")
+	public String getIdentifyNumber() {
+		return this.identifyNumber;
+	}
+
+	/**
+	 * 属性身份证号/法人代码的setter方法
+	 */
+	public void setIdentifyNumber(String identifyNumber) {
+		this.identifyNumber = identifyNumber;
+	}
+
+	/**
+	 * 属性资信等级的getter方法
+	 */
+
+	@Column(name = "CREDITLEVEL")
+	public String getCreditLevel() {
+		return this.creditLevel;
+	}
+
+	/**
+	 * 属性资信等级的setter方法
+	 */
+	public void setCreditLevel(String creditLevel) {
+		this.creditLevel = creditLevel;
+	}
+
+	/**
+	 * 属性占用性质代码的getter方法
+	 */
+
+	@Column(name = "POSSESSNATURE")
+	public String getPossessNature() {
+		return this.possessNature;
+	}
+
+	/**
+	 * 属性占用性质代码的setter方法
+	 */
+	public void setPossessNature(String possessNature) {
+		this.possessNature = possessNature;
+	}
+
+	/**
+	 * 属性行业代码的getter方法
+	 */
+
+	@Column(name = "BUSINESSSOURCE")
+	public String getBusinessSource() {
+		return this.businessSource;
+	}
+
+	/**
+	 * 属性行业代码的setter方法
+	 */
+	public void setBusinessSource(String businessSource) {
+		this.businessSource = businessSource;
+	}
+
+	/**
+	 * 属性所有制代码（单位性质代码）的getter方法
+	 */
+
+	@Column(name = "BUSINESSSORT")
+	public String getBusinessSort() {
+		return this.businessSort;
+	}
+
+	/**
+	 * 属性所有制代码（单位性质代码）的setter方法
+	 */
+	public void setBusinessSort(String businessSort) {
+		this.businessSort = businessSort;
+	}
+
+	/**
+	 * 属性个人职业代码的getter方法
+	 */
+
+	@Column(name = "OCCUPATIONCODE")
+	public String getOccupationCode() {
+		return this.occupationCode;
+	}
+
+	/**
+	 * 属性个人职业代码的setter方法
+	 */
+	public void setOccupationCode(String occupationCode) {
+		this.occupationCode = occupationCode;
+	}
+
+	/**
+	 * 属性个人学历代码的getter方法
+	 */
+
+	@Column(name = "EDUCATIONCODE")
+	public String getEducationCode() {
+		return this.educationCode;
+	}
+
+	/**
+	 * 属性个人学历代码的setter方法
+	 */
+	public void setEducationCode(String educationCode) {
+		this.educationCode = educationCode;
+	}
+
+	/**
+	 * 属性开户银行的getter方法
+	 */
+
+	@Column(name = "BANK")
+	public String getBank() {
+		return this.bank;
+	}
+
+	/**
+	 * 属性开户银行的setter方法
+	 */
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	/**
+	 * 属性帐户名（投保-缴费/被保-领取）的getter方法
+	 */
+
+	@Column(name = "ACCOUNTNAME")
+	public String getAccountname() {
+		return this.accountname;
+	}
+
+	/**
+	 * 属性帐户名（投保-缴费/被保-领取）的setter方法
+	 */
+	public void setAccountname(String accountname) {
+		this.accountname = accountname;
+	}
+
+	/**
+	 * 属性开户帳号的getter方法
+	 */
+
+	@Column(name = "ACCOUNT")
+	public String getAccount() {
+		return this.account;
+	}
+
+	/**
+	 * 属性开户帳号的setter方法
+	 */
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	/**
+	 * 属性联系人名称的getter方法
+	 */
+
+	@Column(name = "LINKERNAME")
+	public String getLinkerName() {
+		return this.linkerName;
+	}
+
+	/**
+	 * 属性联系人名称的setter方法
+	 */
+	public void setLinkerName(String linkerName) {
+		this.linkerName = linkerName;
+	}
+
+	/**
+	 * 属性通讯地址的getter方法
+	 */
+
+	@Column(name = "POSTADDRESS")
+	public String getPostAddress() {
+		return this.postAddress;
+	}
+
+	/**
+	 * 属性通讯地址的setter方法
+	 */
+	public void setPostAddress(String postAddress) {
+		this.postAddress = postAddress;
+	}
+
+	/**
+	 * 属性邮政编码的getter方法
+	 */
+
+	@Column(name = "POSTCODE")
+	public String getPostCode() {
+		return this.postCode;
+	}
+
+	/**
+	 * 属性邮政编码的setter方法
+	 */
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	/**
+	 * 属性电话的getter方法
+	 */
+
+	@Column(name = "PHONENUMBER")
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	/**
+	 * 属性电话的setter方法
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * 属性移动电话的getter方法
+	 */
+
+	@Column(name = "MOBILE")
+	public String getMobile() {
+		return this.mobile;
+	}
+
+	/**
+	 * 属性移动电话的setter方法
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * 属性电子邮件的getter方法
+	 */
+
+	@Column(name = "EMAIL")
+	public String getEmail() {
+		return this.email;
+	}
+
+	/**
+	 * 属性电子邮件的setter方法
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * 属性受益份额的getter方法
+	 */
+
+	@Column(name = "BENEFITRATE")
+	public Double getBenefitRate() {
+		return this.benefitRate;
+	}
+
+	/**
+	 * 属性受益份额的setter方法
+	 */
+	public void setBenefitRate(Double benefitRate) {
+		this.benefitRate = benefitRate;
+	}
+
+	/**
+	 * 属性受益人标志的getter方法
+	 */
+
+	@Column(name = "BENEFITFLAG")
+	public String getBenefitFlag() {
+		return this.benefitFlag;
+	}
+
+	/**
+	 * 属性受益人标志的setter方法
+	 */
+	public void setBenefitFlag(String benefitFlag) {
+		this.benefitFlag = benefitFlag;
+	}
+
+	/**
+	 * 属性标志字段的getter方法
+	 */
+
+	@Column(name = "FLAG")
+	public String getFlag() {
+		return this.flag;
+	}
+
+	/**
+	 * 属性标志字段的setter方法
+	 */
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	/**
+	 * 属性OCCUPATIONGRADE的getter方法
+	 */
+
+	@Column(name = "OCCUPATIONGRADE")
+	public String getOccupationGrade() {
+		return this.occupationGrade;
+	}
+
+	/**
+	 * 属性OCCUPATIONGRADE的setter方法
+	 */
+	public void setOccupationGrade(String occupationGrade) {
+		this.occupationGrade = occupationGrade;
+	}
+
+	/**
+	 * 属性INSUREDSORT的getter方法
+	 */
+
+	@Column(name = "INSUREDSORT")
+	public String getInsuredSort() {
+		return this.insuredSort;
+	}
+
+	/**
+	 * 属性INSUREDSORT的setter方法
+	 */
+	public void setInsuredSort(String insuredSort) {
+		this.insuredSort = insuredSort;
+	}
+
+	/**
+	 * 属性BENEFITTYPE的getter方法
+	 */
+
+	@Column(name = "BENEFITTYPE")
+	public String getBenefitType() {
+		return this.benefitType;
+	}
+
+	/**
+	 * 属性BENEFITTYPE的setter方法
+	 */
+	public void setBenefitType(String benefitType) {
+		this.benefitType = benefitType;
+	}
+}

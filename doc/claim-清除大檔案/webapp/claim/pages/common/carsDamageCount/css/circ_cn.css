@@ -1,0 +1,259 @@
+/*2006.9.8 updated by skip -- circ-cn */
+
+/*----------------------公共样式定义---------------------*/
+body {background:#F7F6F6; font-size: 12px;font-family: 宋体;margin-top:0px; margin-left:5px; margin-right:5px; margin-bottom:5px; }
+
+.bodytop {background:#FFFFFF; font-size: 12px;font-family: 宋体; margin-top:0px; margin-left:0px; margin-right:0px; margin-bottom:0px;}
+
+/*----------------------链接样式定义---------------------*/
+a.top:link {color: #E6E6E8;  font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:none}
+a.top:visited{color: #E6E6E8;  font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:none}
+a.top:hover {color: #E6E6E8;  font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:none}
+
+a.tab:link {color: #000000;  font-size: 12px; font-family: 宋体; text-decoration:none}
+a.tab:visited{color: #000000;  font-size: 12px; font-family: 宋体; text-decoration:none}
+a.tab:hover {color: #000000;  font-size: 12px; font-family: 宋体; text-decoration:none}
+
+a:link {color: #0000FF; font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+a:visited{color: #0000FF; font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+a:hover {color: #0000FF; font-size: 12px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+
+a.link1:link {color: #0000FF; font-size: 13px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+a.link1:visited{color: #0000FF; font-size: 13px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+a.link1:hover {color: #0000FF; font-size: 13px; font-family: 宋体; font-weight:bold; text-decoration:underline}
+
+/*----------------------空行定义---------------------*/
+.linebottom{ height:0px; font-size: 0px} /*数据块下空行定义*/
+.line1{ height:5px}
+.tab1 {width: 100%}
+.tab2 {width: 100%}
+.tab3 {background:#F1F0F6} /*input table块背景*/
+.tab4 {width: 100%}
+.height1 { height:25px; } /*行高*/
+
+.width1 { width: 100%;}
+.width2 { width: 99%;}
+.width3 { width: 98%; height:25px;} /*翻页table*/
+.width4 { width: 97%;}
+.width5 { width: 96%;}
+.width6 { width: 99%;}
+.width7 { width: 95%;}
+
+/*----------------------分割线定义---------------------*/
+.tr1  { height: 30px; }  /*大标题背景*/
+.tr2  { background:#DCE6F2; height: 23px; width: 100%; border-top:1px solid #BFC0C4; border-bottom:1px solid #BFC0C4; padding-bottom:1px; vertical-align:middle} /*小标题背景*/
+.tr3  { background:#EEEEEE; height: 25px; width: 100%; border-top:1px solid #BFC0C4; border-bottom:1px solid #BFC0C4; padding-bottom:4px; vertical-align:bottom;} /*按钮背景*/
+
+.align { text-align:right; height: 20px; padding-right:4px;} /*字段对齐方式定义*/
+.buttonalign { text-align:center;} /*按钮对齐方式定义*/
+.center{text-align:center}
+.left{text-align:left}
+.right{text-align:right}
+
+/*----------------------字段百分比定义---------------------*/
+.per4_1 { width: 20%}
+.per4_2 { width: 35%} 
+.per4_3 { width: 20%} 
+.per4_4 { width: 25%} 
+
+.per6_1 { width: 13%}
+.per6_2 { width: 20%} 
+.per6_3 { width: 13%} 
+.per6_4 { width: 20%}
+.per6_5 { width: 13%} 
+.per6_6 { width: 20%}
+
+/*----------------------图片定义---------------------*/
+.pic1 { background:url(/circauto/images/menu/slice_1_left.gif);}
+.pic2 { background:url(/circauto/images/menu/slice_1_right.gif);}
+.pic3 { background:url(/circauto/images/menu/slice_2_left.gif);}
+.pic4 { background:url(/circauto/images/menu/slice_2_right.gif);}
+
+.tdpic { width: 10px; height:23px}
+.tabbg  { background:#F7F6F6 } /*tab条背景定义*/
+
+/*----------------------其他样式定义---------------------*/
+.td1  { background:#C4C5CA; font-size: 12px; color: #000000 }
+.td2  { background:#989A99}
+.td3  { background:#F1F1F1 font-size: 12px;}
+
+.td4  { background:#D7D7D7; font-size: 12px; color: #000000; height:20px} /*数据表格字段背景*/
+.td4a { background:#F7F7F7; font-size: 12px; color: #000000; height:20px}
+.td5  { background:#EBEBEB; font-size: 12px; color: #000000; height:20px} /*数据表格双数行tr背景*/
+.td5a { background:#C7D6E9; font-size: 12px; color: #000000; height:20px}
+.td6  { background:#AFAFAF; width: 98%} /*数据表格背景*/
+.td7  { background:url(/circauto/images/menu/slice_pic_bg2.gif); font-size: 12px; color: #010088; height:23px }
+.td8  { background:url(/circauto/images/menu/slice_pic_bg1.gif); font-size: 12px; color: #000000; height:23px }
+.td9  { background:#D7D7D7; font-size: 12px; color: #000000 }
+.td10 { background:#F9F9F9; font-size: 12px; color: #000000; height:20px} /*数据表格单数行tr背景*/
+
+.td11 { background:#C3C3C3; width:100%;} /*数据表格2背景*/
+.td12 { height:20px; font-size: 12px;} /*数据表格tr*/
+.td13 { background:#EBEBEB; padding-left:10px;} /*数据表格奇数列背景*/
+.td14 { background:#F7F7F7; padding-left:10px;} /*数据表格偶数列背景*/
+
+/*----------------------字体定义---------------------*/
+.font1  { font-size: 10px; color: #000000 } 
+.font2  { font-size: 12px; color: #FFFFFF;} 
+.font3  { font-size: 12px; color: #000000; padding-bottom:4px;}  
+.font4  { font-size: 12px; color: #000000; font-weight:bold}  
+.font5  { font-size: 12px; color: #000000; font-weight:bold; font-family: 宋体; padding-left:5px;} /*小标题*/
+.font6  { font-size: 16px; color: #000000; font-weight:bold; font-family: 宋体} /*大标题*/
+.font7  { font-size: 12px; color: #2E3192}
+.font8  { font-size: 14px; color: #FF0000} /*报警提示字体*/ 
+.font9  { font-size: 12px; color: #000000; text-align:center;}
+.font10 { font-size: 12px; color: #020387; text-align:center; font-weight:bold}
+
+.copyright  { font-size: 12px; color: #000000; background:#C8C8C8 } /*copyright*/ 
+.info  { font-size: 11px; color: #FFFFFF;} /*pagetop*/ 
+
+.button { 
+background:url(/circauto/images/menu/bg-1.gif);	
+color:#000000; 
+font-size: 12px;
+height:18px;
+border:1px solid #023972;	
+font-family: 宋体;}
+
+.textfiled{	
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 19px;
+border: 1px solid #7C96B1;
+padding-top:2px;
+font-family: 宋体;}
+
+.textfiled_ro{ 
+background:#F2F2F2;
+font-weight: normal; 
+color:#2E3192; 
+font-size: 12px;
+height: 19px;
+border: 1px solid  #7F9DB9;
+font-family: 宋体; }
+
+.textfiled_disable{	
+background:#EAEAEA;
+font-weight: normal; 
+color:#2E3192; 
+font-size: 12px;
+height: 19px;
+border: 1px solid  #7F9DB9;
+font-family: 宋体;}
+
+.multi-textfiled { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+border: 1px solid #7C96B1;	
+font-family: 宋体;}
+
+.select { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 20px;
+width: 136px;
+border: 1px solid  #7C96B1;	
+font-family: 宋体;}
+
+.selectsize { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+width: 36px;
+border: 1px solid  #7C96B1;	
+font-family: 宋体;}
+
+.selectupload { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 20px;
+width: 336px;
+border: 1px solid  #7C96B1;	
+font-family: 宋体;}
+
+.selectnull { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 20px;
+width: 170px;
+border: 1px solid  #7C96B1;	
+font-family: 宋体;}
+
+.file{ 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 20px;
+width: 170px;
+border: 1px solid  #7C96B1;	
+font-family: 宋体;}/*文件域*/
+
+.textfield{	
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+height: 19px;
+border: 1px solid #7C96B1;
+padding-top:2px;
+font-family: 宋体;}
+
+.textfield_ro{ 
+background:#F2F2F2;
+font-weight: normal; 
+color:#2E3192; 
+font-size: 12px;
+height: 19px;
+border: 1px solid  #7F9DB9;
+font-family: 宋体; }
+
+.textfield_disable{	
+background:#EAEAEA;
+font-weight: normal; 
+color:#2E3192; 
+font-size: 12px;
+height: 19px;
+border: 1px solid  #7F9DB9;
+font-family: 宋体;}
+
+.multi-textfield { 
+background:#F2F2F2;
+font-weight: normal; 
+color:#000000; 
+font-size: 12px;
+border: 1px solid #7C96B1;	
+font-family: 宋体;}
+
+/*----------------------与互换相关---------------------*/
+.blank  { height:5px; } /*空行高度定义*/
+.table6 { padding-left:10px; padding-right:10px;}
+
+/*----------------------界面2相关---------------------*/
+.bodytop2 {background:#7FB4E6; font-family: 宋体; margin-top:0px; margin-left:0px; margin-right:0px; margin-bottom:0px;} 
+.bodytop2_left {background:#80B4E6; margin-top:5px; margin-left:5px; margin-right:1px; margin-bottom:0px;} 
+.bodytop2_right {background:#80B4E6; margin-top:5px; margin-left:5px; margin-right:5px; margin-bottom:0px;}
+.bodytop2_bottom {background:#7FB4E6; margin-top:0px; margin-left:0px; margin-right:0px; margin-bottom:0px;}
+
+a.menu:link {color: #2857B1; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold;}
+a.menu:visited{color: #2857B1; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold;}
+a.menu:hover {color: #2857B1; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold;}
+
+a.help:link {color: #000000; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold; padding-right:3px; padding-left:3px;}
+a.help:visited{color: #000000; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold; padding-right:3px; padding-left:3px;}
+a.help:hover {color: #000000; font-size: 11px; font-family: 宋体; text-decoration:none; font-weight:bold; padding-right:3px; padding-left:3px;}
+
+.menuon { font-family: 宋体; font-size: 11px; color: #FFFFFF; font-weight:bold; padding-right:3px; padding-left:3px;} /*menu当前项字体*/
+.tdon {background:#7FB4E6}
+.tdoff { background:url(/circauto/images/menu/ac_bar_14.jpg); padding-right:3px; padding-left:3px; text-align:center }

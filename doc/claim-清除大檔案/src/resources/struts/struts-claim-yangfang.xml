@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 调度 处理 -->
+	<package name="schedule" extends="default" namespace="/schedule">
+		<action name="scheduleBeforeEdit" class="scheduleBeforeEditAction"
+			method="scheduleBeforeEdit">
+			<result name="success">/pages/DAA/schedule/DAAScheduleEdit.jsp</result>
+		</action>
+		<action name="checkFinishQueryList" class="checkBeforeEditAction"
+			method="checkBeforeEdit">
+			<result name="EDITDAA">/pages/DAA/check/DAACheckEdit.jsp</result>
+			<result name="EDITProp">/pages/commonProp/check/PropCheckEdit.jsp
+			</result>
+			<result name="EDITCAA">/pages/commonShip/check/ShipCheckEdit.jsp
+			</result>
+			<result name="EDITYAA">/pages/commonShip/check/ShipCheckEdit.jsp
+			</result>
+			<result name="EDITZAA">/pages/commonLiab/check/LiabCheckEdit.jsp
+			</result>
+			<result name="EDITEAA">/pages/commonAcci/check/AcciCheckEdit.jsp
+			</result>
+			<result name="EDITGAA">/pages/GAA/check/GAACheckEdit.jsp</result>
+			<result name="EDITEAA">/pages/commonAcci/check/AcciCheckEdit.jsp</result>
+		</action>
+		<action name="schedulegetBackEdit" class="scheduleGetBackBeforeAction"
+			method="scheduleGetBackBefore">
+			<result name="EDITDAA">/pages/DAA/schedule/DAAScheduleEdit.jsp</result>
+		</action>
+		<action name="scheduleQuery" class="scheduleBeforeEditAction"
+			method="query">
+		</action>
+		<action name="scheduleEditPost" class="scheduleEditPostAction"
+			method="scheduleEditPost">
+			<result name="false">/index.jsp</result>
+			<result name="success">/common/Success.jsp</result>
+		</action>
+		<action name="scheduleFinishQueryList" class="scheduleBeforeEditAction"
+			method="scheduleBeforeEdit">
+			<result name="EDITDAA">/pages/DAA/schedule/DAAScheduleEdit.jsp</result>
+			<result name="SHOWDAA">/pages/DAA/schedule/DAAScheduleEdit.jsp</result>
+		</action>
+
+		<action name="scheduleCheckQuery" class="scheduleBeforeEditAction"
+			method="scheduleBeforeEdit">
+			<result name="LISTDAA">/DAA/schedule/DAAScheduleCheckList.jsp</result>
+			<result name="GETBACKLISTDAA">/DAA/schedule/DAAScheduleGetBackList.jsp</result>
+			<result name="CANCELLISTDAA">/DAA/schedule/DAAScheduleCancelList.jsp</result>
+			<result name="COMMONLISTDAAsched">/DAA/schedule/DAAScheduleQueryList.jsp</result>
+			<result name="COMMONLISTDAAschel">/DAA/schedule/DAAScheduleQueryItemList.jsp
+			</result>
+			<result name="ADDLISTDAA">/pages/common/schedule/ScheduleAddCertainLossTaskBeforeQueryList.jsp
+			</result>
+		</action>
+		<action name="scheduleDealRegist" class="scheduleBeforeEditAction"
+			method="scheduleBeforeEdit">
+			<result name="success">/pages/DAA/schedule/DAAScheduleEdit.jsp</result>
+		</action>
+		<action name="scheduleGetBackQuery" class="scheduleGetBackQueryAction"
+			method="scheduleGetBackQuery">
+			<result name="GETBACKLISTDAA">/pages/DAA/schedule/DAAScheduleGetBackList.jsp
+			</result>
+			<result name="SHOWDAA">/pages/DAA/schedule/DAAScheduleCancelList.jsp
+			</result>
+		</action>
+		<action name="scheduleAddCertainLossTask" class="thirdPartyBeforeEditAction"
+			method="thirdPartyBeforeEdit">
+			<result name="ADDSHOW">/pages/common/schedule/ScheduleAddCertainLossTaskEdit.jsp
+			</result>
+		</action>
+		<action name="scheduleAddCertainLossSave" class="thirdPartyEditPostAction"
+			method="thirdPartyEditPost">
+		</action>
+	</package>
+	<!-- 重开赔案 处理 -->
+	<package name="recase" extends="default" namespace="/recase">
+		<action name="reCaseBeforeEdit" class="reCaseBeforeEditAction"
+			method="reCaseBeforeEdit">
+			<result name="success">/pages/common/recase/reCaseEdit.jsp</result>
+		</action>
+		<action name="reCaseEditPost" class="reCaseEditPostAction"
+			method="reCaseEditPost">
+			<result name="false">/index.jsp</result>
+			<result name="success">/common/Success.jsp</result>
+		</action>
+	</package>
+	<!-- 结案 处理 -->
+	<package name="endcase" extends="default" namespace="/endcase">
+		<action name="endcaseBeforeEdit" class="endcaseBeforeEditAction" method="endcaseBeforeEdit">
+			<result name="ADDDAA">/pages/DAA/endcase/DAAEndcaseEdit.jsp</result>
+			<result name="ADDProp">/pages/commonProp/endcase/PropEndcaseEdit.jsp
+			</result>
+			<result name="ADDCAA">/pages/commonShip/endcase/ShipEndcaseEdit.jsp
+			</result>
+			<result name="ADDYAA">/pages/commonShip/endcase/ShipEndcaseEdit.jsp
+			</result>
+			<result name="ADDZAA">/pages/commonLiab/endcase/LiabEndcaseEdit.jsp
+			</result>
+			<result name="ADDEAA">/pages/commonAcci/endcase/AcciEndcaseEdit.jsp
+			</result>
+			<result name="ADDGAA">/pages/GAA/endcase/GAAEndcaseEdit.jsp</result>
+		</action>
+		<action name="endcaseSave" class="endcaseEditPostAction"
+			method="endcaseEditPost">
+			<result name="false">/index.jsp</result>
+			<result name="success">/common/Success.jsp</result>
+		</action>
+		<!-- 结案查询 -->
+		<action name="endcaseQuery" class="endcaseQueryAction" method="endcaseQuery">
+			<result name="result">/common/endcase/EndcaseQueryList.jsp</result>
+			<result name="result1">/common/pub/Blank.html</result>
+			<result name="condition">/common/policy/EndcaseQueryList.jsp</result>
+			<result name="success">/common/endcase/EndcaseQueryList.jsp</result>
+		</action>
+		<action name="endcaseFinishQueryList" class="endcaseBeforeEditAction" method="endcaseBeforeEdit">
+			<result name="EDITDAA">/pages/DAA/endcase/DAAEndcaseEdit.jsp</result>
+			<result name="EDITProp">/pages/commonProp/endcase/PropEndcaseEdit.jsp</result>
+			<result name="EDITCAA">/pages/commonShip/endcase/ShipEndcaseEdit.jsp</result>
+			<result name="EDITYAA">/pages/commonShip/endcase/ShipEndcaseEdit.jsp</result>
+			<result name="EDITZAA">/pages/commonLiab/endcase/LiabEndcaseEdit.jsp</result>
+			<result name="EDITEAA">/pages/commonAcci/endcase/AcciEndcaseEdit.jsp</result>
+			<result name="EDITGAA">/pages/GAA/endcase/GAAEndcaseEdit.jsp</result>
+		</action>
+	</package>
+	<!-- 实体资料归档 begin -->
+	<package name="archive" extends="default" namespace="/archive">
+		<action name="archiveQuery" class="archiveQueryAction" method="archiveQuery">
+			<result name="archiveBefore">/pages/common/archive/ArchiveBeforeQueryResult.jsp
+			</result>
+			<result name="query">/pages/common/archive/ArchiveQueryList.jsp
+			</result>
+			<result name="apply">/pages/common/archive/ArchiveApplyBeforeList.jsp
+			</result>
+			<result name="audit">/pages/common/archive/ArchiveAuditList.jsp
+			</result>
+			<result name="extension">/pages/common/archive/ArchiveExtensionInput.jsp
+			</result>
+			<result name="retrival">/pages/common/archive/ArchiveRetrivalInput.jsp
+			</result>
+			<result name="toarchive">/pages/common/archive/ArchiveToarchiveInput.jsp
+			</result>
+			<result name="selectClassCode">/pages/common/archive/selectClassCode.jsp
+			</result>
+			<result name="faile">/pages/common/archive/Message.jsp</result>
+		</action>
+		<action name="archiveAudit" class="archiveDealAction" method="archiveDeal">
+			<result name="success">/pages/common/archive/Message.jsp</result>
+			<result name="submit">/pages/common/archive/ArchiveDealListSubmitSuperior.jsp
+			</result>
+		</action>
+		<action name="archiveFinishQueryList" class="archiveQueryAction"
+			method="archiveQuery">
+			<result name="applyFinish">/pages/common/archive/ArchiveApplyInput.jsp
+			</result>
+			<result name="auditFinish">/pages/common/archive/ArchiveAuditInput.jsp
+			</result>
+		</action>
+		<action name="archiveApply" class="archiveDealAction" method="archiveDeal">
+			<result name="success">/pages/common/archive/Message.jsp</result>
+			<result name="faile">/pages/common/archive/Message.jsp</result>
+		</action>
+		<action name="batchArchiveDeal" class="archiveDealAction" method="archiveDeal">
+	       <result name="success">/pages/common/archive/Message.jsp</result>
+	       <result name="submit">/pages/common/archive/ArchiveDealListSubmitSuperior.jsp</result>
+		</action>
+	</package>
+	<!--送审初复核 -->
+	<package name="sendUndwrt" extends="default" namespace="/sendUndwrt">
+		<action name="sendUndwrtQuery" class="sendUndwrtQueryAction"
+			method="sendUndwrtQuery">
+		</action>
+		<action name="sendUndwrt" class="sendUndwrtAction"
+			method="sendUndwrt">
+			<result name="Send">/pages/common/pub/MessagePage.jsp</result>
+			<result name="Undwrt">/pages/common/pub/MessagePage.jsp</result>
+		</action>
+	</package>
+	<!--综合查询 -->
+	<package name="integrated" extends="default" namespace="/integrated">
+		<action name="integratedQuery" class="integratedQueryAction"
+			method="integratedQuery">
+		</action>
+	</package>
+	<!--添加修改密码功能-->
+	<package name="updatepwd" extends="default" namespace="/updatepwd">
+		<action name="updatePwd" class="updatePwdAction" method="updatePwd">
+			<result name="success">/pages/common/pub/MessagePage.jsp</result>
+			<result name="changePWD">/pages/common/pub/UIUpdatePwd.jsp</result>
+			<result name="successOut">/index.jsp</result>
+		</action>
+	</package>
+</struts>

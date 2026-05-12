@@ -1,0 +1,618 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>理賠計算結果</title>
+<link href="../css/circ_cn.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" defer>
+	var fullMax = 2000;//有责车赔偿限额
+	var nullMax = 100;//无责车赔偿限额
+	//全责数据
+	var fullCar = new Array();
+	var fullCarMarkObjs = window.opener.document
+			.getElementsByName("fullCarMark");
+	var fullCarMarkTypeObjs = window.opener.document
+			.getElementsByName("fullCarMarkType");
+	var fullMoneyObjs = window.opener.document.getElementsByName("fullMoney");
+	for ( var i = 0; i < fullCarMarkObjs.length; i++) {
+		fullCar[fullCar.length] = new Array(fullCarMarkObjs[i].value,
+				fullCarMarkTypeObjs[i].value, fullMoneyObjs[i].value);
+	}
+	var fullAllMoney = 0;
+	for ( var i = 0; i < fullCar.length; i++) {
+		fullAllMoney = parseInt(fullAllMoney) + parseInt(fullCar[i][2]);
+	}
+
+	//无责数据
+	var nullCar = new Array();
+	var nullCarMarkObjs = window.opener.document
+			.getElementsByName("nullCarMark");
+	var nullCarMarkTypeObjs = window.opener.document
+			.getElementsByName("nullCarMarkType");
+	var nullMoneyObjs = window.opener.document.getElementsByName("nullMoney");
+	for ( var i = 0; i < nullCarMarkObjs.length; i++) {
+		nullCar[nullCar.length] = new Array(nullCarMarkObjs[i].value,
+				nullCarMarkTypeObjs[i].value, nullMoneyObjs[i].value);
+	}
+
+	//计算
+	var nullAllMoney = 0;
+	for ( var i = 0; i < nullCar.length; i++) {
+		nullAllMoney = parseInt(nullAllMoney) + parseInt(nullCar[i][2]);
+	}
+
+	var tempArray;//返回的HTML代码
+
+	if (isNaN(nullAllMoney)) {
+		tempArray = calResponsibility();
+	} else if ((nullAllMoney < fullMax) && (fullCar.length == 1)) {
+		tempArray = calPredigest();
+	} else {
+		tempArray = calComplex();
+	}
+
+	//画HTML
+	var strHTML = new Array();
+	strHTML[strHTML.length] = '<table width="98%" border="0" align="center" cellpadding="2" cellspacing="1" class="td6 center">'
+	for ( var i = 0; i < tempArray.length; i++) {
+		if (i != 0) {
+			strHTML[strHTML.length] = '<tr class="td10 center">'
+		} else {
+			strHTML[strHTML.length] = '<tr class="td4 center">'
+		}
+		for ( var j = 0; j < tempArray[i].length; j++) {
+			strHTML[strHTML.length] = '<td width="" class="table6 center">'
+			strHTML[strHTML.length] = tempArray[i][j]
+			strHTML[strHTML.length] = '</td>'
+		}
+		strHTML[strHTML.length] = '</tr>'
+	}
+
+	strHTML[strHTML.length] = '</table>'
+	document.getElementById("divResult").innerHTML = strHTML.join("");
+	var width = document.getElementById("bodyTable").offsetWidth
+	var height = document.getElementById("bodyTable").offsetHeight
+	width = (width > 800) ? 800 : width;
+	height = (height > 600) ? 600 : height;
+	window.resizeTo(width, height)
+	window.moveTo(100, 250)
+
+	//复杂计算公式
+	function calComplex() {
+		var tempArray = new Array();
+		tempArray[0] = new Array();
+		tempArray[0][0] = "車輛標識";
+		tempArray[0][1] = "號牌種類";
+		tempArray[0][2] = "損失金額";
+		for ( var j = 0; j < fullCar.length; j++) {
+			tempArray[0][j + 3] = fullCar[j][0] + "賠償";
+		}
+
+		for ( var j = 0; j < nullCar.length; j++) {
+			tempArray[0][parseInt(j) + 3 + fullCar.length] = nullCar[j][0]
+					+ "賠償";
+		}
+		tempArray[0][tempArray[0].length] = "獲賠合計";
+
+		var allCar = new Array();//所有的车辆
+		var fullAllCar = new Array();//有责车辆
+		var nullAllCar = new Array();//无责车辆
+		var resultArray = new Array();
+		for ( var i = 0; i < fullCar.length; i++) {
+			allCar[i] = new Array(fullCar[i][2], fullMax, fullCar[i][0],
+					fullCar[i][1]);
+			fullAllCar[i] = new Array(fullCar[i][2], fullMax, fullCar[i][0],
+					fullCar[i][1]);
+			resultArray[i] = new Array(fullCar[i][2], fullMax, fullCar[i][0],
+					fullCar[i][1]);
+		}
+		for ( var i = 0; i < nullCar.length; i++) {
+			allCar[i + fullCar.length] = new Array(nullCar[i][2], nullMax,
+					nullCar[i][0], nullCar[i][1]);
+			nullAllCar[i] = new Array(nullCar[i][2], nullMax, nullCar[i][0],
+					nullCar[i][1]);
+			resultArray[i + fullCar.length] = new Array(nullCar[i][2], nullMax,
+					nullCar[i][0], nullCar[i][1]);
+		}
+
+		var nullCanPay = 0;
+		//先取得每个无责车分担有责车赔款
+		if (parseInt(fullAllMoney) > parseInt(nullMax * nullCar.length)) {
+			nullCanPay = nullMax;
+		} else {
+			nullCanPay = fullAllMoney / nullCar.length;
+		}
+
+		var canPayAllArray = new Array();
+		var finalReceive = new Array();//最后实际获得的钱
+		var finalPay = new Array();//最后实际赔付的钱
+		var index = 0;
+		while (1 == 1) {
+			if (index != 0) {//二次分摊
+				for ( var i = 0; i < fullCar.length; i++) {
+					allCar[i] = new Array(fullCar[i][2]
+							- finalReceive[i].toFixed(2), fullMax
+							- finalPay[i].toFixed(2), fullCar[i][0],
+							fullCar[i][1]);
+					fullAllCar[i] = new Array(fullCar[i][2]
+							- finalReceive[i].toFixed(2), fullMax
+							- finalPay[i].toFixed(2), fullCar[i][0],
+							fullCar[i][1]);
+				}
+				for ( var i = 0; i < nullCar.length; i++) {
+					allCar[i + fullCar.length] = new Array(nullCar[i][2]
+							- finalReceive[i + fullCar.length].toFixed(2),
+							nullMax - finalPay[i + fullCar.length].toFixed(2),
+							nullCar[i][0], nullCar[i][1]);
+					nullAllCar[i] = new Array(nullCar[i][2]
+							- finalReceive[i + fullCar.length].toFixed(2),
+							nullMax - finalPay[i + fullCar.length].toFixed(2),
+							nullCar[i][0], nullCar[i][1]);
+				}
+			}
+
+			var canPayArray = new Array();
+			//取得每个有责车分担对方多少钱的数组
+			for ( var i = 0; i < fullCar.length; i++) {
+				var allNum = 0;
+				canPayArray[i] = new Array();
+				if (!canPayAllArray[i]) {
+					canPayAllArray[i] = new Array();
+				}
+				//分担有责车多少钱
+				for ( var j = 0; j < fullCar.length; j++) {
+					if (i == j) {
+						canPayArray[i][j] = 0
+					} else {
+						if (index == 0) {//初次试算
+							canPayArray[i][j] = Math
+									.floor(((fullAllCar[j][0] - nullCanPay
+											* nullCar.length / fullCar.length) / (fullCar.length - 1)) * 10000) / 10000.00;
+						} else {//二次分摊
+							canPayArray[i][j] = Math
+									.floor((fullAllCar[j][0] / (fullCar.length - 1)) * 10000) / 10000.00;
+						}
+						allNum = allNum + canPayArray[i][j];
+					}
+				}
+				//分担无责车多少钱
+				for ( var j = 0; j < nullCar.length; j++) {
+					canPayArray[i][j + fullCar.length] = Math
+							.floor((nullAllCar[j][0] / fullCar.length) * 10000) / 10000.00;
+					allNum = allNum + canPayArray[i][j + fullCar.length];
+				}
+				//查看是否超出限额，超了则按比例计算
+				if (parseFloat(allNum) > parseFloat(allCar[i][1])) {
+					for ( var j = 0; j < canPayArray[i].length; j++) {
+						canPayArray[i][j] = Math.floor((allCar[i][1]
+								* canPayArray[i][j] / allNum) * 10000) / 10000.00
+					}
+				}
+			}
+			//取得每个无责车分担对方多少钱的数组
+			for ( var i = 0; i < nullCar.length; i++) {
+				var allNum = 0;
+				canPayArray[i + fullCar.length] = new Array();
+				if (!canPayAllArray[i + fullCar.length]) {
+					canPayAllArray[i + fullCar.length] = new Array();
+				}
+				//分担有责车多少钱
+				for ( var j = 0; j < fullCar.length; j++) {
+					canPayArray[i + fullCar.length][j] = nullCanPay
+							/ fullCar.length;
+				}
+				//分担无责车多少钱
+				for ( var j = 0; j < nullCar.length; j++) {
+					canPayArray[i + fullCar.length][j + fullCar.length] = 0;
+				}
+			}
+
+			//得到各车获赔的金额
+			var obtainArray = new Array();
+			var booleanArray = new Array();
+			var ifObtainOk = true;
+			//获取有责车获赔的金额
+			for ( var i = 0; i < fullCar.length; i++) {
+				booleanArray[i] = new Array();
+				obtainArray[i] = new Array();
+				obtainArray[i][0] = 0;
+				obtainArray[i][1] = allCar[i][1];
+				for ( var j = 0; j < canPayArray[i].length; j++) {
+					obtainArray[i][0] = parseFloat(obtainArray[i][0])
+							+ parseFloat(canPayArray[j][i]);//该车获赔的所有金额
+					allCar[i][1] = allCar[i][1] - canPayArray[i][j];//该车的剩余赔偿限额
+					if (!canPayAllArray[i][j]) {
+						canPayAllArray[i][j] = canPayArray[i][j];
+					} else {
+						canPayAllArray[i][j] = canPayAllArray[i][j]
+								+ canPayArray[i][j];
+					}
+				}
+
+				allCar[i][0] = allCar[i][0] - obtainArray[i][0];//该车剩余未得到赔偿的金额
+				if (parseInt(allCar[i][0]) != 0) {
+					booleanArray[i][0] = false;
+				} else {
+					booleanArray[i][0] = true;
+				}
+				if (parseInt(allCar[i][1]) != 0) {
+					booleanArray[i][1] = false;
+				} else {
+					booleanArray[i][1] = true;
+				}
+			}
+			//获取无责车获赔的金额
+			for ( var i = 0; i < nullCar.length; i++) {
+				booleanArray[i + fullCar.length] = new Array();
+				obtainArray[i + fullCar.length] = new Array();
+				obtainArray[i + fullCar.length][0] = 0;
+				obtainArray[i + fullCar.length][1] = allCar[i + fullCar.length][1];
+				for ( var j = 0; j < canPayArray[i].length; j++) {
+					obtainArray[i + fullCar.length][0] = parseFloat(obtainArray[i
+							+ fullCar.length][0])
+							+ parseFloat(canPayArray[j][i + fullCar.length]);//该车获赔的所有金额
+					if (!canPayAllArray[i + fullCar.length][j]) {
+						canPayAllArray[i + fullCar.length][j] = canPayArray[i
+								+ fullCar.length][j];
+					}
+				}
+
+				allCar[i + fullCar.length][0] = allCar[i + fullCar.length][0]
+						- obtainArray[i + fullCar.length][0];//该用户剩余未得到赔偿的金额
+				booleanArray[i + fullCar.length][1] = true;
+				if (parseInt(allCar[i + fullCar.length][0]) != 0) {
+					booleanArray[i + fullCar.length][0] = false;
+				} else {
+					booleanArray[i + fullCar.length][0] = true;
+				}
+			}
+
+			finalPay = new Array();
+			for ( var i = 0; i < allCar.length; i++) {
+				allReceive = 0;
+				for ( var j = 0; j < canPayAllArray.length; j++) {
+					if (!finalPay[j]) {
+						finalPay[j] = 0;
+					}
+					finalPay[j] = finalPay[j] + canPayAllArray[j][i];
+					allReceive = parseFloat(allReceive)
+							+ parseFloat(canPayAllArray[j][i]);
+				}
+				finalReceive[i] = allReceive;
+			}
+
+			for ( var i = 0; i < allCar.length; i++) {
+				if (!booleanArray[i][0]) {
+					for ( var j = 0; j < allCar.length; j++) {
+						if ((!booleanArray[j][1]) && (i != j)) {
+							ifObtainOk = false;
+						}
+					}
+				}
+			}
+			if (ifObtainOk) {
+				break;
+			}
+			index++;
+		}
+
+		var temp = new Array()//最后实际获得的钱
+		allMoney = 0;
+		for ( var i = 0; i < allCar.length; i++) {
+			tempArray[i + 1] = new Array();
+			tempArray[i + 1][0] = resultArray[i][2];
+			tempArray[i + 1][1] = resultArray[i][3];
+			tempArray[i + 1][2] = parseInt(resultArray[i][0]).toFixed(2);
+			allNum = 0;
+			for ( var j = 0; j < canPayAllArray.length; j++) {
+				if (i == j) {
+					tempArray[i + 1][j + 3] = "-";
+				} else {
+					tempArray[i + 1][j + 3] = canPayAllArray[j][i].toFixed(2);
+					allNum = parseFloat(allNum)
+							+ parseFloat(canPayAllArray[j][i]);
+				}
+			}
+			allMoney = allMoney + parseFloat(resultArray[i][0])
+			tempArray[i + 1][3 + canPayAllArray.length] = finalReceive[i]
+					.toFixed(2);
+		}
+		tempArray[canPayAllArray.length + 1] = new Array();
+		tempArray[canPayAllArray.length + 1][0] = "總計";
+		tempArray[canPayAllArray.length + 1][1] = "-";
+		tempArray[canPayAllArray.length + 1][2] = allMoney.toFixed(2);
+		allMoney = 0;
+		for ( var i = 0; i < finalPay.length; i++) {
+			tempArray[canPayAllArray.length + 1][3 + i] = finalPay[i]
+					.toFixed(2);
+			allMoney = allMoney + finalPay[i];
+		}
+		tempArray[canPayAllArray.length + 1][3 + canPayAllArray.length] = allMoney
+				.toFixed(2);
+		return tempArray;
+	}
+
+	//简化计算公式
+	function calPredigest() {
+		var tempArray = new Array();
+
+		tempArray[0] = new Array();
+		tempArray[0][0] = "車輛標識";
+		tempArray[0][1] = "號牌種類";
+		tempArray[0][2] = "損失金額";
+		tempArray[0][3] = fullCar[0][0] + "賠償";
+
+		for ( var j = 0; j < nullCar.length; j++) {
+			tempArray[0][parseInt(j) + 4] = nullCar[j][0] + "賠償";
+		}
+		tempArray[0][tempArray[0].length] = "獲賠合計";
+
+		var eachNullMoney = fullCar[0][2] / nullCar.length
+		eachNullMoney = (eachNullMoney > nullMax) ? nullMax : eachNullMoney
+		tempArray[1] = new Array();
+		tempArray[1][0] = fullCar[0][0];
+		tempArray[1][1] = fullCar[0][1];
+		tempArray[1][2] = parseInt(fullCar[0][2]).toFixed(2);
+
+		tempArray[1][3] = "-";
+		var allNum = 0;
+		for ( var j = 0; j < nullCar.length; j++) {
+			tempArray[1][parseInt(j) + parseInt(4)] = eachNullMoney.toFixed(2);
+			allNum = parseInt(allNum) + parseInt(eachNullMoney);
+		}
+		tempArray[1][tempArray[1].length] = allNum.toFixed(2);
+		for ( var i = 0; i < nullCar.length; i++) {
+			tempArray[i + 2] = new Array();
+			tempArray[i + 2][0] = nullCar[i][0];
+			tempArray[i + 2][1] = nullCar[i][1];
+			tempArray[i + 2][2] = parseInt(nullCar[i][2]).toFixed(2);
+			tempArray[i + 2][3] = parseInt(nullCar[i][2]).toFixed(2);
+			for ( var j = 0; j < nullCar.length; j++) {
+				if (i == j)
+					tempArray[i + 2][j + 4] = "-";
+				else
+					tempArray[i + 2][j + 4] = "0.00";
+			}
+			tempArray[i + 2][tempArray[i + 2].length] = parseInt(nullCar[i][2])
+					.toFixed(2);
+		}
+
+		var index = tempArray.length
+		tempArray[index] = new Array();
+		tempArray[index][0] = "總計";
+		tempArray[index][1] = "-";
+
+		for ( var i = 0; i < tempArray.length - 1; i++) {
+			for ( var j = 2; j < tempArray[i].length; j++) {
+				if (!tempArray[index][j]) {
+					tempArray[index][j] = 0.00;
+				}
+				if (!isNaN(tempArray[i][j]))
+					tempArray[index][j] = (parseInt(tempArray[index][j]) + parseInt(tempArray[i][j]))
+							.toFixed(2);
+			}
+		}
+		return tempArray;
+	}
+	function calResponsibility() {
+		var tempArray = new Array();
+		tempArray[0] = new Array();
+		tempArray[0][0] = "車輛標識";
+		tempArray[0][1] = "號牌種類";
+		tempArray[0][2] = "損失金額";
+		for ( var j = 0; j < fullCar.length; j++) {
+			tempArray[0][j + 3] = fullCar[j][0] + "賠償";
+		}
+		tempArray[0][tempArray[0].length] = "獲賠合計";
+
+		//所有的车辆
+		var allCar = new Array();
+		var resultArray = new Array();
+		for ( var i = 0; i < fullCar.length; i++) {
+			allCar[i] = new Array(fullCar[i][2], fullMax, fullCar[i][0],
+					fullCar[i][1]);
+			resultArray[i] = new Array(fullCar[i][2], fullMax, fullCar[i][0],
+					fullCar[i][1]);
+		}
+
+		var canPayAllArray = new Array();
+		var finalReceive = new Array();//最后实际获得的钱
+		var finalPay = new Array();//最后实际赔付的钱
+		var index = 0;
+		while (1 == 1) {
+			if (index != 0) {
+				for ( var i = 0; i < fullCar.length; i++) {
+					allCar[i] = new Array(fullCar[i][2] - finalReceive[i],
+							fullMax - finalPay[i], fullCar[i][0], fullCar[i][1]);
+				}
+			}
+			var canPayArray = new Array();
+			//取得每个有责车分担对方多少钱的数组
+			for ( var i = 0; i < fullCar.length; i++) {
+				var allNum = 0;
+				canPayArray[i] = new Array();
+				if (!canPayAllArray[i]) {
+					canPayAllArray[i] = new Array();
+				}
+
+				for ( var j = 0; j < fullCar.length; j++) {
+					if (i == j) {
+						canPayArray[i][j] = 0;
+					} else {
+						canPayArray[i][j] = Math
+								.floor((allCar[j][0] / (fullCar.length - 1)) * 10000) / 10000.00;
+						allNum = allNum + canPayArray[i][j];
+					}
+				}
+				//查看是否超出限额，超了则按比例计算
+				if (parseFloat(allNum) > parseFloat(allCar[i][1])) {
+					for ( var j = 0; j < canPayArray[i].length; j++) {
+						canPayArray[i][j] = Math.floor((allCar[i][1]
+								* canPayArray[i][j] / allNum) * 10000) / 10000.00;
+					}
+				}
+			}
+
+			//得到各车获赔的金额
+			var obtainArray = new Array();
+			var booleanArray = new Array();
+			var ifObtainOk = true;
+
+			//获取有责车获赔的金额
+			for ( var i = 0; i < fullCar.length; i++) {
+				booleanArray[i] = new Array();
+				obtainArray[i] = new Array();
+				obtainArray[i][0] = 0;
+				obtainArray[i][1] = allCar[i][1];
+				for ( var j = 0; j < canPayArray[i].length; j++) {
+					obtainArray[i][0] = parseFloat(obtainArray[i][0])
+							+ parseFloat(canPayArray[j][i]);//该车获赔的所有金额
+					allCar[i][1] = allCar[i][1] - canPayArray[i][j];//该用户的剩余赔偿限额
+					if (!canPayAllArray[i][j]) {
+						canPayAllArray[i][j] = canPayArray[i][j];
+					} else {
+						canPayAllArray[i][j] = canPayAllArray[i][j]
+								+ canPayArray[i][j];
+					}
+				}
+
+				allCar[i][0] = allCar[i][0] - obtainArray[i][0];//该用户剩余未得到赔偿的金额
+				if (parseInt(allCar[i][0]) != 0) {
+					booleanArray[i][0] = false;
+				} else {
+					booleanArray[i][0] = true;
+				}
+				if (parseInt(allCar[i][1]) != 0) {
+					booleanArray[i][1] = false;
+				} else {
+					booleanArray[i][1] = true;
+				}
+			}
+
+			finalPay = new Array();
+			for ( var i = 0; i < allCar.length; i++) {
+				allReceive = 0;
+				for ( var j = 0; j < canPayAllArray.length; j++) {
+					if (!finalPay[j]) {
+						finalPay[j] = 0;
+					}
+					finalPay[j] = finalPay[j] + canPayAllArray[j][i];
+					allReceive = parseFloat(allReceive)
+							+ parseFloat(canPayAllArray[j][i]);
+				}
+				finalReceive[i] = allReceive;
+			}
+
+			for ( var i = 0; i < allCar.length; i++) {
+				if (!booleanArray[i][0]) {
+					for ( var j = 0; j < allCar.length; j++) {
+						if ((!booleanArray[j][1]) && (i != j)) {
+							ifObtainOk = false;
+						}
+					}
+				}
+			}
+			if (ifObtainOk) {
+				break;
+			}
+			index++;
+		}
+
+		allMoney = 0;
+		for ( var i = 0; i < allCar.length; i++) {
+			tempArray[i + 1] = new Array();
+			tempArray[i + 1][0] = resultArray[i][2];
+			tempArray[i + 1][1] = resultArray[i][3];
+			tempArray[i + 1][2] = parseInt(resultArray[i][0]).toFixed(2);
+			for ( var j = 0; j < canPayAllArray.length; j++) {
+				if (i == j) {
+					tempArray[i + 1][j + 3] = "-";
+				} else {
+					tempArray[i + 1][j + 3] = canPayAllArray[j][i].toFixed(2);
+				}
+			}
+			allMoney = allMoney + parseFloat(resultArray[i][0]);
+			tempArray[i + 1][3 + canPayAllArray.length] = finalReceive[i]
+					.toFixed(2);
+		}
+		tempArray[canPayAllArray.length + 1] = new Array();
+		tempArray[canPayAllArray.length + 1][0] = "總計";
+		tempArray[canPayAllArray.length + 1][1] = "-";
+		tempArray[canPayAllArray.length + 1][2] = allMoney.toFixed(2);
+		allMoney = 0;
+		for ( var i = 0; i < finalPay.length; i++) {
+			tempArray[canPayAllArray.length + 1][3 + i] = finalPay[i]
+					.toFixed(2);
+			allMoney = allMoney + finalPay[i];
+		}
+		tempArray[canPayAllArray.length + 1][3 + canPayAllArray.length] = allMoney
+				.toFixed(2);
+		return tempArray;
+	}
+</script>
+</head>
+<body>
+	<table width="98%" border="0" cellpadding="0" cellspacing="0" class="tab1" id="bodyTable">
+		<tr>
+			<td valign="middle">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab2">
+					<tr>
+						<td>
+							<!--标题栏表格 开始-->
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10" class="pic1 tdpic">&nbsp;</td>
+									<td width="100%" class="tr2">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td width="2%" align="center" valign="middle" class="font5">
+													<img src="../img/arrow1.gif" class="icon1">
+												</td>
+												<td width="49%" nowrap class="font5">
+													<!--小标题-->
+													理賠計算結果
+												</td>
+												<td width="49%" align="right">&nbsp;</td>
+											</tr>
+										</table>
+									</td>
+									<td width="10" class="pic2 tdpic">&nbsp;</td>
+								</tr>
+							</table>
+							<!--标题栏表格 结束-->
+						</td>
+					</tr>
+					<tr>
+						<td class="blank" valign="middle"></td>
+					</tr>
+					<!--input表单表格 开始-->
+					<tr>
+						<td>
+							<div id="divResult" style="width: 100%; height: 80%">&nbsp;</div>
+						</td>
+					</tr>
+					<!--input表单表格 结束-->
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="line1" valign="middle"></td>
+		</tr>
+		<tr class="font3 height1">
+			<td class="buttonalign">
+				<table border="0" cellspacing="0" cellpadding="0" class="width1">
+					<tr>
+						<td width="10" class="pic3 tdpic">&nbsp;</td>
+						<td class="tr3 buttonalign">
+							<input type="button" value="關閉" class="button" onClick="window.close()">
+						</td>
+						<td width="10" class="pic4 tdpic">&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

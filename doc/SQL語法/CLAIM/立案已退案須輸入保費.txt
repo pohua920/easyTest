@@ -1,0 +1,65 @@
+--問題來源
+--emai
+--RE: 煩請協助-182026PB0000050-秘密基地小吃店
+于琇您好，
+同剛電話所訴，
+182026PB0000050原始保期為115.01.24~116.01.24，
+自115.03.03起退保，
+但在115.01.24~115.03.03中間有出險，
+但目前系統自115.03.03起保額歸0後，
+理賠無法輸入保額，
+請問該問題如何排解呢?
+要寫資料庫異動申請單嗎?
+
+
+--可使用可輸入的正常案例 [比較組]
+182024PB0000489
+6PB000200000250000001
+select * from UTICODETRANSFER this_ where  outercode='PB'
+select * from PRPCLIMIT this_ where this_.POLICYNO='182024PB0000489' and this_.LIMITNO='1'
+select codecname,codeename from ccicdms.prpdnewcode where codetype='LimitType' and codecode='65'
+
+在立案時候
+選>估損金額訊息>
+險別PB>標的物 64 or 65 or 66 or 68 會帶出 保險金額LIMITFEE 但是 損失金額你永遠無法輸入超過保險金額LIMITFEE
+POLICYNO       |RISKCODE|LIMITGRADE|LIMITNO|LIMITTYPE|CURRENCY|LIMITFEE|CALCULATEFLAG|LIMITFLAG|FLAG|REMARK|LIMITFEERATE|DEDUCTIBLE|DEDUCTIBLERATE|EXTEND1|EXTEND2|EXTEND3|EXTEND4|EXTEND5|EXTEND6|ISRECORDED|INSERTTIMEFORHIS|OPERATETIMEFORHIS|PLANCODE|APPLIAREA|SERIALNO|FIREDEDUCTIBLE|TOTALLOSTDEDUCTIBLE|AMD|SUBSIDYPREMIUM|NEWCURRENCY|NEWLIMITFEE|
+---------------|--------|----------|-------|---------|--------|--------|-------------|---------|----|------|------------|----------|--------------|-------|-------|-------|-------|-------|-------|----------|----------------|-----------------|--------|---------|--------|--------------|-------------------|---|--------------|-----------|-----------|
+182024PB0000489|PB      |1         |      1|101      |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182024PB0000489|PB      |1         |      1|64       |NTD     | 1000000|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182024PB0000489|PB      |1         |      1|65       |NTD     | 5000000|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182024PB0000489|PB      |1         |      1|66       |NTD     | 1000000|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182024PB0000489|PB      |1         |      1|68       |NTD     | 3000000|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+
+
+
+--這次的問題組 
+182026PB0000050
+LIMITFEE 全部被清空成0 猜測保期超過後就清空了
+select * from BUSINESS.UTICODETRANSFER@PROD this_ where  outercode='PB'-- 一樣
+select * from BUSINESS.PRPCLIMIT@PROD this_ where this_.POLICYNO='182026PB0000050' and this_.LIMITNO='1'
+POLICYNO       |RISKCODE|LIMITGRADE|LIMITNO|LIMITTYPE|CURRENCY|LIMITFEE|CALCULATEFLAG|LIMITFLAG|FLAG|REMARK|LIMITFEERATE|DEDUCTIBLE|DEDUCTIBLERATE|EXTEND1|EXTEND2|EXTEND3|EXTEND4|EXTEND5|EXTEND6|ISRECORDED|INSERTTIMEFORHIS|OPERATETIMEFORHIS|PLANCODE|APPLIAREA|SERIALNO|FIREDEDUCTIBLE|TOTALLOSTDEDUCTIBLE|AMD|SUBSIDYPREMIUM|NEWCURRENCY|NEWLIMITFEE|
+---------------|--------|----------|-------|---------|--------|--------|-------------|---------|----|------|------------|----------|--------------|-------|-------|-------|-------|-------|-------|----------|----------------|-----------------|--------|---------|--------|--------------|-------------------|---|--------------|-----------|-----------|
+182026PB0000050|PB      |1         |      1|101      |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|PB      |1         |      1|64       |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|PB      |1         |      1|65       |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|PB      |1         |      1|66       |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|PB      |1         |      1|68       |NTD     |       0|             |         |    |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+
+
+查COPY果然
+ENDORSENO = POLICYNO 就是最原本的保單保費金額
+批單182026PBE000012後 清空為0
+
+select * from BUSINESS.PRPCOPYLIMIT@PROD this_ where this_.POLICYNO='182026PB0000050' and this_.LIMITNO='1'
+ENDORSENO      |POLICYNO       |RISKCODE|LIMITGRADE|LIMITNO|LIMITTYPE|CURRENCY|LIMITFEE|CALCULATEFLAG|LIMITFLAG|FLAG|CHGLIMITFEE|REMARK|LIMITFEERATE|DEDUCTIBLE|DEDUCTIBLERATE|EXTEND1|EXTEND2|EXTEND3|EXTEND4|EXTEND5|EXTEND6|ISRECORDED|INSERTTIMEFORHIS|OPERATETIMEFORHIS|PLANCODE|APPLIAREA|SERIALNO|FIREDEDUCTIBLE|TOTALLOSTDEDUCTIBLE|AMD|SUBSIDYPREMIUM|NEWCURRENCY|NEWLIMITFEE|
+---------------|---------------|--------|----------|-------|---------|--------|--------|-------------|---------|----|-----------|------|------------|----------|--------------|-------|-------|-------|-------|-------|-------|----------|----------------|-----------------|--------|---------|--------|--------------|-------------------|---|--------------|-----------|-----------|
+182026PBE000012|182026PB0000050|PB      |1         |      1|101      |NTD     |       0|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PBE000012|182026PB0000050|PB      |1         |      1|64       |NTD     |       0|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PBE000012|182026PB0000050|PB      |1         |      1|65       |NTD     |       0|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PBE000012|182026PB0000050|PB      |1         |      1|66       |NTD     |       0|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PBE000012|182026PB0000050|PB      |1         |      1|68       |NTD     |       0|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|182026PB0000050|PB      |1         |      1|101      |NTD     |        |             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|182026PB0000050|PB      |1         |      1|64       |NTD     | 6000000|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|182026PB0000050|PB      |1         |      1|65       |NTD     |66000000|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|182026PB0000050|PB      |1         |      1|66       |NTD     | 3000000|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |
+182026PB0000050|182026PB0000050|PB      |1         |      1|68       |NTD     |30000000|             |         |    |           |      |            |          |              |       |       |       |       |       |       |          |                |                 |        |         |        |              |                   |   |              |           |           |

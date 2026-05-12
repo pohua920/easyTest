@@ -1,0 +1,1 @@
+Select * from BUSINESS.FIR_BUSSINESS_PRINT_TMP where OID=$P{OID}

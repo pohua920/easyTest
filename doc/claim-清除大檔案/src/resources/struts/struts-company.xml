@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+		<package name="company" extends="struts-default" namespace="/company">
+
+		<action name="query" class="companyAction" method="query" />
+
+		<action name="delete" class="companyAction" method="delete" />
+
+		<action name="prepareQuery" class="companyAction" method="prepareQuery">
+			<result name="success">
+				/pages/platform/company/PerfCompanyList.jsp
+			</result>
+		</action>
+		<!-- <action name="prepareAdd" class="companyAction" method="prepareAdd"> 
+			<result name="success"> /pages/platform/user/UserAdd.jsp </result> </action> -->
+
+		<action name="prepareCompanyAdd" class="companyAction" method="prepareCompanyAdd">
+			<result name="success">
+				/pages/platform/company/PerfCompanyEdit.jsp
+			</result>
+		</action>
+		
+		<action name="prepareUpdate" class="companyAction" method="prepareUpdate">
+			<result name="success">
+				/pages/platform/company/PerfCompanyEdit.jsp
+			</result>
+		</action>
+
+		<action name="add" class="companyAction" method="add">
+			<result name="success">/common/Success.jsp</result>
+		</action>
+
+		<action name="update" class="companyAction" method="update">
+			<result name="success">/common/Success.jsp</result>
+		</action>
+		<action name="view" class="companyAction" method="view">
+			<result name="success">
+				/pages/platform/company/PerfCompanyEdit.jsp
+			</result>
+		</action>
+	</package>
+</struts>

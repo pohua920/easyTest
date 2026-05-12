@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" default-autowire="byName"
+	default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	
+<!-- =====================================实体类service配置 start===================================== -->
+	<!--
+	<bean id="prpLagentService"
+		class="com.sinosoft.payment.claim.service.spring.PrpLagentServiceSpringImpl">
+	</bean>
+	<bean id="prpLplanService"
+		class="com.sinosoft.payment.claim.service.spring.PrpLplanServiceSpringImpl">
+	</bean>
+	<bean id="prpLPlanKindService"
+		class="com.sinosoft.payment.claim.service.spring.PrpLPlanKindServiceSpringImpl">
+	</bean>
+	 -->
+	
+		<!-- 理赔对收付接口公用service重命名 begin-->
+	<bean id="prpLplanPaymentService"
+		class="com.sinosoft.payment.claim.service.spring.PrpLplanServiceSpringImpl">
+	</bean>
+	<bean id="prpLPlanKindPaymentService"
+		class="com.sinosoft.payment.claim.service.spring.PrpLPlanKindServiceSpringImpl">
+	</bean>
+	<bean id="prpDcompanyPaymentService"
+		class="com.sinosoft.payment.common.service.spring.PrpDcompanyPaymentServiceSpringImpl">
+	</bean>
+	<!-- 理赔对收付接口公用service重命名 end-->
+	<bean id="prpDcompanyServiceServlet"
+		class="com.sinosoft.payment.common.servlet.spring.PrpDcompanyServiceServletSpringImpl">
+	</bean>
+	<bean id="prpJplanFeeService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJplanFeeServiceSpringImpl">
+	</bean>
+	<bean id="prpJpayRefRecHisService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJpayRefRecHisServiceSpringImpl">
+	</bean>
+	<bean id="interfUtilServlet"
+		class="com.sinosoft.payment.common.servlet.spring.InterfUtilServletImpl">
+	</bean>
+	<bean id="prpJpayRefRecService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJpayRefRecServiceSpringImpl">
+	</bean>
+	<bean id="prpJplanFeeServiceServlet"
+		class="com.sinosoft.payment.payment.servlet.spring.PrpJplanFeeServiceServletSpringImpl">
+	</bean>
+	<bean id="prpJpayRefKindService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJpayRefKindServiceSpringImpl">
+	</bean>
+		<bean id="interfCheck"
+		class="com.sinosoft.payment.common.interf.webService.InterfCheck">
+	</bean>
+	
+	<bean id="prpJpayRefAdvanceService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJpayRefAdvanceServiceSpringImpl">
+	</bean>
+
+	<bean id="prpJpayRefRecServiceServlet"
+		class="com.sinosoft.payment.payment.servlet.spring.PrpJpayRefRecServiceServletSpringImpl">
+	</bean>
+	<bean id="prpJpayRefKindServiceServlet"
+		class="com.sinosoft.payment.payment.servlet.spring.PrpJpayRefKindServiceServletSpringImpl">
+	</bean>
+	<bean id="paymentWebService"
+		class="com.sinosoft.payment.common.interf.webService.PaymentWebService">
+	</bean>
+	<bean id="prpDuserPaymentService"
+		class="com.sinosoft.payment.common.service.spring.PrpDuserPaymentServiceSpringImpl">
+	</bean>
+	<bean id="prpJintfProcessService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJintfProcessServiceSpringImpl">
+	</bean>
+	<bean id="prpJConfigService"
+		class="com.sinosoft.payment.payment.service.spring.PrpJConfigServiceSpringImpl">
+	</bean>
+	<bean id="prpJConfigServiceServlet"
+		class="com.sinosoft.payment.payment.servlet.spring.PrpJConfigServiceServletSpringImpl">
+	</bean>
+	<bean id="prpJintfProcessServiceServlet"
+		class="com.sinosoft.payment.payment.servlet.spring.PrpJintfProcessServiceServletSpringImpl">
+	</bean>
+<!-- =====================================实体类servlet配置 start===================================== -->
+
+
+<!-- =====================================其他servlet配置start===================================== -->
+
+</beans>

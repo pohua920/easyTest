@@ -1,0 +1,360 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<script>
+var realparent = parent;
+if (window.dialogArguments != null && window.dialogArguments.isModal) {
+	realparent = window.dialogArguments.opener;
+}
+var currentbordercolor = "#990000";
+var trialbordercolor = "#009900";
+</script>
+<style>
+BODY {
+	BACKGROUND-COLOR: #DEE3F7;
+	border: 2px solid black;
+}
+TABLE {
+	FONT-FAMILY: Arial;
+	FONT-SIZE: x-small;
+}
+TABLE.datetable {
+	CELL-SPACING: 0px;
+}
+BUTTON {
+	FONT-SIZE: xx-small;
+}
+TD.days {
+	FONT-FAMILY: Arial;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: x-small;
+	BACKGROUND-COLOR: #DEE3F7;
+	BORDER-COLOR: #DEE3F7;
+	TEXT-ALIGN: center;
+	VALIGN: MIDDLE; ALIGN=CENTER;
+	COLOR: black;
+	TEXT-DECORATION: none;
+	VALIGN: MIDDLE;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 2px;
+}
+TR {
+	BACKGROUND-COLOR: #DEE3F7;
+	COLOR: black;
+	ALIGN: CENTER;
+}
+TD.datesoutermonths {
+	BACKGROUND-COLOR: #DEE3F7;
+	BORDER-COLOR: #DEE3F7;
+	COLOR: #6B8AC6;
+	TEXT-DECORATION: none;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 2px;
+	VALIGN: MIDDLE;
+	TEXT-ALIGN: center;
+}
+TD.datethismonth {
+	BACKGROUND-COLOR: #DEE3F7;
+	BORDER-COLOR: #DEE3F7;
+	COLOR: blue;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 2px;
+	VALIGN: MIDDLE;
+	TEXT-ALIGN: center;
+	CURSOR: hand;
+}
+TD.datetoday {
+	BACKGROUND-COLOR: #DEE3F7;
+	BORDER-COLOR: #DEE3F7;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 2px;
+	VALIGN: MIDDLE;
+	TEXT-ALIGN: center;
+	CURSOR: hand;
+}
+TD.emptyrow {
+	VISIBILITY: hidden;
+	BACKGROUND-COLOR: #DEE3F7;
+	BORDER-COLOR: #DEE3F7;
+	COLOR: blue;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 2px;
+	VALIGN: MIDDLE;
+	TEXT-ALIGN: center;
+}
+A {
+	COLOR: black;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none;
+}
+A.today {
+	COLOR: red;
+	FONT-WEIGHT: bold;
+	TEXT-DECORATION: none;
+}
+</style>
+<script type="text/javascript" language="JavaScript"><!--
+var CALENDAR_MILLISEC_PER_DAY = 86400000;
+var DAYS_PER_WEEK = 7;
+
+var gState = null;    
+function calInit(d, m, y) {
+    gState = {day: d, month: m, year: y};
+}
+
+function Calendar(Month,Year) { 
+  var startY = realparent.YEAR_RANGE_START;
+  var endY = realparent.YEAR_RANGE_END;
+	
+  if (gState != null)  {
+	gState.oldday = null; 
+  }
+  var opS = '<OPTION VALUE="';
+  var opE = '<\/OPTION>';
+  var output = '<FORM NAME="calculatorform" ALIGN=CENTER><TABLE><TR><TD ALIGN=LEFT>';
+	output += '<SELECT TABINDEX=-1 NAME="Month" onChange="changeMonth();">';
+  for (m=0; m<12; m++) {
+  	output += opS + m + '"';
+  	if(m == Month) output += ' SELECTED';
+  	output += '>' + names[m] + opE;
+  }
+
+  output += '<\/SELECT>&nbsp;&nbsp;<SELECT  TABINDEX=-1 NAME="Year" onChange="changeYear();">';
+
+  for (y=startY; y<=endY; y++) {
+  	output += opS + y + '"';
+  	if(y == Year) output += ' SELECTED';
+  	output += '>' + y + opE;
+  }
+
+  output += '<\/SELECT><\/TD>'
+
+  output += '<TD ALIGN=RIGHT>';
+  output += 	  ' <BUTTON onClick="CloseButtonCalendar();" class=button1 id=buttonclose name=buttonclose>OK<\/BUTTON>';
+  output += '<\/TD>';
+	
+  output += '<\/TR>';
+   
+  output += '<TR><TD ALIGN=CENTER COLSPAN=2>';
+
+  firstDay = new Date(Year,Month,1);
+  startDay = firstDay.getDay();
+  if (((Year % 4 == 0) && (Year % 100 != 0)) || (Year % 400 == 0))
+    days[1] = 29; 
+  else
+    days[1] = 28;
+  output += '<TABLE ID=innertable CELLSPACING=0px CLASS="datetable">';
+  output += '<TR>';
+  for (i=0; i<7; i++)
+    output += '<TD CLASS="days" >' + dow[i] +'<\/TD>';
+  output += '<\/TR>'
+  output += '<TR><TD style="height:1px; background-color:black;" Align=top colspan=7><\/TD><\/TR>';
+  output += '<TR >';
+  var column = 0;
+  var lastMonth = Month - 1;
+  if (lastMonth == -1) lastMonth = 11;
+
+  for (i=0; i<startDay; i++, column++)
+    output += '<TD CLASS="datesoutermonths"  >' + (days[lastMonth]-startDay+i+1) + '<\/TD>';
+  var rowCount = 1;
+  var newrow = false;
+  var today = new Date();
+  var day   = today.getDate();    
+  for (i=1; i<=days[Month]; i++, column++) {
+    if (newrow == true) {
+	  rowCount++;
+	  newrow = false;
+	}
+ 	if (i == day && Month == today.getMonth() && Year == y2k(today.getFullYear())) {
+	  output += '<TD ID="TD_DAY_'+i+'"  CLASS="datetoday" onmouseover="daytrialfocus('+i+');" onmouseout="daytrialblur('+i+');"  onmousedown="changeDay(' + i + ')">' + '<A ID="A_DAY_'+i+'" onfocus="dayfocus('+i+');" onblur="dayblur('+i+');" class=today onmousedown="changeDay(' + i + ')">' + i + '<\/A>' +'<\/TD>';
+	} else {
+	  output += '<TD ID="TD_DAY_'+i+'"  CLASS="datethismonth" onmouseover="daytrialfocus('+i+');" onmouseout="daytrialblur('+i+')" onmousedown="changeDay(' + i + ')">' + '<A ID="A_DAY_'+i+'" onfocus="dayfocus('+i+');" onblur="dayblur('+i+');" onmousedown="changeDay(' + i + ')">' + i + '<\/A>' +'<\/TD>';
+	}    
+	if (column == 6) {
+	  output += '<\/TR><TR VALIGN=MIDDLE>';
+	  column = -1;
+	  newrow = true;
+	}
+  }
+  if (column > 0) {
+    if (newrow == true) {
+	  rowCount++;
+	  newrow = false;
+	}
+    for (i=1; column<7; i++, column++) {
+	  output +=  '<TD CLASS="datesoutermonths">' + i + '<\/TD>';
+    }
+  }
+  output += '<\/TR>';
+  for (i = rowCount; i<6; i++) {
+	output += '<TR>';
+	output +=  '<TD CLASS="emptyrow" rowspan=7>8<\/TD>';
+	output += '<\/TR>';
+  }
+  output += '<\/TABLE>';
+  output += '<\/FORM><\/TD><\/TR><\/TABLE>';
+  return output;
+}
+var oldBorderColor = null;
+var modalfocusoldDay = null; 
+function dayfocus(day) {
+	if (gState.oldday != null) {
+		try {
+			eval(gState.oldday);
+		} catch (e) {
+		}
+		gState.oldday = null;
+	}
+	eval('oldBorderColor = document.all.TD_DAY_'+day+'.style.borderColor;');
+	eval('document.all.TD_DAY_'+day+'.style.borderColor=currentbordercolor;');
+	if (modalfocusoldDay!=null) {
+		dayblur(modalfocusoldDay);
+	}
+	try {
+		eval('document.all.TD_DAY_'+day+'.onfocus()');
+		modalfocusoldDay = day;
+	} catch (e) {
+		modalfocusoldDay = null;
+	}
+	gState.day=day;
+}
+function dayblur(day) {
+	gState.oldday = 'document.all.TD_DAY_'+day+'.style.borderColor = oldBorderColor;';
+}
+function daytrialfocus(day) {
+	eval('oldBorderColor = document.all.TD_DAY_'+day+'.style.borderColor;');
+	eval('document.all.TD_DAY_'+day+'.style.borderColor=trialbordercolor;');
+}
+function daytrialblur(day) {
+	eval('document.all.TD_DAY_'+day+'.style.borderColor = oldBorderColor;');
+}
+function focusday(day) {
+	if (day == null) return;
+
+	if (modalfocusoldDay!=null) {
+		dayblur(modalfocusoldDay);
+	}
+	try {
+		eval('document.all.A_DAY_'+day+'.onfocus();');
+		modalfocusoldDay = day;
+	} catch (e) {
+		modalfocusoldDay = null;
+	}
+}
+function focusStickyDay(oldMonth, gState) {
+    if ( gState.day == days[oldMonth] )
+		gState.day = days[gState.month];
+    else if ( gState.day > days[gState.month] )
+		gState.day = days[gState.month];
+
+	focusday(gState.day);
+}
+function postResults(d, m, y) {
+	if (window.dialogArguments != null && window.dialogArguments.isModal) {
+		var ret = new Array();
+		ret.day = d;
+		ret.month = m;
+		ret.year = y;
+		window.returnValue = ret;
+	} else {
+		realparent.calResults(gState.day, gState.month, gState.year);
+	}
+}
+function changeDay(Day) {
+    gState.day = Day + '';
+    postResults(gState.day, gState.month, gState.year);
+    CloseCalendar();
+}
+function changeMonth() {
+	var oldMonth = gState.month;
+    gState.month = document.calculatorform.Month.options[document.calculatorform.Month.selectedIndex].value + '';
+    saveStateandReload(gState);
+	focusStickyDay(oldMonth, gState);
+}
+function changeYear() {
+	var wasLastDayOfMonth = ( gState.day == days[gState.month] );
+    gState.year = document.calculatorform.Year.options[document.calculatorform.Year.selectedIndex].value + '';
+    saveStateandReload(gState);
+    if (wasLastDayOfMonth)
+		gState.day = days[gState.month];
+    else if ( gState.day > days[gState.month] )
+		gState.day = days[gState.month];
+	focusday(gState.day);
+}
+
+function y2k(number)    { return (number < 1000) ? number + 2000 : number; }
+
+function makeArray0() {
+    for (i = 0; i<makeArray0.arguments.length; i++)
+        this[i] = makeArray0.arguments[i];
+}
+var names = new makeArray0('一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月');
+var days  = new makeArray0(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+var dow   = new makeArray0('日','一','二','三','四','五','六');
+
+function CloseButtonCalendar() {
+	postResults(gState.day, gState.month, gState.year);
+	CloseCalendar();
+}
+function CloseCalendar() {
+	if (window.dialogArguments != null && window.dialogArguments.isModal) {
+		window.close();
+	} else {
+		window.setTimeout('realparent.cancelCalendar()', 1);
+	}
+}
+function saveStateandReload(state) {
+    realparent.calSaveState(state);
+    document.body.innerHTML = Calendar(gState.month, gState.year);
+}
+function calendar_onload_really() {
+	if (window.dialogArguments != null && window.dialogArguments.isModal) {
+		var cromeWidth = 10;
+		var cromeHeight = 10;
+
+		window.dialogWidth = document.body.scrollWidth + cromeWidth + "px";
+		window.dialogHeight = document.body.scrollHeight + cromeHeight + "px";
+		
+		try {
+			cromeWidth = window.dialogWidth.slice(0,window.dialogWidth.length-2)  - document.body.offsetWidth
+			cromeHeight= window.dialogHeight.slice(0,window.dialogHeight.length-2) - document.body.offsetHeight;
+			window.dialogWidth = document.body.scrollWidth + cromeWidth + "px";
+			window.dialogHeight = document.body.scrollHeight + cromeHeight + "px";
+		} catch (e) {
+		}
+	} else {
+		realparent.growCalendarFrame(document.all.calculatorform.offsetHeight + 10, document.all.calculatorform.offsetWidth + 15);
+		realparent.showCalendar();
+	}
+		
+	focusday(gState.day);
+	
+	try {
+		if (parent.document==null ||
+			parent.document.all.calendar == null ||
+			parent.document.all.calendar.ok_to_set_focus == null || 
+			parent.document.all.calendar.ok_to_set_focus==true) {
+			document.all.innertable.focus();
+		}
+	} catch (e) {
+	}
+}
+
+function calendar_onload(text, hidden) {
+	if (document.readyState=="complete") {
+		window.setTimeout(calendar_onload_really, 1);
+	};
+}
+//--></script>
+</head>
+
+<body scroll=no topmargin=2 leftmargin=5 onload='calendar_onload()'>
+<p></p>
+<center><script type="text/javascript" language="JavaScript"><!--
+  gState = realparent.calRestoreState();
+  if (gState == null) realparent.calInit(self);
+  document.write(Calendar(gState.month, gState.year));
+  document.close();
+//--></script></center>
+</body>
+</html>

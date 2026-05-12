@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="GB2312" standalone="yes" ?>
+
+<sysconst>
+	<!-- 是否用配件系统数据标示 -->
+	<CLAIM_URL>http://localhost:7001/claim</CLAIM_URL>
+	<ThirdFittings>1</ThirdFittings>	　
+	<FittingsSystem_name>jy</FittingsSystem_name>
+	<FittingsSystem_password>jy</FittingsSystem_password>
+	<!--配件系统的Http地址-->
+
+	<!--验证环境tomcate Http地址-->
+	<FITTINGS_URL>:7001/pjbjbd/ClaimFittingInterfaceServlet</FITTINGS_URL>	
+	<FITTINGS_IP>:7001/pjbjbd</FITTINGS_IP>
+	
+	<!--核心业务系统的url参数-->
+	<!-- mantis： CLM0234 ，处理人员： DP0713 ，需求单编号：IP UPDATE(UAT IP update set to 192.168.112.98) START -->
+	<Core_URL>http://192.168.112.63:7001/prpins/</Core_URL>
+	
+	<!--理赔送审初复核节点参数-->
+	<NODESENDUNDWRT_check>Y</NODESENDUNDWRT_check>
+	<NODESENDUNDWRT_claim>Y</NODESENDUNDWRT_claim>
+	<NODESENDUNDWRT_compe>Y</NODESENDUNDWRT_compe>
+	<!-- mantis：CLM0211，处理人员：DP0713，需求单编号：新核心-CA工程险理算处理画面旧有按钮移除 -->
+	<NODESENDUNDWRT_compp>N</NODESENDUNDWRT_compp>
+	
+	<!--理赔送审初复核险类参数-->
+	<SENDUNDWRT_01>Y</SENDUNDWRT_01>
+	<SENDUNDWRT_03>N</SENDUNDWRT_03>
+	<SENDUNDWRT_07>Y</SENDUNDWRT_07>
+	<SENDUNDWRT_09>Y</SENDUNDWRT_09>
+	<SENDUNDWRT_10>Y</SENDUNDWRT_10>
+	<SENDUNDWRT_15>Y</SENDUNDWRT_15>
+	<SENDUNDWRT_23>N</SENDUNDWRT_23>
+	<SENDUNDWRT_27>Y</SENDUNDWRT_27>
+	<SENDUNDWRT_E>Y</SENDUNDWRT_E>
+	<SENDUNDWRT_Q>Y</SENDUNDWRT_Q>
+	
+	<!--理赔邮件通知保单经办配置-->
+	<MAILCLAIM>N</MAILCLAIM>
+	<MAILENDCA>N</MAILENDCA>
+	
+	<!--发送邮件服务器配置-->
+	<MAILSMTPHOST>TPEFHCMALVEB08.group.fb.com</MAILSMTPHOST>
+	<MAILFROM>cservice.cn.ins@fubon.com</MAILFROM>
+	<MAILUSER>cservice.cn.ins</MAILUSER>
+	<MAILPASSWORD>Fb2881cservice</MAILPASSWORD>
+	
+	<!--发送短信服务器配置,开关-->
+	<SMS_FLAG>N</SMS_FLAG>
+	<!--企险服务器-->
+	<SMS_APICODE_C>zhongxiao</SMS_APICODE_C>
+	<SMS_NAME_C>zhongxiao</SMS_NAME_C>
+	<SMS_PASSWORD_C>f670aebf</SMS_PASSWORD_C>
+	<!--个险服务器-->
+	<SMS_APICODE_P>kefu</SMS_APICODE_P>
+	<SMS_NAME_P>kefu</SMS_NAME_P>
+	<SMS_PASSWORD_P>08d8694d</SMS_PASSWORD_P>
+	
+</sysconst>

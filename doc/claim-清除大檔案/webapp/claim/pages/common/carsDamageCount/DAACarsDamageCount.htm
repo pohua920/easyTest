@@ -1,0 +1,334 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<%@ include file="/common/taglibs.jsp"%>
+<title>填入各方訊息</title>
+<link href="css/circ_cn.css" rel="stylesheet" type="text/css">
+<script language=javascript>
+	function check() {
+		//有責車必須錄入
+		if ((checkInput("fullCarMark", "有責方號牌號碼"))
+				&& (checkInput("fullCarMarkType", "有責方號牌種類"))
+				&& (checkInput("fullMoney", "有責方損失金額"))) {
+			var objs = document.getElementsByName("fullCarMark");
+			if (objs.length == 1) { //有責車只錄入一條，無責車也必須錄入
+				if ((checkInput("nullCarMark", "無責方號牌號碼"))
+						&& (checkInput("nullCarMarkType", "無責方號牌種類"))
+						&& (checkInput("nullMoney", "無責方損失金額"))) {
+					window
+							.open(
+									'result/prepaycalculateresult.htm',
+									'',
+									'width=800,height=600,left=0,top=0,toolbar=no, menubar=no, scrollbars=yes,resizable=no,location=no, status=no');
+				}
+			} else {
+				if ((checkInput2("nullCarMark", "無責方號牌號碼"))
+						|| (checkInput2("nullCarMarkType", "無責方號牌種類"))
+						|| (checkInput2("nullMoney", "無責方損失金額"))) {
+					//無責車有記錄錄入，則檢查數據是否錄入完整
+					if ((checkInput("nullCarMark", "無責方號牌號碼"))
+							&& (checkInput("nullCarMarkType", "無責方號牌種類"))
+							&& (checkInput("nullMoney", "無責方損失金額"))) {
+						window
+								.open(
+										'result/prepaycalculateresult.htm',
+										'',
+										'width=800,height=600,left=0,top=0,toolbar=no, menubar=no, scrollbars=yes,resizable=no,location=no, status=no');
+					}
+				} else {
+					window
+							.open(
+									'result/prepaycalculateresult.htm',
+									'',
+									'width=800,height=600,left=0,top=0,toolbar=no, menubar=no, scrollbars=yes,resizable=no,location=no, status=no');
+				}
+			}
+		}
+	}
+	function checkInput(name, objName) {
+		var objs = document.getElementsByName(name)
+		for ( var i = 0; i < objs.length; i++) {
+			if (objs[i].value == "") {
+				var num = (parseInt(i) + parseInt(1)).toString()
+				num = (num.length == 1) ? ("0" + num) : num
+				alert(objName.substr(0, 3) + num + objName.substr(3) + "不能為空");
+				return false
+			}
+		}
+		return true;
+	}
+	function checkInput2(name, objName) {
+		var objs = document.getElementsByName(name);
+		for ( var i = 0; i < objs.length; i++) {
+			if (objs[i].value != "") {
+				return true;
+			}
+		}
+		return false;
+	}
+	function showNum(tableName, numName) {
+		var type = (tableName.charAt(0) == "n") ? "無" : "有"
+		var obj = document.getElementById(tableName);
+		var objNum = parseInt(document.getElementById(numName).value)
+		if ((isNaN(objNum)) || (objNum < 1) || (objNum > 99)) {
+			alert("輸入的數字不能為空，並且不能小於1,大於99")//代码限制死了为99，如果数量比较大，程序要改，会有可能有效率问题
+			return;
+		}
+		var objTr = obj.childNodes[0].childNodes[0].cloneNode(true);
+		for ( var i = (obj.childNodes[0].childNodes.length - 1); i > -1; i--) {
+			obj.childNodes[0].childNodes[i].removeNode(true);
+		}
+		for ( var i = 0; i < objNum; i++) {
+			if (i == 0) {
+				obj.childNodes[0].appendChild(objTr);
+			} else {
+				var objTrTemp = objTr.cloneNode(true);
+				objTrTemp.childNodes[0].innerHTML = "·" + type + "責方"
+						+ changeNum(i) + "：";
+				obj.childNodes[0].appendChild(objTrTemp);
+			}
+
+		}
+
+	}
+	function changeNum(str) {
+		str = parseInt(str) + parseInt(1)
+		str = str.toString();
+		return (str.length == 1) ? ("0" + str) : str
+
+	}
+	function resetForm() {
+		var obj1 = document.getElementById("fullNum").value = "1"
+		var obj2 = document.getElementById("nullNum").value = "1"
+		document.getElementById("fullButton").click();
+		document.getElementById("nullButton").click();
+	}
+</script>
+</head>
+<body>
+	<table width="98%" border="0" cellpadding="0" cellspacing="0" class="tab1">
+		<tr class="tr1">
+			<td class="font6">填入各方訊息</td>
+		</tr>
+		<tr>
+			<td class="linetop" valign="middle"></td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab2">
+					<tr>
+						<td>
+							<!--标题栏表格 开始-->
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10" class="pic1 tdpic">&nbsp;</td>
+									<td width="100%" class="tr2">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td width="2%" align="center" valign="middle" class="font5">
+													<img src="img/arrow1.gif" class="icon1">
+												</td>
+												<td width="49%" nowrap class="font5">
+													<!--小标题-->
+													有責方訊息
+												</td>
+												<td width="49%" align="right">&nbsp;</td>
+											</tr>
+										</table>
+									</td>
+									<td width="10" class="pic2 tdpic">&nbsp;</td>
+								</tr>
+							</table>
+							<!--标题栏表格 结束-->
+						</td>
+					</tr>
+					<tr>
+						<td class="blank" valign="middle"></td>
+					</tr>
+					<form name="form1">
+						<tr>
+							<td>
+								<table class="width6" cellspacing="0" cellpadding="0" align="center">
+									<tr class="font3 height1">
+										<td class="per6_1 align">有責方數量</td>
+										<td class="per6_2">
+											<input type="text" size="20" class="textfiled" name="fullNum" onblur="if(!/^([1-9]\d*)?$/.test(this.value)){alert('全責方數量輸入錯誤');this.value=''}">
+										</td>
+										<td class="per6_3" style="align: left; width: 70%">
+											<input name="fullButton" type="button" value="确定" onclick="showNum('fullNumTable','fullNum')">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3">
+											<table class="width6" cellspacing="0" cellpadding="0" align="center" id="fullNumTable">
+												<tr class="font3 height1">
+													<td class="per6_1 align" style="width: 20%">·有責方01：</td>
+													<td class="per6_1 align">牌照號碼</td>
+													<td class="per6_2">
+														<input type="text" size="20" class="textfiled" name="fullCarMark">
+													</td>
+													<td class="per6_3 align">號牌種類</td>
+													<td class="per6_4">
+														<select name="fullCarMarkType">
+															<option value="">--請選擇--</option>
+															<option value='01'>大型汽車號牌</option>
+															<option value='02'>小型汽車號牌</option>
+															<option value='03'>使館汽車號牌</option>
+															<option value='04'>領館汽車號牌</option>
+															<option value='05'>境外汽車號牌</option>
+															<option value='06'>外籍汽車號牌</option>
+															<option value='07'>兩、三輪摩托車號牌</option>
+															<option value='08'>輕便摩托車號牌</option>
+															<option value='09'>使館摩托車號牌</option>
+															<option value='10'>領館摩托車號牌</option>
+															<option value='11'>境外摩托車號牌</option>
+															<option value='12'>外籍摩托車號牌</option>
+															<option value='13'>農用運輸車號牌</option>
+															<option value='14'>拖拉機號牌</option>
+															<option value='15'>挂車號牌</option>
+															<option value='16'>教練汽車號牌</option>
+															<option value='17'>教練摩托車號牌</option>
+															<option value='18'>試驗汽車號牌</option>
+															<option value='19'>試驗摩托車號牌</option>
+															<option value='20'>臨時入境汽車號牌</option>
+															<option value='21'>臨時入境摩托車號牌</option>
+															<option value='22'>臨時行駛車號牌</option>
+															<option value='23'>公安警車號牌</option>
+															<option value='24'>其它車型</option>
+															<option value='25'>專用機械</option>
+															<option value='26'>警備摩托車</option>
+															<option value='27'>大型警車</option>
+														</select>
+													</td>
+													<td class="per6_5 align">損失金額</td>
+													<td class="per6_6">
+														<input type="text" size="20" class="textfiled" name="fullMoney" onblur="if(!/^([1-9]\d*)?$/.test(this.value)){alert('全責方損失金額輸入錯誤');this.value=''}">
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td class="blank" valign="middle"></td>
+						</tr>
+						<tr>
+							<td>
+								<!--标题栏表格 开始-->
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td width="10" class="pic1 tdpic">&nbsp;</td>
+										<td width="100%" class="tr2">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tr>
+													<td width="2%" align="center" valign="middle" class="font5">
+														<img src="img/arrow1.gif" class="icon1">
+													</td>
+													<td width="49%" nowrap class="font5">
+														<!--小标题-->
+														無責方訊息
+													</td>
+													<td width="49%" align="right">&nbsp;</td>
+												</tr>
+											</table>
+										</td>
+										<td width="10" class="pic2 tdpic">&nbsp;</td>
+									</tr>
+								</table>
+								<!--标题栏表格 结束-->
+							</td>
+						</tr>
+						<tr>
+							<td class="blank" valign="middle"></td>
+						</tr>
+						<tr>
+							<td>
+								<table class="width6" cellspacing="0" cellpadding="0" align="center">
+									<tr class="font3 height1">
+										<td class="per6_1 align">無責方數量</td>
+										<td class="per6_2">
+											<input type="text" size="20" class="textfiled" name="nullNum" onblur="if(!/^([1-9]\d*)?$/.test(this.value)){alert('無責方數量輸入錯誤');this.value=''}">
+										</td>
+										<td class="per6_3" style="align: left; width: 70%">
+											<input name="nullButton" type="button" value="確定" onclick="showNum('nullNumTable','nullNum')">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3">
+											<table class="width6" cellspacing="0" cellpadding="0" align="center" id="nullNumTable">
+												<tr class="font3 height1">
+													<td class="per6_1 align" style="width: 20%">·無責方01：</td>
+													<td class="per6_1 align">牌照號碼</td>
+													<td class="per6_2">
+														<input type="text" size="20" class="textfiled" name="nullCarMark">
+													</td>
+													<td class="per6_3 align">號牌種類</td>
+													<td class="per6_4">
+														<select name="nullCarMarkType">
+															<option value="">--請選擇--</option>
+															<option value='01'>大型汽車號牌</option>
+															<option value='02'>小型汽車號牌</option>
+															<option value='03'>使館汽車號牌</option>
+															<option value='04'>領館汽車號牌</option>
+															<option value='05'>境外汽車號牌</option>
+															<option value='06'>外籍汽車號牌</option>
+															<option value='07'>兩、三輪摩托車號牌</option>
+															<option value='08'>輕便摩托車號牌</option>
+															<option value='09'>使館摩托車號牌</option>
+															<option value='10'>領館摩托車號牌</option>
+															<option value='11'>境外摩托車號牌</option>
+															<option value='12'>外籍摩托車號牌</option>
+															<option value='13'>農用運輸車號牌</option>
+															<option value='14'>拖拉機號牌</option>
+															<option value='15'>挂車號牌</option>
+															<option value='16'>教練汽車號牌</option>
+															<option value='17'>教練摩托車號牌</option>
+															<option value='18'>試驗汽車號牌</option>
+															<option value='19'>試驗摩托車號牌</option>
+															<option value='20'>臨時入境汽車號牌</option>
+															<option value='21'>臨時入境摩托車號牌</option>
+															<option value='22'>臨時行駛車號牌</option>
+															<option value='23'>公安警車號牌</option>
+															<option value='24'>其它車型</option>
+															<option value='25'>專用機械</option>
+															<option value='26'>警備摩托車</option>
+															<option value='27'>大型警車</option>
+														</select>
+													</td>
+													<td class="per6_5 align">損失金額</td>
+													<td class="per6_6">
+														<input type="text" size="20" class="textfiled" name="nullMoney" onblur="if(!/^([1-9]\d*)?$/.test(this.value)){alert('無責方損失金額輸入錯誤');this.value=''}">
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td class="blank" valign="middle"></td>
+						</tr>
+						<tr class="font3 height1">
+							<td class="buttonalign">
+								<table border="0" cellspacing="0" cellpadding="0" class="width1">
+									<tr>
+										<td width="10" class="pic3 tdpic">&nbsp;</td>
+										<td class="tr3 buttonalign">
+											<input type="button" value="計算" class="button" onClick="check()">
+											<input type="reset" value="重填" class="button" onclick="resetForm()">
+										</td>
+										<td width="10" class="pic4 tdpic">&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</form>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

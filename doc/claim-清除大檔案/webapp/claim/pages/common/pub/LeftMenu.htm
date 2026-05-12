@@ -1,0 +1,595 @@
+<LINK href="/claim/css/systree.css" type=text/css rel=stylesheet>
+<LINK href="/claim/css/rightmenu.css" type=text/css rel=stylesheet>
+
+<BODY text=#000000 bgColor=#a64f0c leftMargin=0 topMargin=0 >
+<SCRIPT src="/claim/common/js/browser.js"></SCRIPT>
+
+<SCRIPT language=JavaScript>
+if (document.all){            
+			document.body.onclick=hidemenu;					
+}
+</SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+<!--
+function Max(){
+	var str='<object id=maxwin type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11"><param name="Command" value="MAXIMIZE"></object>';
+	if(!document.getElementById("maxwin"))
+	document.body.insertAdjacentHTML("BeforeEnd",str);
+	maxwin.Click();
+	parent.MaxAct=1
+}
+
+if(parent.MaxAct==0){
+	if (screen.availWidth-4>document.body.clientWidth || screen.availHeight-300>document.body.clientHeight){
+		Max()
+	}
+}
+// -->
+</SCRIPT>
+
+<SCRIPT language=JavaScript>
+
+var n=6; // Icon Number
+var nn=n; // Icon Number
+
+function picArray(picID,iconID,posTop,posLeft){
+	this.picID=picID
+	this.iconID=iconID
+	this.posTop=posTop
+	this.posLeft=posLeft
+}
+
+pics = new Array(n)
+
+
+pics[0] = new picArray("pics0","icona","300","300")
+
+pics[1] = new picArray("pics1","iconb","300","300")
+
+pics[2] = new picArray("pics2","iconc","300","300")
+
+pics[3] = new picArray("pics3","icond","300","300")
+
+pics[4] = new picArray("pics4","icone","300","300")
+
+pics[5] = new picArray("pics5","iconf","300","300")
+
+
+sys = new Array(n)
+sys[0] = new picArray("sys0","","","")
+sys[1] = new picArray("sys1","","","")
+sys[2] = new picArray("sys2","","","")
+sys[3] = new picArray("sys3","","","")
+sys[4] = new picArray("sys4","","","")
+sys[5] = new picArray("sys5","","","")
+
+
+
+var ns=(document.layers);
+
+var ns6=(document.getElementById&&!document.all);
+
+var ie=(document.all);
+
+var y=null;
+
+var x=null;
+
+var z=null;
+
+var w=null;//Alternate id. Not used for this script.
+
+if (ns||ns6){
+
+window.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP);
+
+document.releaseEvents(Event.MOUSEMOVE);
+
+}
+
+if (ns){window.onmousedown=down;window.onmouseup=up}
+
+if (ie||document.getElementById){document.onmousedown=down;document.onmouseup=up}
+
+function down(e){
+//arale start
+o=window.event.srcElement.parentElement;
+//alert(eval("dropmenu"+o.id.substr(4)));
+if (event.button==2 && o.id.indexOf("pics") != -1&&eval("dropmenu"+o.id.substr(4))) {     
+	eval("dropmenu"+o.id.substr(4));  
+	//alert(o);
+	b(eval("dropmenu"+o.id.substr(4)));
+}
+//arale end
+if (ns){
+
+ window.onmousemove=move;
+
+ if (document.layers['pics'+e.target.name]){
+
+ z=document.layers['pics'+e.target.name];
+
+ y=e.layerY;
+
+ x=e.layerX;
+
+ document.layers['pics'+e.target.name].zIndex=n++;
+
+ }
+
+else {return true}
+
+w=z.name.charAt(z.name.length-1);
+
+}
+
+if (ie && window.event.srcElement.parentElement){
+
+ document.onmousemove=move;
+
+ if  (window.event.srcElement.parentElement.id.indexOf("pics") != -1){
+ 
+ z=window.event.srcElement.parentElement; 
+ 
+ y=window.event.offsetY;
+
+ x=window.event.offsetX;
+
+ w=window.event.srcElement.parentElement.id.charAt(window.event.srcElement.parentElement.id.length-1); 
+
+ window.event.srcElement.parentElement.style.zIndex=n++;
+  
+ eval("sys"+z.id.substr(4)).style.zIndex=n++;  
+ 
+ }
+
+}
+
+if (ns6){
+
+ document.onmousemove=move;
+
+ if  (e.target.parentNode.id.indexOf("pics") != -1){
+
+ z=e.target.parentNode.style;
+
+ x=e.clientX - parseInt(z.left);
+
+ y=e.clientY - parseInt(z.top);
+
+ w=e.target.parentNode.id.charAt(e.target.parentNode.id.length-1);
+
+ z.zIndex=n++;  
+
+  eval("sys"+z.id.substr(4)).zIndex=n++;  
+ 
+ }  
+
+}
+
+return false;
+
+}
+
+function move(e){
+
+if (ns && z){
+	ax=eval("sys"+z.id.substr(4));
+	z.left=e.pageX-x;
+	z.top=e.pageY-y;
+	ax.Top=z.Top-20;
+	ax.Left=z.Left-40;	
+}
+
+if (ns6 && z){
+	ax=eval("sys"+z.id.substr(4));
+	z.top=parseInt(e.clientY)-y;
+	z.left=parseInt(e.clientX)-x;
+	ax.Top=z.Top-20;
+    ax.Left=z.Left-40;	
+}
+
+if (ie && z){
+	z.style.posLeft=window.event.clientX-x;
+	z.style.posTop=window.event.clientY-y;
+	if (z.id.substr(4)<6){
+	ax=eval("sys"+z.id.charAt(z.id.length-1));
+	ax.style.posTop=z.style.posTop-20;
+    ax.style.posLeft=z.style.posLeft-40;}
+}
+
+return false;
+
+}
+
+function up(e){
+
+if (ie||ns6)document.onmousemove=null;
+
+if (ns)window.onmousemove=null;
+
+z=null;
+
+}
+
+function arrayIcon(){
+	var winW //window Width
+	winW=document.body.clientWidth
+	var winH //window Height
+	winH=document.body.clientHeight //window Height
+	var minWinW=800
+	var minWinH=410
+	var iconW=100 //Icon Width
+	var iconH=100 //Icon Height
+	var topM=95 //Top Margin
+	var rightM=70 //Right Margin
+	var rows
+	var cols
+	var row
+	var col
+
+	if(winW<minWinW && winH<minWinH)
+        {
+           pics0.style.posTop=topM+iconH*0
+           pics0.style.posLeft=minWinW-rightM
+		   sys0.style.posTop=topM+iconH*0-20
+           sys0.style.posLeft=minWinW-rightM-40
+		   
+           pics1.style.posTop=topM+iconH*1
+           pics1.style.posLeft=minWinW-rightM
+		   sys1.style.posTop=topM+iconH*1-20
+           sys1.style.posLeft=minWinW-rightM-40
+		   
+           pics2.style.posTop=topM+iconH*2
+           pics2.style.posLeft=minWinW-rightM
+		   sys2.style.posTop=topM+iconH*2-20
+           sys2.style.posLeft=minWinW-rightM-40
+		   
+           pics3.style.posTop=topM+iconH*0
+           pics3.style.posLeft=minWinW-rightM-iconW*1
+		   sys3.style.posTop=topM+iconH*0-20
+           sys3.style.posLeft=minWinW-rightM-iconW*1-40
+
+           pics4.style.posTop=topM+iconH*1
+           pics4.style.posLeft=minWinW-rightM-iconW*1
+		   sys4.style.posTop=topM+iconH*1-20
+           sys4.style.posLeft=minWinW-rightM-iconW*1-40
+		   
+           pics5.style.posTop=topM+iconH*2
+           pics5.style.posLeft=minWinW-rightM-iconW*1
+		   sys5.style.posTop=topM+iconH*2-20
+           sys5.style.posLeft=minWinW-rightM-iconW*1-40
+		   
+           pics6.style.posTop=topM+iconH*0
+           pics6.style.posLeft=minWinW-rightM-iconW*2
+           pics7.style.posTop=topM+iconH*1
+           pics7.style.posLeft=minWinW-rightM-iconW*2		   
+           pics8.style.posTop=topM+iconH*2
+           pics8.style.posLeft=minWinW-rightM-iconW*2
+		   
+           pics9.style.posTop=topM+iconH*0
+           pics9.style.posLeft=minWinW-rightM-iconW*3
+           pics10.style.posTop=topM+iconH*1
+           pics10.style.posLeft=minWinW-rightM-iconW*3
+           pics11.style.posTop=topM+iconH*2
+           pics11.style.posLeft=minWinW-rightM-iconW*3
+
+           pics12.style.posTop=topM+iconH*0
+           pics12.style.posLeft=minWinW-rightM-iconW*4
+           pics13.style.posTop=topM+iconH*1
+           pics13.style.posLeft=minWinW-rightM-iconW*4
+           pics14.style.posTop=topM+iconH*2
+           pics14.style.posLeft=minWinW-rightM-iconW*4
+		   
+           pics15.style.posTop=topM+iconH*0
+           pics15.style.posLeft=minWinW-rightM-iconW*5		   
+		   pics16.style.posTop=topM+iconH*1
+           pics16.style.posLeft=minWinW-rightM-iconW*5		   
+		   pics17.style.posTop=topM+iconH*2
+           pics17.style.posLeft=minWinW-rightM-iconW*5
+		   
+		   pics18.style.posTop=topM+iconH*0
+           pics18.style.posLeft=minWinW-rightM-iconW*6
+		   pics19.style.posTop=topM+iconH*1
+           pics19.style.posLeft=minWinW-rightM-iconW*6	   
+		   pics20.style.posTop=topM+iconH*2
+           pics20.style.posLeft=minWinW-rightM-iconW*6
+		   
+		   pics21.style.posTop=topM+iconH*0
+           pics21.style.posLeft=minWinW-rightM-iconW*7
+		   pics22.style.posTop=topM+iconH*1
+           pics22.style.posLeft=minWinW-rightM-iconW*7
+		   pics23.style.posTop=topM+iconH*2
+           pics23.style.posLeft=minWinW-rightM-iconW*7
+		   
+		   pics24.style.posTop=topM+iconH*0
+           pics24.style.posLeft=minWinW-rightM-iconW*8
+		   pics25.style.posTop=topM+iconH*1
+           pics25.style.posLeft=minWinW-rightM-iconW*8		   
+		   pics26.style.posTop=topM+iconH*2
+           pics26.style.posLeft=minWinW-rightM-iconW*8
+		   
+		   pics27.style.posTop=topM+iconH*0
+           pics27.style.posLeft=minWinW-rightM-iconW*9	   
+		   pics28.style.posTop=topM+iconH*1
+           pics28.style.posLeft=minWinW-rightM-iconW*9
+		   pics29.style.posTop=topM+iconH*2
+           pics29.style.posLeft=minWinW-rightM-iconW*9	
+		      
+		   pics30.style.posTop=topM+iconH*0
+           pics30.style.posLeft=minWinW-rightM-iconW*10
+		   pics31.style.posTop=topM+iconH*1
+           pics31.style.posLeft=minWinW-rightM-iconW*10		   
+		   pics32.style.posTop=topM+iconH*2
+           pics32.style.posLeft=minWinW-rightM-iconW*10
+		   
+		   pics33.style.posTop=topM+iconH*0
+           pics33.style.posLeft=minWinW-rightM-iconW*11  
+		 
+		   
+        }
+	else
+        {
+            rows=parseInt((winH-topM)/iconW) 
+            cols=parseInt(n/rows)+1
+            row=0
+            col=0
+            for(i=0; i < 6; i++)
+            {
+                obj=eval(pics[i].picID)
+                obj.style.posTop=topM+row*iconH
+                obj.style.posLeft=winW-rightM-col*iconW
+				
+				obj1=eval(sys[i].picID)
+                obj1.style.posTop=topM+row*iconH-20
+                obj1.style.posLeft=winW-rightM-col*iconW-40
+				
+                if(row<rows-1){row=row+1}
+                else{row=0;col=col+1}
+				if(row>2){row=0;col=col+1}
+            }
+			
+			if(rows<4){
+            row=0
+            col=0
+            for(i=0; i < n; i++)
+            {
+                obj=eval(pics[i].picID)
+                obj.style.posTop=topM+row*iconH
+                obj.style.posLeft=winW-rightM-col*iconW
+				
+                if(row<rows-1){row=row+1}
+                else{row=0;col=col+1}
+				if(row>2){row=0;col=col+1}
+            }
+			
+			}
+			else
+			{
+			row=3
+            col=0
+			j=0
+			for(i=6; i < n; i++)
+            {
+                obj=eval(pics[i].picID)
+                obj.style.posTop=topM+row*iconH
+                obj.style.posLeft=winW-rightM-col*iconW
+				
+				
+                if(row<rows-1){row=row+1;}
+                else{					
+					if (j<1){row=3;col=col+1;j++} else {row=0;col=col+1}
+				}
+            }}
+			
+	}
+
+}
+
+var custom = false;
+function customIcon()
+{		
+		for(i=0; i < 6; i++){
+			obj=eval(pics[i].picID)
+			obj.style.posTop=pics[i].posTop
+			obj.style.posLeft=pics[i].posLeft			
+			obj=eval(sys[i].picID)
+			obj.style.posTop=pics[i].posTop-20
+			obj.style.posLeft=pics[i].posLeft-40
+		}
+		for(i=6; i < n; i++)  {
+			obj=eval(pics[i].picID)
+			obj.style.posTop=pics[i].posTop
+			obj.style.posLeft=pics[i].posLeft
+		}
+}
+
+function getIcon()
+{
+	for( i=0; i < nn; i++ )
+	{
+		obj=eval(pics[i].picID)
+		saveIcon.icon.value+=pics[i].iconID+";"+obj.style.posTop+";"+obj.style.posLeft+";"	
+	}	
+	saveIcon.submit();
+}
+
+//-->
+</SCRIPT>
+
+
+<SCRIPT language=JavaScript1.2>
+if (custom == true)
+{
+	customIcon()
+}
+else
+{
+	arrayIcon()
+}
+</SCRIPT>
+
+
+
+<SCRIPT language=javascript src="/claim/common/js/systree.js"></SCRIPT>
+
+<SCRIPT language=JavaScript1.2>
+if (document.all)
+document.write('<div id="slidemenubar2" style="left:-164" style="top:19" onMouseover="pull()" onMouseout="draw()">')
+</SCRIPT>
+<LAYER class=cMenu id=slidemenubar onmouseover=pull() onmouseout=draw() 
+z-index="100">
+<TABLE cellSpacing=0 cellPadding=0 width=182 border=0>
+  <TBODY>
+  <TR>
+    <TD width=144 bgColor=#fee4a2>
+      <TABLE cellSpacing=0 cellPadding=1 width=144 border=0>
+        <TBODY>
+        <TR>
+          <TD>
+            <DIV class=outer style="MARGIN: 1px; WIDTH: 140px; HEIGHT: 380px">
+            <DIV class=inner style="WIDTH: 140px; HEIGHT: 380px">
+            <DIV class=favMenu id=aMenu>
+            <DIV class=topItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=mlst&amp;fid=1&amp;act=checkmail">
+               <IMG  class=icon height=16 src="/claim/images/item.gif" width=16>系统管理
+            </DIV>
+            <DIV class=topItem  href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=writemail&amp;act=show">
+               <IMG  class=icon height=16 src="/claim/images/item.gif" width=16>重新登录
+            </DIV>
+            <DIV class=topFolder id=sys>
+               <IMG class=icon height=16 src="/claim/images/collapse.gif" width=16>
+               报案处理
+            </DIV>
+            <DIV class=sub id=sysSub>
+            <DIV class=subItem href="/claim/common/regist/RegistBeforeEdit.jsp">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>报案登记
+            </DIV>
+            <DIV class=subItem href="/claim/common/regist/FcoRegistQuery.jsp">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>正在处理报案任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=mlst&amp;fid=3">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>已完成报案任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=fld">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>已提交报案任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=srch&amp;act=show">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>查询报案任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=srch&amp;act=show">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>统计报案任務
+            </DIV>
+            </DIV>
+            
+            <DIV class=topFolder id=schedule>
+               <IMG class=icon height=16 src="/claim/images//collapse.gif" width=16>
+               调度处理
+            </DIV>
+            <DIV class=sub id=scheduleSub>
+             <DIV class=subItem href="/claim/common/regist/FcoRegistQuery.jsp">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>待处理调度任務
+            </DIV>
+            <DIV class=subItem href="/claim/common/regist/FcoRegistQuery.jsp">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>正在处理调度任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=mlst&amp;fid=3">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>已完成调度任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=fld">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>已提交调度任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=srch&amp;act=show">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>查询调度任務
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=srch&amp;act=show">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>统计调度任務
+            </DIV>
+            </DIV>
+            
+            
+            <DIV class=topFolder id=product>
+               <IMG class=icon height=16 src="/claim/images//collapse.gif" width=16>
+               <A   href="http://w15.263.net/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=app">立案处理</A>
+            </DIV>
+            <DIV class=sub id=productSub>
+            <DIV class=subItem onclick=menu7.click()>
+               <IMG class=icon height=16 src="/claim/images//expand.gif" width=16>立案登记</A>
+            </DIV>
+            <DIV class=subItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=addrshow">
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>立案修改
+            </DIV>
+            <DIV class=subItem onclick=menu4.click()>
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>立案查询
+            </DIV>
+            <DIV class=subItem onclick=menu9.click()>
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>立案统计
+            </DIV>
+            <DIV class=subItem onclick=menu5.click()>
+               <IMG class=icon height=16 src="/claim/images/expand.gif" width=16>立案删除
+            </DIV>
+            </DIV>
+            <DIV class=topItem href="/xmweb?usr=lx78&amp;sid=OGw2eDI3ODg3MDYwNzA3MDAw&amp;func=logout" target="_parent">
+              <IMG class=icon height=16 src="/claim/images/item.gif" width=16>退出系统
+            </DIV>
+            </DIV></DIV></DIV></TD></TR></TBODY></TABLE></TD>
+    <TD vAlign=top width=38 background"/claim/images/shudi.gif>
+      <P>&nbsp;</P><BR>
+      <P><IMG height=164 src="/claim/images/open.gif" width=38> </P></TD></TR>
+    <TR>
+    <TD width=160 background"/claim/images/hengdi.gif height=22>&nbsp;</TD>
+    <TD width=38><IMG height=22 src="/claim/images/guaiwan.gif" width=22></TD></TR></TBODY></TABLE></LAYER>
+<SCRIPT language=JavaScript1.2>
+function regenerate(){
+	window.location.reload()
+}
+
+function regenerate2(){
+	if (document.layers)
+	setTimeout("window.onresize=regenerate",400)
+}
+
+//window.onload=regenerate2
+
+if (document.all){
+	document.write('</div>')
+	themenu=document.all.slidemenubar2.style
+	rightboundary=0
+	leftboundary=-164
+}else{
+	themenu=document.layers.slidemenubar
+	rightboundary=164
+	leftboundary=10
+}
+
+function pull(){
+	if (window.drawit)
+	clearInterval(drawit)
+	pullit=setInterval("pullengine()",50)
+}
+
+function draw(){
+	clearInterval(pullit)
+	drawit=setInterval("drawengine()",50)
+}
+
+function pullengine(){
+	if (document.all&&themenu.pixelLeft<rightboundary)
+	themenu.pixelLeft+=41
+	else if(document.layers&&themenu.left<rightboundary)
+	themenu.left+=41
+	else if (window.pullit)
+	clearInterval(pullit)
+}
+
+function drawengine(){
+	if (document.all&&themenu.pixelLeft>leftboundary)
+	themenu.pixelLeft-=41
+	else if(document.layers&&themenu.left>leftboundary)
+	themenu.left-=41
+	else if (window.drawit)
+	clearInterval(drawit)
+}
+</SCRIPT>
+
+

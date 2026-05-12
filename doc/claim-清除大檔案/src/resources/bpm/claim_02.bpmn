@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_29_multiInstanceItemType" />
+
+  <escalation id="null" escalationCode="null" />
+  <process processType="Private" isExecutable="true" id="claim_01" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <endEvent id="_2" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <userTask id="_3" name="报案" >
+      <ioSpecification>
+        <dataInput id="_3_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_3_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_3_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">报案</from>
+          <to xsi:type="tFormalExpression">_3_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>regist</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_4" name="查勘" >
+      <ioSpecification>
+        <dataInput id="_4_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_4_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_4_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">查勘</from>
+          <to xsi:type="tFormalExpression">_4_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>check</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_5" name="立案" >
+      <ioSpecification>
+        <dataInput id="_5_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_5_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_5_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">立案</from>
+          <to xsi:type="tFormalExpression">_5_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>claim</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_6" name="理算" >
+      <ioSpecification>
+        <dataInput id="_6_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_6_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_6_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">理算</from>
+          <to xsi:type="tFormalExpression">_6_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>compe</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_8" name="单证" >
+      <ioSpecification>
+        <dataInput id="_8_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_8_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_8_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">单证</from>
+          <to xsi:type="tFormalExpression">_8_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>certi</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <complexGateway id="_10" name="Gateway" gatewayDirection="Diverging" />
+    <userTask id="_13" name="结案" >
+      <ioSpecification>
+        <dataInput id="_13_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_13_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_13_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">结案</from>
+          <to xsi:type="tFormalExpression">_13_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <userTask id="_14" name="定损" >
+      <ioSpecification>
+        <dataInput id="_14_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_14_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_14_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">定损</from>
+          <to xsi:type="tFormalExpression">_14_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <userTask id="_15" name="注销" >
+      <ioSpecification>
+        <dataInput id="_15_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_15_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_15_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">注销</from>
+          <to xsi:type="tFormalExpression">_15_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <userTask id="_17" name="调度" >
+      <ioSpecification>
+        <dataInput id="_17_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_17_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_17_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">调度</from>
+          <to xsi:type="tFormalExpression">_17_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <userTask id="_16" name="核损" >
+      <ioSpecification>
+        <dataInput id="_16_CommentInput" name="Comment" />
+        <dataInput id="_16_SkippableInput" name="Skippable" />
+        <dataInput id="_16_LocaleInput" name="Locale" />
+        <dataInput id="_16_TaskNameInput" name="TaskName" />
+        <dataInput id="_16_GroupIdInput" name="GroupId" />
+        <dataInput id="_16_PriorityInput" name="Priority" />
+        <inputSet>
+          <dataInputRefs>_16_CommentInput</dataInputRefs>
+          <dataInputRefs>_16_SkippableInput</dataInputRefs>
+          <dataInputRefs>_16_LocaleInput</dataInputRefs>
+          <dataInputRefs>_16_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_16_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_16_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_16_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_16_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_16_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_16_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_16_LocaleInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">en-UK</from>
+          <to xsi:type="tFormalExpression">_16_LocaleInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_16_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">核损</from>
+          <to xsi:type="tFormalExpression">_16_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_16_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_16_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_16_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_16_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression></formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_19" name="财产定损" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <userTask id="_18" name="人伤定损" >
+      <ioSpecification>
+        <dataInput id="_18_TaskNameInput" name="TaskName" />
+        <inputSet>
+          <dataInputRefs>_18_TaskNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_18_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">人伤定损</from>
+          <to xsi:type="tFormalExpression">_18_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <userTask id="_21" name="人伤核损" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <userTask id="_22" name="财产核损" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <complexGateway id="_25" name="Gateway" gatewayDirection="Converging" />
+    <inclusiveGateway id="_24" name="Gateway" gatewayDirection="Diverging" />
+    <callActivity id="_27" name="核赔" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </callActivity>
+    <userTask id="_26" name="计算书" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <subProcess id="_29" name="Multiple Instances"  >
+      <ioSpecification>
+        <inputSet/>
+        <outputSet/>
+      </ioSpecification>
+      <multiInstanceLoopCharacteristics>
+        <loopDataInputRef>_29_input</loopDataInputRef>
+      </multiInstanceLoopCharacteristics>
+    <!-- nodes -->
+    <userTask id="_29-2-1" name="User Task" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <userTask id="_29-2-2" name="User Task" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <startEvent id="_29-2-3" name="Start" />
+    <endEvent id="_29-2-4" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <!-- connections -->
+    <sequenceFlow id="_29-2-3-_29-2-1" sourceRef="_29-2-3" targetRef="_29-2-1" />
+    <sequenceFlow id="_29-2-1-_29-2-2" sourceRef="_29-2-1" targetRef="_29-2-2" />
+    <sequenceFlow id="_29-2-2-_29-2-4" sourceRef="_29-2-2" targetRef="_29-2-4" />
+    </subProcess>
+    <complexGateway id="_28" name="Gateway" gatewayDirection="Diverging" />
+    <complexGateway id="_31" name="Gateway" gatewayDirection="Diverging" />
+    <complexGateway id="_30" name="Gateway" gatewayDirection="Converging" />
+    <endEvent id="_34" name="Error" >
+      <escalationEventDefinition escalationRef="null" />
+    </endEvent>
+    <userTask id="_32" name="User Task" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+    <userTask id="_33" name="User Task" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </userTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_13-_2" sourceRef="_13" targetRef="_2" />
+    <sequenceFlow id="_1-_3" sourceRef="_1" targetRef="_3" />
+    <sequenceFlow id="_17-_4" sourceRef="_17" targetRef="_4" />
+    <sequenceFlow id="_10-_5" sourceRef="_10" targetRef="_5" />
+    <sequenceFlow id="_30-_6" sourceRef="_30" targetRef="_6" />
+    <sequenceFlow id="_25-_8" sourceRef="_25" targetRef="_8" />
+    <sequenceFlow id="_3-_10" sourceRef="_3" targetRef="_10" />
+    <sequenceFlow id="_31-_13" sourceRef="_31" targetRef="_13" />
+    <sequenceFlow id="_24-_14" sourceRef="_24" targetRef="_14" name="constraint" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_10-_17" sourceRef="_10" targetRef="_17" />
+    <sequenceFlow id="_14-_16" sourceRef="_14" targetRef="_16" />
+    <sequenceFlow id="_24-_19" sourceRef="_24" targetRef="_19" >
+      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21-_18" sourceRef="_21" targetRef="_18" />
+    <sequenceFlow id="_24-_21" sourceRef="_24" targetRef="_21" >
+      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_19-_22" sourceRef="_19" targetRef="_22" />
+    <sequenceFlow id="_16-_25" sourceRef="_16" targetRef="_25" />
+    <sequenceFlow id="_18-_25" sourceRef="_18" targetRef="_25" />
+    <sequenceFlow id="_22-_25" sourceRef="_22" targetRef="_25" />
+    <sequenceFlow id="_5-_25" sourceRef="_5" targetRef="_25" />
+    <sequenceFlow id="_29-_25" sourceRef="_29" targetRef="_25" />
+    <sequenceFlow id="_4-_24" sourceRef="_4" targetRef="_24" />
+    <sequenceFlow id="_26-_27" sourceRef="_26" targetRef="_27" />
+    <sequenceFlow id="_31-_26" sourceRef="_31" targetRef="_26" />
+    <sequenceFlow id="_24-_29" sourceRef="_24" targetRef="_29" >
+      <conditionExpression xsi:type="tFormalExpression" ></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_27-_28" sourceRef="_27" targetRef="_28" />
+    <sequenceFlow id="_6-_31" sourceRef="_6" targetRef="_31" />
+    <sequenceFlow id="_8-_30" sourceRef="_8" targetRef="_30" />
+    <sequenceFlow id="_28-_30" sourceRef="_28" targetRef="_30" />
+    <sequenceFlow id="_32-_33" sourceRef="_32" targetRef="_33" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="claim_01" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="25" y="45" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="436" y="1145" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="117" y="45" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="273" y="240" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="541" y="60" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="193" y="892" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="205" y="729" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="310" y="45" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="129" y="1085" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="34" y="407" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" >
+        <dc:Bounds x="848" y="678" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_17" >
+        <dc:Bounds x="279" y="137" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_16" >
+        <dc:Bounds x="34" y="513" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_19" >
+        <dc:Bounds x="359" y="415" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_18" >
+        <dc:Bounds x="191" y="525" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_21" >
+        <dc:Bounds x="209" y="415" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_22" >
+        <dc:Bounds x="362" y="506" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_25" >
+        <dc:Bounds x="232" y="630" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_24" >
+        <dc:Bounds x="295" y="326" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_27" >
+        <dc:Bounds x="583" y="963" width="110" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_26" >
+        <dc:Bounds x="396" y="956" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29" >
+        <dc:Bounds x="586" y="391" width="453" height="177" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29-2-1" >
+        <dc:Bounds x="676" y="449" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29-2-2" >
+        <dc:Bounds x="812" y="450" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29-2-3" >
+        <dc:Bounds x="612" y="445" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29-2-4" >
+        <dc:Bounds x="953" y="450" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_28" >
+        <dc:Bounds x="452" y="812" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_31" >
+        <dc:Bounds x="246" y="993" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_30" >
+        <dc:Bounds x="227" y="817" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_34" >
+        <dc:Bounds x="19" y="345" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_32" >
+        <dc:Bounds x="61" y="173" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_33" >
+        <dc:Bounds x="100" y="289" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_29-2-3-_29-2-1" >
+        <di:waypoint x="50" y="78" />
+        <di:waypoint x="140" y="82" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29-2-1-_29-2-2" >
+        <di:waypoint x="140" y="82" />
+        <di:waypoint x="276" y="83" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29-2-2-_29-2-4" >
+        <di:waypoint x="276" y="83" />
+        <di:waypoint x="391" y="83" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13-_2" >
+        <di:waypoint x="179" y="1109" />
+        <di:waypoint x="460" y="1169" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_3" >
+        <di:waypoint x="49" y="69" />
+        <di:waypoint x="167" y="69" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17-_4" >
+        <di:waypoint x="329" y="161" />
+        <di:waypoint x="323" y="264" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_5" >
+        <di:waypoint x="334" y="69" />
+        <di:waypoint x="591" y="84" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_30-_6" >
+        <di:waypoint x="251" y="841" />
+        <di:waypoint x="243" y="916" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25-_8" >
+        <di:waypoint x="256" y="654" />
+        <di:waypoint x="255" y="753" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_10" >
+        <di:waypoint x="167" y="69" />
+        <di:waypoint x="334" y="69" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31-_13" >
+        <di:waypoint x="270" y="1017" />
+        <di:waypoint x="179" y="1109" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_24-_14" >
+        <di:waypoint x="319" y="350" />
+        <di:waypoint x="84" y="431" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_17" >
+        <di:waypoint x="334" y="69" />
+        <di:waypoint x="329" y="161" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14-_16" >
+        <di:waypoint x="84" y="431" />
+        <di:waypoint x="84" y="537" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_24-_19" >
+        <di:waypoint x="319" y="350" />
+        <di:waypoint x="409" y="439" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21-_18" >
+        <di:waypoint x="259" y="439" />
+        <di:waypoint x="241" y="549" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_24-_21" >
+        <di:waypoint x="319" y="350" />
+        <di:waypoint x="259" y="439" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_22" >
+        <di:waypoint x="409" y="439" />
+        <di:waypoint x="412" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16-_25" >
+        <di:waypoint x="84" y="537" />
+        <di:waypoint x="256" y="654" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18-_25" >
+        <di:waypoint x="241" y="549" />
+        <di:waypoint x="256" y="654" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_22-_25" >
+        <di:waypoint x="412" y="530" />
+        <di:waypoint x="256" y="654" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_25" >
+        <di:waypoint x="591" y="84" />
+        <di:waypoint x="256" y="654" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29-_25" >
+        <di:waypoint x="812" y="479" />
+        <di:waypoint x="256" y="654" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_24" >
+        <di:waypoint x="323" y="264" />
+        <di:waypoint x="319" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_26-_27" >
+        <di:waypoint x="446" y="980" />
+        <di:waypoint x="638" y="987" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31-_26" >
+        <di:waypoint x="270" y="1017" />
+        <di:waypoint x="446" y="980" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_24-_29" >
+        <di:waypoint x="319" y="350" />
+        <di:waypoint x="812" y="479" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_27-_28" >
+        <di:waypoint x="638" y="987" />
+        <di:waypoint x="476" y="836" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_31" >
+        <di:waypoint x="243" y="916" />
+        <di:waypoint x="270" y="1017" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_30" >
+        <di:waypoint x="255" y="753" />
+        <di:waypoint x="251" y="841" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_28-_30" >
+        <di:waypoint x="476" y="836" />
+        <di:waypoint x="251" y="841" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_32-_33" >
+        <di:waypoint x="111" y="197" />
+        <di:waypoint x="150" y="313" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

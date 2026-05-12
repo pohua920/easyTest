@@ -1,0 +1,36 @@
+1	报案	 regis
+2	调度	 sched
+3	查勘	 check
+4	定损	 certa
+5	核损	 verif
+6	计算书	compp
+
+10	单证 	certi
+11	理算	 compe
+12	结案	 endca
+13	立案	 claim
+14	人伤定损 	wound
+15	人伤核损	 veriw
+16	注销/拒赔	cance
+17	特殊赔案	 speci
+18	财产定损 	propc
+19	财产核损 	propv
+20	复勘 	backc
+21	定损调度 	schel
+22	核赔 	veric
+23	回访	 backv
+24	核赔	 veric
+25	回访 	backv
+
+--关联立案  relatedClaim
+--三者车定核损  --threeCar
+--人伤--wound==true
+--财产  propc = true
+--理算  nodeType  = compp,endca
+--结案，，nodeType=replevy，end
+--nodeList 结案出来
+--nodeListThree 三者车处理
+
+车险 D
+财产险 Q
+意见险 E

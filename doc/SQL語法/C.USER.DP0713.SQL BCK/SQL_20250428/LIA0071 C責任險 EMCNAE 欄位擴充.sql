@@ -1,0 +1,10 @@
+
+--LIA0071
+
+select * from CCICDMS.PRPDNEWCODE  where CODETYPE='EMGeneralCategory';
+
+select * from CCICDMS.PRPDNEWCODE  where CODETYPE='EMProjectCategory';
+
+
+SELECT * FROM BUSINESS.ECWAC where  wac02='180020CA0000017';
+SELECT * FROM BUSINESS.ECWAC where  wac02='181220EM0000018';
